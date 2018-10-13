@@ -1,0 +1,46 @@
+{
+  "message": "hello", 
+  "login": {
+      "loginTitle": "Users Login", 
+      "loginPlaceHolder": "Email", 
+      "PWPlaceHolder": "Password", 
+      "loginButton": "Login", 
+      "redirectForget": "Forgot Password", 
+      "redirectSign": "Sign Up"
+  },
+  "register": {
+    "registerTitle": "Sign Up", 
+    "registerPlaceHolder": "Email", 
+    "ImagePlaceHolder": "Image Verfication Code", 
+    "verfPlaceHolder": "Verification Code", 
+    "sendVCOde": "Send verification code", 
+    "newPw": "New Password", 
+    "confirmPw": "Comfirm Password", 
+
+    "signButton": "Sign Up", 
+    "redirectLogin": "Login"
+  },
+  "header": {
+    "dataPanel": "Date Panel",
+    "accountSetting": "Account Setting",
+    "logout": "Logout",
+    "hardware": "Hardware List"
+  },
+  "DataPanel": {
+    "home": {
+      "homeTitle": "Home Page"
+    }
+  },
+  "forgetPW": {
+    "forgetTitle": "Forget Password",
+    "forgetEmail": "registered email ",
+    "forgetImg": "Image Verfication Code",
+    "forgetVer": "verification code",
+    "forgetPW": "enter a new password",
+    "forgetConfirmPW": "Type your new password again",
+    "resetButton": "Reset  Password",
+    "loginRedirect": "Login"
+  },
+  "faq_link": "https://bonuscloud.gitbook.io/help/faq-en",
+  "faq_text": "BonusCloud FAQ"
+}

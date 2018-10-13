@@ -1,0 +1,46 @@
+{
+  "name": "bonus_back_website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "dev": "vue-cli-service serve",
+    "dist": "node serve.js",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "element-ui": "^2.4.5",
+    "moment": "^2.22.2",
+    "qs": "^6.5.2",
+    "vue": "^2.5.17",
+    "vue-analytics": "^5.16.0",
+    "vue-clipboard2": "^0.2.1",
+    "vue-cookie": "^1.1.4",
+    "vue-ga": "^1.0.0",
+    "vue-i18n": "^8.0.0",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@kazupon/vue-i18n-loader": "^0.3.0",
+    "@vue/cli-plugin-babel": "^3.0.3",
+    "@vue/cli-plugin-eslint": "^3.0.3",
+    "@vue/cli-plugin-unit-mocha": "^3.0.3",
+    "@vue/cli-service": "^3.0.3",
+    "@vue/eslint-config-airbnb": "^3.0.3",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-plugin-component": "^1.1.1",
+    "chai": "^4.1.2",
+    "eslint-plugin-html": "^4.0.6",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "vue-cli-plugin-element": "^1.0.0",
+    "vue-cli-plugin-i18n": "^0.5.0",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
