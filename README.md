@@ -1,5 +1,7 @@
 # bonuscloud
 
+source code of homepage: http://console.bonuscloud.io
+
 ## Project setup
 ```
 npm install
