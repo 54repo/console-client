@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <AccountSetLayout  layoutType="AccountSet" layoutTitile="Change Password">
+    <AccountSetLayout layoutType="AccountSet" layoutTitile="Change Password">
       <BasiceLayout title="Change Password">
         <div class="title">Change Password</div>
         <BasiceLayout title="Change Password">
@@ -12,17 +12,17 @@
                   <span class="key">Old Password</span>
                 </el-col>
                 <el-col :span="14" class="change-item-value">
-                  <input type="password" class="valu"v-model="oldPw" >
+                  <input type="password" class="valu" v-model="oldPw">
                 </el-col>
               </el-row>
-            </div>  
-             <div class='change-item'>
+            </div>
+            <div class='change-item'>
               <el-row>
                 <el-col :span="10" class="change-item-key">
                   <span class="key">New Password</span>
                 </el-col>
                 <el-col :span="14" class="change-item-value">
-                  <input type="password" class="valu"v-model="newPw">
+                  <input type="password" class="valu" v-model="newPw">
                 </el-col>
               </el-row>
             </div>
@@ -32,7 +32,7 @@
                   <span class="key">Retype New Password</span>
                 </el-col>
                 <el-col :span="14" class="change-item-value last-wrap">
-                  <input type="password" class="valu"v-model="newSecPw">
+                  <input type="password" class="valu" v-model="newSecPw">
                   <div class="change-wrap last-button-wrap">
                     <div class="change" @click="change">change</div>
                     <router-link to="/forget">
@@ -43,12 +43,12 @@
                   </div>
                 </el-col>
               </el-row>
-            </div> 
+            </div>
           </div>
         </BasiceLayout>
       </BasiceLayout>
     </AccountSetLayout>
-  
+
     <!-- <Header type='home-header' />
     <el-row class="tac">
       <el-col :span="4">
@@ -81,11 +81,11 @@
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue';
-import { mapState, mapActions, mapMutations } from 'vuex';
-import { Message } from "element-ui";
+import Header from '@/components/Header.vue'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import { Message } from 'element-ui'
 
-import BasiceLayout from "@/components/Common/BasicLayout.vue";
+import BasiceLayout from '@/components/Common/BasicLayout.vue'
 
 export default {
   name: 'hardlist',
@@ -97,21 +97,19 @@ export default {
     return {
       oldPw: '',
       newPw: '',
-      newSecPw: '',
-    };
+      newSecPw: ''
+    }
   },
-  created() {
-  },
+  created() {},
   methods: {
-    ...mapActions(["getInviteCodeStatus", "getUserInfo"]),
-    change () {
-      console.log(this.oldPw);
+    ...mapActions(['getInviteCodeStatus', 'getUserInfo']),
+    change() {
       this.changePw({
         oldPassword: this.oldPw,
         newPassword: this.newPw,
-        reNewPassword: this.newSecPw,
-      });
-    },
+        reNewPassword: this.newSecPw
+      })
+    }
   }
-};
+}
 </script>

@@ -211,5 +211,6 @@ export default {
 .bold {
 	font-weight;
 }
+
 </style>
 

@@ -12,6 +12,7 @@
           :label="totalText">
         </el-table-column>
       </el-table>
+      <!-- <div class="down-list" v-if="codeList.length > 8" @click="scroll"><i class="el-icon-caret-bottom"></i></div> -->
   </div>
 </template>
 
@@ -27,6 +28,11 @@ export default {
   props: {
     codeList: ""
   },
+  methods: {
+    scroll() {
+      console.log(11)
+    }
+  }
 };
 </script>
 
@@ -50,6 +56,22 @@ export default {
   padding-left: 20px;
   text-align: left;
 }
+
+.down-list
+  border-top: 1px solid #eaeefb;
+  height: 44px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  text-align: center;
+  margin-top: -1px;
+  color: #d3dce6;
+  cursor: pointer;
+  position: relative;
+
+.down-list i 
+  line-height: 43px
 </style>
 
 <i18n>

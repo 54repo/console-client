@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <Layout type="HOME">
+          
+    <Layout type="HOME" :pageTitle="$t('pageTitle')" >
       <Annouce></Annouce>
       <BonusCode :status="inviteCodeStatus"/>
       <Invite />
@@ -43,6 +44,7 @@ export default {
     this.getInviteCodeStatus();
     // 获取用户信息
     this.getUserInfo();
+    console.log(this.$router.path)
   },
   methods: {
     ...mapActions(["getInviteCodeStatus", "getUserInfo"])
@@ -53,11 +55,10 @@ export default {
 <style scoped lang="stylus">
 </style>
 
-
-// 公告展示内容
 <i18n>
 {
   "en": {
+    "pageTitle": "Home Page",
     "HOME_FAQ": [{
 			"question": "What is BonusCode?",
 			"anwser": "BonusCode is the certificate for nodes already joined BonusCloud testing network, contributed resources and obtained rewards, designed to guarantee rights and interests of every user of the nodes. Each BonusCode can activate a device to join the network, and only allowed once. Once the BonusCode picked, it will link directly to the account, not allowed to unbundle nor transfer."
@@ -67,6 +68,7 @@ export default {
 		}]
   },
   "zn": {
+    "pageTitle": "数据面板首页",
 		"HOME_FAQ": [{
 			"question": "什么是 BonusCode ？",
 			"anwser": "BonusCode 是节点加入 BonusCloud 测试网络贡献资源、获得奖励的凭证，为保证每一位节点用户的权益而设计，每个 BonusCode 可以激活一台设备加入网络，不可重复使用，且每个 BonusCode在领取后与账户直接绑定，不可解绑，不可转让。"

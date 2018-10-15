@@ -1,7 +1,7 @@
 /** 收益页 **/
 <template>
   <div class="home">
-    <Layout type="REVENUE" isRevenue="true">
+    <Layout type="REVENUE" isRevenue="true" :pageTitle="$t('pageTitle')">
       <RevenueData :allRenvue="allRenvue" :person_invite_revenue="inviteRevenue" :person_account_revenue="accountRevenue">
       </RevenueData>
       <FAQ />
@@ -61,3 +61,15 @@ export default {
   height: 100%
 }
 </style>
+
+<i18n>
+{
+  "zn": {
+    "pageTitle": "收益情况"
+  },
+  "en": {
+    "pageTitle": "Revenue"
+  }
+}
+</i18n>
+

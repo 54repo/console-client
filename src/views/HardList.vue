@@ -1,71 +1,39 @@
 <template>
-  <div class="home">
-		<AccountSetLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
+	<div class="home">
+		<HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
 			<BasiceLayout :title="$t('hardListLayoutTitile')">
 				<div class="hardware-content">
-					<el-table
-						:data="hardList"
-						align="left"
-						empty-text="empty hardList"
-						style="width: 100%">
-						<el-table-column
-							prop="mac_address"
-							:label="$t('macAddress')">
+					<el-table :data="hardList" align="left" empty-text="empty hardList" style="width: 100%">
+						<el-table-column prop="mac_address" :label="$t('macAddress')">
 						</el-table-column>
-						<el-table-column
-							prop="bind_at"
-							:label="$t('date')">
+						<el-table-column prop="bind_at" :label="$t('date')" align='center'>
 						</el-table-column>
-						<el-table-column
-							prop="bcode"
-							:label="$t('code')">
+						<el-table-column prop="bcode" :label="$t('code')">
 						</el-table-column>
-							<el-table-column
-							label="">
+						<el-table-column label="" align='right'>
 							<template slot-scope="scope">
-								<div 
-									type="danger"
-									 @click="checkUnBind(scope.row.id)" 
-									 :deviceId="scope.row.id"
-									 class="unbind-button bonus-cursor">解绑</div>
+								<div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">解绑</div>
 							</template>
 						</el-table-column>
 					</el-table>
 				</div>
-    	</BasiceLayout>	
-			<!-- <UnBindDialog v-if="showUnbindDialog" :id="unbindId"></UnBindDialog> -->
-		</AccountSetLayout>  
-		<el-dialog
-			title="Confirm Unbinding"
-			:visible.sync="showUnbindDialog"
-			width="480px"
-			center>
+			</BasiceLayout>
+		</HardwareLayout>
+		<el-dialog title="Confirm Unbinding" :visible.sync="showUnbindDialog" width="480px" center>
 			<div class="unbind-dialog-wrap">
 				<span class="key">Image Verfication Code</span>
-				<ImageCode
-					imageStyle="unbind-style"
-					type="text"
-					v-model="inputImageCode"
-					class="unbind-input forget-code"></ImageCode>
+				<ImageCode imageStyle="unbind-style" type="text" v-model="inputImageCode" class="unbind-input forget-code"></ImageCode>
 			</div>
 			<div class="unbind-dialog-wrap">
-				<span  class="key">Email Verfication Code</span>
-				<SendEmailCode
-					type="text"
-					imageStyle="unbind-style"
-					class="unbind-input password-email"
-					v-model="inputEmailCode"
-					needImageCode=true
-					:imageCode="inputImageCode"
-					:email="email"
-					@emailCodeTip="emailCodeTip"></SendEmailCode>
+				<span class="key">Email Verfication Code</span>
+				<SendEmailCode type="text" imageStyle="unbind-style" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :imageCode="inputImageCode" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
 			</div>
 			<span slot="footer" class="dialog-footer">
 				<div class="sure-unbind button" @click="showUnbindDialog = false">取 消</div>
 				<div class="sure-unbind button" type="primary" @click="unbind">确 定</div>
 			</span>
 		</el-dialog>
-  </div>
+	</div>
 </template>
 
 <i18n>
@@ -92,41 +60,43 @@
 
 <script>
 // @ is an alias to /src
-import { mapState, mapActions, mapMutations } from "vuex";
-import BasiceLayout from "@/components/Common/BasicLayout.vue";
-import AccountSetLayout from "@/components/AccountSet/AccountSetLayout.vue";
+import { mapState, mapActions, mapMutations } from 'vuex'
+import BasiceLayout from '@/components/Common/BasicLayout.vue'
+import AccountSetLayout from '@/components/AccountSet/AccountSetLayout.vue'
+import HardwareLayout from '@/components/Hardware/HardwareLayout.vue'
 // import UnBindDialog from "@/components/AccountSet/HardList/UnBindDialog.vue";
-import ImageCode from "@/components/ImageCode.vue";
-import SendEmailCode from "@/components/SendEmailCode.vue";
-import moment from "moment";
-import { Message } from "element-ui";
+import ImageCode from '@/components/ImageCode.vue'
+import SendEmailCode from '@/components/SendEmailCode.vue'
+import moment from 'moment'
+import { Message } from 'element-ui'
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     BasiceLayout,
     AccountSetLayout,
     ImageCode,
-    SendEmailCode
+    SendEmailCode,
+    HardwareLayout
   },
   data() {
     return {
-      unbindId: "", //解绑Id
+      unbindId: '', //解绑Id
       showUnbindDialog: false, // 绑定弹框展示
-      inputEmailCode: "", //输入的邮件码
-      inputImageCode: "" // 图片验证码
-    };
+      inputEmailCode: '', //输入的邮件码
+      inputImageCode: '' // 图片验证码
+    }
   },
   computed: mapState({
     hardList(state) {
       if (state.hardList.length > 0) {
-        let hardList = state.hardList;
+        let hardList = state.hardList
         hardList.map(val => {
-          val.bind_at = moment().format("YYYY.MM.DD");
-        });
-        return hardList;
+          val.bind_at = moment(new Date(val.bind_at)).format('YYYY.MM.DD')
+        })
+        return hardList
       } else {
-        return [];
+        return []
       }
     },
     // 验证码地址
@@ -134,22 +104,22 @@ export default {
     email: state => state.account.email
   }),
   methods: {
-    ...mapActions(["getHardList", "unbindHard"]),
+    ...mapActions(['getHardList', 'unbindHard']),
     change() {
-      console.log(this.oldPw);
+      console.log(this.oldPw)
       this.changePw({
         oldPassword: this.oldPw,
         newPassword: this.newPw,
         reNewPassword: this.newSecPw
-      });
+      })
     },
     checkUnBind(id) {
-      this.showUnbindDialog = true;
-      this.unbindId = id;
-      console.log(id);
+      this.showUnbindDialog = true
+      this.unbindId = id
+      console.log(id)
     },
     emailCodeTip(tip) {
-      console.log(tip);
+      console.log(tip)
     },
     // 解绑
     unbind() {
@@ -157,39 +127,39 @@ export default {
         deviceId: this.unbindId,
         emailVerifyCode: this.inputEmailCode
       }).then(res => {
-        if (res.message === "unregister success") {
+        if (res.message === 'unregister success') {
           // 刷新硬件列表
-          this.getHardList();
-          this.showUnbindDialog = false;
+          this.getHardList()
+          this.showUnbindDialog = false
           Message({
-            type: "success",
+            type: 'success',
             message: res.message
-          });
+          })
         } else {
           Message({
-            type: "error",
-            message: res.message || "unbind error"
-          });
+            type: 'error',
+            message: res.message || 'unbind error'
+          })
         }
-        console.log(res);
-      });
+        console.log(res)
+      })
     },
     // email错误提示
     emailCodeTip(error) {
       if (error.message) {
         Message({
-          type: "error",
+          type: 'error',
           message: error.message
-        });
-        console.log(error);
+        })
+        console.log(error)
       }
     }
   },
 
   created() {
-    this.getHardList();
+    this.getHardList()
   }
-};
+}
 </script>
 
 <style lang="stylus">
@@ -206,6 +176,7 @@ export default {
 	line-height: 30px;
 	width: 90px;
 	height: 35px;
+  display: inline-block;
 }
 
 .unbind-dialog-wrap .key {

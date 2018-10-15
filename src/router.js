@@ -12,7 +12,6 @@ import HardList from './views/HardList.vue';
 Vue.use(Router);
 const title = 'BonusCloud: The next generation infrastructure driven by blockchain';
 
-
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -40,8 +39,6 @@ export default new Router({
         title,
       },
       component: Login,
-      // component: () => import(/* webpackChunkName: "about" */ './views/Login.vue'),
-
     },
     {
       path: '/signUp',
@@ -58,7 +55,6 @@ export default new Router({
         title,
       },
       component: Forget,
-      // component: () => import(/* webpackChunkName: "about" */ './views/Forget.vue'),
     },
     {
       path: '/AccountSet',
@@ -67,8 +63,6 @@ export default new Router({
         title,
       },
       component: AccountSet,
-      // component: () => import(/* webpackChunkName: "about" */ './views/AccountSet.vue'),
-      
     },
     {
       path: '/hardList',
@@ -77,8 +71,6 @@ export default new Router({
         title,
       },
       component: HardList,
-      // component: () => import(/* webpackChunkName: "about" */ './views/HardList.vue'),
-      // component: () => import(/* webpackChunkName: "HardList" */ './views/HardList.vue'),
     },
     // {
     //   path: '/about',

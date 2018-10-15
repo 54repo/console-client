@@ -10,13 +10,9 @@
           text-color="#989AA2"
           active-text-color="#fff"
 					router="router">
-          <el-menu-item index="1" route="/accountSet" class="home-page-wrap" v-bind:class="{ isActive: !(this.$router.path === '/accountSet') }">
-						<img  class="menu-icon home-icon" src="../../assets/accountSet/account-set.png" >
-						<span slot="title">{{$t('account_set_1')}}</span>
-          </el-menu-item>
-          <el-menu-item index="2" disabled>
-            <img  class="menu-icon home-icon" src="../../assets/accountSet/wallet-bind.png">
-            <span slot="title">{{$t('account_set_2')}}</span>
+           <el-menu-item index="2" route="/hardList" v-bind:class="{ isActive:  !(this.$router.path === '/hardList') }">
+							<img  class="menu-icon home-icon" src="../../assets/accountSet/hard-list.png">
+							<span slot="title">{{$t('account_set_1')}}</span>
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -32,13 +28,11 @@
 {
   "en": {
     "account_set_menu": "Account Settings",
-    "account_set_1": "Change Password",
-    "account_set_2": "Wallet Binding"
+    "account_set_1": "Hardware List"
   },
   "zn": {
-    "account_set_menu": "账号设置",
-    "account_set_1": "修改密码",
-    "account_set_2": "钱包绑定"
+    "account_set_menu": "硬件列表",
+    "account_set_1": "硬件列表"
   }
 }
 </i18n>

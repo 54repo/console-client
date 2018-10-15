@@ -10,21 +10,21 @@
       <el-col :span="20" class="header-login-panel" >
         <div class="header-panel-wrap" v-if="type !== 'login-header'">
           <router-link to="/">
-            <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/') }">
+            <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/' || thisPath === '/revenue') }">
               <img  class="menu-icon home-icon" src="../assets/home/data-panel-login.png" >            
               {{ $t('header.dataPanel') }}
+            </div>
+          </router-link>
+          <router-link to="/hardList">
+           <div class="account-settings header-each-tab" v-bind:class="{opacityPercent:  !(thisPath === '/hardList')  }">
+              <img  class="menu-icon home-icon" src="../assets/accountSet/hard-list.png" >            
+              {{ $t('header.hardware') }}
             </div>
           </router-link>
           <router-link to="/accountSet">
             <div class="account-settings header-each-tab" v-bind:class="{opacityPercent:  !(thisPath === '/accountSet')  }">
               <img  class="menu-icon home-icon" src="../assets/home/account-setting.png" >            
               {{ $t('header.accountSetting') }}
-            </div>
-          </router-link>
-          <router-link to="/hardList">
-           <div class="account-settings header-each-tab" v-bind:class="{opacityPercent:  !(thisPath === '/hardList')  }">
-              <img  class="menu-icon home-icon" src="../assets/home/account-setting.png" >            
-              {{ $t('header.hardware') }}
             </div>
           </router-link>
           <div class="header-email header-each-tab">{{email}}</div>

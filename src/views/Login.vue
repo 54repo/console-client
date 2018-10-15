@@ -4,13 +4,6 @@
     <AccountLayout>
       <!-- 登陆框 -->
       <div class="account-dialog">
-
-      <!-- "loginTitle": "登陆", 
-      "loginPlaceHolder": "输入邮箱", 
-      "PWPlaceHolder": "输入密码", 
-      "loginButton": "登陆", 
-      "redirectForget": "忘记密码", 
-      "redirectSign": "注册" -->
         <div class="title">{{ $t('login.loginTitle') }}</div>
         <!-- 邮箱 -->
         <BasicInput

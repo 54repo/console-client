@@ -3,7 +3,7 @@
 		<div class="basic-layout-wrap">
 			<div class="title layout-title">
 				<div>{{title}}</div>
-				<div  class="layout-more" v-if="more"><a :href="more" target="_blank">{{ $t('faq_more_text') }} >></a></div>
+				<div  class="layout-more" v-if="more"><a :href="more" class="more" target="_blank">{{ $t('faq_more_text') }} >></a></div>
 			</div>
 			<div class="layout-content">
 				<slot></slot>
@@ -64,4 +64,7 @@ export default {
 .layout-content {
 	margin: 20px 23px;
 }
+
+.more
+	font-size: 14px
 </style>

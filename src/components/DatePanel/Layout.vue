@@ -8,22 +8,21 @@
           class="bonus-menu"
           background-color="#0A0E22"
           active-text-color="#fff"
-          text-color="#989AA2"   
-          @select="handleOpen"
+          text-color="#989AA2" 
 					router="router">
-          <el-menu-item index="0"  route="/" class="home-page-wrap" v-bind:class="{ isActive: revenueActive }">
+          <el-menu-item index="0"  route="/" class="home-page-wrap"  v-bind:class="{ isActive: (thisPath === '/') }">
             <img  class="menu-icon home-icon" src="../../assets/homeIcon.png" >
             <span slot="title">{{ $t('local_home_layout.menu.0_value')}}</span>
           </el-menu-item>
           <el-submenu index="1" route="/revenue" class="revenue-wrap">
             <template slot="title">
-              <div  v-bind:class="{ isActive: !revenueActive, revenuePad: true }">
-                <img  class="menu-icon home-icon" src="../../assets/revenue.png" >
+              <div v-bind:class="{ revenuePad: true }">
+                <img class="menu-icon home-icon" src="../../assets/revenue.png" >
                 <span>{{ $t('local_home_layout.menu.1_value')}}</span>
               </div>
             </template>
             <el-menu-item-group :span="3" >
-              <el-menu-item index="1-1" route="/revenue">{{ $t('local_home_layout.menu.1_1_value') }}</el-menu-item>
+              <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.1_1_value') }}</el-menu-item>
               <el-menu-item index="1-2" disabled>{{ $t('local_home_layout.menu.1_2_value') }}</el-menu-item>
               <el-menu-item index="1-3" disabled>{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>
             </el-menu-item-group>
@@ -69,7 +68,7 @@
         </el-menu>
       </el-col>
       <el-col :span="20" class="bonus-content">
-        <div class="title">Home Page</div>
+        <div class="title">{{ pageTitle }}</div>
 				<slot></slot>
       </el-col>
     </el-row>
@@ -104,17 +103,14 @@
       "dataPanel": "数据面板",
       "menu": {
         "0_value": "数据面板首页",
-
         "1_value": "网络任务收益",
         "1_1_value": "收益情况",
         "1_2_value": "贡献详情",
         "1_3_value": "提现",
-        
         "2_value": "计算任务收益",
         "2_1_value": "收益情况",
         "2_2_value": "任务执行",
         "2_3_value": "提现",
-        
         "3_value": "算力分析",
         "4_value": "全网贡献"
       }
@@ -131,14 +127,7 @@ export default {
   props: {
     type: "",
     isRevenue: '',
-  },
-  computed: {
-    // activeIndex() {
-    //   console.log("/" + this.$route.matched[0].path.split("/")[1]);
-    //   // return "/" + this.$route.matched[0].path.split("/")[1];
-    //   console.log((this.$router.path === '/') ? 0 : 1)
-    //   return (this.$router.path === '/') ? "0" : "1";
-    // }
+    pageTitle: '',
   },
   components: {
     Header
@@ -146,14 +135,14 @@ export default {
   data() {
     return {
       activeIndex: "0",
-      revenueActive: true
+      revenueActive: true,
     };
   },
-  methods: {
-    handleOpen(key, keyPath) {
-      this.revenueActive = key === 0;
-    }
-  }
+  computed: {
+    thisPath() {
+      return  this.$route.path;
+    },
+  },
 };
 </script>
 
@@ -280,9 +269,9 @@ export default {
 
 .bonus-content .title {
   font-family: PingFangSC-Regular;
-  font-size: 1px;
+  font-size: 16px;
   color: #65686A;
-  line-height: 40px;
+  line-height: 45px;
   text-align: left;
   font-weight: bold;
 }
@@ -294,7 +283,7 @@ export default {
 }
 
 .annouce .more {
-  font-size: 10px;
+  font-size: 14px;
   color: #999B98;
   text-align: right;
   line-height: 40px;
