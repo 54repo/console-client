@@ -10,6 +10,12 @@
 						</el-table-column>
 						<el-table-column prop="bcode" :label="$t('code')">
 						</el-table-column>
+						<el-table-column prop="" :label="$t('netStatus')" align='center'>
+							<template slot-scope="scope">
+								<el-tag  v-if="scope.row.status === 'online'" type="success">online</el-tag>
+								<el-tag  v-if="scope.row.status !== 'online'" type="danger">offline</el-tag>
+							</template>
+						</el-table-column>
 						<el-table-column label="" align='right'>
 							<template slot-scope="scope">
 								<div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">解绑</div>
@@ -44,7 +50,8 @@
 		"macAddress": "MAC Address",
 		"date": " The Binding Date(UTC)",
 		"code": "Binding BonusCode",
-		"totalTime": "Total Online Time"
+		"totalTime": "Total Online Time",
+		"netStatus": "Status"
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -52,7 +59,8 @@
 		"macAddress": "硬件MAC地址",                                                                    
 		"date": "绑定日期(UTC)",
 		"code": "已绑定激活码 ",
-		"totalTime": "累计在线时长"
+		"totalTime": "累计在线时长",
+		"netStatus": "在线状态"
   }
 }
 </i18n>

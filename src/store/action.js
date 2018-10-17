@@ -17,6 +17,7 @@ import {
   ajaxRecommendInfo,
   ajaxRecommendCount,
   ajaxUnbindHard,
+  ajaxNetInfo,
 } from './getData';
 
 import {
@@ -117,7 +118,19 @@ export default {
   async getHardList({ commit }, params) {
     const res = await ajaxHardList(params);
     try {
-      commit(GET_HARDLIST, res.ret.list);
+      if (res.ret.list && res.ret.list.length > 0) {
+        const results = await Promise.all(res.ret.list.map(async item => {
+          let res_info = await ajaxNetInfo({
+            mac_address: item.mac_address,
+            bcode: item.bcode
+          });
+          item.status = res_info.ret.devnet.status || 'offline';
+          return item;
+        }));
+        let list = Object.values(results);
+        commit(GET_HARDLIST, list);
+
+      }
     } catch (error) {
       commit(GET_HARDLIST, []);
     }
