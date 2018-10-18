@@ -124,7 +124,7 @@ export default {
         }
         // 领取邀请码
         this.getInviteCode({
-          captcha: this.inviteStatus
+          captcha: this.inputImageCode
         }).then(res => {
           try {
 
