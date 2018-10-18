@@ -48,7 +48,7 @@ export const ajaxInviteCodeStatus = (data) => {
  * 领取邀请码	
  */
 export const ajaxGetInviteCode = (data) => {
-	return fetch(baseUrl + '/api/bcode/get/', {}, 'POST');
+	return fetch(baseUrl + '/api/bcode/get/', data, 'POST');
 };
 /**
  * 当前用户可用邀请码

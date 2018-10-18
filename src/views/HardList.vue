@@ -100,7 +100,7 @@ export default {
       if (state.hardList.length > 0) {
         let hardList = state.hardList
         hardList.map(val => {
-          val.bind_at = moment(new Date(val.bind_at)).format('YYYY.MM.DD')
+          val.bind_at = moment(new Date(val.bind_at)).format('YYYY.MM.DD hh:mm:ss')
         })
         return hardList
       } else {

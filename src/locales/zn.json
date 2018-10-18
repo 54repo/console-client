@@ -17,7 +17,7 @@
     "newPw": "请输入密码", 
     "confirmPw": "请再次输入密码", 
     "signButton": "注册", 
-    "redirectLogin": "登陆"
+    "redirectLogin": "登录"
   },
   "header": {
     "dataPanel": "数据面板",

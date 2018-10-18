@@ -120,11 +120,15 @@ export default {
     try {
       if (res.ret.list && res.ret.list.length > 0) {
         const results = await Promise.all(res.ret.list.map(async item => {
-          let res_info = await ajaxNetInfo({
-            mac_address: item.mac_address,
-            bcode: item.bcode
-          });
-          item.status = res_info.ret.devnet.status || 'offline';
+          try {
+            let res_info = await ajaxNetInfo({
+              mac_address: item.mac_address,
+              bcode: item.bcode
+            });
+            item.status = res_info.ret.devnet.status || 'offline';
+          } catch (error) {
+            item.status = 'offline';
+          }
           return item;
         }));
         let list = Object.values(results);

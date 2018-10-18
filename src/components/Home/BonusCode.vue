@@ -13,8 +13,7 @@
           <div class="active-wrap">
             <span>{{ $t('bonusGet') }}</span>
             <ImageCode imageStyle="home-bcode" type="text" v-model="inputImageCode" class="home-image-code account-input forget-code" :placeValue="$t('imagePlaceVaule')"></ImageCode>
-
-            <div v-bind:class="{ noActive: !inviteStatus }"  v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('getText')}}</div>
+            <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }"  v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('getText')}}</div>
           </div>
           <div class="count-time">
             <span class="key">{{ $t('nextTimeText') }}</span>
@@ -116,7 +115,7 @@ export default {
     },
     // 领取 邀请码
     clickInviteCode() {
-      if (this.inviteStatus) {
+      if (this.inviteStatus || this.$route.query.debug ) {
         // 校验验证码
         if (!this.inputImageCode) {
           Message("Please input the image verfication code");
@@ -135,7 +134,6 @@ export default {
               });
               // 刷新BCode
               this.getAbleList();
-              
             } else {
               Message(res.message || "reveive error");
             }
