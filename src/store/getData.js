@@ -42,7 +42,7 @@ export const ajaxLogout = (data) => {
  * 是否可领取邀请码
  */
 export const ajaxInviteCodeStatus = (data) => {
-	return fetch(baseUrl + '/api/bcode/get_status/');
+	return fetch(baseUrl + '/api/bcode/get_status/', data);
 };
 /**
  * 领取邀请码	

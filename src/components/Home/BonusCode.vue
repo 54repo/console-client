@@ -12,6 +12,8 @@
           </el-alert>
           <div class="active-wrap">
             <span>{{ $t('bonusGet') }}</span>
+            <ImageCode imageStyle="home-bcode" type="text" v-model="inputImageCode" class="home-image-code account-input forget-code" :placeValue="$t('imagePlaceVaule')"></ImageCode>
+
             <div v-bind:class="{ noActive: !inviteStatus }"  v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('getText')}}</div>
           </div>
           <div class="count-time">
@@ -46,6 +48,7 @@
 
 <script>
 import BasiceLayout from "@/components/Common/BasicLayout.vue";
+import ImageCode from "@/components/ImageCode.vue";
 import CodeList from "@/components/Home/CodeList.vue";
 import { mapState, mapActions } from "vuex";
 import { Message } from "element-ui";
@@ -57,14 +60,16 @@ export default {
   },
   components: {
     BasiceLayout,
-    CodeList
+    CodeList,
+    ImageCode,
   },
   data() {
     return {
       timeMinutes: "", // 倒计时分钟数
       timeSeconds: "", // 倒计时秒数
       showA: "",
-      showB: ""
+      showB: "",
+      inputImageCode: "",
     };
   },
 
@@ -112,20 +117,29 @@ export default {
     // 领取 邀请码
     clickInviteCode() {
       if (this.inviteStatus) {
-        console.log("领取邀请码");
-        this.getInviteCode().then(res => {
+        // 校验验证码
+        if (!this.inputImageCode) {
+          Message("Please input the image verfication code");
+          return false;
+        }
+        // 领取邀请码
+        this.getInviteCode({
+          captcha: this.inviteStatus
+        }).then(res => {
           try {
+
             if (res.message === "getSuccess") {
               Message({
                 type: "success",
                 message: "receive success"
               });
+              // 刷新BCode
               this.getAbleList();
+              
             } else {
               Message(res.message || "reveive error");
             }
           } catch (error) {
-            console.log(error);
             Message("reveive error");
           }
         });
@@ -137,6 +151,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style   lang="stylus">
+.home-image-code {
+  margin: 20px 20px 20px;
+  max-width: 300px;
+}
 .bonus-code-layout {
   margin-top: 20px;
   font-size: 14px;
@@ -249,7 +267,8 @@ export default {
       "joinTele": "Join Telegram",
       "teleUrl": "https://t.me/Bonuscloud",
       "teleButton" :"JOIN"
-    }
+    },
+    "imagePlaceVaule": "Image Verfication Code"
   },
   "zn": {
     "bonusTips": "当前BonusCloud 处于测试网络阶段，需要使用BonusCode激活设备，每个BonusCode仅可以激活一台设备的节点奖励权限。BonusCode被领取后与账号绑定，不可转让。",
@@ -265,7 +284,8 @@ export default {
       "joinTele": "请加入电报群",
       "teleUrl": "https://t.me/bonuscloudcn",
       "teleButton": "加群"
-    }
+    },
+    "imagePlaceVaule": "图片验证码"
   }
 }
 </i18n>
