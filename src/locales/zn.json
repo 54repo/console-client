@@ -33,7 +33,7 @@
     "forgetPW": "请输入新密码",
     "forgetConfirmPW": "请重复输入新密码",
     "resetButton": "重置",
-    "loginRedirect": "登陆"
+    "loginRedirect": "登录"
   },
   "faq_link": "https://bonuscloud.gitbook.io/help/faq-cn",
   "faq_text": "常见问题"

@@ -10,10 +10,12 @@
 						</el-table-column>
 						<el-table-column prop="bcode" :label="$t('code')">
 						</el-table-column>
+						<el-table-column prop="ip" label="IP" align='center'></el-table-column>
 						<el-table-column prop="" :label="$t('netStatus')" align='center'>
 							<template slot-scope="scope">
-								<el-tag  v-if="scope.row.status === 'online'" type="success">online</el-tag>
-								<el-tag  v-if="scope.row.status !== 'online'" type="danger">offline</el-tag>
+								<div v-if="!scope.row.status">-</div>
+								<el-tag v-if="scope.row.status === 'online'" type="success">online</el-tag>
+								<el-tag v-if="scope.row.status === 'offline'" type="danger">offline</el-tag>
 							</template>
 						</el-table-column>
 						<el-table-column label="" align='right'>
@@ -51,7 +53,7 @@
 		"date": " The Binding Date(UTC)",
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
-		"netStatus": "Status"
+    "netStatus": "Status"
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -60,7 +62,7 @@
 		"date": "绑定日期(UTC)",
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
-		"netStatus": "在线状态"
+    "netStatus": "在线状态"
   }
 }
 </i18n>
@@ -68,18 +70,18 @@
 
 <script>
 // @ is an alias to /src
-import { mapState, mapActions, mapMutations } from 'vuex'
-import BasiceLayout from '@/components/Common/BasicLayout.vue'
-import AccountSetLayout from '@/components/AccountSet/AccountSetLayout.vue'
-import HardwareLayout from '@/components/Hardware/HardwareLayout.vue'
+import { mapState, mapActions, mapMutations } from "vuex";
+import BasiceLayout from "@/components/Common/BasicLayout.vue";
+import AccountSetLayout from "@/components/AccountSet/AccountSetLayout.vue";
+import HardwareLayout from "@/components/Hardware/HardwareLayout.vue";
 // import UnBindDialog from "@/components/AccountSet/HardList/UnBindDialog.vue";
-import ImageCode from '@/components/ImageCode.vue'
-import SendEmailCode from '@/components/SendEmailCode.vue'
-import moment from 'moment'
-import { Message } from 'element-ui'
+import ImageCode from "@/components/ImageCode.vue";
+import SendEmailCode from "@/components/SendEmailCode.vue";
+import moment from "moment";
+import { Message } from "element-ui";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
     BasiceLayout,
     AccountSetLayout,
@@ -89,22 +91,24 @@ export default {
   },
   data() {
     return {
-      unbindId: '', //解绑Id
+      unbindId: "", //解绑Id
       showUnbindDialog: false, // 绑定弹框展示
-      inputEmailCode: '', //输入的邮件码
-      inputImageCode: '' // 图片验证码
-    }
+      inputEmailCode: "", //输入的邮件码
+      inputImageCode: "" // 图片验证码
+    };
   },
   computed: mapState({
     hardList(state) {
       if (state.hardList.length > 0) {
-        let hardList = state.hardList
+        let hardList = state.hardList;
         hardList.map(val => {
-          val.bind_at = moment(new Date(val.bind_at)).format('YYYY.MM.DD hh:mm:ss')
-        })
-        return hardList
+          val.bind_at = moment(new Date(val.bind_at)).format(
+            "YYYY.MM.DD hh:mm:ss"
+          );
+        });
+        return hardList;
       } else {
-        return []
+        return [];
       }
     },
     // 验证码地址
@@ -112,22 +116,22 @@ export default {
     email: state => state.account.email
   }),
   methods: {
-    ...mapActions(['getHardList', 'unbindHard']),
+    ...mapActions(["getHardList", "unbindHard"]),
     change() {
-      console.log(this.oldPw)
+      console.log(this.oldPw);
       this.changePw({
         oldPassword: this.oldPw,
         newPassword: this.newPw,
         reNewPassword: this.newSecPw
-      })
+      });
     },
     checkUnBind(id) {
-      this.showUnbindDialog = true
-      this.unbindId = id
-      console.log(id)
+      this.showUnbindDialog = true;
+      this.unbindId = id;
+      console.log(id);
     },
     emailCodeTip(tip) {
-      console.log(tip)
+      console.log(tip);
     },
     // 解绑
     unbind() {
@@ -135,39 +139,39 @@ export default {
         deviceId: this.unbindId,
         emailVerifyCode: this.inputEmailCode
       }).then(res => {
-        if (res.message === 'unregister success') {
+        if (res.message === "unregister success") {
           // 刷新硬件列表
-          this.getHardList()
-          this.showUnbindDialog = false
+          this.getHardList();
+          this.showUnbindDialog = false;
           Message({
-            type: 'success',
+            type: "success",
             message: res.message
-          })
+          });
         } else {
           Message({
-            type: 'error',
-            message: res.message || 'unbind error'
-          })
+            type: "error",
+            message: res.message || "unbind error"
+          });
         }
-        console.log(res)
-      })
+        console.log(res);
+      });
     },
     // email错误提示
     emailCodeTip(error) {
       if (error.message) {
         Message({
-          type: 'error',
+          type: "error",
           message: error.message
-        })
-        console.log(error)
+        });
+        console.log(error);
       }
     }
   },
 
   created() {
-    this.getHardList()
+    this.getHardList();
   }
-}
+};
 </script>
 
 <style lang="stylus">
@@ -184,7 +188,7 @@ export default {
 	line-height: 30px;
 	width: 90px;
 	height: 35px;
-  display: inline-block;
+	display: inline-block;
 }
 
 .unbind-dialog-wrap .key {

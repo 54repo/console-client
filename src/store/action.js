@@ -125,9 +125,10 @@ export default {
               mac_address: item.mac_address,
               bcode: item.bcode
             });
-            item.status = res_info.ret.devnet.status || 'offline';
+            item.status = res_info.ret.devnet.status || '';
+            item.ip = res_info.ret.devnet.ext_ip || '';
           } catch (error) {
-            item.status = 'offline';
+            item.status = '';
           }
           return item;
         }));
