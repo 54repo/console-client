@@ -108,7 +108,7 @@ export const  ajaxRevenueList = (data) => {
  * 用户总收益
  */
 export const ajaxAllRevenue = (data) => {
-	return fetch(baseUrl + '/api/web/revenue/', data);
+	return fetch(baseUrl + '/api/web/revenue_v2/', data);
 };
 /**
  * 用户推荐链接
