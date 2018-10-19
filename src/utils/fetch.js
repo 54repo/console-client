@@ -27,7 +27,7 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
 		if (response.status === 200 || response.status === 201) {
 			return response.data;
 		} else if (response.status === 401) {
-			Message('登陆失效,将重新登陆');
+			Message('登录失效,将重新登陆');
 			router.push({ name: 'login' });
 		}
 		// else if (response.status) {

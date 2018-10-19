@@ -1,5 +1,5 @@
 import {
-  // 登陆页
+  // 登录页
   LOGIN_IN,
   // DISABLE_LOGIN,
   // ABLE_LOGIN,

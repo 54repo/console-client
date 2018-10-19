@@ -4,7 +4,7 @@
       "loginTitle": "用户登录", 
       "loginPlaceHolder": "输入邮箱", 
       "PWPlaceHolder": "输入密码", 
-      "loginButton": "登陆", 
+      "loginButton": "登录", 
       "redirectForget": "忘记密码", 
       "redirectSign": "注册"
   },

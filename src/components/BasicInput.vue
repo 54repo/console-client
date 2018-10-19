@@ -1,4 +1,4 @@
-/** 登陆框组件 **/
+/** 登录框组件 **/
 <template>
   <div class="BasicInput">
     <div class="icon-wrap">

@@ -1,4 +1,4 @@
-/** 登陆框组件 **/
+/** 登录框组件 **/
 <template>
   <div class="BasicInput">
     <div v-if="iconType" class="icon-wrap">

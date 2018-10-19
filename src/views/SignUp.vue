@@ -92,7 +92,7 @@ export default {
   }),
   methods: {
     ...mapActions(['getImageCode', 'ajaxSignUp']),
-    // 登陆
+    // 登录
     login() {
       this.$router.push({ name: 'login' })
     },

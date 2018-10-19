@@ -12,9 +12,9 @@ import actions from './action'
 export default new Vuex.Store({
   state: {
     account: {
-      email: '',  //  用户登陆邮箱
-      loginSuccess: '', //登陆
-      loginStatus: false, // 记录登陆状态
+      email: '',  //  用户登录邮箱
+      loginSuccess: '', //登录
+      loginStatus: false, // 记录登录状态
     },
     signUp: {
       isSignUpDisable: false, //  记录注册状态

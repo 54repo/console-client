@@ -2,7 +2,7 @@
   <div class="home">
     <Header type='login-header'/>
     <AccountLayout>
-			<!-- 登陆框 -->
+			<!-- 登录框 -->
 			<div class="account-dialog">
 				<div class="title">{{$t('forgetPW.forgetTitle')}}</div>
 					<!-- 邮箱 -->
