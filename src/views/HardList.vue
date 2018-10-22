@@ -8,8 +8,8 @@
 						</el-table-column>
 						<el-table-column prop="bind_at" :label="$t('date')" align='center'>
 						</el-table-column>
-						<el-table-column prop="bcode" :label="$t('code')">
-						</el-table-column>
+						<!-- <el-table-column prop="bcode" :label="$t('code')">
+						</el-table-column> -->
 						<el-table-column prop="ip" label="IP" align='center'></el-table-column>
 						<el-table-column prop="" :label="$t('netStatus')" align='center'>
 							<template slot-scope="scope">

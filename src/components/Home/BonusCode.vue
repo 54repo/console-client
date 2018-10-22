@@ -252,7 +252,7 @@ export default {
 <i18n>
 {
   "en": {
-    "bonusTips": "BonusCloud is in the TestNet phase and needs to activate the device using BonusCode. Each BonusCode can only activate node rewards for one device. BonusCode is bound to the account after being picked up and is not transferable.",
+    "bonusTips": "BonusCloud is in the TestNet phase and needs to activate the device using BonusCode. Each BonusCode can only be used once and expires after successful activation. BonusCode is bound to the account after being picked up and is not transferable.",
     "bonusGet": "Receive BCode",
     "nextTimeText": "The next time period BCode receives the countdown:",
     "getText": "Receive",
@@ -269,7 +269,7 @@ export default {
     "imagePlaceVaule": "Image Verfication Code"
   },
   "zn": {
-    "bonusTips": "当前BonusCloud 处于测试网络阶段，需要使用BonusCode激活设备，每个BonusCode仅可以激活一台设备的节点奖励权限。BonusCode被领取后与账号绑定，不可转让。",
+    "bonusTips": "当前BonusCloud 处于测试网络阶段，需要使用BonusCode激活设备，每个BonusCode仅可以使用一次，激活成功后失效。BonusCode被领取后与账号绑定，不可转让。",
     "bonusGet":  "本时段BCode领取：",
     "nextTimeText": "下一时段BCode领取倒计时：",
     "getText": "领取",

@@ -67,8 +67,8 @@ export default {
 				"link": "https://bonuscloud.gitbook.io/help/bonuscloud-whitepaper-v-1.1-2018"
       }, {
         "date": "2018.10.10",
-				"content": "BonusCloud Lite Node Tutorial",
-				"link": "http://www.right.com.cn/forum/forum-183-1.html"
+				"content": "BonusCloud Lite Node Tutorial (BonusCloud only provides ROM, is not responsible for brushing technical support, brushing  machine is risky, conceited at your own riskt.)",
+				"link": "http://www.right.com.cn/forum/thread-339953-1-1.html"
       }, {
         "date": "2018.10.10",
 				"content": "Device Support List Of Lite Node",
@@ -84,8 +84,8 @@ export default {
 				"link": "https://bonuscloud.gitbook.io/help/bonuscloud-bai-pi-shu-v1.0"
       }, {
         "date": "2018.10.10",
-				"content": "BonusCloud Lite节点接入教程",
-				"link": "http://www.right.com.cn/forum/forum-183-1.html"
+				"content": "BonusCloud Lite节点接入教程（BonusCloud只提供镜像，不负责刷机技术支持，刷机有风险，自行担责）",
+				"link": "http://www.right.com.cn/forum/thread-339953-1-1.html"
       }, {
         "date": "2018.10.10",
 				"content": "Lite 节点设备支持列表",

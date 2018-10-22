@@ -14,21 +14,21 @@
 					<img class="revenue-icon home-icon" src="../../assets/revenue/online_revunue.png">
 					<div class="revenue_title">{{ $t('revenue_2') }} </div>
 				</div>
-				<div class="revunue_value">{{person_account_revenue || '-'}} BxC</div>
+				<div class="revunue_value">{{(person_account_revenue === '') ? '-' : person_account_revenue}} BxC</div>
 			</div>
 			<div class="one_day_invite_revenue each_item_wrap">
 				<div class="revenue_item">
 					<img class="revenue-icon home-icon" src="../../assets/revenue/online_invite.png">
 					<div class="revenue_title">{{ $t('revenue_3') }} </div>
 				</div>
-				<div class="revunue_value">{{person_invite_revenue || '-'}} BxC</div>
+				<div class="revunue_value">{{(person_invite_revenue === '') ? '-' : person_invite_revenue}} BxC</div>
 			</div>
 			<div class="total_revenue each_item_wrap">
 				<div class="revenue_item">
 					<img class="revenue-icon home-icon" src="../../assets/revenue/person_total_revenue.png">
 					<div class="revenue_title">{{ $t('revenue_4')}}</div>
 				</div>
-				<div class="revunue_value">{{allRenvue || '-'}} BxC</div>
+				<div class="revunue_value">{{(allRenvue === '') ? '-' : allRenvue}} BxC</div>
 			</div>
 		</div>
 	</div>

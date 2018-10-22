@@ -77,10 +77,10 @@ export default {
 <i18n>
 {
   "en": {
-    "title": "The valid BonusCode for the current account binding:"
+    "title": "The valid BonusCode for the current account binding (Invalid after use):"
   },
   "zn": {
-    "title": "当前账号绑定的有效BonusCode:"
+    "title": "当前账号绑定的有效BonusCode（使用后失效）:"
   }
 }
 </i18n>
