@@ -121,6 +121,9 @@ export default {
 </script>
 
 <style  lang="stylus">
+.change-item {
+    margin-top: 20px;
+}
 .change-content input
   width: 200px
   height: 28px
@@ -140,8 +143,9 @@ export default {
   -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   font-size: 10px;
+  height: 40px;
 .change-content .key
-  font-size: 12px;
+  font-size: 16px;
   color: #343739;
   text-align: right;
   line-height: 42px;
