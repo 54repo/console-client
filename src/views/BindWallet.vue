@@ -7,7 +7,7 @@
 					<el-tag v-if="address" id="walletDetail">{{address || 'no address'}}</el-tag>
 					<div class="wallet-wrap">
 						<span class="key">{{$t('newWalletText')}}:</span>
-						<input type="text" class="input wallet-input" v-model="newAddress">
+						<input type="text" class="input wallet-input" v-model="new_eth_address">
 					</div>
 					<div class="wallet-wrap">
 						<span class="key">{{$t('inputPasswordText')}}:</span>
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       password: "",
-      newAddress: ""
+      new_eth_address: ""
     };
   },
   created() {
@@ -69,19 +69,23 @@ export default {
   methods: {
     ...mapActions(["getWalletAddress", "bindWalletAddress"]),
     bindWallet() {
-			let { password, newAddress } = this;
-			if (!password || !newAddress) {
-				Message('no password or no newAddress');
+			let { password, new_eth_address } = this;
+			if (!password || !new_eth_address) {
+				Message('no password or no new_eth_address');
 				return;
 			}
-			if (newAddress.length !== 42) {
+			if (password.length < 6) {
+				Message('password length should bigger than 6');
+				return;
+			}
+			if (new_eth_address.length !== 42) {
 				Message('new wallet address is error');
 				return;
 			}
 			
       this.bindWalletAddress({
         password,
-        newAddress
+        new_eth_address
       }).then(res => {
         if (res.code === 200) {
           Message("bind sucdess");
@@ -89,7 +93,7 @@ export default {
         } else {
           Message({
             type: "error",
-            message: "bind error"
+            message: res.message || "bind error"
           });
         }
       });
