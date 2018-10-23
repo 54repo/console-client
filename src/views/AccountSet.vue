@@ -121,9 +121,8 @@ export default {
 </script>
 
 <style  lang="stylus">
-.change-item {
+.change-item
     margin-top: 20px;
-}
 .change-content input
   width: 200px
   height: 28px
@@ -177,8 +176,7 @@ export default {
   line-height: 35px;
   width: 90px;
   height: 35px;
-
 body
-  height: 100%
+  height: 100% !important;
 </style>
 
