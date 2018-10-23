@@ -3,8 +3,8 @@
 		<AccountSetLayout layoutType="AccountSet" :layoutTitile="$t('bindWalletTitle')">
 			<BasiceLayout :title="$t('bindWalletTitle')">
 				<div class="wallet-content">
-					<div v-if="address" class="wallet-bind-title">{{$t('walletText')}}：</div>
-					<el-tag v-if="address" id="walletDetail">{{address || 'no address'}}</el-tag>
+					<div class="wallet-bind-title">{{$t('walletText')}}：</div>
+					<el-tag id="walletDetail">{{address || 'no address'}}</el-tag>
 					<div class="wallet-wrap">
 						<span class="key">{{$t('newWalletText')}}:</span>
 						<input type="text" class="input wallet-input" v-model="new_eth_address">
@@ -161,7 +161,7 @@ export default {
 
 .wallet-content {
 	width: 800px;
-	margin: 80px auto;
+	margin: 30px auto;
 	text-align: left;
 }
 
@@ -223,5 +223,8 @@ body {
 	color: #909399;
 	line-height: 30px;
 }
+
+.home 
+	height: auto;
 </style>
 

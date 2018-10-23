@@ -176,7 +176,5 @@ export default {
   line-height: 35px;
   width: 90px;
   height: 35px;
-body
-  height: 100% !important;
 </style>
 
