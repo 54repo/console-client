@@ -132,5 +132,5 @@ export const ajaxWalletAddress = () => {
  * 绑定钱包地址
  */
 export const ajaxBindAddress = (data) => {
-	return fetch(baseUrl + '/api/eth/bindAddress/', data);
+	return fetch(baseUrl + '/api/eth/bindAddress/', data, 'POST');
 };
