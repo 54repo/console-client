@@ -88,7 +88,10 @@ export default {
         new_eth_address
       }).then(res => {
         if (res.code === 200) {
-          Message("bind sucdess");
+          Message({
+						type: 'success',
+						message: "bind success"
+					});
           this.getWalletAddress();
         } else {
           Message({

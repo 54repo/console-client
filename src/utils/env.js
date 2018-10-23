@@ -16,6 +16,7 @@ let apiUrl = '';
 
 if (process.env.NODE_ENV == 'development') {
 	baseUrl = 'http://localhost:8000';
+	baseUrl = 'http://localhost:7001';
     imgBaseUrl = '/img/';
 }else if(process.env.NODE_ENV == 'production'){
 	apiUrl = 'http://203.76.212.73:7001'; 
