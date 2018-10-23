@@ -122,3 +122,15 @@ export const ajaxRecommendInfo = (data) => {
 export const ajaxRecommendCount = (data) => {
 	return fetch(baseUrl + '/api/user/get_recommend_count/');
 };
+/**
+ * 获取钱包绑定地址
+ */
+export const ajaxWalletAddress = () => {
+	return fetch(baseUrl + '/api/eth/getAddress/');
+};
+/**
+ * 绑定钱包地址
+ */
+export const ajaxBindAddress = (data) => {
+	return fetch(baseUrl + '/api/eth/bindAddress/', data);
+};

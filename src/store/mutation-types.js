@@ -21,4 +21,5 @@ export const GET_ALL_RENVUE = 'GET_ALL_RENVUE';
 // 邀请
 export const GET_RECOMMEND_INFO = 'GET_RECOMMEND_INFO';  //获取邀请链接
 export const GET_RECOMMEND_COUNT = 'GET_RECOMMEND_COUNT';  //获取邀请人数
-
+// 地址绑定
+export const GET_WALLET_ADDRESS = 'GET_WALLET_ADDRESS';  //绑定eth地址

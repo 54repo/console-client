@@ -20,6 +20,8 @@ import {
   // 硬件列表
   GET_HARDLIST,
   ACCOUNT_LASTDAY_REVENUE,
+  // eth地址绑定
+  GET_WALLET_ADDRESS,
 } from './mutation-types.js'
 
 // import {setStore, getStore} from '../config/mUtils'
@@ -109,5 +111,10 @@ export default {
   [GET_HARDLIST](state, hardList) {
     state.hardList = hardList;
     // state.hardList =  Object.assign({}, state.hardList);
+  },
+  //  ETH地址绑定
+  [GET_WALLET_ADDRESS](state, address) {
+    state.wallet.address = address;
+    state.wallet =  Object.assign({}, state.wallet);
   },
 }

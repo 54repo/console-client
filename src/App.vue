@@ -40,4 +40,35 @@ a
   text-decoration:none;
 .bonus-cursor
   cursor: pointer;
+
+.input 
+    width: 200px;
+    height: 28px;
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #dcdfe6;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #000;
+    display: inline-block;
+    font-size: inherit;
+    height: 30px;
+    line-height: 30px;
+    outline: none;
+    padding: 0 10px;
+    -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    font-size: 16px;
+.button
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #15bcad), to(#10b2cb));
+    background-image: linear-gradient(-180deg, #15bcad 2%, #10b2cb 100%);
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    width: 90px;
+    height: 35px;
+    cursor: pointer;
 </style>

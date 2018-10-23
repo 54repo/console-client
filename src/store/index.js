@@ -32,6 +32,9 @@ export default new Vuex.Store({
     recommend: {
       recommendRefer: '', //  用户推荐refer
       count: '' //  用户推荐数
+    },
+    wallet: {
+      address: ''
     }
   },
   mutations,

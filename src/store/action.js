@@ -18,6 +18,8 @@ import {
   ajaxRecommendCount,
   ajaxUnbindHard,
   ajaxNetInfo,
+  ajaxWalletAddress,
+  ajaxBindAddress,
 } from './getData';
 
 import {
@@ -35,6 +37,7 @@ import {
   ACCOUNT_LASTDAY_REVENUE,
   GET_RECOMMEND_INFO,
   GET_RECOMMEND_COUNT,
+  GET_WALLET_ADDRESS,
 } from './mutation-types';
 import router from '../router';
 
@@ -180,5 +183,19 @@ export default {
     } catch (error) {
       commit(GET_RECOMMEND_COUNT, 0);
     }
+  },
+  //  获取用户钱包绑定地址
+  async getWalletAddress({ commit }) {
+    const res = await ajaxWalletAddress();
+    try {
+      commit(GET_WALLET_ADDRESS, res.ret.eth_address);
+    } catch (error) {
+      commit(GET_WALLET_ADDRESS, '');
+    }
+  },
+  //   绑定钱包地址
+  async bindWalletAddress({ commit }, params) {
+    const res = await ajaxBindAddress(params);
+    return res;
   },
 };
