@@ -42,7 +42,9 @@
 			"tips_three": "3. Don't use the exchange's address, which may result in a withdrawal failure and loss of revenue.",
 			"tips_four": "4. Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility."
 		},
-		"sureTips": "Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility."
+		"sureTips": "Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
+		"walletConfirm": "confirm",
+		"walletCancel": "cancel"
   },
   "zn": {
     "bindWalletTitle": "钱包绑定",
@@ -56,7 +58,9 @@
 			"tips_three": "3.请勿使用交易所充值地址，可能会导致提现失败，收益丢失。",
 			"tips_four": "4.请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。"
 		},
-		"sureTips": "请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。"
+		"sureTips": "请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。",
+		"walletConfirm": "确定",
+		"walletCancel": "取消"
   }
 }
 </i18n>
@@ -91,40 +95,29 @@ export default {
   },
   methods: {
     ...mapActions(["getWalletAddress", "bindWalletAddress"]),
-    // 确认绑定钱包
-    // sureBind(text) {
-    //   this.$confirm(text, "提示", {
-    //     confirmButtonText: "sure",
-    //     cancelButtonText: "cancel"
-    //   })
-    //     .then(() => {
-    //       this.bindWallet();
-    //     })
-    //     .catch(() => {
-    //       this.$message({
-    //         type: "info",
-    //         message: "已取消删除"
-    //       });
-    //     });
-    // },
     bindWallet(text) {
+      console.log(this.$i18n.messages);
+
       let { password, new_eth_address } = this;
+
       if (!password || !new_eth_address) {
         Message("no password or no new_eth_address");
         return;
       }
+
       if (password.length < 6) {
         Message("password length should bigger than 6");
         return;
       }
+
       if (new_eth_address.length !== 42) {
         Message("new wallet address is error");
         return;
       }
 
-      this.$confirm(text, "提示", {
-        confirmButtonText: "sure",
-        cancelButtonText: "cancel"
+      this.$confirm(text, {
+        confirmButtonText: this.$t("walletConfirm"),
+        cancelButtonText: this.$t("walletCancel")
       })
         .then(() => {
           this.bindWalletAddress({
@@ -146,7 +139,7 @@ export default {
           });
         })
         .catch(() => {
-					console.log('cancel')
+          console.log("cancel");
         });
     }
   }
@@ -224,7 +217,8 @@ body {
 	line-height: 30px;
 }
 
-.home 
+.home {
 	height: auto;
+}
 </style>
 
