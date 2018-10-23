@@ -146,7 +146,7 @@ export default {
   height: 40px;
 .change-content .key
   font-size: 16px;
-  color: #343739;
+  color: #96999b;
   text-align: right;
   line-height: 42px;
 .change-item-value
@@ -174,7 +174,7 @@ export default {
   font-size: 14px;
   color: #FFFFFF;
   text-align: center;
-  line-height: 30px;
+  line-height: 35px;
   width: 90px;
   height: 35px;
 
