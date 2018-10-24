@@ -44,7 +44,6 @@ export default {
     this.getInviteCodeStatus();
     // 获取用户信息
     this.getUserInfo();
-    console.log(this.$router.path)
   },
   methods: {
     ...mapActions(["getInviteCodeStatus", "getUserInfo"])

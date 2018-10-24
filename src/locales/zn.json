@@ -7,7 +7,7 @@
       "loginButton": "登录", 
       "redirectForget": "忘记密码", 
       "redirectSign": "注册",
-      "loginSuccessTip": "登陆成功。"
+      "loginSuccessTip": "登录成功。"
   },
   "register": {
     "registerTitle": "用户注册", 

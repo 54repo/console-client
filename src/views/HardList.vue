@@ -3,7 +3,7 @@
 		<HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
 			<BasiceLayout :title="$t('hardListLayoutTitile')">
 				<div class="hardware-content">
-					<el-table :data="hardList" align="left" empty-text="Loading" style="width: 100%">
+					<el-table v-if="hardList && hardList !== 'NO_CONTENT'" :data="hardList" align="left" empty-text="Loading..." style="width: 100%">
             <!-- mac address -->
 						<el-table-column prop="mac_address" :label="$t('macAddress')">
 						</el-table-column>
@@ -30,6 +30,8 @@
 								<div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">解绑</div>
 							</template>
 						</el-table-column>
+					</el-table>
+					<el-table v-if ="hardList === 'NO_CONTENT'" :empty-text="$t('noHardwareTip')" style="width: 100%">
 					</el-table>
 				</div>
 			</BasiceLayout>
@@ -60,7 +62,8 @@
 		"date": "The Binding Date(UTC)",
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
-    "netStatus": "Status"
+    "netStatus": "Status",
+    "noHardwareTip": "No Device"
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -69,7 +72,8 @@
 		"date": "绑定时间(UTC)",
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
-    "netStatus": "在线状态"
+    "netStatus": "在线状态",
+    "noHardwareTip": "硬件列表为空"
   }
 }
 </i18n>
@@ -106,7 +110,7 @@ export default {
   },
   computed: mapState({
     hardList(state) {
-      if (state.hardList.length > 0) {
+      if (state.hardList.length > 0 && state.hardList !== 'NO_CONTENT') {
         let hardList = state.hardList;
         hardList.map(val => {
           if (val.bind_at) {
@@ -119,7 +123,7 @@ export default {
         });
         return hardList;
       } else {
-        return [];
+        return 'NO_CONTENT';
       }
     },
     // 验证码地址

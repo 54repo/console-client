@@ -1,8 +1,8 @@
 <template>
   <div class="bonus-list">
 			<span class="title">{{ $t('title') }}</span>
-      <el-table
-        empty-text="No BCode"
+      <el-table v-if="codeList !== 'NO_CONTENT'"
+        empty-text="Loading"
         :data="codeList || []"
         height="410px"
         style="width: 100%">
@@ -12,6 +12,10 @@
           :label="totalText">
         </el-table-column>
       </el-table>
+      <el-table v-if=" codeList === 'NO_CONTENT'"
+        :empty-text="$t('noCodeTip')"
+        height="410px"
+        style="width: 100%"></el-table>
       <!-- <div class="down-list" v-if="codeList.length > 8" @click="scroll"><i class="el-icon-caret-bottom"></i></div> -->
   </div>
 </template>
@@ -28,11 +32,6 @@ export default {
   props: {
     codeList: ""
   },
-  methods: {
-    scroll() {
-      console.log(11)
-    }
-  }
 };
 </script>
 
@@ -77,10 +76,12 @@ export default {
 <i18n>
 {
   "en": {
-    "title": "The valid BonusCode for the current account binding (Invalid after use):"
+    "title": "The valid BonusCode for the current account binding (Invalid after use):",
+    "noCodeTip": "No BonusCode"
   },
   "zn": {
-    "title": "当前账号绑定的有效BonusCode（使用后失效）:"
+    "title": "当前账号绑定的有效BonusCode（使用后失效）:",
+    "noCodeTip": "暂无BonusCode"
   }
 }
 </i18n>

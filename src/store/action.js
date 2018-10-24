@@ -22,6 +22,8 @@ import {
   ajaxBindAddress,
 } from './getData';
 
+const NO_CONTENT = "NO_CONTENT";
+
 import {
   LOGIN_IN,
   // ABLE_LOGIN,
@@ -92,9 +94,14 @@ export default {
   async getAbleList({ commit }, params) {
     const res = await ajaxGetAbleList(params);
     try {
-      commit(GET_ABLE_LIST, res.ret.list);
+      if (res.ret.list && res.ret.list.length) {
+        commit(GET_ABLE_LIST, res.ret.list);
+      } else {
+        commit(GET_ABLE_LIST, NO_CONTENT);
+      }
+
     } catch (error) {
-      commit(GET_ABLE_LIST, []);
+      commit(GET_ABLE_LIST, NO_CONTENT);
     }
   },
   // 领取邀请码
@@ -137,10 +144,11 @@ export default {
         }));
         let list = Object.values(results);
         commit(GET_HARDLIST, list);
-
+      } else {
+        commit(GET_HARDLIST, NO_CONTENT);
       }
     } catch (error) {
-      commit(GET_HARDLIST, []);
+      commit(GET_HARDLIST, NO_CONTENT);
     }
     return res;
   },
