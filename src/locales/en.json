@@ -6,7 +6,8 @@
       "PWPlaceHolder": "Password", 
       "loginButton": "Login", 
       "redirectForget": "Forgot Password", 
-      "redirectSign": "Sign Up"
+      "redirectSign": "Sign Up",
+      "loginSuccessTip": "login success"
   },
   "register": {
     "registerTitle": "Sign Up", 

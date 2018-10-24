@@ -98,7 +98,7 @@ export default {
       this.login({ email: inputEmail, password: inputPassword }).then(res => {
         if (res.code === 200) {
           Message({
-            message: "login success",
+            message: this.$t('login.loginSuccessTip'),
             type: "success"
           });
           setTimeout(() => {

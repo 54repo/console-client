@@ -6,8 +6,7 @@
 					<!-- 绑定钱包内容展示 -->
 					<div v-if="address && (address !== 'NO_ADDRESS')">
 						<div class="wallet-bind-title">{{$t('walletText')}}：</div>
-						<el-tag id="walletDetail">{{address === '' }}</el-tag>
-						<el-tag id="walletDetail">{{address === '' }}</el-tag>
+						<el-tag id="walletDetail">{{address}}</el-tag>
 					</div>
 					<div v-if="address === 'NO_ADDRESS'">
 						<div class="wallet-wrap">

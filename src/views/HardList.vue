@@ -3,7 +3,7 @@
 		<HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
 			<BasiceLayout :title="$t('hardListLayoutTitile')">
 				<div class="hardware-content">
-					<el-table :data="hardList" align="left" empty-text="-" style="width: 100%">
+					<el-table :data="hardList" align="left" empty-text="Loading" style="width: 100%">
             <!-- mac address -->
 						<el-table-column prop="mac_address" :label="$t('macAddress')">
 						</el-table-column>
