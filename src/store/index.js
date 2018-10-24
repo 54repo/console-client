@@ -23,7 +23,7 @@ export default new Vuex.Store({
       status: false, //邀请码是否可领取状态
       codeList: '', //邀请list
     },
-    hardList: '',  //硬件列表
+    hardList: [],  //硬件列表
     revenue: {
       inviteRevenue: '', // 邀请收益
       accountRevenue: '', // 个人收益

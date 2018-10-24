@@ -3,7 +3,7 @@
 		<HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
 			<BasiceLayout :title="$t('hardListLayoutTitile')">
 				<div class="hardware-content">
-					<el-table v-if="hardList && hardList !== 'NO_CONTENT'" :data="hardList" align="left" empty-text="Loading..." style="width: 100%">
+					<el-table v-if="hardList !== 'NO_CONTENT'" :data="hardList" align="left" empty-text="Loading..." style="width: 100%">
             <!-- mac address -->
 						<el-table-column prop="mac_address" :label="$t('macAddress')">
 						</el-table-column>
@@ -122,8 +122,10 @@ export default {
           }
         });
         return hardList;
+      } else if (state.hardList === 'NO_CONTENT') {
+        return state.hardList ;
       } else {
-        return 'NO_CONTENT';
+        return [];
       }
     },
     // 验证码地址
