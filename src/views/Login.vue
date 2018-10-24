@@ -72,15 +72,14 @@ export default {
   }),
   methods: {
     ...mapActions(["login"]),
-    // ...mapMutations(["DISABLE_LOGIN"]),
     // 登陆
     startLogin() {
       const { inputEmail, inputPassword, isLoginDisable } = this;
       if (isLoginDisable) {
         return true;
       }
-      // 邮箱正则表达式
-      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+      // 邮箱正则表达式-----后续建议提出来统一维护
+      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
       if (emailRule.test(inputEmail)) {
         this.EmailErrorMsg = "";
       } else {

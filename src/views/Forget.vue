@@ -145,8 +145,8 @@ export default {
         return true;
       }
 
-      // 邮箱验证
-      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+      // 邮箱验证-----后续建议提出来统一维护
+      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
       if (emailRule.test(inputEmail)) {
         this.EmailErrMsg = "";
       } else {

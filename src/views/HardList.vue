@@ -3,14 +3,21 @@
 		<HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
 			<BasiceLayout :title="$t('hardListLayoutTitile')">
 				<div class="hardware-content">
-					<el-table :data="hardList" align="left" empty-text="empty hardList" style="width: 100%">
+					<el-table :data="hardList" align="left" empty-text="-" style="width: 100%">
+            <!-- mac address -->
 						<el-table-column prop="mac_address" :label="$t('macAddress')">
 						</el-table-column>
-						<el-table-column prop="bind_at" :label="$t('date')" align='center'>
+            <!-- 绑定时间 -->
+						<el-table-column prop="bind_at" empty-text="-" :label="$t('date')" align='center'>
 						</el-table-column>
-						<!-- <el-table-column prop="bcode" :label="$t('code')">
-						</el-table-column> -->
-						<el-table-column prop="ip" label="IP" align='center'></el-table-column>
+            <!-- IP -->
+						<el-table-column prop="" label="IP" align='center'>
+              <template slot-scope="scope">
+								<div v-if="!scope.row.ip">-</div>
+								<div v-if="scope.row.ip">{{scope.row.ip}}</div>
+							</template>
+            </el-table-column>
+            <!-- 在线状态 -->
 						<el-table-column prop="" :label="$t('netStatus')" align='center'>
 							<template slot-scope="scope">
 								<div v-if="!scope.row.status">-</div>
@@ -50,7 +57,7 @@
 		"layoutTitile": "Hardware List",
 		"hardListLayoutTitile": "Hardware List",
 		"macAddress": "MAC Address",
-		"date": " The Binding Date(UTC)",
+		"date": "The Binding Date(UTC)",
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
     "netStatus": "Status"
@@ -59,7 +66,7 @@
 		"layoutTitile": "硬件列表",
 		"hardListLayoutTitile": "硬件列表",
 		"macAddress": "硬件MAC地址",                                                                    
-		"date": "绑定日期(UTC)",
+		"date": "绑定时间(UTC)",
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
     "netStatus": "在线状态"
@@ -102,9 +109,13 @@ export default {
       if (state.hardList.length > 0) {
         let hardList = state.hardList;
         hardList.map(val => {
-          val.bind_at = moment(new Date(val.bind_at)).format(
-            "YYYY.MM.DD hh:mm:ss"
-          );
+          if (val.bind_at) {
+            val.bind_at = moment(new Date(val.bind_at)).format(
+              "YYYY.MM.DD hh:mm:ss"
+            );
+          } else {
+            val.bind_at = '-';
+          }
         });
         return hardList;
       } else {

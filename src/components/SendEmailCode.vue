@@ -59,7 +59,8 @@ export default {
     ...mapActions(["sendEmailCode"]),
     sendCode() {
       let that = this;
-      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+      // -----后续建议提出来统一维护
+      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
       if (!this.email || !emailRule.test(this.email)) {
         that.$emit("emailCodeTip", {
           type: "email",

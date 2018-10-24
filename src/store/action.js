@@ -188,9 +188,9 @@ export default {
   async getWalletAddress({ commit }) {
     const res = await ajaxWalletAddress();
     try {
-      commit(GET_WALLET_ADDRESS, res.ret.eth_address);
+      commit(GET_WALLET_ADDRESS, res.ret.eth_address || 'NO_ADDRESS');
     } catch (error) {
-      commit(GET_WALLET_ADDRESS, '');
+      commit(GET_WALLET_ADDRESS, 'NO_ADDRESS');
     }
   },
   //   绑定钱包地址

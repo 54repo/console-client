@@ -71,4 +71,7 @@ a
     width: 90px;
     height: 35px;
     cursor: pointer;
+.loading
+  color: #909399;
+  line-height: 30px;
 </style>

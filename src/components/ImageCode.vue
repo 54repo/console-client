@@ -24,8 +24,8 @@
 <script>
 import { mapActions } from "vuex";
 import { baseUrl } from '../utils/env';
-const imageSrc = (process.env.NODE_ENV === 'development') ? 'http://203.76.212.73:7001/api/web/captcha/get/' : '/api/web/captcha/get/';
-
+let imageSrc = (process.env.NODE_ENV === 'development') ? 'http://localhost:8080/api/web/captcha/get/' : '/api/web/captcha/get/';
+imageSrc += "?" + new Date().getTime();
 
 export default {
   name: "ImageCode",

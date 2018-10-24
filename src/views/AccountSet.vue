@@ -172,9 +172,11 @@ export default {
   font-family: PingFangSC-Regular;
   font-size: 14px;
   color: #FFFFFF;
-  text-align: center;
+  text-align: center;    
   line-height: 35px;
   width: 90px;
   height: 35px;
+.home
+  height: 100%!important;
 </style>
 
