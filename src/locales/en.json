@@ -22,7 +22,7 @@
     "redirectLogin": "Login"
   },
   "header": {
-    "dataPanel": "Date Panel",
+    "dataPanel": "Data Panel",
     "accountSetting": "Account Setting",
     "logout": "Logout",
     "hardware": "My Hardware"

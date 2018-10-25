@@ -5,13 +5,13 @@
       <el-col :span="4">
         <h5 class="panel-wrap">{{$t('account_set_menu')}}</h5>
         <el-menu class="bonus-menu" background-color="#0A0E22" text-color="#989AA2" active-text-color="#fff" router="router">
-          <el-menu-item index="1" route="/accountSet" class="home-page-wrap" v-bind:class="{ isActive: (thisPath === '/accountSet') }">
-            <img class="menu-icon home-icon" src="../../assets/accountSet/account-set.png">
-            <span slot="title">{{$t('account_set_1')}}</span>
-          </el-menu-item>
           <el-menu-item index="2" route="/bindWallet" v-bind:class="{ isActive: (thisPath === '/bindWallet') }">
             <img class="menu-icon home-icon" src="../../assets/accountSet/wallet-bind.png">
             <span slot="title">{{$t('account_set_2')}}</span>
+          </el-menu-item>
+          <el-menu-item index="1" route="/accountSet" class="home-page-wrap" v-bind:class="{ isActive: (thisPath === '/accountSet') }">
+            <img class="menu-icon home-icon" src="../../assets/accountSet/account-set.png">
+            <span slot="title">{{$t('account_set_1')}}</span>
           </el-menu-item>
         </el-menu>
       </el-col>

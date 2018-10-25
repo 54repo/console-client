@@ -21,8 +21,8 @@
               {{ $t('header.hardware') }}
             </div>
           </router-link>
-          <router-link to="/accountSet">
-            <div class="account-settings header-each-tab" v-bind:class="{opacityPercent:  !(thisPath === '/accountSet')  }">
+          <router-link to="/bindWallet">
+            <div class="account-settings header-each-tab" v-bind:class="{opacityPercent:  !(thisPath === '/bindWallet' || thisPath === '/accountSet')  }">
               <img  class="menu-icon home-icon" src="../assets/home/account-setting.png" >            
               {{ $t('header.accountSetting') }}
             </div>
