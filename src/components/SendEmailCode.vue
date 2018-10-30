@@ -1,6 +1,6 @@
 /** 登录框组件 **/
 <template>
-  <div class="BasicInput">
+  <div class="BasicInput"  v-bind:class="imageStyle">
     <div v-if="iconType" class="icon-wrap">
       <div  v-bind:class="iconType" class="icon"></div>
     </div>
@@ -40,7 +40,6 @@ export default {
     imageStyle: '', //绑定页面特定样式
 
     ticket: '',
-
     csnonce: ''
 
   },
@@ -202,7 +201,12 @@ input.basic-input {
   position: absolute;
   right: 5px;
   line-height: 30px;
+
+
 .unbind-style.send-code
   line-height: 42px
+
+.unbind-style input.basic-input
+  height: 40px
 </style>
 

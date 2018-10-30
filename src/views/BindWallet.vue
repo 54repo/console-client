@@ -16,20 +16,16 @@
 						<div class="wallet-wrap captcha-bind-wrap">
 							<span class="key">{{$t('imageVerCode')}}:</span>
 							<div class="hard-captcha">
-								<div id="TCaptcha" style="width:250px;height:20px;"></div>
+								<div id="TCaptcha" style="width:270px;height:30px;"></div>
 							</div>
 							<!-- <ImageCode imageStyle="" type="text" v-model="inputImageCode" class="wallet-image-code"></ImageCode> -->
 						</div>
-						<div class="wallet-wrap">
+						<div class="wallet-wrap email-bind-wrap">
 							<span class="key">{{$t('emailCode')}}:</span>
 							<div class="wallet-email">
-								<SendEmailCode type="text" v-model="inputEmailCode" needImageCode=true :imageCode="inputImageCode" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+								<SendEmailCode type="text" imageStyle="unbind-style" v-model="inputEmailCode" needImageCode=true :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
 							</div>
 						</div>
-						<!-- <div class="wallet-wrap">
-							<span class="key">{{$t('inputPasswordText')}}:</span>
-							<input type="password" class="input wallet-input" v-model="password">
-						</div> -->
 						<div class="button wallet-bind" @click="bindWallet( $t('sureTips') )">确定</div>
 					</div>
 				</div>
@@ -160,7 +156,7 @@ export default {
       console.log(this.$i18n.messages)
 
       // let { password, new_eth_address } = this;
-      let { inputImageCode, inputEmailCode, new_eth_address } = this
+      let { inputEmailCode, new_eth_address } = this
 
       if (!ticket || !inputEmailCode || !new_eth_address) {
         Message(this.$t('errorTipsAboutBind'))
@@ -178,7 +174,6 @@ export default {
       })
         .then(() => {
           this.bindWalletAddress({
-            inputImageCode,
             new_eth_address,
             emailVerifyCode: inputEmailCode
           }).then(res => {
@@ -214,13 +209,16 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style scoped lang="stylus">
+.hard-captcha
+	height: 40px;
 .captcha-bind-wrap
 	position: relative
 .captcha-bind-wrap .key
 	position: absolute;
 	top: 0;
 	left: 0;
+	line-height 40px;
 .hard-captcha
 	display: inline-block;
 	padding-left: 200px;
@@ -237,6 +235,7 @@ export default {
 
 .wallet-wrap {
 	width: 100%;
+	position relative;
 	margin: 20px 0 30px;
 }
 
@@ -245,6 +244,11 @@ export default {
 	width: 200px;
 	color: #96999b;
 }
+
+.email-bind-wrap .wallet-email
+	position: absolute;
+	top: 0;
+	left: 200px
 
 .wallet-content #walletDetail {
 	font-size: 18px;

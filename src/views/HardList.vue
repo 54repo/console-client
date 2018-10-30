@@ -27,7 +27,7 @@
             </el-table-column>
             <el-table-column label="" align='right'>
               <template slot-scope="scope">
-                <div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">解绑</div>
+                <div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">{{$t('unbindButton')}}</div>
               </template>
             </el-table-column>
           </el-table>
@@ -66,6 +66,7 @@
 		"totalTime": "Total Online Time",
     "netStatus": "Status",
     "noHardwareTip": "No Device",
+    "unbindButton": "unbind",
     "dialog": {
       "cancel": "Cancel",
       "sure": "Sure",
@@ -83,6 +84,7 @@
 		"totalTime": "累计在线时长",
     "netStatus": "在线状态",
     "noHardwareTip": "硬件列表为空",
+    "unbindButton": "解绑",
     "dialog": {
       "cancel": "取 消",
       "sure": "确 定",
