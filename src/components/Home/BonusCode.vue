@@ -1,40 +1,36 @@
 <template>
   <!-- <div class=" annouce-content"> -->
-	<div class="BonusCode">
-		<BasiceLayout title="BonusCode" class="bonus-code-layout"> 
+  <div class="BonusCode">
+    <BasiceLayout title="BonusCode" class="bonus-code-layout">
       <el-row>
-        <el-col :span="12"><div class="grid-content bg-purple">
-          <el-alert
-            :closable="false"
-            :title="$t('bonusTips')"
-            type="error"
-            center>
-          </el-alert>
-          <div class="active-wrap">
-            <span>{{ $t('bonusGet') }}</span>
-            <ImageCode imageStyle="home-bcode" type="text" v-model="inputImageCode" class="home-image-code account-input forget-code" :placeValue="$t('imagePlaceVaule')"></ImageCode>
-            <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }"  v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('getText')}}</div>
+        <el-col :span="12">
+          <div class="grid-content bg-purple">
+            <el-alert :closable="false" :title="$t('bonusTips')" type="error" center>
+            </el-alert>
+            <div class="active-wrap">
+              <span>{{ $t('bonusGet') }}</span>
+              <div class="captcha_wrap">
+                <div id="TCaptcha" style="width:100%;height:20px;"></div>
+              </div>
+              <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('getText')}}</div>
+            </div>
+            <div class="count-time">
+              <span class="key">{{ $t('nextTimeText') }}</span>
+              <span class="minute">{{showA}}</span>
+              <span class="fh">:</span>
+              <span class="seconds">{{showB}}</span>
+            </div>
           </div>
-          <div class="count-time">
-            <span class="key">{{ $t('nextTimeText') }}</span>
-            <span class="minute">{{showA}}</span>
-            <span class="fh">:</span>
-            <span class="seconds">{{showB}}</span>
+          <!-- bcode规则 -->
+          <div class="get-rule">
+            <div>
+              <h4>{{ $t('ruleTip.title') }}</h4>
+            </div>
+            <div>{{ $t('ruleTip.rule1') }}</div>
+            <div>{{ $t('ruleTip.rule2') }}</div>
+            <div>{{ $t('ruleTip.rule3') }}</div>
+            <div class="tele">{{ $t('ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor" :href="$t('ruleTip.teleUrl')">{{ $t('ruleTip.teleButton') }}</a></div>
           </div>
-        </div>
-        <!-- bcode规则 -->
-        <div class="get-rule">
-          <div><h4>{{ $t('ruleTip.title') }}</h4></div>
-          <div>{{ $t('ruleTip.rule1') }}</div>
-          <div>{{ $t('ruleTip.rule2') }}</div>
-          <div>{{ $t('ruleTip.rule3') }}</div>
-          <div class="tele">{{ $t('ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor" :href="$t('ruleTip.teleUrl')">{{ $t('ruleTip.teleButton') }}</a></div>
-        </div>
-        <!-- 加入telegram -->
-         <!-- <div class="tele-wrap">
-          <span>{{ $t('ruleTip.joinTele') }}</span>
-          
-        </div> -->
         </el-col>
         <el-col :span="12">
           <CodeList :codeList="codeList"></CodeList>
@@ -47,7 +43,6 @@
 
 <script>
 import BasiceLayout from "@/components/Common/BasicLayout.vue";
-import ImageCode from "@/components/ImageCode.vue";
 import CodeList from "@/components/Home/CodeList.vue";
 import { mapState, mapActions } from "vuex";
 import { Message } from "element-ui";
@@ -60,7 +55,6 @@ export default {
   components: {
     BasiceLayout,
     CodeList,
-    ImageCode,
   },
   data() {
     return {
@@ -68,16 +62,24 @@ export default {
       timeSeconds: "", // 倒计时秒数
       showA: "",
       showB: "",
-      inputImageCode: "",
+
+      ticket: "", // 验证码ticket
+      csnonce: ""
     };
   },
 
   watch: {
     timeMinutes: function(val) {
-     this.showA = this.timeMinutes.toString().length > 1 ? this.timeMinutes : '0' + this.timeMinutes.toString();
+      this.showA =
+        this.timeMinutes.toString().length > 1
+          ? this.timeMinutes
+          : "0" + this.timeMinutes.toString();
     },
     timeSeconds: function(val) {
-      this.showB = this.timeSeconds.toString().length > 1 ? this.timeSeconds : '0' + this.timeSeconds.toString();
+      this.showB =
+        this.timeSeconds.toString().length > 1
+          ? this.timeSeconds
+          : "0" + this.timeSeconds.toString();
     }
   },
   computed: mapState({
@@ -86,14 +88,19 @@ export default {
       // 10个激活码不可领取
       return state.inviteCode.status && state.inviteCode.codeList.length < 10;
     },
-    codeList: state => state.inviteCode.codeList,
+    codeList: state => state.inviteCode.codeList
   }),
   mounted() {
     this.countTime();
     this.getAbleList();
   },
   methods: {
-    ...mapActions(["getInviteCode", "getAbleList"]),
+    ...mapActions([
+      "getInviteCode",
+      "getAbleList",
+      "getVertifUrl",
+      "sendEmailCode_v2"
+    ]),
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
       let EACH_HOUR_SECONDS = 60 * 60;
@@ -115,18 +122,19 @@ export default {
     },
     // 领取 邀请码
     clickInviteCode() {
-      if (this.inviteStatus || this.$route.query.debug ) {
+      if (this.inviteStatus || this.$route.query.debug) {
         // 校验验证码
-        if (!this.inputImageCode) {
-          Message("Please input the image verfication code");
+        if (!this.ticket) {
+          Message("Please complete the image verfication code");
           return false;
         }
         // 领取邀请码
         this.getInviteCode({
-          captcha: this.inputImageCode
+          // captcha: this.inputImageCode
+          ticket: this.ticket,
+          csnonce: this.csnonce
         }).then(res => {
           try {
-
             if (res.message === "getSuccess") {
               Message({
                 type: "success",
@@ -143,16 +151,47 @@ export default {
         });
       }
     }
+  },
+  // 加载验证码
+  created() {
+    this.getVertifUrl().then(res => {
+      this.csnonce = res.data.csnonce;
+      var newScript = document.createElement("script");
+      newScript.type = "text/javascript";
+      newScript.src = res.data.url;
+      document.body.appendChild(newScript);
+      let that = this;
+
+      setTimeout(() => {
+        var capOption = { callback: cbfn, themeColor: "15bcad" };
+        capInit(document.getElementById("TCaptcha"), capOption);
+        //回调函数：验证码页面关闭时回调
+        function cbfn(retJson) {
+          if (retJson.ret == 0) {
+            that.ticket = retJson.ticket;
+            // that.sendCode();
+            // 用户验证成功
+          } else {
+            //用户关闭验证码页面，没有验证
+          }
+        }
+      }, 1000);
+    });
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style   lang="stylus">
+.captcha_wrap
+  width: 290px;
+  height: 40px;
+  margin: 20px 0 20px 20px;
 .home-image-code {
   margin: 20px 20px 20px;
   max-width: 300px;
 }
+
 .bonus-code-layout {
   margin-top: 20px;
   font-size: 14px;
@@ -201,8 +240,9 @@ export default {
   margin-left: 20px;
 }
 
-.minute
-  margin-left: 10px
+.minute {
+  margin-left: 10px;
+}
 
 .minute, .seconds {
   display: inline-block;
@@ -220,8 +260,9 @@ export default {
   background: #D0D0D0;
 }
 
-.get-rule
-  font-size; 14px
+.get-rule {
+  font-size;
+  14px;
   color: #909399;
   width: 80%;
   padding: 8px 16px;
@@ -235,18 +276,25 @@ export default {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-transition: opacity .2s;
-  transition: opacity .2s;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
   background-color: #f4f4f5;
   color: #909399;
-  line-height 22px
-.get-rule .tele
-  margin-top: 10px
-.get-rule h4
-  display: inline-block
-  margin-bottom: 10px
-.join-tele 
+  line-height: 22px;
+}
+
+.get-rule .tele {
+  margin-top: 10px;
+}
+
+.get-rule h4 {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.join-tele {
   color: #0db4c5;
+}
 </style>
 
 <i18n>

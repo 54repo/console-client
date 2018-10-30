@@ -21,6 +21,12 @@ export const ajaxEmailCode = (data) => {
 	return fetch(baseUrl + '/api/web/email/verification/', data, 'POST');
 };
 /**
+ * 发送邮箱验证码
+ */
+export const ajaxEmailCode_v2 = (data) => {
+	return fetch(baseUrl + '/api/web/email/verification_v2/', data, 'POST');
+};
+/**
  * 注册
  */
 export const signUp = (data) => {
@@ -133,4 +139,10 @@ export const ajaxWalletAddress = () => {
  */
 export const ajaxBindAddress = (data) => {
 	return fetch(baseUrl + '/api/eth/bindAddress/', data, 'POST');
+};
+/**
+ * 获取验证码js地址
+ */
+export const ajaxVertifUrl = (data) => {
+	return fetch(baseUrl + '/api/web/captcha/get_v2/', data, 'POST');
 };

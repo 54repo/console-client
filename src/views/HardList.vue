@@ -1,56 +1,59 @@
 <template>
-	<div class="home">
-		<HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
-			<BasiceLayout :title="$t('hardListLayoutTitile')">
-				<div class="hardware-content">
-					<el-table v-if="hardList !== 'NO_CONTENT'" :data="hardList" align="left" empty-text="Loading..." style="width: 100%">
+  <div class="home">
+    <HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
+      <BasiceLayout :title="$t('hardListLayoutTitile')">
+        <div class="hardware-content">
+          <el-table v-if="hardList !== 'NO_CONTENT'" :data="hardList" align="left" empty-text="Loading..." style="width: 100%">
             <!-- mac address -->
-						<el-table-column prop="mac_address" :label="$t('macAddress')">
-						</el-table-column>
+            <el-table-column prop="mac_address" :label="$t('macAddress')">
+            </el-table-column>
             <!-- 绑定时间 -->
-						<el-table-column prop="bind_at" empty-text="-" :label="$t('date')" align='center'>
-						</el-table-column>
+            <el-table-column prop="bind_at" empty-text="-" :label="$t('date')" align='center'>
+            </el-table-column>
             <!-- IP -->
-						<el-table-column prop="" label="IP" align='center'>
+            <el-table-column prop="" label="IP" align='center'>
               <template slot-scope="scope">
-								<div v-if="!scope.row.ip">-</div>
-								<div v-if="scope.row.ip">{{scope.row.ip}}</div>
-							</template>
+                <div v-if="!scope.row.ip">-</div>
+                <div v-if="scope.row.ip">{{scope.row.ip}}</div>
+              </template>
             </el-table-column>
             <!-- 在线状态 -->
-						<el-table-column prop="" :label="$t('netStatus')" align='center'>
-							<template slot-scope="scope">
-								<div v-if="!scope.row.status">-</div>
-								<el-tag v-if="scope.row.status === 'online'" type="success">online</el-tag>
-								<el-tag v-if="scope.row.status === 'offline'" type="danger">offline</el-tag>
-							</template>
-						</el-table-column>
-						<el-table-column label="" align='right'>
-							<template slot-scope="scope">
-								<div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">解绑</div>
-							</template>
-						</el-table-column>
-					</el-table>
-					<el-table v-if ="hardList === 'NO_CONTENT'" :empty-text="$t('noHardwareTip')" style="width: 100%">
-					</el-table>
-				</div>
-			</BasiceLayout>
-		</HardwareLayout>
-		<el-dialog title="Confirm Unbinding" :visible.sync="showUnbindDialog" width="480px" center>
-			<div class="unbind-dialog-wrap">
-				<span class="key">Image Verfication Code</span>
-				<ImageCode imageStyle="unbind-style" type="text" v-model="inputImageCode" class="unbind-input forget-code"></ImageCode>
-			</div>
-			<div class="unbind-dialog-wrap">
-				<span class="key">Email Verfication Code</span>
-				<SendEmailCode type="text" imageStyle="unbind-style" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :imageCode="inputImageCode" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
-			</div>
-			<span slot="footer" class="dialog-footer">
-				<div class="sure-unbind button" @click="showUnbindDialog = false">取 消</div>
-				<div class="sure-unbind button" type="primary" @click="unbind">确 定</div>
-			</span>
-		</el-dialog>
-	</div>
+            <el-table-column prop="" :label="$t('netStatus')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="!scope.row.status">-</div>
+                <el-tag v-if="scope.row.status === 'online'" type="success">online</el-tag>
+                <el-tag v-if="scope.row.status === 'offline'" type="danger">offline</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="" align='right'>
+              <template slot-scope="scope">
+                <div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">解绑</div>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-table v-if="hardList === 'NO_CONTENT'" :empty-text="$t('noHardwareTip')" style="width: 100%">
+          </el-table>
+        </div>
+      </BasiceLayout>
+    </HardwareLayout>
+    <el-dialog title="Confirm Unbinding" :visible.sync="showUnbindDialog" width="480px" center>
+      <div class="unbind-dialog-wrap">
+        <span class="key">Image Verfication Code</span>
+        <div class="hard-captcha">
+          <div id="TCaptcha" style="width:100%;height:20px;"></div>
+        </div>
+        <!-- <ImageCode imageStyle="unbind-style" type="text" v-model="inputImageCode" class="unbind-input forget-code"></ImageCode> -->
+      </div>
+      <div class="unbind-dialog-wrap">
+        <span class="key">Email Verfication Code</span>
+        <SendEmailCode type="text" imageStyle="unbind-style"  :csnonce="csnonce" :ticket="ticket" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true  :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <div class="sure-unbind button" @click="showUnbindDialog = false">取 消</div>
+        <div class="sure-unbind button" type="primary" @click="unbind">确 定</div>
+      </span>
+    </el-dialog>
+  </div>
 </template>
 
 <i18n>
@@ -86,7 +89,8 @@ import BasiceLayout from "@/components/Common/BasicLayout.vue";
 import AccountSetLayout from "@/components/AccountSet/AccountSetLayout.vue";
 import HardwareLayout from "@/components/Hardware/HardwareLayout.vue";
 // import UnBindDialog from "@/components/AccountSet/HardList/UnBindDialog.vue";
-import ImageCode from "@/components/ImageCode.vue";
+// import EmailCodeWithTx from "@/components/EmailCodeWithTx.vue";
+// import ImageCode from "@/components/ImageCode.vue";
 import SendEmailCode from "@/components/SendEmailCode.vue";
 import moment from "moment";
 import { Message } from "element-ui";
@@ -96,21 +100,24 @@ export default {
   components: {
     BasiceLayout,
     AccountSetLayout,
-    ImageCode,
+    // ImageCode,
     SendEmailCode,
     HardwareLayout
+    // EmailCodeWithTx,
   },
   data() {
     return {
       unbindId: "", //解绑Id
       showUnbindDialog: false, // 绑定弹框展示
       inputEmailCode: "", //输入的邮件码
-      inputImageCode: "" // 图片验证码
+      // inputImageCode: "" // 图片验证码
+      ticket: "", // 验证码ticket
+      csnonce: "" //整数
     };
   },
   computed: mapState({
     hardList(state) {
-      if (state.hardList.length > 0 && state.hardList !== 'NO_CONTENT') {
+      if (state.hardList.length > 0 && state.hardList !== "NO_CONTENT") {
         let hardList = state.hardList;
         hardList.map(val => {
           if (val.bind_at) {
@@ -118,12 +125,12 @@ export default {
               "YYYY.MM.DD hh:mm:ss"
             );
           } else {
-            val.bind_at = '-';
+            val.bind_at = "-";
           }
         });
         return hardList;
-      } else if (state.hardList === 'NO_CONTENT') {
-        return state.hardList ;
+      } else if (state.hardList === "NO_CONTENT") {
+        return state.hardList;
       } else {
         return [];
       }
@@ -133,7 +140,7 @@ export default {
     email: state => state.account.email
   }),
   methods: {
-    ...mapActions(["getHardList", "unbindHard"]),
+    ...mapActions(["getHardList", "unbindHard", "getVertifUrl"]),
     change() {
       console.log(this.oldPw);
       this.changePw({
@@ -187,65 +194,91 @@ export default {
 
   created() {
     this.getHardList();
+    this.getVertifUrl().then(res => {
+      this.csnonce = res.data.csnonce;
+      var newScript = document.createElement("script");
+      newScript.type = "text/javascript";
+      newScript.src = res.data.url;
+      document.body.appendChild(newScript);
+      let that = this;
+
+      setTimeout(() => {
+        var capOption = { callback: cbfn, themeColor: "15bcad" };
+        capInit(document.getElementById("TCaptcha"), capOption);
+        //回调函数：验证码页面关闭时回调
+        function cbfn(retJson) {
+          if (retJson.ret == 0) {
+            that.ticket = retJson.ticket;
+            // that.sendCode();
+            // 用户验证成功
+          } else {
+            //用户关闭验证码页面，没有验证
+          }
+        }
+      }, 1000);
+    });
   }
 };
 </script>
 
 <style lang="stylus">
+.hard-captcha
+  width: 100%;
+
 .hardList-content {
-	margin-top: 40px;
+  margin-top: 40px;
 }
 
 .unbind-button {
-	background: #f56c6c;
-	font-family: PingFangSC-Regular;
-	font-size: 14px;
-	color: #fff;
-	text-align: center;
-	line-height: 30px;
-	width: 90px;
-	height: 35px;
-	display: inline-block;
+  background: #f56c6c;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  width: 90px;
+  height: 35px;
+  display: inline-block;
 }
 
 .unbind-dialog-wrap .key {
-	font-family: PingFangSC-Regular;
-	font-size: 12px;
-	color: #343739;
-	text-align: left;
-	line-height: 42px;
-	display: inline-block;
-	width: 250px;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  color: #343739;
+  text-align: left;
+  line-height: 42px;
+  display: inline-block;
+  width: 250px;
 }
 
 .unbind-dialog-wrap {
-	display: flex;
-	height: 42px;
-	margin-bottom: 20px;
+  display: flex;
+  height: 42px;
+  margin-bottom: 20px;
 }
 
 .unbind-input {
-	width: 100%;
+  width: 100%;
 }
 
 .unbind-dialog-wrap input.basic-input {
-	height: 42px;
+  height: 42px;
 }
 
 .button {
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #15bcad), to(#10b2cb));
-	background-image: linear-gradient(-180deg, #15bcad 2%, #10b2cb 100%);
-	font-size: 14px;
-	color: #fff;
-	text-align: center;
-	line-height: 18px;
-	border-radius: 0;
-	border: 0;
-	display: inline-block;
-	width: 90px;
-	height: 35px;
-	line-height: 35px;
-	margin-left: 20px;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #15bcad), to(#10b2cb));
+  background-image: linear-gradient(-180deg, #15bcad 2%, #10b2cb 100%);
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  line-height: 18px;
+  border-radius: 0;
+  border: 0;
+  display: inline-block;
+  width: 90px;
+  height: 35px;
+  line-height: 35px;
+  margin-left: 20px;
 }
 </style>
 
