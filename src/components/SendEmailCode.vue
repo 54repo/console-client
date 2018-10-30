@@ -1,6 +1,6 @@
 /** 登录框组件 **/
 <template>
-  <div class="BasicInput">
+  <div class="BasicInput"  v-bind:class="imageStyle">
     <div v-if="iconType" class="icon-wrap">
       <div  v-bind:class="iconType" class="icon"></div>
     </div>
@@ -23,6 +23,7 @@
 <script>
 import { mapActions } from "vuex";
 import { Message } from "element-ui";
+import { LANG } from "../config/contant.js";
 
 export default {
   name: "SendEmailCode",
@@ -35,9 +36,12 @@ export default {
     imageCodeSrc: "", //图片验证码地址,
 
     email: "", //邮箱地址
-    needImageCode: false,
     imageCode: "", // 图片验证码
-    imageStyle: '' //绑定页面特定样式
+    imageStyle: '', //绑定页面特定样式
+
+    ticket: '',
+    csnonce: ''
+
   },
   model: {
     prop: "value",
@@ -56,7 +60,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["sendEmailCode"]),
+    ...mapActions(["sendEmailCode_v2"]),
     sendCode() {
       let that = this;
       // -----后续建议提出来统一维护
@@ -69,20 +73,21 @@ export default {
         return;
       }
 
-      if (this.needImageCode && !this.imageCode) {
+      if (!this.ticket) {
         that.$emit("emailCodeTip", {
           type: "captcha",
-          message: "please input the image vertification code"
+          message: "Please verify the picture."
         });
-        return;
+        return
       }
 
       // 倒计时
       this.startCountBack();
       
-      this.sendEmailCode({
+      this.sendEmailCode_v2({
         email: this.email,
-        captcha: this.imageCode
+        ticket: this.ticket,
+        csnonce: this.csnonce
       }).then(res => {
         try {
           let { step, status } = res.ret;
@@ -196,7 +201,12 @@ input.basic-input {
   position: absolute;
   right: 5px;
   line-height: 30px;
+
+
 .unbind-style.send-code
   line-height: 42px
+
+.unbind-style input.basic-input
+  height: 40px
 </style>
 

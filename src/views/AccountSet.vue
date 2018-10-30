@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <AccountSetLayout  layoutType="AccountSet" :layoutTitile="$t('changeTitle')">
+    <AccountSetLayout layoutType="AccountSet" :layoutTitile="$t('changeTitle')">
       <BasiceLayout :title="$t('changeTitle')">
         <div class="change-content">
           <div class='change-item'>
@@ -9,17 +9,17 @@
                 <span class="key">{{$t('oldText')}}</span>
               </el-col>
               <el-col :span="14" class="change-item-value">
-                <input type="password" class="valu" v-model="oldPw" >
+                <input type="password" class="valu" v-model="oldPw">
               </el-col>
             </el-row>
-          </div>  
-            <div class='change-item'>
+          </div>
+          <div class='change-item'>
             <el-row>
               <el-col :span="10" class="change-item-key">
                 <span class="key">{{$t('newText')}}</span>
               </el-col>
               <el-col :span="14" class="change-item-value">
-                <input type="password" class="valu"v-model="newPw">
+                <input type="password" class="valu" v-model="newPw">
               </el-col>
             </el-row>
           </div>
@@ -40,7 +40,7 @@
                 </div>
               </el-col>
             </el-row>
-          </div> 
+          </div>
         </div>
       </BasiceLayout>
     </AccountSetLayout>
@@ -71,36 +71,35 @@
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue';
-import { mapState, mapActions, mapMutations } from 'vuex';
-import AccountSetLayout from "@/components/AccountSet/AccountSetLayout.vue";
-import BasiceLayout from "@/components/Common/BasicLayout.vue";
-import { Message } from "element-ui";
+import Header from '@/components/Header.vue'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import AccountSetLayout from '@/components/AccountSet/AccountSetLayout.vue'
+import BasiceLayout from '@/components/Common/BasicLayout.vue'
+import { Message } from 'element-ui'
 
 export default {
   name: 'home',
   components: {
     Header,
     BasiceLayout,
-    AccountSetLayout,
+    AccountSetLayout
   },
   data() {
     return {
       oldPw: '',
       newPw: '',
-      newSecPw: '',
-    };
+      newSecPw: ''
+    }
   },
-  created() {
-  },
+  created() {},
   methods: {
-    ...mapActions(["changePw",]),
-    change () {
-      console.log(this.oldPw);
+    ...mapActions(['changePw']),
+    change() {
+      console.log(this.oldPw)
       this.changePw({
         oldPassword: this.oldPw,
         newPassword: this.newPw,
-        reNewPassword: this.newSecPw,
+        reNewPassword: this.newSecPw
       }).then(res => {
         if (res.code === 200) {
           Message({
@@ -108,24 +107,26 @@ export default {
             message: res.message
           })
         } else {
-           Message({
+          Message({
             type: 'error',
-            message: res.message || 'password update error',
+            message: res.message || 'password update error'
           })
         }
-        console.log(res);
-      });
-    },
+        console.log(res)
+      })
+    }
   }
-};
+}
 </script>
 
 <style  lang="stylus">
-.change-item
-    margin-top: 20px;
-.change-content input
-  width: 200px
-  height: 28px
+.change-item {
+  margin-top: 20px;
+}
+
+.change-content input {
+  width: 200px;
+  height: 28px;
   -webkit-appearance: none;
   background-color: #fff;
   background-image: none;
@@ -143,40 +144,59 @@ export default {
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   font-size: 10px;
   height: 40px;
-.change-content .key
+}
+
+.change-content .key {
   font-size: 16px;
   color: #96999b;
   text-align: right;
   line-height: 42px;
-.change-item-value
-  text-align: left
-.change-item-key
-  text-align: right
-  padding-right:20px
-.change-content
-  margin-top: 80px
-  min-height: 500px
-.last-wrap
-  postion: relative 
-.last-button-wrap
-  margin-top: 40px
+}
+
+.change-item-value {
+  text-align: left;
+}
+
+.change-item-key {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.change-content {
+  margin-top: 80px;
+  min-height: 500px;
+}
+
+.last-wrap {
+  postion: relative;
+}
+
+.last-button-wrap {
+  margin-top: 40px;
   display: flex;
-.change-content .forget
+}
+
+.change-content .forget {
   font-size: 14px;
   color: #13B8BC;
   text-align: right;
   line-height: 35px;
-  margin-left: 30px
-.change-content .change
+  margin-left: 30px;
+}
+
+.change-content .change {
   background-image: linear-gradient(-180deg, #15BCAD 2%, #10B2CB 100%);
   font-family: PingFangSC-Regular;
   font-size: 14px;
   color: #FFFFFF;
-  text-align: center;    
+  text-align: center;
   line-height: 35px;
   width: 90px;
   height: 35px;
-.home
-  height: 100%!important;
+}
+
+.home {
+  height: 100% !important;
+}
 </style>
 

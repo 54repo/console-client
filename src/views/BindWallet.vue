@@ -13,20 +13,19 @@
 							<span class="key">{{$t('newWalletText')}}:</span>
 							<input type="text" class="input wallet-input" v-model="new_eth_address">
 						</div>
-						<div class="wallet-wrap">
+						<div class="wallet-wrap captcha-bind-wrap">
 							<span class="key">{{$t('imageVerCode')}}:</span>
-							<ImageCode imageStyle="" type="text" v-model="inputImageCode" class="wallet-image-code"></ImageCode>
+							<div class="hard-captcha">
+								<div id="TCaptcha" style="width:270px;height:30px;"></div>
+							</div>
+							<!-- <ImageCode imageStyle="" type="text" v-model="inputImageCode" class="wallet-image-code"></ImageCode> -->
 						</div>
-						<div class="wallet-wrap">
+						<div class="wallet-wrap email-bind-wrap">
 							<span class="key">{{$t('emailCode')}}:</span>
 							<div class="wallet-email">
-								<SendEmailCode type="text" v-model="inputEmailCode" needImageCode=true :imageCode="inputImageCode" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+								<SendEmailCode type="text" imageStyle="unbind-style" v-model="inputEmailCode" needImageCode=true :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
 							</div>
 						</div>
-						<!-- <div class="wallet-wrap">
-							<span class="key">{{$t('inputPasswordText')}}:</span>
-							<input type="password" class="input wallet-input" v-model="password">
-						</div> -->
 						<div class="button wallet-bind" @click="bindWallet( $t('sureTips') )">确定</div>
 					</div>
 				</div>
@@ -63,10 +62,10 @@
 		"sureTips": "The wallet unbinding function will not be opened yet. Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
 		"walletConfirm": "confirm",
 		"walletCancel": "cancel",
-		"imageVerCode": "Please enter the image verification code",
+		"imageVerCode": "Please verify the image",
 		"emailCode": "Please enter the email verification code",
 
-		"errorTipsAboutBind": "Please enter the email code or wallet address"
+		"errorTipsAboutBind": "Please vertify the email code or wallet address"
   },
   "zn": {
     "bindWalletTitle": "钱包绑定",
@@ -83,9 +82,9 @@
 		"sureTips": "暂未开放钱包解绑功能，请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。",
 		"walletConfirm": "确定",
 		"walletCancel": "取消",
-		"imageVerCode": "请输入图形验证码",
+		"imageVerCode": "请进行验证",
 		"emailCode": "请输入邮箱验证码",
-		"errorTipsAboutBind": "请输入地址或者邮箱验证码"
+		"errorTipsAboutBind": "请动态验证或者输入邮箱验证码"
   }
 }
 </i18n>
@@ -93,16 +92,17 @@
 
 <script>
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
-import { mapState, mapActions, mapMutations } from "vuex";
-import AccountSetLayout from "@/components/AccountSet/AccountSetLayout.vue";
-import BasiceLayout from "@/components/Common/BasicLayout.vue";
-import { Message } from "element-ui";
-import ImageCode from "@/components/ImageCode.vue";
-import SendEmailCode from "@/components/SendEmailCode.vue";
+import Header from '@/components/Header.vue'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import AccountSetLayout from '@/components/AccountSet/AccountSetLayout.vue'
+import BasiceLayout from '@/components/Common/BasicLayout.vue'
+import { Message } from 'element-ui'
+import ImageCode from '@/components/ImageCode.vue'
+import SendEmailCode from '@/components/SendEmailCode.vue'
+import { LANG } from "../config/contant.js";
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     Header,
     BasiceLayout,
@@ -116,77 +116,112 @@ export default {
   }),
   data() {
     return {
-      // password: "",
-      new_eth_address: "",
-      inputImageCode: "",
-      inputEmailCode: ""
-    };
+      new_eth_address: '',
+      // inputImageCode: '',
+			inputEmailCode: '',
+			ticket: "", // 验证码ticket
+      csnonce: "" //整数
+    }
   },
   created() {
-    this.getWalletAddress();
+		this.getWalletAddress()
+		
+    this.getVertifUrl().then(res => {
+      this.csnonce = res.data.csnonce;
+      var newScript = document.createElement("script");
+      newScript.type = "text/javascript";
+      newScript.src = res.data.url;
+      document.body.appendChild(newScript);
+      let that = this;
+
+      setTimeout(() => {
+        var capOption = { callback: cbfn,  themeColor: '15bcad', lang: LANG[this.$i18n.locale]};
+        capInit(document.getElementById("TCaptcha"), capOption);
+        //回调函数：验证码页面关闭时回调
+        function cbfn(retJson) {
+          if (retJson.ret == 0) {
+            that.ticket = retJson.ticket;
+            // that.sendCode();
+            // 用户验证成功
+          } else {
+            //用户关闭验证码页面，没有验证
+          }
+        }
+      }, 1000);
+    });
   },
   methods: {
-    ...mapActions(["getWalletAddress", "bindWalletAddress"]),
+    ...mapActions(['getWalletAddress', 'bindWalletAddress', 'getVertifUrl']),
     bindWallet(text) {
-      console.log(this.$i18n.messages);
+      console.log(this.$i18n.messages)
 
       // let { password, new_eth_address } = this;
-      let { inputImageCode, inputEmailCode, new_eth_address } = this;
+      let { ticket, inputEmailCode, new_eth_address } = this;
 
-      if (!inputImageCode || !inputEmailCode || !new_eth_address) {
-        Message(this.$t("errorTipsAboutBind"));
-        return;
+      if (!inputEmailCode || !new_eth_address) {
+        Message(this.$t('errorTipsAboutBind'))
+        return
       }
 
       if (new_eth_address.length !== 42) {
-        Message("new wallet address is error");
-        return;
-			}
-			//  绑定提示
+        Message('new wallet address is error')
+        return
+      }
+      //  绑定提示
       this.$confirm(text, {
-        confirmButtonText: this.$t("walletConfirm"),
-        cancelButtonText: this.$t("walletCancel")
+        confirmButtonText: this.$t('walletConfirm'),
+        cancelButtonText: this.$t('walletCancel')
       })
         .then(() => {
           this.bindWalletAddress({
-						inputImageCode,
-						new_eth_address,
-						emailVerifyCode: inputEmailCode,
+            new_eth_address,
+            emailVerifyCode: inputEmailCode
           }).then(res => {
             if (res.code === 200) {
               Message({
-                type: "success",
-                message: "bind success"
-              });
-              this.getWalletAddress();
+                type: 'success',
+                message: 'bind success'
+              })
+              this.getWalletAddress()
             } else {
               Message({
-                type: "error",
-                message: res.message || "bind error"
-              });
+                type: 'error',
+                message: res.message || 'bind error'
+              })
             }
-          });
+          })
         })
         .catch(() => {
-          console.log("cancel");
-        });
+          console.log('cancel')
+        })
     },
     // 邮箱验证错误
     emailCodeTip(error) {
-      console.log(error);
+      console.log(error)
       if (error.message) {
         Message({
-          type: "error",
+          type: 'error',
           message: error.message
-        });
+        })
       }
     }
   }
-};
+}
 </script>
 
-<style lang="stylus">
-
+<style scoped lang="stylus">
+.hard-captcha
+	height: 40px;
+.captcha-bind-wrap
+	position: relative
+.captcha-bind-wrap .key
+	position: absolute;
+	top: 0;
+	left: 0;
+	line-height 40px;
+.hard-captcha
+	display: inline-block;
+	padding-left: 200px;
 .wallet-bind-title {
 	color: #96999b;
 	font-size: 20px;
@@ -200,6 +235,7 @@ export default {
 
 .wallet-wrap {
 	width: 100%;
+	position relative;
 	margin: 20px 0 30px;
 }
 
@@ -208,6 +244,11 @@ export default {
 	width: 200px;
 	color: #96999b;
 }
+
+.email-bind-wrap .wallet-email
+	position: absolute;
+	top: 0;
+	left: 200px
 
 .wallet-content #walletDetail {
 	font-size: 18px;

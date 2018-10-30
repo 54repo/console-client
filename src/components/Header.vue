@@ -2,9 +2,9 @@
   <div class="header"  v-bind:class="type">
     <el-row class="header-panel">
       <el-col :span="4"><div class="grid-content bg-purple">
-        <router-link to="/">
+        <a class="logo" href="https://bonuscloud.io">
           <img  class="header-logo " alt="header-logo" src="../assets/bonus-logo.png" >
-        </router-link>
+        </a>
         <div class="line"></div>
       </div></el-col>
       <el-col :span="20" class="header-login-panel" >

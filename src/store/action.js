@@ -1,8 +1,9 @@
 // action
 import {
   loginIn,
-  ajaxImageCode,
-  ajaxEmailCode,
+  // ajaxImageCode,
+  // ajaxEmailCode,
+  ajaxEmailCode_v2,
   signUp,
   ajaxInviteCodeStatus,
   ajaxGetAbleList,
@@ -20,6 +21,7 @@ import {
   ajaxNetInfo,
   ajaxWalletAddress,
   ajaxBindAddress,
+  ajaxVertifUrl,
 } from './getData';
 
 const NO_CONTENT = "NO_CONTENT";
@@ -67,6 +69,10 @@ export default {
   // 发送邮箱码
   async sendEmailCode({ commit }, params) {
     const res = await ajaxEmailCode(params);
+    return res;
+  },
+  async sendEmailCode_v2({ commit }, params) {
+    const res = await ajaxEmailCode_v2(params);
     return res;
   },
   // 发送邮箱码
@@ -206,4 +212,9 @@ export default {
     const res = await ajaxBindAddress(params);
     return res;
   },
+  // 获取验证码js地址
+  async getVertifUrl({commit}, params) {
+    const res = await ajaxVertifUrl(params);
+    return res;
+  }
 };
