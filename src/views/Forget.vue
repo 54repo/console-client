@@ -42,7 +42,7 @@
 					<div v-if="PwErrMsg" class="account-error">
 						<i class="el-alert__icon el-icon-error"></i>
 						<span class="PwErrMsg">{{ PwErrMsg }}</span>
-          </div>git
+          </div>
 					<!-- 第二密码 -->
 					<BasicInput
 						type="password"

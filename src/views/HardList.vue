@@ -45,16 +45,7 @@
       </div>
       <div class="unbind-dialog-wrap">
         <span class="key">{{$t('dialog.mailText')}}</span>
-        <SendEmailCode 
-          type="text" 
-          imageStyle="unbind-style" 
-          :csnonce="csnonce" 
-          :ticket="ticket" 
-          class="unbind-input password-email"
-          v-model="inputEmailCode" 
-          needImageCode=true 
-          :email="email" 
-          @emailCodeTip="emailCodeTip"></SendEmailCode>
+        <SendEmailCode type="text" imageStyle="unbind-style" :csnonce="csnonce" :ticket="ticket" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
       </div>
       <span slot="footer" class="dialog-footer">
         <div class="sure-unbind button" @click="showUnbindDialog = false">{{ $t('dialog.cancel') }}</div>
@@ -106,17 +97,17 @@
 
 <script>
 // @ is an alias to /src
-import { mapState, mapActions, mapMutations } from "vuex";
-import BasiceLayout from "@/components/Common/BasicLayout.vue";
-import AccountSetLayout from "@/components/AccountSet/AccountSetLayout.vue";
-import HardwareLayout from "@/components/Hardware/HardwareLayout.vue";
-import SendEmailCode from "@/components/SendEmailCode.vue";
-import moment from "moment";
-import { Message } from "element-ui";
-import { LANG } from "../config/contant.js";
+import { mapState, mapActions, mapMutations } from 'vuex'
+import BasiceLayout from '@/components/Common/BasicLayout.vue'
+import AccountSetLayout from '@/components/AccountSet/AccountSetLayout.vue'
+import HardwareLayout from '@/components/Hardware/HardwareLayout.vue'
+import SendEmailCode from '@/components/SendEmailCode.vue'
+import moment from 'moment'
+import { Message } from 'element-ui'
+import { LANG } from '../config/contant.js'
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     BasiceLayout,
     AccountSetLayout,
@@ -127,32 +118,32 @@ export default {
   },
   data() {
     return {
-      unbindId: "", //解绑Id
+      unbindId: '', //解绑Id
       showUnbindDialog: false, // 绑定弹框展示
-      inputEmailCode: "", //输入的邮件码
+      inputEmailCode: '', //输入的邮件码
       // inputImageCode: "" // 图片验证码
-      ticket: "", // 验证码ticket
-      csnonce: "" //整数
-    };
+      ticket: '', // 验证码ticket
+      csnonce: '' //整数
+    }
   },
   computed: mapState({
     hardList(state) {
-      if (state.hardList.length > 0 && state.hardList !== "NO_CONTENT") {
-        let hardList = state.hardList;
+      if (state.hardList.length > 0 && state.hardList !== 'NO_CONTENT') {
+        let hardList = state.hardList
         hardList.map(val => {
           if (val.bind_at) {
             val.bind_at = moment(new Date(val.bind_at)).format(
-              "YYYY.MM.DD hh:mm:ss"
-            );
+              'YYYY.MM.DD hh:mm:ss'
+            )
           } else {
-            val.bind_at = "-";
+            val.bind_at = '-'
           }
-        });
-        return hardList;
-      } else if (state.hardList === "NO_CONTENT") {
-        return state.hardList;
+        })
+        return hardList
+      } else if (state.hardList === 'NO_CONTENT') {
+        return state.hardList
       } else {
-        return [];
+        return []
       }
     },
     // 验证码地址
@@ -160,41 +151,41 @@ export default {
     email: state => state.account.email
   }),
   methods: {
-    ...mapActions(["getHardList", "unbindHard", "getVertifUrl"]),
+    ...mapActions(['getHardList', 'unbindHard', 'getVertifUrl']),
     change() {
-      console.log(this.oldPw);
+      console.log(this.oldPw)
       this.changePw({
         oldPassword: this.oldPw,
         newPassword: this.newPw,
         reNewPassword: this.newSecPw
-      });
+      })
     },
     checkUnBind(id) {
-      this.showUnbindDialog = true;
-      this.unbindId = id;
-      let that = this;
-      console.log(id);
+      this.showUnbindDialog = true
+      this.unbindId = id
+      let that = this
+      console.log(id)
       setTimeout(() => {
         var capOption = {
           callback: cbfn,
-          themeColor: "15bcad",
+          themeColor: '15bcad',
           lang: LANG[this.$i18n.locale]
-        };
-        capInit(document.getElementById("TCaptcha"), capOption);
+        }
+        capInit(document.getElementById('TCaptcha'), capOption)
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
           if (retJson.ret == 0) {
-            that.ticket = retJson.ticket;
+            that.ticket = retJson.ticket
             // that.sendCode();
             // 用户验证成功
           } else {
             //用户关闭验证码页面，没有验证
           }
         }
-      }, 1000);
+      }, 1000)
     },
     emailCodeTip(tip) {
-      console.log(tip);
+      console.log(tip)
     },
     // 解绑
     unbind() {
@@ -202,47 +193,47 @@ export default {
         deviceId: this.unbindId,
         emailVerifyCode: this.inputEmailCode
       }).then(res => {
-        if (res.message === "unregister success") {
+        if (res.message === 'unregister success') {
           // 刷新硬件列表
-          this.getHardList();
-          this.showUnbindDialog = false;
+          this.getHardList()
+          this.showUnbindDialog = false
           Message({
-            type: "success",
+            type: 'success',
             message: res.message
-          });
+          })
         } else {
           Message({
-            type: "error",
-            message: res.message || "unbind error"
-          });
+            type: 'error',
+            message: res.message || 'unbind error'
+          })
         }
-        console.log(res);
-      });
+        console.log(res)
+      })
     },
     // email错误提示
     emailCodeTip(error) {
       if (error.message) {
         Message({
-          type: "error",
+          type: 'error',
           message: error.message
-        });
-        console.log(error);
+        })
+        console.log(error)
       }
     }
   },
 
   created() {
-    this.getHardList();
+    this.getHardList()
     this.getVertifUrl().then(res => {
-      this.csnonce = res.data.csnonce;
-      var newScript = document.createElement("script");
-      newScript.type = "text/javascript";
-      newScript.src = res.data.url;
-      document.body.appendChild(newScript);
-      let that = this;
-    });
+      this.csnonce = res.data.csnonce
+      var newScript = document.createElement('script')
+      newScript.type = 'text/javascript'
+      newScript.src = res.data.url
+      document.body.appendChild(newScript)
+      let that = this
+    })
   }
-};
+}
 </script>
 
 <style lang="stylus">
