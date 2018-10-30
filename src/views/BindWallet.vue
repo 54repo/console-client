@@ -156,9 +156,9 @@ export default {
       console.log(this.$i18n.messages)
 
       // let { password, new_eth_address } = this;
-      let { inputEmailCode, new_eth_address } = this
+      let { ticket, inputEmailCode, new_eth_address } = this;
 
-      if (!ticket || !inputEmailCode || !new_eth_address) {
+      if (!inputEmailCode || !new_eth_address) {
         Message(this.$t('errorTipsAboutBind'))
         return
       }
