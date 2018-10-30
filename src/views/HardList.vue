@@ -40,13 +40,13 @@
       <div class="unbind-dialog-wrap">
         <span class="key">Image Verfication Code</span>
         <div class="hard-captcha">
-          <div id="TCaptcha" style="width:100%;height:20px;"></div>
+          <div id="TCaptcha" style="width:100%;height:30px;"></div>
         </div>
         <!-- <ImageCode imageStyle="unbind-style" type="text" v-model="inputImageCode" class="unbind-input forget-code"></ImageCode> -->
       </div>
       <div class="unbind-dialog-wrap">
         <span class="key">Email Verfication Code</span>
-        <SendEmailCode type="text" imageStyle="unbind-style"  :csnonce="csnonce" :ticket="ticket" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true  :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+        <SendEmailCode type="text" imageStyle="unbind-style" :csnonce="csnonce" :ticket="ticket" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
       </div>
       <span slot="footer" class="dialog-footer">
         <div class="sure-unbind button" @click="showUnbindDialog = false">取 消</div>
@@ -153,6 +153,20 @@ export default {
       this.showUnbindDialog = true;
       this.unbindId = id;
       console.log(id);
+      setTimeout(() => {
+        var capOption = { callback: cbfn, themeColor: "15bcad" };
+        capInit(document.getElementById("TCaptcha"), capOption);
+        //回调函数：验证码页面关闭时回调
+        function cbfn(retJson) {
+          if (retJson.ret == 0) {
+            that.ticket = retJson.ticket;
+            // that.sendCode();
+            // 用户验证成功
+          } else {
+            //用户关闭验证码页面，没有验证
+          }
+        }
+      }, 1000);
     },
     emailCodeTip(tip) {
       console.log(tip);
@@ -201,29 +215,15 @@ export default {
       newScript.src = res.data.url;
       document.body.appendChild(newScript);
       let that = this;
-
-      setTimeout(() => {
-        var capOption = { callback: cbfn, themeColor: "15bcad" };
-        capInit(document.getElementById("TCaptcha"), capOption);
-        //回调函数：验证码页面关闭时回调
-        function cbfn(retJson) {
-          if (retJson.ret == 0) {
-            that.ticket = retJson.ticket;
-            // that.sendCode();
-            // 用户验证成功
-          } else {
-            //用户关闭验证码页面，没有验证
-          }
-        }
-      }, 1000);
     });
   }
 };
 </script>
 
 <style lang="stylus">
-.hard-captcha
+.hard-captcha {
   width: 100%;
+}
 
 .hardList-content {
   margin-top: 40px;
