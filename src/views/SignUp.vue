@@ -24,7 +24,7 @@
           <i class="el-alert__icon el-icon-error"></i>
           <span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span> -->
         <!-- </div> -->
-        <EmailCodeWithTx type="text" icon-type="emailCode" class="account-input password-email" :email="inputEmail" @emailCodeTip="emailCodeTip" :placeValue="$t('register.verfPlaceHolder')"></EmailCodeWithTx>
+        <EmailCodeWithTx type="text" icon-type="emailCode" class="account-input password-email" v-model="inputEmailCode" :email="inputEmail" @emailCodeTip="emailCodeTip" :placeValue="$t('register.verfPlaceHolder')"></EmailCodeWithTx>
         <div v-if="EmailCodeErrMsg" class="account-error">
           <i class="el-alert__icon el-icon-error"></i>
           <span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span>
@@ -73,7 +73,7 @@ export default {
 
       // 输入的注册字段
       inputEmail: "",
-      inputImageCode: "",
+      // inputImageCode: "",
       inputEmailCode: "",
       inputPw: "",
       inputSePw: "",
@@ -111,13 +111,14 @@ export default {
     signUp() {
       const {
         inputEmail,
-        inputImageCode,
+        // inputImageCode,
         inputEmailCode,
         inputPw,
         inputSePw,
         isSignUpDisable
       } = this;
 
+   
       // 避免多次点击
       if (isSignUpDisable) {
         console.log("不可点击状态");
@@ -126,6 +127,9 @@ export default {
 
       // 邮箱验证-----后续建议提出来统一维护
       const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
+
+       console.log(emailRule.test(inputEmail))
+    console.log(inputEmailCode);
       if (emailRule.test(inputEmail)) {
         this.EmailErrMsg = "";
       } else {

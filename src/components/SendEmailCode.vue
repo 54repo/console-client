@@ -88,7 +88,6 @@ export default {
         email: this.email,
         ticket: this.ticket,
         csnonce: this.csnonce
-
       }).then(res => {
         try {
           let { step, status } = res.ret;
