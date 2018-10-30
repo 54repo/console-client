@@ -4,7 +4,6 @@
     <AccountLayout>
       <!-- 登陆框 -->
       <div class="account-dialog">
-
         <div class="title">{{ $t('register.registerTitle') }}</div>
         <!-- 邮箱 -->
         <BasicInput type="text" icon-type="email" class="account-input account-email" :placeValue="$t('register.registerPlaceHolder')" v-model="inputEmail"></BasicInput>
@@ -12,24 +11,12 @@
           <i class="el-alert__icon el-icon-error"></i>
           <span class="EmailErrorMsg">{{ EmailErrMsg }}</span>
         </div>
-        <!-- 验证码 -->
-        <!-- <ImageCode type="text" icon-type="imageCode" v-model="inputImageCode" class="account-input forget-code" v-bind:imageCodeSrc="imageCodeSrc" :placeValue="$t('register.ImagePlaceHolder')"></ImageCode>
-        <div v-if="ImageCodeErrMsg" class="account-error">
-          <i class="el-alert__icon el-icon-error"></i>
-          <span class="ImageCodeErrMsg">{{ ImageCodeErrMsg }}</span>
-        </div> -->
-        <!-- 邮件码 -->
-        <!-- <SendEmailCode type="text" icon-type="emailCode" class="account-input password-email" v-model="inputEmailCode" needImageCode=true :imageCode="inputImageCode" :email="inputEmail" @emailCodeTip="emailCodeTip" :placeValue="$t('register.verfPlaceHolder')"></SendEmailCode>
-        <div v-if="EmailCodeErrMsg" class="account-error">
-          <i class="el-alert__icon el-icon-error"></i>
-          <span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span> -->
-        <!-- </div> -->
+        <!-- 验证&邮件码 -->
         <EmailCodeWithTx type="text" icon-type="emailCode" class="account-input password-email" v-model="inputEmailCode" :email="inputEmail" @emailCodeTip="emailCodeTip" :placeValue="$t('register.verfPlaceHolder')"></EmailCodeWithTx>
         <div v-if="EmailCodeErrMsg" class="account-error">
           <i class="el-alert__icon el-icon-error"></i>
           <span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span>
         </div>
-        <!-- </div> -->
         <!-- 密码 -->
         <BasicInput type="password" icon-type="password" class="account-input password-email" v-model="inputPw" :placeValue="$t('register.newPw')"></BasicInput>
         <div v-if="PwErrMsg" class="account-error">
@@ -55,8 +42,6 @@ import Header from "@/components/Header.vue";
 import AccountLayout from "@/components/AccountLayout.vue";
 import BasicInput from "@/components/BasicInput.vue";
 import EmailCodeWithTx from "@/components/EmailCodeWithTX.vue";
-// import SendEmailCode from "@/components/SendEmailCode.vue";
-// import ImageCode from "@/components/ImageCode.vue";
 import { mapMutations, mapActions, mapState } from "vuex";
 import { Message } from "element-ui";
 
@@ -70,14 +55,12 @@ export default {
       EmailCodeErrMsg: "",
       PwErrMsg: "",
       secPsErrMsg: "",
-
       // 输入的注册字段
       inputEmail: "",
       // inputImageCode: "",
       inputEmailCode: "",
       inputPw: "",
       inputSePw: "",
-
       //注册可点击状态
       isSignUpDisable: false
     };
@@ -88,14 +71,8 @@ export default {
     BasicInput,
     // SendEmailCode,
     // ImageCode,
-    EmailCodeWithTx,
+    EmailCodeWithTx
   },
-  mounted() {
-    // 获取注册初始化图片验证码
-    // https://pic2.zhimg.com/v2-0bbdc9b295ad2df6e13e40113feb09cf_1200x500.jpg
-    // this.getImageCode();
-  },
-  
   computed: mapState({
     // 验证码地址
     imageCodeSrc: state => state.signUp.imageCodeSrc
@@ -118,7 +95,6 @@ export default {
         isSignUpDisable
       } = this;
 
-   
       // 避免多次点击
       if (isSignUpDisable) {
         console.log("不可点击状态");
@@ -127,9 +103,6 @@ export default {
 
       // 邮箱验证-----后续建议提出来统一维护
       const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
-
-       console.log(emailRule.test(inputEmail))
-    console.log(inputEmailCode);
       if (emailRule.test(inputEmail)) {
         this.EmailErrMsg = "";
       } else {
@@ -168,7 +141,6 @@ export default {
         return true;
       }
 
-      // this.DISABLE_LOGIN();
       this.ajaxSignUp({
         email: inputEmail,
         emailVerifyCode: inputEmailCode,

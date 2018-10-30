@@ -1,7 +1,6 @@
 /** 登录框组件 **/
 <template>
   <div class="BasicInput EmailBaseInput">
-    <!-- <div v-bind:class="{displayCaptcha: !showCaptcha}" id="TCaptcha" style="width:300px;height:40px;"></div> -->
     <div class="captcha_wrap">
       <div id="TCaptcha" style="width:100%;height:20px;"></div>
     </div>
@@ -20,6 +19,7 @@
 <script>
 import { mapActions } from "vuex";
 import { Message } from "element-ui";
+import { LANG } from "../config/contant.js";
 
 export default {
   name: "EmailCodeWithTX",
@@ -49,7 +49,8 @@ export default {
       let that = this;
 
       setTimeout(() => {
-        var capOption = { callback: cbfn,  themeColor: '15bcad'};
+        
+        var capOption = { callback: cbfn,  themeColor: '15bcad', lang: LANG[this.$i18n.locale]};
         capInit(document.getElementById("TCaptcha"), capOption);
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {

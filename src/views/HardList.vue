@@ -36,21 +36,29 @@
         </div>
       </BasiceLayout>
     </HardwareLayout>
-    <el-dialog title="Confirm Unbinding" :visible.sync="showUnbindDialog" width="480px" center>
+    <el-dialog :title="$t('dialog.title')" :visible.sync="showUnbindDialog" width="480px" center>
       <div class="unbind-dialog-wrap">
-        <span class="key">Image Verfication Code</span>
+        <span class="key">{{$t('dialog.imageVerify')}}</span>
         <div class="hard-captcha">
           <div id="TCaptcha" style="width:100%;height:30px;"></div>
         </div>
-        <!-- <ImageCode imageStyle="unbind-style" type="text" v-model="inputImageCode" class="unbind-input forget-code"></ImageCode> -->
       </div>
       <div class="unbind-dialog-wrap">
-        <span class="key">Email Verfication Code</span>
-        <SendEmailCode type="text" imageStyle="unbind-style" :csnonce="csnonce" :ticket="ticket" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+        <span class="key">{{$t('dialog.mailText')}}</span>
+        <SendEmailCode 
+          type="text" 
+          imageStyle="unbind-style" 
+          :csnonce="csnonce" 
+          :ticket="ticket" 
+          class="unbind-input password-email"
+          v-model="inputEmailCode" 
+          needImageCode=true 
+          :email="email" 
+          @emailCodeTip="emailCodeTip"></SendEmailCode>
       </div>
       <span slot="footer" class="dialog-footer">
-        <div class="sure-unbind button" @click="showUnbindDialog = false">取 消</div>
-        <div class="sure-unbind button" type="primary" @click="unbind">确 定</div>
+        <div class="sure-unbind button" @click="showUnbindDialog = false">{{ $t('dialog.cancel') }}</div>
+        <div class="sure-unbind button" type="primary" @click="unbind">{{ $t('dialog.sure') }}</div>
       </span>
     </el-dialog>
   </div>
@@ -66,7 +74,14 @@
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
     "netStatus": "Status",
-    "noHardwareTip": "No Device"
+    "noHardwareTip": "No Device",
+    "dialog": {
+      "cancel": "Cancel",
+      "sure": "Sure",
+      "title": "Confirm Unbinding",
+      "mailText": "Email Verfication Code",
+      "imageVerify": "Image Verfication"
+    }
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -76,7 +91,14 @@
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
     "netStatus": "在线状态",
-    "noHardwareTip": "硬件列表为空"
+    "noHardwareTip": "硬件列表为空",
+    "dialog": {
+      "cancel": "取 消",
+      "sure": "确 定",
+      "title": "确认解绑",
+      "mailText": "邮箱验证码",
+      "imageVerify": "图片验证"
+    }
   }
 }
 </i18n>
@@ -88,12 +110,10 @@ import { mapState, mapActions, mapMutations } from "vuex";
 import BasiceLayout from "@/components/Common/BasicLayout.vue";
 import AccountSetLayout from "@/components/AccountSet/AccountSetLayout.vue";
 import HardwareLayout from "@/components/Hardware/HardwareLayout.vue";
-// import UnBindDialog from "@/components/AccountSet/HardList/UnBindDialog.vue";
-// import EmailCodeWithTx from "@/components/EmailCodeWithTx.vue";
-// import ImageCode from "@/components/ImageCode.vue";
 import SendEmailCode from "@/components/SendEmailCode.vue";
 import moment from "moment";
 import { Message } from "element-ui";
+import { LANG } from "../config/contant.js";
 
 export default {
   name: "home",
@@ -152,9 +172,14 @@ export default {
     checkUnBind(id) {
       this.showUnbindDialog = true;
       this.unbindId = id;
+      let that = this;
       console.log(id);
       setTimeout(() => {
-        var capOption = { callback: cbfn, themeColor: "15bcad" };
+        var capOption = {
+          callback: cbfn,
+          themeColor: "15bcad",
+          lang: LANG[this.$i18n.locale]
+        };
         capInit(document.getElementById("TCaptcha"), capOption);
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {

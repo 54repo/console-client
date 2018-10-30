@@ -23,6 +23,7 @@
 <script>
 import { mapActions } from "vuex";
 import { Message } from "element-ui";
+import { LANG } from "../config/contant.js";
 
 export default {
   name: "SendEmailCode",

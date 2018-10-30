@@ -46,6 +46,7 @@ import BasiceLayout from "@/components/Common/BasicLayout.vue";
 import CodeList from "@/components/Home/CodeList.vue";
 import { mapState, mapActions } from "vuex";
 import { Message } from "element-ui";
+import { LANG } from "../../config/contant.js";
 
 export default {
   name: "BonusCode",
@@ -54,7 +55,7 @@ export default {
   },
   components: {
     BasiceLayout,
-    CodeList,
+    CodeList
   },
   data() {
     return {
@@ -163,7 +164,11 @@ export default {
       let that = this;
 
       setTimeout(() => {
-        var capOption = { callback: cbfn, themeColor: "15bcad" };
+        var capOption = {
+          callback: cbfn,
+          themeColor: "15bcad",
+          lang: LANG[this.$i18n.locale]
+        };
         capInit(document.getElementById("TCaptcha"), capOption);
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
@@ -183,10 +188,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style   lang="stylus">
-.captcha_wrap
+.captcha_wrap {
   width: 290px;
   height: 40px;
   margin: 20px 0 20px 20px;
+}
+
 .home-image-code {
   margin: 20px 20px 20px;
   max-width: 300px;

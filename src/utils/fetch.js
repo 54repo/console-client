@@ -30,12 +30,7 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
 			Message('登录失效,将重新登陆');
 			router.push({ name: 'login' });
 		}
-		// else if (response.status) {
-		// 	return response.data;
-		// } else {
-		// 	Message(response.data.message || 'network error');
-		// }
-		
+
 		return response.data;
 	} catch (error) {
 		console.log(error);

@@ -13,36 +13,24 @@
 						:placeValue="$t('forgetPW.forgetEmail')"
             v-model="inputEmail"
 						></BasicInput>
-					<div v-if="EmailErrMsg" class="account-error">
+					<div v-if="EmailErrMsg" 
+            class="account-error">
               <i class="el-alert__icon el-icon-error"></i>
               <span class="EmailErrorMsg">{{ EmailErrMsg }}</span>
           </div>
 					<!-- 验证码 -->    
-					<ImageCode
-						type="text"
-						icon-type="imageCode"
-            v-model="inputImageCode"
-						class="account-input forget-code"
-						v-bind:imageCodeSrc="imageCodeSrc"
-						:placeValue="$t('forgetPW.forgetImg')"></ImageCode>
-					<div v-if="ImageCodeErrMsg" class="account-error">
-						<i class="el-alert__icon el-icon-error"></i>
-						<span class="ImageCodeErrMsg">{{ ImageCodeErrMsg }}</span>
-          </div>
-					<!-- 邮件码 -->
-					<SendEmailCode
-						type="text"
-						icon-type="emailCode"
-						class="account-input password-email"
-            v-model="inputEmailCode"
-						needImageCode=true
-            @emailCodeTip="emailCodeTip"
-						:imageCode="inputImageCode"
-						:email="inputEmail"
-						:placeValue="$t('forgetPW.forgetVer')"></SendEmailCode>
-					<div v-if="EmailCodeErrMsg" class="account-error">
-						<i class="el-alert__icon el-icon-error"></i>
-						<span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span>
+          <EmailCodeWithTx 
+            type="text" 
+            icon-type="emailCode" 
+            class="account-input password-email" 
+            v-model="inputEmailCode" 
+            :email="inputEmail" 
+            @emailCodeTip="emailCodeTip" 
+            :placeValue="$t('forgetPW.forgetVer')">
+          </EmailCodeWithTx>
+          <div v-if="EmailCodeErrMsg" class="account-error">
+            <i class="el-alert__icon el-icon-error"></i>
+            <span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span>
           </div>
 					<!-- 密码 -->
 					<BasicInput
@@ -54,7 +42,7 @@
 					<div v-if="PwErrMsg" class="account-error">
 						<i class="el-alert__icon el-icon-error"></i>
 						<span class="PwErrMsg">{{ PwErrMsg }}</span>
-          </div>
+          </div>git
 					<!-- 第二密码 -->
 					<BasicInput
 						type="password"
@@ -78,13 +66,14 @@
 import Header from "@/components/Header.vue";
 import AccountLayout from "@/components/AccountLayout.vue";
 import BasicInput from "@/components/BasicInput.vue";
-import SendEmailCode from "@/components/SendEmailCode.vue";
-import ImageCode from "@/components/ImageCode.vue";
+// import EmailCodeWithTx from "@/components/EmailCodeWithTx.vue";
+import EmailCodeWithTx from "@/components/EmailCodeWithTX.vue";
+
 import { mapMutations, mapActions, mapState } from "vuex";
 import { Message } from "element-ui";
 
 export default {
-  name: "SignUp",
+  name: "forget",
   data() {
     return {
       //	输入错误信息时提示
@@ -96,7 +85,7 @@ export default {
 
       //	输入的注册字段
       inputEmail: "",
-      inputImageCode: "",
+      // inputImageCode: "",
       inputEmailCode: "",
       inputPw: "",
       inputSePw: "",
@@ -109,8 +98,7 @@ export default {
     Header,
     AccountLayout,
     BasicInput,
-    SendEmailCode,
-    ImageCode
+    EmailCodeWithTx,
   },
   mounted() {
     // 获取注册初始化图片验证码
@@ -132,7 +120,6 @@ export default {
     signUp() {
       const {
         inputEmail,
-        inputImageCode,
         inputEmailCode,
         inputPw,
         inputSePw,
