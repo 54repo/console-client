@@ -37,6 +37,9 @@
             <div>{{ $t('HOME.BonusCode.ruleTip.rule1') }}</div>
             <div>{{ $t('HOME.BonusCode.ruleTip.rule2') }}</div>
             <div>{{ $t('HOME.BonusCode.ruleTip.rule3') }}</div>
+            <div>{{ $t('HOME.BonusCode.ruleTip.rule4') }}</div>
+            <div>{{ $t('HOME.BonusCode.ruleTip.rule5') }}</div>
+            <div>{{ $t('HOME.BonusCode.ruleTip.rule6') }}</div>
             <div class="tele">{{ $t('HOME.BonusCode.ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor" :href="$t('HOME.BonusCode.ruleTip.teleUrl')">{{ $t('HOME.BonusCode.ruleTip.teleButton') }}</a></div>
           </div>
         </el-col>
@@ -77,7 +80,7 @@ export default {
       csnonce: '',
       regionOptions: this.$t('HOME.BonusCode.regionOptions'),
       regionDefault: this.$t('HOME.BonusCode.regionOptions')[0].value,
-      region: 0
+      region: 'mainland'
     }
   },
 

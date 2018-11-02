@@ -3,18 +3,18 @@
     <span class="title">{{ $t('title') }}</span>
     <el-tabs v-model="active_tab" class="list-tab">
       <el-tab-pane :label="$t('HOME.BonusCode.regionOptions[0].label')" name="mainland">         
-        <el-table v-if="mainland_list !== 'NO_CONTENT'" empty-text="Loading" :data="mainland_list || []" height="410px" style="width: 100%">
+        <el-table v-if="mainland_list !== 'NO_CONTENT'" empty-text="Loading" :data="mainland_list || []" height="490px" style="width: 100%">
           <el-table-column class="bcode-list" prop="bcode" :label="totalText">
           </el-table-column>
         </el-table>
-        <el-table v-if=" mainland_list === 'NO_CONTENT'" :empty-text="$t('noCodeTip')" height="410px" style="width: 100%"></el-table>
+        <el-table v-if=" mainland_list === 'NO_CONTENT'" :empty-text="$t('noCodeTip')" height="490px" style="width: 100%"></el-table>
       </el-tab-pane>
       <el-tab-pane :label="$t('HOME.BonusCode.regionOptions[1].label')" name="non-mainland">
-        <el-table v-if="non_mainland_list !== 'NO_CONTENT'" empty-text="Loading" :data="non_mainland_list || []" height="410px" style="width: 100%">
+        <el-table v-if="non_mainland_list !== 'NO_CONTENT'" empty-text="Loading" :data="non_mainland_list || []" height="490px" style="width: 100%">
           <el-table-column class="bcode-list" prop="bcode" :label="totalText">
           </el-table-column>
         </el-table>
-        <el-table v-if=" non_mainland_list === 'NO_CONTENT'" :empty-text="$t('noCodeTip')" height="410px" style="width: 100%"></el-table>
+        <el-table v-if=" non_mainland_list === 'NO_CONTENT'" :empty-text="$t('noCodeTip')" height="490px" style="width: 100%"></el-table>
       </el-tab-pane>
     </el-tabs>
   </div>
