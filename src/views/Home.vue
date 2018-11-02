@@ -41,12 +41,12 @@ export default {
   }),
   created() {
     // 获取邀请码状态
-    this.getInviteCodeStatus();
+    // this.getInviteCodeStatus();
     // 获取用户信息
     this.getUserInfo();
   },
   methods: {
-    ...mapActions(["getInviteCodeStatus", "getUserInfo"])
+    ...mapActions(["getUserInfo"])
   }
 };
 </script>

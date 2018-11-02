@@ -1,24 +1,23 @@
 {
-  "message": "hello", 
+  "message": "hello",
   "login": {
-      "loginTitle": "Users Login", 
-      "loginPlaceHolder": "Email", 
-      "PWPlaceHolder": "Password", 
-      "loginButton": "Login", 
-      "redirectForget": "Forgot Password", 
-      "redirectSign": "Sign Up",
-      "loginSuccessTip": "login success"
+    "loginTitle": "Users Login",
+    "loginPlaceHolder": "Email",
+    "PWPlaceHolder": "Password",
+    "loginButton": "Login",
+    "redirectForget": "Forgot Password",
+    "redirectSign": "Sign Up",
+    "loginSuccessTip": "login success"
   },
   "register": {
-    "registerTitle": "Sign Up", 
-    "registerPlaceHolder": "Email", 
-    "ImagePlaceHolder": "Image Verfication Code", 
-    "verfPlaceHolder": "Verification Code", 
-    "sendVCOde": "Send verification code", 
-    "newPw": "New Password", 
-    "confirmPw": "Comfirm Password", 
-
-    "signButton": "Sign Up", 
+    "registerTitle": "Sign Up",
+    "registerPlaceHolder": "Email",
+    "ImagePlaceHolder": "Image Verfication Code",
+    "verfPlaceHolder": "Verification Code",
+    "sendVCOde": "Send verification code",
+    "newPw": "New Password",
+    "confirmPw": "Comfirm Password",
+    "signButton": "Sign Up",
     "redirectLogin": "Login"
   },
   "header": {
@@ -43,5 +42,36 @@
     "loginRedirect": "Login"
   },
   "faq_link": "https://bonuscloud.gitbook.io/help/faq-en",
-  "faq_text": "BonusCloud FAQ"
+  "faq_text": "BonusCloud FAQ",
+  "HOME": {
+    "BonusCode": {
+      "bonusTips": "BonusCloud is in the TestNet phase and needs to activate the device using BonusCode. Each BonusCode can only be used once and expires after successful activation. BonusCode is bound to the account after being picked up and is not transferable.",
+      "bonusGet": "Receive BCode",
+      "nextTimeText": "The next time period BCode receives the countdown:",
+      "getText": "Receive",
+      "ruleTip": {
+        "title": "BCode collection rules:",
+        "rule1": "1.Each account can receive 1 BCode per hour.",
+        "rule2": "2.Each account can receive up to 10 BCodes per day.",
+        "rule3": "3.The total collection limit for each account is 10 BCodes.",
+        "tele": "If you have any questions, please join the telegraph group to ask.",
+        "joinTele": "Join Telegram",
+        "teleUrl": "https://t.me/Bonuscloud",
+        "teleButton": "JOIN"
+      },
+      "imagePlaceVaule": "Image Verfication Code",
+      "regionHolder": "Please select the region of Bcode",
+      "regionOptions": [
+        {
+          "value": "mainland",
+          "label": "Mainland China"
+        },
+        {
+          "value": "non_mainland",
+          "label": "Non-Chinese mainland"
+        }
+      ],
+      "limitRegionOrVerify": "Please select the region of BCode or complete the image verfication"
+    }
+  }
 }

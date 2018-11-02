@@ -1,23 +1,23 @@
 {
-  "message": "hello", 
+  "message": "hello",
   "login": {
-      "loginTitle": "用户登录", 
-      "loginPlaceHolder": "输入邮箱", 
-      "PWPlaceHolder": "输入密码", 
-      "loginButton": "登录", 
-      "redirectForget": "忘记密码", 
-      "redirectSign": "注册",
-      "loginSuccessTip": "登录成功。"
+    "loginTitle": "用户登录",
+    "loginPlaceHolder": "输入邮箱",
+    "PWPlaceHolder": "输入密码",
+    "loginButton": "登录",
+    "redirectForget": "忘记密码",
+    "redirectSign": "注册",
+    "loginSuccessTip": "登录成功。"
   },
   "register": {
-    "registerTitle": "用户注册", 
-    "registerPlaceHolder": "用于登录和找回密码，请填写真实邮箱", 
-    "ImagePlaceHolder": "图片验证码", 
-    "verfPlaceHolder": "邮箱验证码", 
-    "sendVCOde": "发送验证码", 
-    "newPw": "请输入密码", 
-    "confirmPw": "请再次输入密码", 
-    "signButton": "注册", 
+    "registerTitle": "用户注册",
+    "registerPlaceHolder": "用于登录和找回密码，请填写真实邮箱",
+    "ImagePlaceHolder": "图片验证码",
+    "verfPlaceHolder": "邮箱验证码",
+    "sendVCOde": "发送验证码",
+    "newPw": "请输入密码",
+    "confirmPw": "请再次输入密码",
+    "signButton": "注册",
     "redirectLogin": "登录"
   },
   "header": {
@@ -37,5 +37,36 @@
     "loginRedirect": "登录"
   },
   "faq_link": "https://bonuscloud.gitbook.io/help/faq-cn",
-  "faq_text": "常见问题"
+  "faq_text": "常见问题",
+  "HOME": {
+    "BonusCode": {
+      "bonusTips": "当前BonusCloud 处于测试网络阶段，需要使用BonusCode激活设备，每个BonusCode仅可以使用一次，激活成功后失效。BonusCode被领取后与账号绑定，不可转让。",
+      "bonusGet": "本时段BCode领取：",
+      "nextTimeText": "下一时段BCode领取倒计时：",
+      "getText": "领取",
+      "ruleTip": {
+        "title": "BCode领取规则:",
+        "rule1": "1.每个账号每小时可以领取1个",
+        "rule2": "2.每个账号每天最多领取10个",
+        "rule3": "3.每个账号的总领取上限是10个",
+        "tele": "如有疑问请至电报群咨询",
+        "joinTele": "请加入电报群",
+        "teleUrl": "https://t.me/bonuscloudcn",
+        "teleButton": "加群"
+      },
+      "imagePlaceVaule": "图片验证码",
+      "regionHolder": "请选择BCode使用区域",
+      "regionOptions": [
+        {
+          "value": "mainland",
+          "label": "中国大陆"
+        },
+        {
+          "value": "non_mainland",
+          "label": "非中国大陆"
+        }
+      ],
+      "limitRegionOrVerify": "请选择BCode使用地区或者完成图片校验"
+    }
+  }
 }

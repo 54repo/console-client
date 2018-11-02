@@ -22,6 +22,8 @@ export default new Vuex.Store({
     inviteCode: {
       status: false, //邀请码是否可领取状态
       codeList: '', //邀请list
+      mainland_list: '', //邀请list
+      non_mainland_list: '', //邀请list
     },
     hardList: [],  //硬件列表
     revenue: {

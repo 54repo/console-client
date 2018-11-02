@@ -3,19 +3,27 @@
   <div class="BonusCode">
     <BasiceLayout title="BonusCode" class="bonus-code-layout">
       <el-row>
+        <!-- 领码 -->
         <el-col :span="12">
           <div class="grid-content bg-purple">
-            <el-alert :closable="false" :title="$t('bonusTips')" type="error" center>
+            <el-alert :closable="false" :title="$t('HOME.BonusCode.bonusTips')" type="error" center>
             </el-alert>
             <div class="active-wrap">
-              <span>{{ $t('bonusGet') }}</span>
+              <div>{{ $t('HOME.BonusCode.bonusGet') }}</div>
+              <!-- 领码选择 -->
+              <el-select v-model="region" :placeholder="$t('HOME.BonusCode.regionHolder')" class="bonuscode-select-region" @change="getStatus">
+                <el-option default v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+              <!-- 验证码 -->
               <div class="captcha_wrap">
                 <div id="TCaptcha" style="width:100%;height:20px;"></div>
               </div>
-              <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('getText')}}</div>
+              <!-- 领码 -->
+              <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('HOME.BonusCode.getText')}}</div>
             </div>
             <div class="count-time">
-              <span class="key">{{ $t('nextTimeText') }}</span>
+              <span class="key">{{ $t('HOME.BonusCode.nextTimeText') }}</span>
               <span class="minute">{{showA}}</span>
               <span class="fh">:</span>
               <span class="seconds">{{showB}}</span>
@@ -24,16 +32,17 @@
           <!-- bcode规则 -->
           <div class="get-rule">
             <div>
-              <h4>{{ $t('ruleTip.title') }}</h4>
+              <h4>{{ $t('HOME.BonusCode.ruleTip.title') }}</h4>
             </div>
-            <div>{{ $t('ruleTip.rule1') }}</div>
-            <div>{{ $t('ruleTip.rule2') }}</div>
-            <div>{{ $t('ruleTip.rule3') }}</div>
-            <div class="tele">{{ $t('ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor" :href="$t('ruleTip.teleUrl')">{{ $t('ruleTip.teleButton') }}</a></div>
+            <div>{{ $t('HOME.BonusCode.ruleTip.rule1') }}</div>
+            <div>{{ $t('HOME.BonusCode.ruleTip.rule2') }}</div>
+            <div>{{ $t('HOME.BonusCode.ruleTip.rule3') }}</div>
+            <div class="tele">{{ $t('HOME.BonusCode.ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor" :href="$t('HOME.BonusCode.ruleTip.teleUrl')">{{ $t('HOME.BonusCode.ruleTip.teleButton') }}</a></div>
           </div>
         </el-col>
+        <!-- code列表 -->
         <el-col :span="12">
-          <CodeList :codeList="codeList"></CodeList>
+          <CodeList :non_mainland_list="non_mainland_list" :mainland_list="mainland_list"></CodeList>
         </el-col>
       </el-row>
     </BasiceLayout>
@@ -42,16 +51,16 @@
 </template>
 
 <script>
-import BasiceLayout from "@/components/Common/BasicLayout.vue";
-import CodeList from "@/components/Home/CodeList.vue";
-import { mapState, mapActions } from "vuex";
-import { Message } from "element-ui";
-import { LANG } from "../../config/contant.js";
+import BasiceLayout from '@/components/Common/BasicLayout.vue'
+import CodeList from '@/components/Home/CodeList.vue'
+import { mapState, mapActions } from 'vuex'
+import { Message } from 'element-ui'
+import { LANG } from '../../config/contant.js'
 
 export default {
-  name: "BonusCode",
+  name: 'BonusCode',
   props: {
-    status: ""
+    // status: ''
   },
   components: {
     BasiceLayout,
@@ -59,14 +68,17 @@ export default {
   },
   data() {
     return {
-      timeMinutes: "", // 倒计时分钟数
-      timeSeconds: "", // 倒计时秒数
-      showA: "",
-      showB: "",
+      timeMinutes: '', // 倒计时分钟数
+      timeSeconds: '', // 倒计时秒数
+      showA: '',
+      showB: '',
 
-      ticket: "", // 验证码ticket
-      csnonce: ""
-    };
+      ticket: '', // 验证码ticket
+      csnonce: '',
+      regionOptions: this.$t('HOME.BonusCode.regionOptions'),
+      regionDefault: this.$t('HOME.BonusCode.regionOptions')[0].value,
+      region: ''
+    }
   },
 
   watch: {
@@ -74,60 +86,67 @@ export default {
       this.showA =
         this.timeMinutes.toString().length > 1
           ? this.timeMinutes
-          : "0" + this.timeMinutes.toString();
+          : '0' + this.timeMinutes.toString()
     },
     timeSeconds: function(val) {
       this.showB =
         this.timeSeconds.toString().length > 1
           ? this.timeSeconds
-          : "0" + this.timeSeconds.toString();
+          : '0' + this.timeSeconds.toString()
     }
   },
   computed: mapState({
     // 验证码地址
     inviteStatus(state) {
       // 10个激活码不可领取
-      return state.inviteCode.status && state.inviteCode.codeList.length < 10;
+      return state.inviteCode.status
     },
-    codeList: state => state.inviteCode.codeList
+    mainland_list: state => state.inviteCode.mainland_list,
+    non_mainland_list: state => state.inviteCode.non_mainland_list
   }),
   mounted() {
-    this.countTime();
-    this.getAbleList();
+    this.countTime()
+    this.getAbleList()
   },
   methods: {
     ...mapActions([
-      "getInviteCode",
-      "getAbleList",
-      "getVertifUrl",
-      "sendEmailCode_v2"
+      'getInviteCode',
+      'getAbleList',
+      'getVertifUrl',
+      'sendEmailCode_v2',
+      'getInviteCodeStatus'
     ]),
+    getStatus(region) {
+      this.region = region;
+      console.log(region);
+      this.getInviteCodeStatus(region);
+    },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
-      let EACH_HOUR_SECONDS = 60 * 60;
-      let thisTime = new Date();
-      let minutes = thisTime.getUTCMinutes();
-      let seconds = thisTime.getUTCSeconds();
-      let leftSeconds = EACH_HOUR_SECONDS - (minutes * 60 + seconds);
+      let EACH_HOUR_SECONDS = 60 * 60
+      let thisTime = new Date()
+      let minutes = thisTime.getUTCMinutes()
+      let seconds = thisTime.getUTCSeconds()
+      let leftSeconds = EACH_HOUR_SECONDS - (minutes * 60 + seconds)
 
       setInterval(() => {
         if (leftSeconds > 0) {
-          this.timeMinutes = Math.floor(leftSeconds / 60);
-          this.timeSeconds = leftSeconds - this.timeMinutes * 60;
-          --leftSeconds;
+          this.timeMinutes = Math.floor(leftSeconds / 60)
+          this.timeSeconds = leftSeconds - this.timeMinutes * 60
+          --leftSeconds
         } else {
-          leftSeconds = 3600;
-          --leftSeconds;
+          leftSeconds = 3600
+          --leftSeconds
         }
-      }, 1000);
+      }, 1000)
     },
     // 领取 邀请码
     clickInviteCode() {
       if (this.inviteStatus || this.$route.query.debug) {
-        // 校验验证码
-        if (!this.ticket) {
-          Message("Please complete the image verfication code");
-          return false;
+        // 校验验证码&&地区
+        if (!this.region || !this.ticket) {
+          Message(this.$t('HOME.BonusCode.limitRegionOrVerify'))
+          return false
         }
         // 领取邀请码
         this.getInviteCode({
@@ -136,58 +155,60 @@ export default {
           csnonce: this.csnonce
         }).then(res => {
           try {
-            if (res.message === "getSuccess") {
+            if (res.message === 'getSuccess') {
               Message({
-                type: "success",
-                message: "receive success"
-              });
+                type: 'success',
+                message: 'receive success'
+              })
               // 刷新BCode
-              this.getAbleList();
+              this.getAbleList()
             } else {
-              Message(res.message || "reveive error");
+              Message(res.message || 'reveive error')
             }
           } catch (error) {
-            Message("reveive error");
+            Message('reveive error')
           }
-        });
+        })
       }
     }
   },
   // 加载验证码
   created() {
+    // 初始化大陆地区code
+    this.getInviteCodeStatus('mainland');
     this.getVertifUrl().then(res => {
-      this.csnonce = res.data.csnonce;
-      var newScript = document.createElement("script");
-      newScript.type = "text/javascript";
-      newScript.src = res.data.url;
-      document.body.appendChild(newScript);
-      let that = this;
+      this.csnonce = res.data.csnonce
+      var newScript = document.createElement('script')
+      newScript.type = 'text/javascript'
+      newScript.src = res.data.url
+      document.body.appendChild(newScript)
+      let that = this
 
       setTimeout(() => {
         var capOption = {
           callback: cbfn,
-          themeColor: "15bcad",
+          themeColor: '15bcad',
           lang: LANG[this.$i18n.locale]
-        };
-        capInit(document.getElementById("TCaptcha"), capOption);
+        }
+        capInit(document.getElementById('TCaptcha'), capOption)
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
           if (retJson.ret == 0) {
-            that.ticket = retJson.ticket;
+            that.ticket = retJson.ticket
             // that.sendCode();
             // 用户验证成功
           } else {
             //用户关闭验证码页面，没有验证
           }
         }
-      }, 1000);
-    });
+      }, 1000)
+    })
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style   lang="stylus">
+<style  lang="stylus">
 .captcha_wrap {
   width: 290px;
   height: 40px;
@@ -216,6 +237,10 @@ export default {
   margin-top: 40px;
   font-size: 14px;
   margin-left: 20px;
+
+  .bonuscode-select-region {
+    margin: 20px 0 0 20px;
+  }
 }
 
 .get-invite {
@@ -303,42 +328,3 @@ export default {
   color: #0db4c5;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "bonusTips": "BonusCloud is in the TestNet phase and needs to activate the device using BonusCode. Each BonusCode can only be used once and expires after successful activation. BonusCode is bound to the account after being picked up and is not transferable.",
-    "bonusGet": "Receive BCode",
-    "nextTimeText": "The next time period BCode receives the countdown:",
-    "getText": "Receive",
-    "ruleTip": {
-      "title": "BCode collection rules:",
-      "rule1": "1.Each account can receive 1 BCode per hour.",
-      "rule2": "2.Each account can receive up to 10 BCodes per day.",
-      "rule3": "3.The total collection limit for each account is 10 BCodes.",
-      "tele": "If you have any questions, please join the telegraph group to ask.",
-      "joinTele": "Join Telegram",
-      "teleUrl": "https://t.me/Bonuscloud",
-      "teleButton" :"JOIN"
-    },
-    "imagePlaceVaule": "Image Verfication Code"
-  },
-  "zn": {
-    "bonusTips": "当前BonusCloud 处于测试网络阶段，需要使用BonusCode激活设备，每个BonusCode仅可以使用一次，激活成功后失效。BonusCode被领取后与账号绑定，不可转让。",
-    "bonusGet":  "本时段BCode领取：",
-    "nextTimeText": "下一时段BCode领取倒计时：",
-    "getText": "领取",
-    "ruleTip": {
-      "title": "BCode领取规则:",
-      "rule1": "1.每个账号每小时可以领取1个",
-      "rule2": "2.每个账号每天最多领取10个",
-      "rule3": "3.每个账号的总领取上限是10个",
-      "tele": "如有疑问请至电报群咨询",
-      "joinTele": "请加入电报群",
-      "teleUrl": "https://t.me/bonuscloudcn",
-      "teleButton": "加群"
-    },
-    "imagePlaceVaule": "图片验证码"
-  }
-}
-</i18n>
