@@ -71,7 +71,7 @@
           "label": "Non-Chinese mainland"
         }
       ],
-      "limitRegionOrVerify": "Please select the region of BCode or complete the image verfication"
+      "limitVerify": "Please complete the image verfication"
     }
   }
 }

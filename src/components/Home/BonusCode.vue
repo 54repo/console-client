@@ -144,8 +144,8 @@ export default {
     clickInviteCode() {
       if (this.inviteStatus || this.$route.query.debug) {
         // 校验验证码&&地区
-        if (!this.region || !this.ticket) {
-          Message(this.$t('HOME.BonusCode.limitRegionOrVerify'))
+        if (!this.ticket) {
+          Message(this.$t('HOME.BonusCode.limitVerify'))
           return false
         }
         // 领取邀请码

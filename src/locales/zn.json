@@ -66,7 +66,7 @@
           "label": "非中国大陆"
         }
       ],
-      "limitRegionOrVerify": "请选择BCode使用地区或者完成图片校验"
+      "limitVerify": "请完成图片校验"
     }
   }
 }
