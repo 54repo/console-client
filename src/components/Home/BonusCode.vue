@@ -11,7 +11,7 @@
             <div class="active-wrap">
               <div>{{ $t('HOME.BonusCode.bonusGet') }}</div>
               <!-- 领码选择 -->
-              <el-select v-model="region" :placeholder="$t('HOME.BonusCode.regionHolder')" class="bonuscode-select-region" @change="getStatus">
+              <el-select v-model="regionDefault" :placeholder="$t('HOME.BonusCode.regionHolder')" class="bonuscode-select-region" @change="getStatus">
                 <el-option default v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -77,7 +77,7 @@ export default {
       csnonce: '',
       regionOptions: this.$t('HOME.BonusCode.regionOptions'),
       regionDefault: this.$t('HOME.BonusCode.regionOptions')[0].value,
-      region: ''
+      region: 0
     }
   },
 
@@ -150,7 +150,7 @@ export default {
         }
         // 领取邀请码
         this.getInviteCode({
-          // captcha: this.inputImageCode
+          region: this.region,
           ticket: this.ticket,
           csnonce: this.csnonce
         }).then(res => {

@@ -8,7 +8,6 @@ export const ABLE_SIGNUP = 'ABLE_SIGNUP';
 export const GET_IMAGE_CODE = 'GET_IMAGE_CODE';
 //首页
 export const INVITECODE_STATUS_CODE = 'INVITECODE_STATUS_CODE'; //邀请码可领取状态
-export const GET_ABLE_LIST = 'GET_ABLE_LIST'; //邀请码可领取列表
 export const GET_NON_MAINLAND_LIST = 'GET_NON_MAINLAND_LIST'; //邀请码NON_MAINLAND可领取列表
 export const GET_MAINLAND_LIST = 'GET_MAINLAND_LIST'; //邀请码MAINLAND可领取列表
 export const GET_USER_INFO = 'GET_USER_INFO'; //邀请码可领取状态
