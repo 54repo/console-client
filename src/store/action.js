@@ -42,6 +42,8 @@ import {
   GET_RECOMMEND_INFO,
   GET_RECOMMEND_COUNT,
   GET_WALLET_ADDRESS,
+  GET_MAINLAND_LIST,
+  GET_NON_MAINLAND_LIST
 } from './mutation-types';
 import router from '../router';
 
@@ -88,8 +90,8 @@ export default {
 
   // -------首页-------
   // 发送邮箱码
-  async getInviteCodeStatus({ commit }, params) {
-    const res = await ajaxInviteCodeStatus(params);
+  async getInviteCodeStatus({ commit }, region) {
+    const res = await ajaxInviteCodeStatus({ region });
     try {
       commit(INVITECODE_STATUS_CODE, res.ret.status);
     } catch (error) {
@@ -100,14 +102,22 @@ export default {
   async getAbleList({ commit }, params) {
     const res = await ajaxGetAbleList(params);
     try {
-      if (res.ret.list && res.ret.list.length) {
-        commit(GET_ABLE_LIST, res.ret.list);
+      if (res.ret.mainland && res.ret.mainland.length) {
+        commit(GET_MAINLAND_LIST, res.ret.mainland);
       } else {
-        commit(GET_ABLE_LIST, NO_CONTENT);
+        commit(GET_MAINLAND_LIST, NO_CONTENT);
       }
-
     } catch (error) {
-      commit(GET_ABLE_LIST, NO_CONTENT);
+      commit(GET_MAINLAND_LIST, NO_CONTENT);
+    }
+    try {
+      if (res.ret.non_mainland && res.ret.non_mainland.length) {
+        commit(GET_NON_MAINLAND_LIST, res.ret.non_mainland);
+      } else {
+        commit(GET_NON_MAINLAND_LIST, NO_CONTENT);
+      }
+    } catch (error) {
+      commit(GET_NON_MAINLAND_LIST, NO_CONTENT);
     }
   },
   // 领取邀请码
@@ -213,7 +223,7 @@ export default {
     return res;
   },
   // 获取验证码js地址
-  async getVertifUrl({commit}, params) {
+  async getVertifUrl({ commit }, params) {
     const res = await ajaxVertifUrl(params);
     return res;
   }

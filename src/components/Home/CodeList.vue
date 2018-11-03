@@ -1,52 +1,57 @@
 <template>
   <div class="bonus-list">
-			<span class="title">{{ $t('title') }}</span>
-      <el-table v-if="codeList !== 'NO_CONTENT'"
-        empty-text="Loading"
-        :data="codeList || []"
-        height="410px"
-        style="width: 100%">
-        <el-table-column
-          class="bcode-list"
-          prop="bcode"
-          :label="totalText">
-        </el-table-column>
-      </el-table>
-      <el-table v-if=" codeList === 'NO_CONTENT'"
-        :empty-text="$t('noCodeTip')"
-        height="410px"
-        style="width: 100%"></el-table>
-      <!-- <div class="down-list" v-if="codeList.length > 8" @click="scroll"><i class="el-icon-caret-bottom"></i></div> -->
+    <span class="title">{{ $t('title') }}</span>
+    <el-tabs v-model="active_tab" class="list-tab">
+      <el-tab-pane :label="$t('HOME.BonusCode.regionOptions[0].label')" name="mainland">         
+        <el-table v-if="mainland_list !== 'NO_CONTENT'" empty-text="Loading" :data="mainland_list || []" height="490px" style="width: 100%">
+          <el-table-column class="bcode-list" prop="bcode" :label="totalText">
+          </el-table-column>
+        </el-table>
+        <el-table v-if=" mainland_list === 'NO_CONTENT'" :empty-text="$t('noCodeTip')" height="490px" style="width: 100%"></el-table>
+      </el-tab-pane>
+      <el-tab-pane :label="$t('HOME.BonusCode.regionOptions[1].label')" name="non-mainland">
+        <el-table v-if="non_mainland_list !== 'NO_CONTENT'" empty-text="Loading" :data="non_mainland_list || []" height="490px" style="width: 100%">
+          <el-table-column class="bcode-list" prop="bcode" :label="totalText">
+          </el-table-column>
+        </el-table>
+        <el-table v-if=" non_mainland_list === 'NO_CONTENT'" :empty-text="$t('noCodeTip')" height="490px" style="width: 100%"></el-table>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CodeList",
+  name: 'CodeList',
   data() {
     return {
-      totalText: "Total BCode:",
-      showList: []
-    };
+      totalText: 'Total BCode:',
+      showList: [],
+      active_tab: 'mainland'
+    }
   },
   props: {
-    codeList: ""
-  },
-};
+    mainland_list: '',
+    non_mainland_list: ''
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.list-tab 
+  margin: 20px;
 .bonus-list .bcode-list {
   font-size: 14px;
 }
 
 .bonus-list .title {
-  font-size: 14px;
+  font-size: 16px;
   color: #96999B;
-  line-height: 14px;
+  line-height: 16px;
   display: inline-block;
   padding-left: 10px;
+  padding-top: 10px;
 }
 
 .bonus-list {
@@ -56,7 +61,7 @@ export default {
   text-align: left;
 }
 
-.down-list
+.down-list {
   border-top: 1px solid #eaeefb;
   height: 44px;
   box-sizing: border-box;
@@ -68,9 +73,11 @@ export default {
   color: #d3dce6;
   cursor: pointer;
   position: relative;
+}
 
-.down-list i 
-  line-height: 43px
+.down-list i {
+  line-height: 43px;
+}
 </style>
 
 <i18n>
