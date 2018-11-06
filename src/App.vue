@@ -43,7 +43,6 @@ a
 
 .input 
     width: 200px;
-    height: 28px;
     -webkit-appearance: none;
     background-color: #fff;
     background-image: none;
@@ -53,7 +52,7 @@ a
     color: #000;
     display: inline-block;
     font-size: inherit;
-    height: 30px;
+    height: 40px;
     line-height: 30px;
     outline: none;
     padding: 0 10px;

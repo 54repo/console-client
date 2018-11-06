@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      whichLanguage: false
+      whichLanguage: false,
     };
   },
   computed: mapState({
@@ -71,15 +71,18 @@ export default {
     }
   },
   created() {
-    //   用户账号信息获取
-    if (!this.email && this.type !== "login-header") {
+    //  用户账号信息获取
+    if (!this.email && this.type !== 'login-header') {
       // 获取用户信息
       this.getUserInfo();
+    } else if (this.email && this.type === 'login-header') {
+      this.$router.push({ name: 'home' });
     }
+
     // 缓存语言设置
-    let language = this.$cookie.get("BASIC_LANUAGE");
+    let language = this.$cookie.get('BASIC_LANUAGE');
     this.$i18n.locale = language;
-    this.whichLanguage = (language === "zn");
+    this.whichLanguage = (language === 'zn');
   }
 };
 </script>

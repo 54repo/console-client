@@ -279,9 +279,6 @@ export default {
   width: 100%;
 }
 
-.unbind-dialog-wrap input.basic-input {
-  height: 42px;
-}
 
 .button {
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #15bcad), to(#10b2cb));

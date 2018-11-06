@@ -317,10 +317,6 @@ body {
 	top: 10px;
 }
 
-.wallet-wrap input.basic-input {
-	height: 40px;
-}
-
 .wallet-wrap .wallet-email {
 	display: inline-block;
 	min-width: 250px;

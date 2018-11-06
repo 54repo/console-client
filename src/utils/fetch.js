@@ -23,7 +23,6 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
 			});
 		}
 
-		console.log(response);
 		if (response.status === 200 || response.status === 201) {
 			return response.data;
 		} else if (response.status === 401) {

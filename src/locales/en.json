@@ -76,5 +76,33 @@
       ],
       "limitVerify": "Please complete the image verfication"
     }
-  }
+  },
+  "withdrawal": {
+    "pageTitle": "Withdrawal",
+    "leftBalance": "Current account balance",
+    "tips": {
+      "title": "Attention",
+      "detail": [
+        "1. Please bind the wallet address in the account settings before withdrawing.",
+        "2. The minimum withdrawal amount is 5000 BxC.",
+        "3. Each withdrawal requires 300 BxC to be paid as the ETH network's Gas fee. BonusCloud does not charge any fees.",
+        "4. The cash withdrawal rate needs to refer to the ETH network congestion. Please pay attention to the cash withdrawal status update.",
+        "5. Cannot withdraw cash within 24 hours after replacing the wallet.",
+        "6. Cannot withdraw cash within 24 hours after modifying the account password.",
+        "7. Due to ETH network congestion and other reasons, withdrawal may fail. After the withdrawal fails, the balance will be returned. Please re-initiate the withdrawal request (failure without deducting the Gas fee)."
+      ],
+      "confirmTips": "Each withdrawal requires 300 BxC to be paid as the ETH network's Gas fee. BonusCloud does not charge any fees."
+    },
+    "recordsList": {
+      "title": "Withdrawals record",
+      "noWithdrawalList": "no withdrawal records",
+      "time": "Time（UTC）",
+      "eth_address": "ETH address",
+      "amount": "Amount",
+      "balance": "Balance",
+      "status": "Withdrawal status"
+    }
+  },
+  "confirm": "Sure",
+  "cancel": "Cancele"
 }

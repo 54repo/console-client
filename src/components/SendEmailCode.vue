@@ -41,7 +41,6 @@ export default {
 
     ticket: '',
     csnonce: ''
-
   },
   model: {
     prop: "value",
@@ -171,7 +170,7 @@ export default {
 }
 
 input.basic-input {
-  height: 30px;
+  height: 40px;
   -webkit-appearance: none;
   background-color: #fff;
   background-image: none;
@@ -180,8 +179,8 @@ input.basic-input {
   color: #000;
   display: inline-block;
   font-size: inherit;
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
+  line-height: 40px;
   outline: none;
   padding: 0 10px;
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -200,13 +199,7 @@ input.basic-input {
   text-align: right;
   position: absolute;
   right: 5px;
-  line-height: 30px;
+  line-height: 42px;
 
-
-.unbind-style.send-code
-  line-height: 42px
-
-.unbind-style input.basic-input
-  height: 40px
 </style>
 

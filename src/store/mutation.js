@@ -23,6 +23,9 @@ import {
   ACCOUNT_LASTDAY_REVENUE,
   // eth地址绑定
   GET_WALLET_ADDRESS,
+  // 提现
+  GET_WITHDRAWAL_LIST,
+  GET_BALANCE,
 } from './mutation-types.js'
 
 // import {setStore, getStore} from '../config/mUtils'
@@ -122,5 +125,14 @@ export default {
   [GET_WALLET_ADDRESS](state, address) {
     state.wallet.address = address;
     state.wallet =  Object.assign({}, state.wallet);
+  },
+  //  提现
+  [GET_WITHDRAWAL_LIST](state, list) {
+    state.withdrawal.list = list;
+    state.withdrawal =  Object.assign({}, state.withdrawal);
+  },
+  [GET_BALANCE](state, balance) {
+    state.withdrawal.balance = balance;
+    state.withdrawal =  Object.assign({}, state.withdrawal);
   },
 }

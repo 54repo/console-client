@@ -22,6 +22,9 @@ import {
   ajaxWalletAddress,
   ajaxBindAddress,
   ajaxVertifUrl,
+  ajaxCommitWithdrawal,
+  ajaxWithdrawalBalance,
+  ajaxWithdrawalList,
 } from './getData';
 
 const NO_CONTENT = "NO_CONTENT";
@@ -43,7 +46,9 @@ import {
   GET_RECOMMEND_COUNT,
   GET_WALLET_ADDRESS,
   GET_MAINLAND_LIST,
-  GET_NON_MAINLAND_LIST
+  GET_NON_MAINLAND_LIST,
+  GET_WITHDRAWAL_LIST,
+  GET_BALANCE,
 } from './mutation-types';
 import router from '../router';
 
@@ -63,16 +68,16 @@ export default {
     router.push({ name: 'login' });
     return res;
   },
-  async getImageCode({ commit }, params) {
-    const res = await ajaxImageCode();
-    const imgCodeUrl = res.ret.captcha;
-    commit(GET_IMAGE_CODE, imgCodeUrl);
-  },
+  // async getImageCode({ commit }, params) {
+  //   const res = await ajaxImageCode();
+  //   const imgCodeUrl = res.ret.captcha;
+  //   commit(GET_IMAGE_CODE, imgCodeUrl);
+  // },
   // 发送邮箱码
-  async sendEmailCode({ commit }, params) {
-    const res = await ajaxEmailCode(params);
-    return res;
-  },
+  // async sendEmailCode({ commit }, params) {
+  //   const res = await ajaxEmailCode(params);
+  //   return res;
+  // },
   async sendEmailCode_v2({ commit }, params) {
     const res = await ajaxEmailCode_v2(params);
     return res;
@@ -226,5 +231,29 @@ export default {
   async getVertifUrl({ commit }, params) {
     const res = await ajaxVertifUrl(params);
     return res;
-  }
+  },
+
+  //  获取提现列表
+  async getWithdrawalList({ commit }, params) {
+    const res = await ajaxWithdrawalList(params);
+    try {
+      commit(GET_WITHDRAWAL_LIST, res.data.list);
+    } catch (error) {
+      commit(GET_WITHDRAWAL_LIST, 'NONE');
+    }
+  },
+  //  获取提现余额
+  async getWithdrawalBalance({ commit }, params) {
+    const res = await ajaxWithdrawalBalance(params);
+    try {
+      commit(GET_BALANCE, res.data.balance);
+    } catch (error) {
+      commit(GET_BALANCE, 'NONE');
+    }
+  },
+  //  提现
+  async commitWithdrawal({ commit }, params) {
+    const res = await ajaxCommitWithdrawal(params);
+    return res;
+  },
 };

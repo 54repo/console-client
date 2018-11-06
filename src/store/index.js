@@ -37,6 +37,10 @@ export default new Vuex.Store({
     },
     wallet: {
       address: ''
+    },
+    withdrawal: {
+      list: [],
+      balance: ''
     }
   },
   mutations,

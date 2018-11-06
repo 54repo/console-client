@@ -8,6 +8,7 @@ import Revenue from './views/Revenue.vue';
 import AccountSet from './views/AccountSet.vue';
 import HardList from './views/HardList.vue';
 import BindWallet from './views/BindWallet.vue';
+import Withdrawal from './views/Withdrawal.vue';
 // import Change from './views/Change.vue';
 
 Vue.use(Router);
@@ -80,6 +81,14 @@ export default new Router({
         title,
       },
       component: BindWallet,
+    },
+    {
+      path: '/withdrawal',
+      name: 'withdrawal',
+      meta: {
+        title,
+      },
+      component: Withdrawal,
     },
     // {
     //   path: '/about',
