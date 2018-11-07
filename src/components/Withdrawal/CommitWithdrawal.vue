@@ -111,7 +111,7 @@ export default {
               // messageTips('', this.$i18n.locale);
               Message({
                 type: 'success',
-                message: this.$t('withdrawal.reicordsList.withSuccess')
+                message: this.$t('withdrawal.recordsList.withSuccess')
               })
               this.getWithdrawalList();
             } else {
