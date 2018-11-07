@@ -103,7 +103,8 @@
       "showEth": "查看区块链浏览器",
       "errorStatus": "提现失败",
       "errorRetry": "请重新申请",
-      "waitPackage": "等待打包"
+      "waitPackage": "等待打包",
+      "withSuccess": "提交提现成功，等待打包中..."
     }
   }
 }

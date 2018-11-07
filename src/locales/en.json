@@ -106,7 +106,8 @@
       "showEth": "Block browser",
       "errorStatus": "Failed",
       "errorRetry": "Please reapply",
-      "waitPackage": "Waiting for packaging"
+      "waitPackage": "Waiting for packaging",
+      "withSuccess": "Waiting for packaging..."
     }
   },
   "confirm": "Sure",

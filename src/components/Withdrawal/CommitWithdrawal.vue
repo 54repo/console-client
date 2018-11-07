@@ -7,7 +7,7 @@
           <div class="left-wrap">
             <div class="withdrawal-key balance-distance">当前账户收益余额</div>
             <div class="withdrawal-key">输入提现数量</div>
-            <div class="withdrawal-key">图形验证</div>
+            <div class="withdrawal-key verify-wrap">图形验证</div>
             <div class="withdrawal-key">输入邮箱验证码</div>
             <div class="withdrawal-key">输入账号密码</div>
           </div>
@@ -15,7 +15,7 @@
         <el-col :span="14" class="commit-right-wrap">
           <div class="withdrawal-value withdrawal-balance balance-distance withdrawal-value">{{balance || '-'}} BXC</div>
           <input type="text" class="input withdrawal-ammount withdrawal-value" v-model="amount">
-          <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value" width="120px" @changeTicket="changeTicket"> </TencentVerify>
+          <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify>
           <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
           <input type="password" class="input with-pw withdrawal-value" v-model="password">
         </el-col>
@@ -111,9 +111,9 @@ export default {
               // messageTips('', this.$i18n.locale);
               Message({
                 type: 'success',
-                message: '等待打包中..'
+                message: this.$t.withdrawal.recordsList.withSuccess
               })
-              this.getWithdrawalList()
+              this.getWithdrawalList();
             } else {
               Message({
                 type: 'error',
@@ -174,12 +174,14 @@ export default {
 
 .withdrawal-ammount, .send-wrap {
   margin: 10px 0;
-  width: 200px;
+  width: 230px;
   height: 40px;
 }
 
 .with-pw {
   margin: 10px 0;
+  width: 230px;
+
 }
 
 .withdrawal-upgrade
@@ -188,4 +190,7 @@ export default {
   font-size: 28px;
   margin: 40px auto;
   text-align: center;
+
+.verify-wrap
+  margin: 20px;
 </style>
