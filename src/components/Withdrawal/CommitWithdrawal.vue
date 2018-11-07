@@ -9,7 +9,7 @@
             <div class="withdrawal-key">{{$t('withdrawal.commitWith.balanceAmount')}}</div>
             <div class="withdrawal-key verify-wrap">{{$t('withdrawal.commitWith.verify')}}</div>
             <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
-            <div class="withdrawal-key">{{$t('withdrawal.commitWith.pwText')}}</div>
+            <div class="withdrawal-key">{{$t('withdrawal.commitWith.pwText')}}i</div>
           </div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
@@ -21,7 +21,7 @@
         </el-col>
       </el-row>
       <div v-if="balance !== 'NONE'" class="buttonWrap">
-        <div class="button" @click="sureWithdrawal">{{$t('withdrawal.confirm')}}</div>
+        <div class="button" @click="sureWithdrawal">{{$t('confirm')}}</div>
       </div>
 
        <div v-if="balance === 'NONE'" class="withdrawal-upgrade">{{$t('withdrawal.withUpgrade')}}</div>
@@ -111,7 +111,7 @@ export default {
               // messageTips('', this.$i18n.locale);
               Message({
                 type: 'success',
-                message: this.$t.withdrawal.recordsList.withSuccess
+                message: this.$t('withdrawal.reicordsList.withSuccess');
               })
               this.getWithdrawalList();
             } else {
