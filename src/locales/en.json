@@ -101,7 +101,12 @@
       "eth_address": "ETH address",
       "amount": "Amount",
       "balance": "Balance",
-      "status": "Withdrawal status"
+      "status": "Withdrawal status",
+      "successStatus": "Success",
+      "showEth": "Block browser",
+      "errorStatus": "Failed",
+      "errorRetry": "Please reapply",
+      "waitPackage": "Waiting for packaging"
     }
   },
   "confirm": "Sure",

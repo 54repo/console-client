@@ -28,6 +28,7 @@ import {
 } from './getData';
 
 const NO_CONTENT = "NO_CONTENT";
+import moment from 'moment'
 
 import {
   LOGIN_IN,
@@ -235,9 +236,14 @@ export default {
 
   //  获取提现列表
   async getWithdrawalList({ commit }, params) {
-    const res = await ajaxWithdrawalList(params);
+    // const res = await ajaxWithdrawalList(params);
+    const res ={data : {"data":[{"id":"6fc543d4-9a18-4845-80f5-8f449b7b598f","status":"completed","transaction":"0x8f8aecd2d6266f8b6885aed0b56b7e880eef2f2c49968d46d81a3a021f7a8f05","amount":{"amount":"8888.000000","currency":"BxC"},"subtotal":{"amount":"8588.000000","currency":"BxC"},"fee":{"amount":"300.000000","currency":"BxC"},"created_at":"2018-11-07T16:51:20+08:00","updated_at":"2018-11-07T16:51:36+08:00","resource":"withdrawal","committed":true}] }};
     try {
-      commit(GET_WITHDRAWAL_LIST, res.data.list);
+      res.data.data.map(val => {
+        val.created_at = moment(val.created_at).format('YYYY-MM-DD hh:mm:ss');
+        val.eth_browser = `https://etherscan.io/tx${val.transaction}`;
+      })
+      commit(GET_WITHDRAWAL_LIST, res.data.data);
     } catch (error) {
       commit(GET_WITHDRAWAL_LIST, 'NONE');
     }

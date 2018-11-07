@@ -3,15 +3,25 @@
 	<div class="withdrawal-list-wrap">
 		<BasiceLayout :title="$t('withdrawal.recordsList.title') " class="withdrawal-layout" empty-text="loading">
 			<el-table v-if="withdrawalList!=='NONE'" :data="withdrawalList" style="width: 100%;min-height: 200px">
-				<el-table-column prop="date" :label="$t('withdrawal.recordsList.time')">
+				<el-table-column prop="created_at" :label="$t('withdrawal.recordsList.time')">
 				</el-table-column>
-				<el-table-column prop="name" :label="$t('withdrawal.recordsList.eth_address')">
+				<el-table-column prop="eth_dst_addr" :label="$t('withdrawal.recordsList.eth_address')">
 				</el-table-column>
-				<el-table-column prop="address" :label="$t('withdrawal.recordsList.amount')">
+				<el-table-column prop="subtotal.amount" :label="$t('withdrawal.recordsList.amount')">
 				</el-table-column>
-				<el-table-column prop="balance" :label="$t('withdrawal.recordsList.balance')">
-				</el-table-column>
-				<el-table-column prop="status" :label="$t('withdrawal.recordsList.status')">
+				<el-table-column prop="" :label="$t('withdrawal.recordsList.status')" align='center'>
+					<template slot-scope="scope">
+						<!-- <div type="danger" @click="checkUnBind(scope.row.id)" :deviceId="scope.row.id" class="unbind-button">解绑</div> -->
+						<div v-if="scope.row.status ==='completed'">
+							<el-tag>{{$t('withdrawal.recordsList.successStatus')}}</el-tag>
+							<a class="bonus-cursor eth_link" target="_blank" :href="scope.row.eth_browser">{{$t('withdrawal.recordsList.showEth')}}</a>
+						</div>
+						<div v-if="scope.row.status ==='canceled'">
+							<el-tag>{{$t('withdrawal.recordsList.errorStatus')}}</el-tag>
+							<span class="record_retry">{{$t('withdrawal.recordsList.errorRetry')}}</span>
+						</div>
+						<el-tag v-if="scope.row.status ==='created'">{{$t('withdrawal.recordsList.waitPackage')}}</el-tag>
+					</template>
 				</el-table-column>
 			</el-table>
 			<el-table v-if="withdrawalList === 'NONE'" :empty-text="$t('withdrawal.recordsList.noWithdrawalList')"></el-table>
@@ -46,6 +56,10 @@ export default {
 <style scoped lang="stylus">
 .withdrawal-list-wrap {
 	margin-top: 20px;
+}
+
+.eth_link, .record_retry {
+	margin-left: 20px;
 }
 </style>
 

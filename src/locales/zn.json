@@ -98,7 +98,12 @@
       "eth_address": "提现ETH地址 ",
       "amount": "提现数量",
       "balance": "提现后余额 ",
-      "status": "提现状态"
+      "status": "提现状态",
+      "successStatus": "提现成功",
+      "showEth": "查看区块链浏览器",
+      "errorStatus": "提现失败",
+      "errorRetry": "请重新申请",
+      "waitPackage": "等待打包"
     }
   }
 }
