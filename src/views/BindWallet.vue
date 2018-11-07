@@ -135,7 +135,7 @@ export default {
       let that = this;
 
       setTimeout(() => {
-        var capOption = { callback: cbfn,  themeColor: '15bcad', lang: LANG[this.$i18n.locale]};
+        var capOption = { callback: cbfn,  themeColor: '15bcad', lang: LANG[this.$i18n.locale || 'en']};
         capInit(document.getElementById("TCaptcha"), capOption);
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {

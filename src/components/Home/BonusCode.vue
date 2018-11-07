@@ -121,8 +121,8 @@ export default {
     ]),
     getStatus(region) {
       this.region = region;
-      console.log(region);
       this.getInviteCodeStatus(region);
+      capRefresh();
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
@@ -191,7 +191,7 @@ export default {
         var capOption = {
           callback: cbfn,
           themeColor: '15bcad',
-          lang: LANG[this.$i18n.locale]
+          lang: LANG[this.$i18n.locale || 'en']
         }
         capInit(document.getElementById('TCaptcha'), capOption)
         //回调函数：验证码页面关闭时回调
