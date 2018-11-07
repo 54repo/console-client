@@ -91,6 +91,13 @@
       ],
       "confirmTips": "每次提现需要支付 300 个 BxC 作为ETH网络的Gas费用，从提现部分扣除，BonusCloud不收取任何费用。请确认你的ETH地址绑定正确"
     },
+    "commitWith": {
+      "balanceText": "当前账户收益余额",
+      "balanceAmount": "输入提现数量",
+      "verify": "图形验证",
+      "emailCode": "输入邮箱验证码",
+      "pwText": "输入账号密码"
+    },
     "recordsList": {
       "title": "提现记录",
       "noWithdrawalList": "暂无提现记录",

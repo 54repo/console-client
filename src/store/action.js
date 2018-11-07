@@ -239,7 +239,7 @@ export default {
     const res = await ajaxWithdrawalList(params);
     try {
       res.data.data.map(val => {
-        val.created_at = moment(val.created_at).format('YYYY-MM-DD hh:mm:ss');
+        val.created_at = moment(val.created_at).utc().format('YYYY-MM-DD hh:mm:ss');
         val.eth_browser = `https://etherscan.io/tx${val.transaction}`;
       })
       commit(GET_WITHDRAWAL_LIST, res.data.data);

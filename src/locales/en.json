@@ -94,6 +94,13 @@
       ],
       "confirmTips": "Each withdrawal requires 300 BxC to be paid as the ETH network's Gas fee. BonusCloud does not charge any fees.Please confirm your ETH wallet binding is correct"
     },
+    "commitWith": {
+      "balanceText": "Account Balance",
+      "balanceAmount": "Enter withdrawal amount",
+      "verify": "Image verification code",
+      "emailCode": "E-mail verification code",
+      "pwText": "Account password"
+    },
     "recordsList": {
       "title": "Withdrawals record",
       "noWithdrawalList": "no withdrawal records",

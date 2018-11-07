@@ -5,11 +5,11 @@
       <el-row v-if="balance !== 'NONE'">
         <el-col :span="10">
           <div class="left-wrap">
-            <div class="withdrawal-key balance-distance">当前账户收益余额</div>
-            <div class="withdrawal-key">输入提现数量</div>
-            <div class="withdrawal-key verify-wrap">图形验证</div>
-            <div class="withdrawal-key">输入邮箱验证码</div>
-            <div class="withdrawal-key">输入账号密码</div>
+            <div class="withdrawal-key balance-distance">{{$t('withdrawal.commitWith.balanceText')}}</div>
+            <div class="withdrawal-key">{{$t('withdrawal.commitWith.balanceAmount')}}</div>
+            <div class="withdrawal-key verify-wrap">{{$t('withdrawal.commitWith.verify')}}</div>
+            <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
+            <div class="withdrawal-key">{{$t('withdrawal.commitWith.pwText')}}</div>
           </div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
@@ -21,7 +21,7 @@
         </el-col>
       </el-row>
       <div v-if="balance !== 'NONE'" class="buttonWrap">
-        <div class="button" @click="sureWithdrawal">确定</div>
+        <div class="button" @click="sureWithdrawal">{{$t('withdrawal.confirm')}}</div>
       </div>
 
        <div v-if="balance === 'NONE'" class="withdrawal-upgrade">{{$t('withdrawal.withUpgrade')}}</div>
@@ -192,5 +192,5 @@ export default {
   text-align: center;
 
 .verify-wrap
-  margin: 20px;
+  margin: 20px 0;
 </style>
