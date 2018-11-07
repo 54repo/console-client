@@ -80,6 +80,7 @@
   "withdrawal": {
     "pageTitle": "Withdrawal",
     "leftBalance": "Current account balance",
+    "withUpgrade": "Service upgrade...",
     "tips": {
       "title": "Attention",
       "detail": [

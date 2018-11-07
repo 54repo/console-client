@@ -2,7 +2,7 @@
 <template>
   <div class="commit-withdrawal-wrap">
     <BasiceLayout :title="$t('withdrawal.pageTitle') " class="bonus-code-layout revenue-all-layout">
-      <el-row>
+      <el-row v-if="balance !== 'NONE'">
         <el-col :span="10">
           <div class="left-wrap">
             <div class="withdrawal-key balance-distance">当前账户收益余额</div>
@@ -13,16 +13,18 @@
           </div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
-          <div class="withdrawal-value withdrawal-balance balance-distance withdrawal-value">11003.00 BXC</div>
+          <div class="withdrawal-value withdrawal-balance balance-distance withdrawal-value">{{balance || '-'}} BXC</div>
           <input type="text" class="input withdrawal-ammount withdrawal-value" v-model="amount">
           <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value" width="120px" @changeTicket="changeTicket"> </TencentVerify>
           <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
           <input type="password" class="input with-pw withdrawal-value" v-model="password">
         </el-col>
       </el-row>
-      <div class="buttonWrap">
+      <div v-if="balance !== 'NONE'" class="buttonWrap">
         <div class="button" @click="sureWithdrawal">确定</div>
       </div>
+
+       <div v-if="balance === 'NONE'" class="withdrawal-upgrade">{{$t('withdrawal.withUpgrade')}}</div>
     </BasiceLayout>
   </div>
 </template>
@@ -45,7 +47,8 @@ export default {
   },
   computed: mapState({
     //  箭头函数可使代码更简练
-    email: state => state.account.email
+    email: state => state.account.email,
+    balance: state => state.withdrawal.balance
   }),
   data() {
     return {
@@ -56,9 +59,12 @@ export default {
       password: ''
     }
   },
+  created() {
+    // 查询余额
+    this.getWithdrawalBalance();
+  },
   methods: {
-    ...mapActions(['commitWithdrawal', 'getWithdrawalList']),
-
+    ...mapActions(['commitWithdrawal', 'getWithdrawalList', 'getWithdrawalBalance']),
     emailCodeTip(error) {
       if (error.message) {
         Message({
@@ -175,4 +181,11 @@ export default {
 .with-pw {
   margin: 10px 0;
 }
+
+.withdrawal-upgrade
+  color: #909399;
+  line-height: 30px
+  font-size: 28px;
+  margin: 40px auto;
+  text-align: center;
 </style>
