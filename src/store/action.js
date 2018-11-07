@@ -246,7 +246,7 @@ export default {
   async getWithdrawalBalance({ commit }, params) {
     const res = await ajaxWithdrawalBalance(params);
     try {
-      commit(GET_BALANCE, res.data.balance);
+      commit(GET_BALANCE, res.data.balance.amount);
     } catch (error) {
       commit(GET_BALANCE, 'NONE');
     }
