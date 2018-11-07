@@ -9,7 +9,7 @@
             <div class="withdrawal-key">{{$t('withdrawal.commitWith.balanceAmount')}}</div>
             <div class="withdrawal-key verify-wrap">{{$t('withdrawal.commitWith.verify')}}</div>
             <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
-            <div class="withdrawal-key">{{$t('withdrawal.commitWith.pwText')}}i</div>
+            <div class="withdrawal-key">{{$t('withdrawal.commitWith.pwText')}}</div>
           </div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
@@ -135,7 +135,7 @@ export default {
   color: #96999b;
   text-align: right;
   height: 50px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 50px;
   margin: 10px 0;
 }
@@ -148,7 +148,7 @@ export default {
 .withdrawal-balance {
   height: 50px;
   line-height: 50px;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .commit-right-wrap {
@@ -156,7 +156,7 @@ export default {
 }
 
 .balance-distance {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .TencentVerify {

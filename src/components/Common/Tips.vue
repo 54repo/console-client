@@ -30,8 +30,9 @@ export default {
 <style scoped lang="stylus">
 .tips-wrap {
   text-align: left;
+  font-size: 14px;
   width: 80%;
-  padding: 8px 16px;
+  padding: 8px 14px;
   margin: 40px 20px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
