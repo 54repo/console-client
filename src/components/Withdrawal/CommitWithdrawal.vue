@@ -228,7 +228,6 @@ export default {
 .withdrawal-ammount, .send-wrap {
   width: 230px;
   height: 40px;
-  padding: 10px 10px;
 }
 
 .pw-key
