@@ -3,24 +3,34 @@
 	<div class="withdrawal-list-wrap">
 		<BasiceLayout :title="$t('withdrawal.recordsList.title') " class="withdrawal-layout" empty-text="loading">
 			<el-table v-if="withdrawalList!=='NONE'" :data="withdrawalList" style="width: 100%;min-height: 200px">
-				<el-table-column prop="created_at" :label="$t('withdrawal.recordsList.time')">
+				<el-table-column prop="created_at" :label="$t('withdrawal.recordsList.time')" align='center'>
 				</el-table-column>
-				<el-table-column prop="eth_dst_addr" :label="$t('withdrawal.recordsList.eth_address')">
+				<el-table-column prop="eth_dst_addr" :label="$t('withdrawal.recordsList.eth_address')" align='center'>
 				</el-table-column>
-				<el-table-column prop="subtotal.amount" :label="$t('withdrawal.recordsList.amount')">
+				<el-table-column prop="subtotal.amount" :label="$t('withdrawal.recordsList.amount')" align='center'>
 				</el-table-column>
 				<el-table-column prop="" :label="$t('withdrawal.recordsList.status')" align='center'>
 					<template slot-scope="scope">
 						<!-- <div type="danger" @click="checkUnBind(scope.row.id)" :deviceId="scope.row.id" class="unbind-button">解绑</div> -->
 						<div v-if="scope.row.status ==='completed'">
 							<el-tag>{{$t('withdrawal.recordsList.successStatus')}}</el-tag>
-							<a class="bonus-cursor eth_link" target="_blank" :href="scope.row.eth_browser">{{$t('withdrawal.recordsList.showEth')}}</a>
 						</div>
 						<div v-if="scope.row.status ==='canceled'">
-							<el-tag>{{$t('withdrawal.recordsList.errorStatus')}}</el-tag>
-							<span class="record_retry">{{$t('withdrawal.recordsList.errorRetry')}}</span>
+							<el-tag type="danger">{{$t('withdrawal.recordsList.errorStatus')}}</el-tag>
 						</div>
-						<el-tag v-if="scope.row.status ==='created'">{{$t('withdrawal.recordsList.waitPackage')}}</el-tag>
+						<el-tag type="info" v-if="scope.row.status ==='created'">{{$t('withdrawal.recordsList.waitPackage')}}</el-tag>
+					</template>
+				</el-table-column>
+				<el-table-column prop="" align='center'>
+					<template slot-scope="scope">
+						<div>
+							<!-- <el-tag type="info" class="record_retry"> -->
+							<a v-if="scope.row.status ==='completed'" class="bonus-cursor" target="_blank" :href="scope.row.eth_browser">{{$t('withdrawal.recordsList.showEth')}}</a>
+							<!-- </el-tag> -->
+						</div>
+						<!-- <div'"> -->
+						<span v-if="scope.row.status ==='canceled'" class="record_retry">{{$t('withdrawal.recordsList.errorRetry')}}</span>
+						<!-- </div> -->
 					</template>
 				</el-table-column>
 			</el-table>

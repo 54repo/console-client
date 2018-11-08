@@ -73,4 +73,9 @@ a
 .loading
   color: #909399;
   line-height: 30px;
+
+.link
+  font-size: 10px;
+  color: #13b8bc;
+  line-height: 42px
 </style>

@@ -1,11 +1,23 @@
 import axios from 'axios';
 import { Message } from 'element-ui';
 import router from '../router';
-import qs from 'qs';
+// import qs from 'qs';
+
+// cookie操作
+function getCookie(name) {
+	name += '=';
+	for (var ca = document.cookie.split(/;\s*/), i = ca.length - 1; i >= 0; i--)
+		if (!ca[i].indexOf(name))
+			return ca[i].replace(name, '');
+}
 
 export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
 
 	try {
+		// 设置语言
+		let language = getCookie('BASIC_LANUAGE') || 'en';
+		data.language = language;
+
 		let response = '';
 		if (type == 'GET') {
 			response = await axios.get(url, {

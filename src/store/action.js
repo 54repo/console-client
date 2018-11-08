@@ -69,16 +69,6 @@ export default {
     router.push({ name: 'login' });
     return res;
   },
-  // async getImageCode({ commit }, params) {
-  //   const res = await ajaxImageCode();
-  //   const imgCodeUrl = res.ret.captcha;
-  //   commit(GET_IMAGE_CODE, imgCodeUrl);
-  // },
-  // 发送邮箱码
-  // async sendEmailCode({ commit }, params) {
-  //   const res = await ajaxEmailCode(params);
-  //   return res;
-  // },
   async sendEmailCode_v2({ commit }, params) {
     const res = await ajaxEmailCode_v2(params);
     return res;

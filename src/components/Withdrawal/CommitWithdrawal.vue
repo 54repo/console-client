@@ -6,6 +6,23 @@
         <el-col :span="10">
           <div class="left-wrap">
             <div class="withdrawal-key balance-distance">{{$t('withdrawal.commitWith.balanceText')}}</div>
+          </div>
+        </el-col>
+        <el-col :span="14" class="commit-right-wrap">
+          <div class="withdrawal-value withdrawal-balance balance-distance withdrawal-value">{{(balance || balance === 0) ? balance : '-'}} BXC</div>
+        </el-col>
+        <el-col :span="10">
+          <div class="left-wrap">
+            <div class="withdrawal-key">{{$t('withdrawal.commitWith.balanceAmount')}}</div>
+          </div>
+        </el-col>
+        <el-col :span="14" class="commit-right-wrap">
+          <input type="text" class="input withdrawal-ammount withdrawal-value" v-model="amount">
+        </el-col>
+
+        <!-- <el-col :span="10">
+          <div class="left-wrap">
+            <div class="withdrawal-key balance-distance">{{$t('withdrawal.commitWith.balanceText')}}</div>
             <div class="withdrawal-key">{{$t('withdrawal.commitWith.balanceAmount')}}</div>
             <div class="withdrawal-key verify-wrap">{{$t('withdrawal.commitWith.verify')}}</div>
             <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
@@ -18,13 +35,37 @@
           <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify>
           <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
           <input type="password" class="input with-pw withdrawal-value" v-model="password">
+        </el-col> -->
+      </el-row>
+      <el-row v-if="balance !== 'NONE'">
+        <el-col :span="10">
+          <div class="verify-key withdrawal-key">{{$t('withdrawal.commitWith.balanceAmount')}}</div>
+        </el-col>
+        <el-col :span="14" class="commit-right-wrap">
+          <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify>
         </el-col>
       </el-row>
+      <el-row v-if="balance !== 'NONE'">
+        <el-col :span="10">
+          <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
+        </el-col>
+        <el-col :span="14" class="commit-right-wrap">
+          <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+        </el-col>
+      </el-row>
+      <el-row v-if="balance !== 'NONE'" class="pw-wrap">
+        <el-col :span="10">
+          <div class="withdrawal-key pw-key">{{$t('withdrawal.commitWith.pwText')}}</div>
+        </el-col>
+        <el-col :span="14" class="commit-right-wrap">
+          <input type="password" class="input with-pw withdrawal-value" v-model="password">
+        </el-col>
+      </el-row>
+
       <div v-if="balance !== 'NONE'" class="buttonWrap">
         <div class="button" @click="sureWithdrawal">{{$t('confirm')}}</div>
       </div>
-
-       <div v-if="balance === 'NONE'" class="withdrawal-upgrade">{{$t('withdrawal.withUpgrade')}}</div>
+      <div v-if="balance === 'NONE'" class="withdrawal-upgrade">{{$t('withdrawal.withUpgrade')}}</div>
     </BasiceLayout>
   </div>
 </template>
@@ -61,10 +102,14 @@ export default {
   },
   created() {
     // 查询余额
-    this.getWithdrawalBalance();
+    this.getWithdrawalBalance()
   },
   methods: {
-    ...mapActions(['commitWithdrawal', 'getWithdrawalList', 'getWithdrawalBalance']),
+    ...mapActions([
+      'commitWithdrawal',
+      'getWithdrawalList',
+      'getWithdrawalBalance'
+    ]),
     emailCodeTip(error) {
       if (error.message) {
         Message({
@@ -113,7 +158,7 @@ export default {
                 type: 'success',
                 message: this.$t('withdrawal.recordsList.withSuccess')
               })
-              this.getWithdrawalList();
+              this.getWithdrawalList()
             } else {
               Message({
                 type: 'error',
@@ -130,6 +175,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.verify-key {
+  margin: 18px 0;
+}
+
 .withdrawal-key {
   width: 100%;
   color: #96999b;
@@ -137,7 +186,7 @@ export default {
   height: 50px;
   font-size: 14px;
   line-height: 50px;
-  margin: 10px 0;
+  // margin: 10px 0;
 }
 
 . withdrawal-value {
@@ -172,25 +221,34 @@ export default {
   margin: 30px;
 }
 
-.withdrawal-ammount, .send-wrap {
-  margin: 10px 0;
-  width: 230px;
-  height: 40px;
+.withdrawal-ammount {
+  margin-top: 5px;
 }
 
+.withdrawal-ammount, .send-wrap {
+  width: 230px;
+  height: 40px;
+  padding: 5px 0;
+}
+
+.pw-key
+  padding: 5px 0;
+.pw-wrap
+  margin: 10px 0 ;
 .with-pw {
   margin: 10px 0;
   width: 230px;
-
 }
 
-.withdrawal-upgrade
+.withdrawal-upgrade {
   color: #909399;
-  line-height: 30px
+  line-height: 30px;
   font-size: 28px;
   margin: 40px auto;
   text-align: center;
+}
 
-.verify-wrap
+.verify-wrap {
   margin: 20px 0;
+}
 </style>

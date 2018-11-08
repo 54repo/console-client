@@ -92,7 +92,7 @@
         "6. Cannot withdraw cash within 24 hours after modifying the account password.",
         "7. Due to ETH network congestion and other reasons, withdrawal may fail. After the withdrawal fails, the balance will be returned. Please re-initiate the withdrawal request (failure without deducting the Gas fee)."
       ],
-      "confirmTips": "Each withdrawal requires 300 BxC to be paid as the ETH network's Gas fee. BonusCloud does not charge any fees.Please confirm your ETH wallet binding is correct"
+      "confirmTips": "Each withdrawal requires 300 BxC to be paid as the ETH network’s Gas fee. BonusCloud does not charge any fees, please confirm account ETH address binding is correct."
     },
     "commitWith": {
       "balanceText": "Account Balance",

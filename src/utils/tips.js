@@ -24,7 +24,7 @@ let messageTips = (type, locals) => {
 	let tips = CONFIG[type] || CONFIG.RELOAD_THE_PAGE
 	tips.message = tips[locals] || tips.en;
 
-	return Message(tips);
+	Message(tips);
 };
 
 export {
