@@ -13,7 +13,7 @@
           </div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
-          <div class="withdrawal-value withdrawal-balance balance-distance withdrawal-value">{{balance || '-'}} BXC</div>
+          <div class="withdrawal-value withdrawal-balance balance-distance withdrawal-value">{{(balance || balance === 0) ? balance : '-'}} BXC</div>
           <input type="text" class="input withdrawal-ammount withdrawal-value" v-model="amount">
           <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify>
           <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
