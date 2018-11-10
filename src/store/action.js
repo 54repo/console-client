@@ -235,7 +235,7 @@ export default {
           commitStatus = 'created';
         }
         val.created_at = moment(val.created_at).utc().format('YYYY-MM-DD hh:mm:ss');
-        val.eth_browser = `https://etherscan.io/tx${val.transaction}`;
+        val.eth_browser = `https://etherscan.io/tx/${val.transaction}`;
       })
       commit(GET_WITHDRAWAL_LIST, res.data.data);
       commit(GET_WITHDRAWAL_STAUTS, commitStatus);
