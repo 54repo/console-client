@@ -78,4 +78,7 @@ a
   font-size: 10px;
   color: #13b8bc;
   line-height: 42px
+
+.buttonDisabled
+  background :#d0d0d0 !important;
 </style>

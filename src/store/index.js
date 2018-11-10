@@ -40,7 +40,8 @@ export default new Vuex.Store({
     },
     withdrawal: {
       list: [],
-      balance: ''
+      balance: '',
+      commitStatus: "done" //默认全部提现操作完成
     }
   },
   mutations,

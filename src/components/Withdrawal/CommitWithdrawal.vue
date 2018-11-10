@@ -46,7 +46,7 @@
       </el-row>
 
       <div v-if="balance !== 'NONE'" class="buttonWrap">
-        <div class="button" @click="sureWithdrawal">{{$t('confirm')}}</div>
+        <div class="button " v-bind:class="{ buttonDisabled: (this.balance < 5000 || this.commitStatus === 'created') }" @click="sureWithdrawal">{{$t('confirm')}}</div>
       </div>
       <div v-if="balance === 'NONE'" class="withdrawal-upgrade">{{$t('withdrawal.withUpgrade')}}</div>
     </BasiceLayout>
@@ -72,7 +72,11 @@ export default {
   computed: mapState({
     //  箭头函数可使代码更简练
     email: state => state.account.email,
-    balance: state => state.withdrawal.balance
+    balance: state => state.withdrawal.balance,
+    commitStatus: state => state.withdrawal.commitStatus,
+    // buttonDisabled: () => {
+    //   return ();
+    // }
   }),
   data() {
     return {
@@ -108,6 +112,11 @@ export default {
     },
     sureWithdrawal() {
       let { inputEmailCode, password, amount, balance } = this
+
+      if (this.balance < 5000 || this.commitStatus === 'created') {
+        return;
+      }
+      
       if (!inputEmailCode) {
         // Message({
         //   type: 'error',

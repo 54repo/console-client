@@ -27,3 +27,4 @@ export const GET_WALLET_ADDRESS = 'GET_WALLET_ADDRESS';  //绑定eth地址
 // 提现
 export const GET_WITHDRAWAL_LIST = 'GET_WITHDRAWAL_LIST';  //绑定eth地址
 export const GET_BALANCE = 'GET_BALANCE';  //绑定eth地址
+export const GET_WITHDRAWAL_STAUTS = 'GET_WITHDRAWAL_STAUTS';  //eth提现状态

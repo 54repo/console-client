@@ -47,7 +47,7 @@ export default {
   props: {},
   computed: mapState({
     //  箭头函数可使代码更简练
-    withdrawalList: state => state.withdrawal.list
+    withdrawalList: state => state.withdrawal.list,
   }),
   methods: {
     ...mapActions(['getWithdrawalList'])

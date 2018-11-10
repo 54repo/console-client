@@ -50,6 +50,7 @@ import {
   GET_NON_MAINLAND_LIST,
   GET_WITHDRAWAL_LIST,
   GET_BALANCE,
+  GET_WITHDRAWAL_STAUTS,
 } from './mutation-types';
 import router from '../router';
 
@@ -227,12 +228,17 @@ export default {
   //  获取提现列表
   async getWithdrawalList({ commit }, params) {
     const res = await ajaxWithdrawalList(params);
+    let commitStatus = 'done';
     try {
       res.data.data.map(val => {
+        if (val.status === 'created') {
+          commitStatus = 'created';
+        }
         val.created_at = moment(val.created_at).utc().format('YYYY-MM-DD hh:mm:ss');
         val.eth_browser = `https://etherscan.io/tx${val.transaction}`;
       })
       commit(GET_WITHDRAWAL_LIST, res.data.data);
+      commit(GET_WITHDRAWAL_STAUTS, commitStatus);
     } catch (error) {
       commit(GET_WITHDRAWAL_LIST, 'NONE');
     }

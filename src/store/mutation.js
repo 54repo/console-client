@@ -26,6 +26,7 @@ import {
   // 提现
   GET_WITHDRAWAL_LIST,
   GET_BALANCE,
+  GET_WITHDRAWAL_STAUTS,
 } from './mutation-types.js'
 
 // import {setStore, getStore} from '../config/mUtils'
@@ -133,6 +134,10 @@ export default {
   },
   [GET_BALANCE](state, balance) {
     state.withdrawal.balance = balance;
+    state.withdrawal =  Object.assign({}, state.withdrawal);
+  },
+  [GET_WITHDRAWAL_STAUTS](state, withStatus) {
+    state.withdrawal.commitStatus = withStatus;
     state.withdrawal =  Object.assign({}, state.withdrawal);
   },
 }
