@@ -24,13 +24,9 @@
 				<el-table-column prop="" align='center'>
 					<template slot-scope="scope">
 						<div>
-							<!-- <el-tag type="info" class="record_retry"> -->
 							<a v-if="scope.row.status ==='completed'" class="bonus-cursor link" target="_blank" :href="scope.row.eth_browser">{{$t('withdrawal.recordsList.showEth')}}</a>
-							<!-- </el-tag> -->
 						</div>
-						<!-- <div'"> -->
 						<span v-if="scope.row.status ==='canceled'" class="record_retry">{{$t('withdrawal.recordsList.errorRetry')}}</span>
-						<!-- </div> -->
 					</template>
 				</el-table-column>
 			</el-table>

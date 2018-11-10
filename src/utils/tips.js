@@ -15,6 +15,21 @@ const CONFIG = {
 		zn: '刷新一下',
 		en: 'reload the page'
 	},
+	amount_error: {
+		type: ERROR,
+		zn: '提现数量错误',
+		en: 'amount error'
+	},
+	password_error: {
+		type: ERROR,
+		zn: '密码错误',
+		en: 'password error'
+	},
+	limit_email_code: {
+		type: ERROR,
+		zn: '缺少邮箱验证码',
+		en: 'limit email code'
+	},
 };
 
 import { Message } from 'element-ui'

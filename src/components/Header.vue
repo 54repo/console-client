@@ -27,6 +27,7 @@
               {{ $t('header.accountSetting') }}
             </div>
           </router-link>
+          <div class="header-club header-each-tab"><a target="_blank" class="club-a" :href="$t('header.club_href')">{{ $t('header.club') }}</a></div>
           <div class="header-email header-each-tab">{{email}}</div>
           <div class="header-logout header-each-tab  bonus-cursor" @click="clickLogout">{{ $t('header.logout') }}</div>
         </div>
@@ -166,5 +167,14 @@ export default {
   right: 100px;
   text-align: center;
   width: 40px
+}
+
+.club-a{
+  color: #fff;
+}
+
+.header-club {
+  position: absolute;
+  right: 360px;
 }
 </style>

@@ -24,7 +24,9 @@
     "dataPanel": "Data Panel",
     "accountSetting": "Account Setting",
     "logout": "Logout",
-    "hardware": "My Hardware"
+    "hardware": "My Hardware",
+    "club": "Bonuscloud Club",
+    "club_href": "https://bonuscloud.club/viewforum.php?f=7"
   },
   "DataPanel": {
     "home": {

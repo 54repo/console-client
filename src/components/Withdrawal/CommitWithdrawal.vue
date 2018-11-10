@@ -19,23 +19,6 @@
         <el-col :span="14" class="commit-right-wrap">
           <input type="text" class="input withdrawal-ammount withdrawal-value" v-model="amount">
         </el-col>
-
-        <!-- <el-col :span="10">
-          <div class="left-wrap">
-            <div class="withdrawal-key balance-distance">{{$t('withdrawal.commitWith.balanceText')}}</div>
-            <div class="withdrawal-key">{{$t('withdrawal.commitWith.balanceAmount')}}</div>
-            <div class="withdrawal-key verify-wrap">{{$t('withdrawal.commitWith.verify')}}</div>
-            <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
-            <div class="withdrawal-key">{{$t('withdrawal.commitWith.pwText')}}</div>
-          </div>
-        </el-col>
-        <el-col :span="14" class="commit-right-wrap">
-          <div class="withdrawal-value withdrawal-balance balance-distance withdrawal-value">{{(balance || balance === 0) ? balance : '-'}} BXC</div>
-          <input type="text" class="input withdrawal-ammount withdrawal-value" v-model="amount">
-          <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify>
-          <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
-          <input type="password" class="input with-pw withdrawal-value" v-model="password">
-        </el-col> -->
       </el-row>
       <el-row v-if="balance !== 'NONE'">
         <el-col :span="10">
@@ -124,22 +107,17 @@ export default {
       verify.csnonce && (this.csnonce = verify.csnonce)
     },
     sureWithdrawal() {
-      let { inputEmailCode, password, amount } = this
+      let { inputEmailCode, password, amount, balance } = this
       if (!inputEmailCode) {
-        Message({
-          type: 'error',
-          message: 'limit email code'
-        })
+        // Message({
+        //   type: 'error',
+        //   message: 'limit email code'
+        // })
+        messageTips('limit_email_code', this.$i18n.locale)
       } else if (!password) {
-        Message({
-          type: 'error',
-          message: 'limit password'
-        })
-      } else if (!amount || isNaN(amount)) {
-        Message({
-          type: 'error',
-          message: 'ammount error'
-        })
+        messageTips('password_error', this.$i18n.locale)
+      } else if (!amount || isNaN(amount) || Number(amount) > Number(balance)) {
+        messageTips('amount_error', this.$i18n.locale)
       } else if (amount < 5000 || amount > 10000) {
         messageTips('over_withdrawal_amount', this.$i18n.locale)
       } else {
@@ -230,10 +208,14 @@ export default {
   height: 40px;
 }
 
-.pw-key
+.pw-key {
   padding: 5px 0;
-.pw-wrap
-  margin: 10px 0 ;
+}
+
+.pw-wrap {
+  margin: 10px 0;
+}
+
 .with-pw {
   margin: 10px 0;
   width: 230px;
