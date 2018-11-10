@@ -146,3 +146,21 @@ export const ajaxBindAddress = (data) => {
 export const ajaxVertifUrl = (data) => {
 	return fetch(baseUrl + '/api/web/captcha/get_v2/', data, 'POST');
 };
+/**
+ * 提现
+ */
+export const ajaxCommitWithdrawal = (data) => {
+	return fetch(baseUrl + '/api/withdrawal/commitWithdrawal/', data, 'POST');
+};
+/**
+ * 查余额
+ */
+export const ajaxWithdrawalBalance = () => {
+	return fetch(baseUrl + '/api/withdrawal/getBalance/');
+};
+/**
+ * 查提现记录
+ */
+export const ajaxWithdrawalList = (data) => {
+	return fetch(baseUrl + '/api/withdrawal/getDetails/');
+};

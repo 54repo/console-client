@@ -80,7 +80,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["sendEmailCode", "getVertifUrl", "sendEmailCode_v2"]),
+    ...mapActions(["getVertifUrl", "sendEmailCode_v2"]),
     sendCode() {
       let that = this;
       // -----后续建议提出来统一维护

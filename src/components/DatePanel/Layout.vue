@@ -1,10 +1,11 @@
 <template>
-	<div class="date-panel-layout" v-bind:class="{ revenueAllLayout: !isRevenue }" >
+	<div class="date-panel-layout" >
 		<Header type='home-header' />
     <el-row class="tac data-panel-wrap">
       <el-col :span="4">
         <h5 class="panel-wrap">{{ $t('local_home_layout.dataPanel')}}</h5>
         <el-menu
+          :default-openeds="defaultOption"
           class="bonus-menu"
           background-color="#0A0E22"
           active-text-color="#fff"
@@ -23,8 +24,8 @@
             </template>
             <el-menu-item-group :span="3" >
               <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.1_1_value') }}</el-menu-item>
+              <el-menu-item index="1-3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>              
               <el-menu-item index="1-2" disabled>{{ $t('local_home_layout.menu.1_2_value') }}</el-menu-item>
-              <el-menu-item index="1-3" disabled>{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <!-- <el-submenu index="2" disabled>
@@ -136,6 +137,7 @@ export default {
     return {
       activeIndex: "0",
       revenueActive: true,
+      defaultOption: ['1']
     };
   },
   computed: {
@@ -269,7 +271,7 @@ export default {
 
 .bonus-content .title {
   font-family: PingFangSC-Regular;
-  font-size: 16px;
+  font-size: 18px;
   color: #65686A;
   line-height: 45px;
   text-align: left;

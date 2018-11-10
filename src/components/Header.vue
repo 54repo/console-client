@@ -10,7 +10,7 @@
       <el-col :span="20" class="header-login-panel" >
         <div class="header-panel-wrap" v-if="type !== 'login-header'">
           <router-link to="/">
-            <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/' || thisPath === '/revenue') }">
+            <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/' || thisPath === '/revenue' || thisPath === '/withdrawal') }">
               <img  class="menu-icon home-icon" src="../assets/home/data-panel-login.png" >            
               {{ $t('header.dataPanel') }}
             </div>
@@ -27,6 +27,7 @@
               {{ $t('header.accountSetting') }}
             </div>
           </router-link>
+          <div class="header-club header-each-tab"><a target="_blank" class="club-a" :href="$t('header.club_href')">{{ $t('header.club') }}</a></div>
           <div class="header-email header-each-tab">{{email}}</div>
           <div class="header-logout header-each-tab  bonus-cursor" @click="clickLogout">{{ $t('header.logout') }}</div>
         </div>
@@ -47,7 +48,7 @@ export default {
   },
   data() {
     return {
-      whichLanguage: false
+      whichLanguage: false,
     };
   },
   computed: mapState({
@@ -71,15 +72,18 @@ export default {
     }
   },
   created() {
-    //   用户账号信息获取
-    if (!this.email && this.type !== "login-header") {
+    //  用户账号信息获取
+    if (!this.email && this.type !== 'login-header') {
       // 获取用户信息
       this.getUserInfo();
+    } else if (this.email && this.type === 'login-header') {
+      this.$router.push({ name: 'home' });
     }
+
     // 缓存语言设置
-    let language = this.$cookie.get("BASIC_LANUAGE");
+    let language = this.$cookie.get('BASIC_LANUAGE');
     this.$i18n.locale = language;
-    this.whichLanguage = (language === "zn");
+    this.whichLanguage = (language === 'zn');
   }
 };
 </script>
@@ -163,5 +167,14 @@ export default {
   right: 100px;
   text-align: center;
   width: 40px
+}
+
+.club-a{
+  color: #fff;
+}
+
+.header-club {
+  position: absolute;
+  right: 360px;
 }
 </style>

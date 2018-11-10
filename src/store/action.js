@@ -22,9 +22,13 @@ import {
   ajaxWalletAddress,
   ajaxBindAddress,
   ajaxVertifUrl,
+  ajaxCommitWithdrawal,
+  ajaxWithdrawalBalance,
+  ajaxWithdrawalList,
 } from './getData';
 
 const NO_CONTENT = "NO_CONTENT";
+import moment from 'moment'
 
 import {
   LOGIN_IN,
@@ -43,7 +47,10 @@ import {
   GET_RECOMMEND_COUNT,
   GET_WALLET_ADDRESS,
   GET_MAINLAND_LIST,
-  GET_NON_MAINLAND_LIST
+  GET_NON_MAINLAND_LIST,
+  GET_WITHDRAWAL_LIST,
+  GET_BALANCE,
+  GET_WITHDRAWAL_STAUTS,
 } from './mutation-types';
 import router from '../router';
 
@@ -61,16 +68,6 @@ export default {
     const res = await ajaxLogout();
     commit(LOGIN_IN, false);
     router.push({ name: 'login' });
-    return res;
-  },
-  async getImageCode({ commit }, params) {
-    const res = await ajaxImageCode();
-    const imgCodeUrl = res.ret.captcha;
-    commit(GET_IMAGE_CODE, imgCodeUrl);
-  },
-  // 发送邮箱码
-  async sendEmailCode({ commit }, params) {
-    const res = await ajaxEmailCode(params);
     return res;
   },
   async sendEmailCode_v2({ commit }, params) {
@@ -226,5 +223,42 @@ export default {
   async getVertifUrl({ commit }, params) {
     const res = await ajaxVertifUrl(params);
     return res;
-  }
+  },
+
+  //  获取提现列表
+  async getWithdrawalList({ commit }, params) {
+    const res = await ajaxWithdrawalList(params);
+    let commitStatus = 'done';
+    try {
+      res.data.data.map(val => {
+        if (val.status === 'created') {
+          commitStatus = 'created';
+        }
+        val.created_at = moment(val.created_at).utc().format('YYYY-MM-DD hh:mm:ss');
+        val.eth_browser = `https://etherscan.io/tx/${val.transaction}`;
+      })
+      commit(GET_WITHDRAWAL_LIST, res.data.data);
+      commit(GET_WITHDRAWAL_STAUTS, commitStatus);
+    } catch (error) {
+      commit(GET_WITHDRAWAL_LIST, 'NONE');
+    }
+  },
+  //  获取提现余额
+  async getWithdrawalBalance({ commit }, params) {
+    const res = await ajaxWithdrawalBalance(params);
+    try {
+      if (res.data && res.data.balance) {
+        commit(GET_BALANCE, res.data.balance.amount);
+      } else {
+        commit(GET_BALANCE, 0);
+      }
+    } catch (error) {
+      commit(GET_BALANCE, 'NONE');
+    }
+  },
+  //  提现
+  async commitWithdrawal({ commit }, params) {
+    const res = await ajaxCommitWithdrawal(params);
+    return res;
+  },
 };

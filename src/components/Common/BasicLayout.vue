@@ -2,7 +2,7 @@
 	<div class="basic-layout">
 		<div class="basic-layout-wrap">
 			<div class="title layout-title">
-				<div>{{title}}</div>
+				<div class="">{{title}}</div>
 				<div  class="layout-more" v-if="more"><a :href="more" class="more" target="_blank">{{ $t('faq_more_text') }} >></a></div>
 			</div>
 			<div class="layout-content">
@@ -51,11 +51,10 @@ export default {
 
 .basic-layout-wrap .title {
 	padding: 0 30px;
-	font-size: 14px;
+	font-size: 16px;
 	color: #343739;
 	line-height: 40px;
 	border-bottom: 1px solid #e7eaec;
-	font-size: 14px;
 	color: #343739;
 	line-height: 40px;
 	border-bottom: 1px solid #e7eaec;

@@ -43,7 +43,6 @@ a
 
 .input 
     width: 200px;
-    height: 28px;
     -webkit-appearance: none;
     background-color: #fff;
     background-image: none;
@@ -53,7 +52,7 @@ a
     color: #000;
     display: inline-block;
     font-size: inherit;
-    height: 30px;
+    height: 40px;
     line-height: 30px;
     outline: none;
     padding: 0 10px;
@@ -74,4 +73,12 @@ a
 .loading
   color: #909399;
   line-height: 30px;
+
+.link
+  font-size: 10px;
+  color: #13b8bc;
+  line-height: 42px
+
+.buttonDisabled
+  background :#d0d0d0 !important;
 </style>

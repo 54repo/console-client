@@ -37,6 +37,11 @@ export default new Vuex.Store({
     },
     wallet: {
       address: ''
+    },
+    withdrawal: {
+      list: [],
+      balance: '',
+      commitStatus: "done" //默认全部提现操作完成
     }
   },
   mutations,
