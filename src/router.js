@@ -9,6 +9,7 @@ import AccountSet from './views/AccountSet.vue';
 import HardList from './views/HardList.vue';
 import BindWallet from './views/BindWallet.vue';
 import Withdrawal from './views/Withdrawal.vue';
+import Upgrade from './views/Upgrade.vue';
 // import Change from './views/Change.vue';
 
 Vue.use(Router);
@@ -20,76 +21,81 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      meta: {
-        title,
-      },
-      component: Home,
+      name: 'upgrade',
+      component: Upgrade,
     },
-    {
-      path: '/revenue',
-      name: 'revenue',
-      meta: {
-        title,
-      },
-      component: Revenue,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      meta: {
-        title,
-      },
-      component: Login,
-    },
-    {
-      path: '/signUp',
-      name: 'signUp',
-      meta: {
-        title,
-      },
-      component: SignUp,
-    },
-    {
-      path: '/forget',
-      name: 'forget',
-      meta: {
-        title,
-      },
-      component: Forget,
-    },
-    {
-      path: '/AccountSet',
-      name: 'accountSet',
-      meta: {
-        title,
-      },
-      component: AccountSet,
-    },
-    {
-      path: '/hardList',
-      name: 'hardList',
-      meta: {
-        title,
-      },
-      component: HardList,
-    },
-    {
-      path: '/bindWallet',
-      name: 'bindWallet',
-      meta: {
-        title,
-      },
-      component: BindWallet,
-    },
-    {
-      path: '/withdrawal',
-      name: 'withdrawal',
-      meta: {
-        title,
-      },
-      component: Withdrawal,
-    },
+    // {
+    //   path: '/',
+    //   name: 'home',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: Home,
+    // },
+    // {
+    //   path: '/revenue',
+    //   name: 'revenue',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: Revenue,
+    // },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: Login,
+    // },
+    // {
+    //   path: '/signUp',
+    //   name: 'signUp',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: SignUp,
+    // },
+    // {
+    //   path: '/forget',
+    //   name: 'forget',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: Forget,
+    // },
+    // {
+    //   path: '/AccountSet',
+    //   name: 'accountSet',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: AccountSet,
+    // },
+    // {
+    //   path: '/hardList',
+    //   name: 'hardList',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: HardList,
+    // },
+    // {
+    //   path: '/bindWallet',
+    //   name: 'bindWallet',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: BindWallet,
+    // },
+    // {
+    //   path: '/withdrawal',
+    //   name: 'withdrawal',
+    //   meta: {
+    //     title,
+    //   },
+    //   component: Withdrawal,
+    // },
     // {
     //   path: '/about',
     //   name: 'about',
