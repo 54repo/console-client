@@ -37,23 +37,23 @@ export default {
     Layout
   },
   computed: mapState({
-    inviteCodeStatus: state => state.inviteCode.status,
-    // 计算属性的 getter
-    HOME_FAQ: function() {
-      // `this` 指向 vm 实例
-      let HOME_FAQ = Object.values(this.$t("HOME_FAQ"));
-      return HOME_FAQ;
-    }
+    // inviteCodeStatus: state => state.inviteCode.status,
+    // // 计算属性的 getter
+    // HOME_FAQ: function() {
+    //   // `this` 指向 vm 实例
+    //   let HOME_FAQ = Object.values(this.$t("HOME_FAQ"));
+    //   return HOME_FAQ;
+    // }
   }),
-  created() {
-    // 获取邀请码状态
-    // this.getInviteCodeStatus();
-    // 获取用户信息
-    this.getUserInfo();
-  },
-  methods: {
-    ...mapActions(["getUserInfo"])
-  }
+  // created() {
+  //   // 获取邀请码状态
+  //   // this.getInviteCodeStatus();
+  //   // 获取用户信息
+  //   this.getUserInfo();
+  // },
+  // methods: {
+  //   ...mapActions(["getUserInfo"])
+  // }
 };
 </script>
 
