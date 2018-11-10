@@ -68,7 +68,7 @@ export default {
       }, {
         "date": "2018.10.10",
 				"content": "BonusCloud Lite Node Tutorial (BonusCloud only provides ROM, is not responsible for brushing technical support, brushing  machine is risky, conceited at your own riskt.)",
-				"link": "http://www.right.com.cn/forum/thread-339953-1-1.html"
+				"link": "https://bonuscloud.club/viewforum.php?f=19"
       }, {
         "date": "2018.10.10",
 				"content": "Device Support List Of Lite Node",
@@ -85,7 +85,7 @@ export default {
       }, {
         "date": "2018.10.10",
 				"content": "BonusCloud Lite节点接入教程（BonusCloud只提供镜像，不负责刷机技术支持，刷机有风险，自行担责）",
-				"link": "http://www.right.com.cn/forum/thread-339953-1-1.html"
+				"link": "https://bonuscloud.club/viewforum.php?f=14"
       }, {
         "date": "2018.10.10",
 				"content": "Lite 节点设备支持列表",
