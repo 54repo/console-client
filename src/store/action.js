@@ -24,6 +24,7 @@ import {
   ajaxVertifUrl,
   ajaxCommitWithdrawal,
   ajaxWithdrawalBalance,
+  ajaxUnbindAddress,
   ajaxWithdrawalList,
 } from './getData';
 
@@ -46,6 +47,7 @@ import {
   GET_RECOMMEND_INFO,
   GET_RECOMMEND_COUNT,
   GET_WALLET_ADDRESS,
+  GET_WALLET_STATUS,
   GET_MAINLAND_LIST,
   GET_NON_MAINLAND_LIST,
   GET_WITHDRAWAL_LIST,
@@ -142,21 +144,7 @@ export default {
     const res = await ajaxHardList(params);
     try {
       if (res.ret.list && res.ret.list.length > 0) {
-        const results = await Promise.all(res.ret.list.map(async item => {
-          try {
-            let res_info = await ajaxNetInfo({
-              mac_address: item.mac_address,
-              bcode: item.bcode
-            });
-            item.status = res_info.ret.devnet.status || '';
-            item.ip = res_info.ret.devnet.ext_ip || '';
-          } catch (error) {
-            item.status = '';
-          }
-          return item;
-        }));
-        let list = Object.values(results);
-        commit(GET_HARDLIST, list);
+        commit(GET_HARDLIST, res.ret.list);
       } else {
         commit(GET_HARDLIST, NO_CONTENT);
       }
@@ -210,13 +198,20 @@ export default {
     const res = await ajaxWalletAddress();
     try {
       commit(GET_WALLET_ADDRESS, res.ret.eth_address || 'NO_ADDRESS');
+      commit(GET_WALLET_STATUS, res.ret.eth_verify_status || 'false');
     } catch (error) {
       commit(GET_WALLET_ADDRESS, 'NO_ADDRESS');
+      commit(GET_WALLET_STATUS, 'false');
     }
   },
   //   绑定钱包地址
   async bindWalletAddress({ commit }, params) {
     const res = await ajaxBindAddress(params);
+    return res;
+  },
+  //   绑定钱包地址
+  async commitUnbindAddress({ commit }) {
+    const res = await ajaxUnbindAddress();
     return res;
   },
   // 获取验证码js地址

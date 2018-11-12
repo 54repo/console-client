@@ -6,7 +6,13 @@
 					<!-- 绑定钱包内容展示 -->
 					<div v-if="address && (address !== 'NO_ADDRESS')">
 						<div class="wallet-bind-title">{{$t('walletText')}}：</div>
-						<el-tag id="walletDetail">{{address}}</el-tag>
+						<div class="wallet-verify-wrap">
+							<el-tag id="walletDetail">{{address}}</el-tag>
+							<el-tag v-if="eth_verify_status === 1" classs="verifyStatus" type="success">{{$t('verifySuccess')}}</el-tag>
+							<el-tag v-if="eth_verify_status === false" classs="verifyStatus" type="danger">{{$t('verifyError')}}</el-tag>
+							<el-tag v-if="eth_verify_status === ''" classs="verifyStatus" type="danger">-</el-tag>
+						</div>
+						<div class="button bursor unbindWallet" @click="unbindWallet">{{$t('unbindText')}}</div>
 					</div>
 					<div v-if="address === 'NO_ADDRESS'">
 						<div class="wallet-wrap">
@@ -65,7 +71,11 @@
 		"imageVerCode": "Please verify the image",
 		"emailCode": "Please enter the email verification code",
 
-		"errorTipsAboutBind": "Please vertify the email code or wallet address"
+		"errorTipsAboutBind": "Please vertify the email code or wallet address",
+		"verifySuccess": "Certified",
+		"verifyError": "Unverified",
+		"unbindText": "unbind",
+		"unbindTips": "Are you sure to Unbunding? Verification failed after Unbunding"
   },
   "zn": {
     "bindWalletTitle": "钱包绑定",
@@ -84,7 +94,11 @@
 		"walletCancel": "取消",
 		"imageVerCode": "请进行验证",
 		"emailCode": "请输入邮箱验证码",
-		"errorTipsAboutBind": "请动态验证或者输入邮箱验证码"
+		"errorTipsAboutBind": "请动态验证或者输入邮箱验证码",
+		"verifySuccess": "已认证",
+		"verifyError": "未认证",
+		"unbindText": "解绑",
+		"unbindTips": "是否确认解绑？解绑后验证失效"
   }
 }
 </i18n>
@@ -112,7 +126,8 @@ export default {
   },
   computed: mapState({
     address: state => state.wallet.address,
-    email: state => state.account.email
+    email: state => state.account.email,
+    eth_verify_status: state => state.wallet.eth_verify_status
   }),
   data() {
     return {
@@ -151,7 +166,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions(['getWalletAddress', 'bindWalletAddress', 'getVertifUrl']),
+    ...mapActions(['getWalletAddress', 'bindWalletAddress', 'getVertifUrl', 'commitUnbindAddress']),
     bindWallet(text) {
       console.log(this.$i18n.messages)
 
@@ -204,7 +219,32 @@ export default {
           message: error.message
         })
       }
-    }
+		},
+		// 解绑
+		unbindWallet() {
+
+			this.$confirm(this.$t('unbindTips'), {
+          confirmButtonText: this.$t('confirm'),
+          cancelButtonText: this.$t('cancel')
+        }).then(() => {
+          this.commitUnbindAddress().then(res => {
+            if (res.code === 200) {
+              // // messageTips('', this.$i18n.locale);
+              // Message({
+              //   type: 'success',
+              //   message: this.$t('withdrawal.recordsList.withSuccess')
+              // })
+              // this.getWithdrawalList()
+            } else {
+              // Message({
+              //   type: 'error',
+              //   message: res.message || 'network error'
+              // })
+            }
+          })
+        })
+
+		}
   }
 }
 </script>
@@ -255,8 +295,8 @@ export default {
 	padding: 5px 10px;
 	-webkit-box-sizing: content-box;
 	box-sizing: content-box;
-	margin: 40px 0 70px 0px;
 	width: 100%;
+	margin-right: 50px;
 	text-align: center;
 }
 
@@ -321,5 +361,18 @@ body {
 	display: inline-block;
 	min-width: 250px;
 }
+
+.wallet-verify-wrap {
+	display: flex;
+  margin: 40px 0 70px 0px;
+}
+
+.verifyStatus{
+	margin: 5px 0 ;
+}
+
+.unbindWallet
+	display: block;
+
 </style>
 

@@ -44,7 +44,6 @@
           <input type="password" class="input with-pw withdrawal-value" v-model="password">
         </el-col>
       </el-row>
-
       <div v-if="balance !== 'NONE'" class="buttonWrap">
         <div class="button " v-bind:class="{ buttonDisabled: (this.balance < 5000 || this.commitStatus === 'created') }" @click="sureWithdrawal">{{$t('confirm')}}</div>
       </div>

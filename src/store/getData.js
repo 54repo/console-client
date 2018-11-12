@@ -141,6 +141,12 @@ export const ajaxBindAddress = (data) => {
 	return fetch(baseUrl + '/api/eth/bindAddress/', data, 'POST');
 };
 /**
+ * 解绑钱包地址
+ */
+export const ajaxUnbindAddress = () => {
+	return fetch(baseUrl + '/api/eth/unbindAddress/', {}, 'POST');
+};
+/**
  * 获取验证码js地址
  */
 export const ajaxVertifUrl = (data) => {
