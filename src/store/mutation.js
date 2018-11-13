@@ -23,6 +23,7 @@ import {
   ACCOUNT_LASTDAY_REVENUE,
   // eth地址绑定
   GET_WALLET_ADDRESS,
+  GET_WALLET_STATUS,
   // 提现
   GET_WITHDRAWAL_LIST,
   GET_BALANCE,
@@ -125,6 +126,11 @@ export default {
   //  ETH地址绑定
   [GET_WALLET_ADDRESS](state, address) {
     state.wallet.address = address;
+    state.wallet =  Object.assign({}, state.wallet);
+  },
+  //  ETH状态获取
+  [GET_WALLET_STATUS](state, eth_verify_status) {
+    state.wallet.eth_verify_status = eth_verify_status;
     state.wallet =  Object.assign({}, state.wallet);
   },
   //  提现

@@ -36,7 +36,8 @@ export default new Vuex.Store({
       count: '' //  用户推荐数
     },
     wallet: {
-      address: ''
+      address: '',
+      eth_verify_status: ''
     },
     withdrawal: {
       list: [],

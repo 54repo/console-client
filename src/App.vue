@@ -81,4 +81,8 @@ a
 
 .buttonDisabled
   background :#d0d0d0 !important;
+
+.bonus-color {
+  color: #0db4c5
+}
 </style>
