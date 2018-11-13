@@ -1,56 +1,56 @@
 <template>
-	<div class="home">
-		<AccountSetLayout layoutType="AccountSet" :layoutTitile="$t('bindWalletTitle')">
-			<BasiceLayout :title="$t('bindWalletTitle')">
-				<div class="wallet-content">
-					<!-- 绑定钱包内容展示 -->
-					<div v-if="address && (address !== 'NO_ADDRESS')">
-						<div class="wallet-bind-title">{{$t('walletText')}}：</div>
-						<div class="wallet-verify-wrap">
-							<el-tag id="walletDetail">{{address}}</el-tag>
-							<el-tag v-if="eth_verify_status === 1" classs="verifyStatus" type="success">{{$t('verifySuccess')}}</el-tag>
-							<el-tag v-if="eth_verify_status === false" classs="verifyStatus" type="danger">{{$t('verifyError')}}</el-tag>
-							<el-tag v-if="eth_verify_status === ''" classs="verifyStatus" type="danger">-</el-tag>
-						</div>
-						<div class="unbind-wrap">
-							<div class="button bursor unbindWallet" @click="unbindWallet">{{$t('unbindText')}}</div>
-						</div>
-					</div>
-					<div v-if="address === 'NO_ADDRESS'">
-						<div class="wallet-wrap">
-							<span class="key">{{$t('newWalletText')}}:</span>
-							<input type="text" class="input wallet-input" v-model="new_eth_address">
-						</div>
-						<div class="wallet-wrap captcha-bind-wrap">
-							<span class="key">{{$t('imageVerCode')}}:</span>
-							<div class="hard-captcha">
-								<div id="TCaptcha" style="width:270px;height:30px;"></div>
-							</div>
-							<!-- <ImageCode imageStyle="" type="text" v-model="inputImageCode" class="wallet-image-code"></ImageCode> -->
-						</div>
-						<div class="wallet-wrap email-bind-wrap">
-							<span class="key">{{$t('emailCode')}}:</span>
-							<div class="wallet-email">
-								<SendEmailCode type="text" imageStyle="unbind-style" v-model="inputEmailCode" needImageCode=true :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
-							</div>
-						</div>
-						<div class="button wallet-bind" @click="bindWallet( $t('sureTips') )">确定</div>
-					</div>
-				</div>
-				<div class="loading" v-if=" address ==='' ">
-					Loading...
-				</div>
-			</BasiceLayout>
-			<BasiceLayout class="wallet-tips" :title="$t('walletTip')">
-				<div class="wallet-tips-wrap">
-					<div class="tips">{{ $t('walletTips.tips_one') }}</div>
-					<div class="tips">{{ $t('walletTips.tips_two') }}</div>
-					<div class="tips">{{ $t('walletTips.tips_three') }}</div>
-					<div class="tips">{{ $t('walletTips.tips_four') }}</div>
-				</div>
-			</BasiceLayout>
-		</AccountSetLayout>
-	</div>
+  <div class="home">
+    <AccountSetLayout layoutType="AccountSet" :layoutTitile="$t('bindWalletTitle')">
+      <BasiceLayout :title="$t('bindWalletTitle')">
+        <div class="wallet-content">
+          <!-- 绑定钱包内容展示 -->
+          <div v-if="address && (address !== 'NO_ADDRESS')">
+            <div class="wallet-bind-title">{{$t('walletText')}}：</div>
+            <div class="wallet-verify-wrap">
+              <el-tag id="walletDetail">{{address}}</el-tag>
+              <el-tag v-if="eth_verify_status === 1" classs="verifyStatus" type="success">{{$t('verifySuccess')}}</el-tag>
+              <el-tag v-if="eth_verify_status === false" classs="verifyStatus" type="danger">{{$t('verifyError')}}</el-tag>
+              <el-tag v-if="eth_verify_status === ''" classs="verifyStatus" type="danger">-</el-tag>
+            </div>
+            <div class="unbind-wrap">
+              <div class="button bursor unbindWallet" @click="unbindWallet">{{$t('unbindText')}}</div>
+            </div>
+          </div>
+          <div v-if="address === 'NO_ADDRESS'">
+            <div class="wallet-wrap">
+              <span class="key">{{$t('newWalletText')}}:</span>
+              <input type="text" class="input wallet-input" v-model="new_eth_address">
+            </div>
+            <div class="wallet-wrap captcha-bind-wrap">
+              <span class="key">{{$t('imageVerCode')}}:</span>
+              <div class="hard-captcha">
+                <div id="TCaptcha" style="width:270px;height:30px;"></div>
+              </div>
+              <!-- <ImageCode imageStyle="" type="text" v-model="inputImageCode" class="wallet-image-code"></ImageCode> -->
+            </div>
+            <div class="wallet-wrap email-bind-wrap">
+              <span class="key">{{$t('emailCode')}}:</span>
+              <div class="wallet-email">
+                <SendEmailCode type="text" imageStyle="unbind-style" v-model="inputEmailCode" needImageCode=true :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+              </div>
+            </div>
+            <div class="button wallet-bind" @click="bindWallet( $t('sureTips') )">确定</div>
+          </div>
+        </div>
+        <div class="loading" v-if=" address ==='' ">
+          Loading...
+        </div>
+      </BasiceLayout>
+      <BasiceLayout class="wallet-tips" :title="$t('walletTip')">
+        <div class="wallet-tips-wrap">
+          <div class="tips">{{ $t('walletTips.tips_one') }}</div>
+          <div class="tips">{{ $t('walletTips.tips_two') }}</div>
+          <div class="tips">{{ $t('walletTips.tips_three') }}</div>
+          <div class="tips">{{ $t('walletTips.tips_four') }}</div>
+        </div>
+      </BasiceLayout>
+    </AccountSetLayout>
+  </div>
 </template>
 
 <i18n>
@@ -115,7 +115,7 @@ import BasiceLayout from '@/components/Common/BasicLayout.vue'
 import { Message } from 'element-ui'
 import ImageCode from '@/components/ImageCode.vue'
 import SendEmailCode from '@/components/SendEmailCode.vue'
-import { LANG } from "../config/contant.js";
+import { LANG } from '../config/contant.js'
 
 export default {
   name: 'home',
@@ -135,45 +135,54 @@ export default {
     return {
       new_eth_address: '',
       // inputImageCode: '',
-			inputEmailCode: '',
-			ticket: "", // 验证码ticket
-      csnonce: "" //整数
+      inputEmailCode: '',
+      ticket: '', // 验证码ticket
+      csnonce: '' //整数
     }
   },
   created() {
-		this.getWalletAddress()
-		
+    this.getWalletAddress()
+
     this.getVertifUrl().then(res => {
-      this.csnonce = res.data.csnonce;
-      var newScript = document.createElement("script");
-      newScript.type = "text/javascript";
-      newScript.src = res.data.url;
-      document.body.appendChild(newScript);
-      let that = this;
+      this.csnonce = res.data.csnonce
+      var newScript = document.createElement('script')
+      newScript.type = 'text/javascript'
+      newScript.src = res.data.url
+      document.body.appendChild(newScript)
+      let that = this
 
       setTimeout(() => {
-        var capOption = { callback: cbfn,  themeColor: '15bcad', lang: LANG[this.$i18n.locale || 'en']};
-        capInit(document.getElementById("TCaptcha"), capOption);
+        var capOption = {
+          callback: cbfn,
+          themeColor: '15bcad',
+          lang: LANG[this.$i18n.locale || 'en']
+        }
+        capInit(document.getElementById('TCaptcha'), capOption)
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
           if (retJson.ret == 0) {
-            that.ticket = retJson.ticket;
+            that.ticket = retJson.ticket
             // that.sendCode();
             // 用户验证成功
           } else {
             //用户关闭验证码页面，没有验证
           }
         }
-      }, 1000);
-    });
+      }, 1000)
+    })
   },
   methods: {
-    ...mapActions(['getWalletAddress', 'bindWalletAddress', 'getVertifUrl', 'commitUnbindAddress']),
+    ...mapActions([
+      'getWalletAddress',
+      'bindWalletAddress',
+      'getVertifUrl',
+      'commitUnbindAddress'
+    ]),
     bindWallet(text) {
       console.log(this.$i18n.messages)
 
       // let { password, new_eth_address } = this;
-      let { ticket, inputEmailCode, new_eth_address } = this;
+      let { ticket, inputEmailCode, new_eth_address } = this
 
       if (!inputEmailCode || !new_eth_address) {
         Message(this.$t('errorTipsAboutBind'))
@@ -221,161 +230,168 @@ export default {
           message: error.message
         })
       }
-		},
-		// 解绑
-		unbindWallet() {
-
-			this.$confirm(this.$t('unbindTips'), {
-          confirmButtonText: this.$t('confirm'),
-          cancelButtonText: this.$t('cancel')
-        }).then(() => {
-          this.commitUnbindAddress().then(res => {
-            if (res.code === 200) {
-              // // messageTips('', this.$i18n.locale);
-              // Message({
-              //   type: 'success',
-              //   message: this.$t('withdrawal.recordsList.withSuccess')
-              // })
-              // this.getWithdrawalList()
-            } else {
-              // Message({
-              //   type: 'error',
-              //   message: res.message || 'network error'
-              // })
-            }
-          })
+    },
+    // 解绑
+    unbindWallet() {
+      this.$confirm(this.$t('unbindTips'), {
+        confirmButtonText: this.$t('confirm'),
+        cancelButtonText: this.$t('cancel')
+      }).then(() => {
+        this.commitUnbindAddress().then(res => {
+          if (res.code === 200) {
+            // // messageTips('', this.$i18n.locale);
+            // Message({
+            //   type: 'success',
+            //   message: this.$t('withdrawal.recordsList.withSuccess')
+            // })
+            // this.getWithdrawalList()
+          } else {
+            // Message({
+            //   type: 'error',
+            //   message: res.message || 'network error'
+            // })
+          }
         })
-
-		}
+      })
+    }
   }
 }
 </script>
 
 <style scoped lang="stylus">
-.hard-captcha
-	height: 40px;
-.captcha-bind-wrap
-	position: relative
-.captcha-bind-wrap .key
-	position: absolute;
-	top: 0;
-	left: 0;
-	line-height 40px;
-.hard-captcha
-	display: inline-block;
-	padding-left: 200px;
+.hard-captcha {
+  height: 40px;
+}
+
+.captcha-bind-wrap {
+  position: relative;
+}
+
+.captcha-bind-wrap .key {
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 40px;
+}
+
+.hard-captcha {
+  display: inline-block;
+  padding-left: 200px;
+}
+
 .wallet-bind-title {
-	color: #96999b;
-	font-size: 20px;
+  color: #96999b;
+  font-size: 20px;
 }
 
 .wallet-content {
-	width: 800px;
-	margin: 30px auto;
-	text-align: left;
+  width: 800px;
+  margin: 30px auto;
+  text-align: left;
 }
 
 .wallet-wrap {
-	width: 100%;
-	position relative;
-	margin: 20px 0 30px;
+  width: 100%;
+  position: relative;
+  margin: 20px 0 30px;
 }
 
 .wallet-wrap .key {
-	display: inline-block;
-	width: 200px;
-	color: #96999b;
+  display: inline-block;
+  width: 200px;
+  color: #96999b;
 }
 
-.email-bind-wrap .wallet-email
-	position: absolute;
-	top: 0;
-	left: 200px
+.email-bind-wrap .wallet-email {
+  position: absolute;
+  top: 0;
+  left: 200px;
+}
 
 .wallet-content #walletDetail {
-	font-size: 18px;
-	padding: 5px 10px;
-	-webkit-box-sizing: content-box;
-	box-sizing: content-box;
-	width: 100%;
-	margin-right: 50px;
-	text-align: center;
+  font-size: 18px;
+  padding: 5px 10px;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 100%;
+  margin-right: 50px;
+  text-align: center;
 }
 
 .wallet-input {
-	width: 460px;
-	height: 40px;
+  width: 460px;
+  height: 40px;
 }
 
 body {
-	height: 100%;
+  height: 100%;
 }
 
 .wallet-bind {
-	margin: 40px 0 0 200px;
+  margin: 40px 0 0 200px;
 }
 
 .wallet-tips {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 .wallet-tips-wrap {
-	text-align: left;
-	width: 80%;
-	padding: 8px 16px;
-	margin: 40px 20px;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	border-radius: 4px;
-	position: relative;
-	overflow: hidden;
-	opacity: 1;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-transition: opacity 0.2s;
-	transition: opacity 0.2s;
-	background-color: #f4f4f5;
-	color: #909399;
-	line-height: 30px;
+  text-align: left;
+  width: 80%;
+  padding: 8px 16px;
+  margin: 40px 20px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  background-color: #f4f4f5;
+  color: #909399;
+  line-height: 30px;
 }
 
 .home {
-	height: auto;
+  height: auto;
 }
 
 .wallet-wrap .wallet-image-code {
-	display: inline-block;
-	min-width: 250px;
+  display: inline-block;
+  min-width: 250px;
 }
 
 .wallet-wrap .send-code {
-	line-height: 40px;
+  line-height: 40px;
 }
 
 .wallet-wrap .imageCodeSrc {
-	width: 90px;
-	height: 20px;
-	top: 10px;
+  width: 90px;
+  height: 20px;
+  top: 10px;
 }
 
 .wallet-wrap .wallet-email {
-	display: inline-block;
-	min-width: 250px;
+  display: inline-block;
+  min-width: 250px;
 }
 
 .wallet-verify-wrap {
-	display: flex;
+  display: flex;
   margin: 40px 0 70px 0px;
 }
 
-.verifyStatus{
-	margin: 5px 0 ;
+.verifyStatus {
+  margin: 5px 0;
 }
 
 .unbind-wrap {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 </style>
 

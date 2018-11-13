@@ -1,32 +1,26 @@
 <template>
-	<div class="Annouce">
-		<div class="annouce">
-			<div class="title">
-				<div>{{ $t('local_annouce_title') }}</div> 
-				<a href="https://bonuscloud.gitbook.io/help" target="_blank"><div class="more bonus-cursor">{{ $t('annouce_more')}} >></div></a>
-			</div>
-			<div class="annouce-content">
-				<el-table
-					:data="tableData"
-					style="width: 100%">
-					<el-table-column
-					class-name="data"
-					prop="date"
-					height="40px"
-					width="90px">
-					</el-table-column>
-					<el-table-column
-						class-name="detail-more"
-						height="40px">
-						<template slot-scope="scope">
-							<a  target="_blank" :href="scope.row.link" >
-								<span >{{scope.row.content}}</span>
-							</a>
-						</template>
-					</el-table-column>
-				</el-table>
-			</div> 
-		</div> 
+  <div class="Annouce">
+    <div class="annouce">
+      <div class="title">
+        <div>{{ $t('local_annouce_title') }}</div>
+        <a href="https://bonuscloud.gitbook.io/help" target="_blank">
+          <div class="more bonus-cursor">{{ $t('annouce_more')}} >></div>
+        </a>
+      </div>
+      <div class="annouce-content">
+        <el-table :data="tableData" style="width: 100%">
+          <el-table-column class-name="data" prop="date" height="40px" width="90px">
+          </el-table-column>
+          <el-table-column class-name="detail-more" height="40px">
+            <template slot-scope="scope">
+              <a target="_blank" :href="scope.row.link">
+                <span>{{scope.row.content}}</span>
+              </a>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,16 +37,16 @@
 
 <script>
 export default {
-	name: "Annouce",
-	computed: {
+  name: 'Annouce',
+  computed: {
     // 计算属性的 getter
-    tableData: function () {
-			// `this` 指向 vm 实例
-			let tableData = Object.values(this.$t('local_annouce'));
-      return tableData;
+    tableData: function() {
+      // `this` 指向 vm 实例
+      let tableData = Object.values(this.$t('local_annouce'))
+      return tableData
     }
   }
-};
+}
 </script>
 
 // 公告展示内容
@@ -105,42 +99,42 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style  lang="stylus">
 .annouce .el-table__header-wrapper {
-	display: none;
+  display: none;
 }
 
 .annouce .el-table th {
-	padding: 5px 0;
-	font-sice: 12px;
+  padding: 5px 0;
+  font-sice: 12px;
 }
 
 .el-table .el-table__body td {
-	font-sice: 12px;
+  font-sice: 12px;
 }
 
 .annouce td {
-	padding: 5px 0;
+  padding: 5px 0;
 }
 
 .detail-more .cell {
-	text-align: left;
+  text-align: left;
 }
 
 .annouce-content .data {
-	font-size: 14px;
-	color: #96999B;
-	line-height: 23px;
+  font-size: 14px;
+  color: #96999B;
+  line-height: 23px;
 }
 
 .annouce-content .cell {
-	font-size: 12px;
+  font-size: 12px;
 }
 
 .annouce-content .data .cell {
-	text-align: left;
-	font-size: 12px;
+  text-align: left;
+  font-size: 12px;
 }
 
 a {
-	color: #96999b;
+  color: #96999b;
 }
 </style>

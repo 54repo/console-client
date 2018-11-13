@@ -145,21 +145,20 @@ export default {
     try {
       if (res.ret.list && res.ret.list.length > 0) {
         // commit(GET_HARDLIST, res.ret.list);
-        const results = await Promise.all(res.ret.list.map(async item => {	        
-          commit(GET_HARDLIST, res.ret.list);
-          try {	
-            let res_info = await ajaxNetInfo({	
-              mac_address: item.mac_address,	
-              bcode: item.bcode	
-            });	
-            item.status = res_info.ret.devnet.status || '';	
-            item.ip = res_info.ret.devnet.ext_ip || '';	
-          } catch (error) {	
-            item.status = '';	
-          }	
-          return item;	
-        }));	
-        let list = Object.values(results);	
+        const results = await Promise.all(res.ret.list.map(async item => {
+          try {
+            let res_info = await ajaxNetInfo({
+              mac_address: item.mac_address,
+              bcode: item.bcode
+            });
+            item.status = res_info.ret.devnet.status || '';
+            item.ip = res_info.ret.devnet.ext_ip || '';
+          } catch (error) {
+            item.status = '';
+          }
+          return item;
+        }));
+        let list = Object.values(results);
         commit(GET_HARDLIST, list);
       } else {
         commit(GET_HARDLIST, NO_CONTENT);
@@ -225,7 +224,7 @@ export default {
     const res = await ajaxBindAddress(params);
     return res;
   },
-  //   绑定钱包地址
+  //   解绑钱包地址
   async commitUnbindAddress({ commit }) {
     const res = await ajaxUnbindAddress();
     return res;
