@@ -7,7 +7,6 @@
 			</div>
 			<div class="annouce-content">
 				<el-table
-					max-height="150"
 					:data="tableData"
 					style="width: 100%">
 					<el-table-column
@@ -62,6 +61,10 @@ export default {
   "en": {
 		"local_annouce_title": "Annoucement",
     "local_annouce": [{
+        "date": "2018.11.11",
+				"content": "Guide for Beginners",
+				"link": "https://bonuscloud.club/viewtopic.php?f=18&t=17"
+      }, {
         "date": "2018.10.10",
 				"content": "BonusCloud White Paper",
 				"link": "https://bonuscloud.gitbook.io/help/bonuscloud-whitepaper-v-1.1-2018"
@@ -79,6 +82,10 @@ export default {
 		"local_annouce_title": "公告",
 
     "local_annouce": [{
+        "date": "2018.11.11",
+				"content": "新手入门",
+				"link": "https://bonuscloud.club/viewtopic.php?f=15&t=12"
+      }, {
         "date": "2018.10.10",
 				"content": "BonusCloud 白皮书",
 				"link": "https://bonuscloud.gitbook.io/help/bonuscloud-bai-pi-shu-v1.0"

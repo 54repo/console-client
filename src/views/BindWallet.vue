@@ -12,7 +12,9 @@
 							<el-tag v-if="eth_verify_status === false" classs="verifyStatus" type="danger">{{$t('verifyError')}}</el-tag>
 							<el-tag v-if="eth_verify_status === ''" classs="verifyStatus" type="danger">-</el-tag>
 						</div>
-						<div class="button bursor unbindWallet" @click="unbindWallet">{{$t('unbindText')}}</div>
+						<div class="unbind-wrap">
+							<div class="button bursor unbindWallet" @click="unbindWallet">{{$t('unbindText')}}</div>
+						</div>
 					</div>
 					<div v-if="address === 'NO_ADDRESS'">
 						<div class="wallet-wrap">
@@ -371,8 +373,9 @@ body {
 	margin: 5px 0 ;
 }
 
-.unbindWallet
-	display: block;
-
+.unbind-wrap {
+	display: flex;
+	justify-content: center;
+}
 </style>
 
