@@ -51,6 +51,7 @@
             {{ $t('walletTips.tips_five') }}
             <a class="bonus-color" target="_blank" :href="$t('walletTips.tips_five_link')">{{ $t('walletTips.tips_five_link') }} </a>
           </div>
+          <div class="tips">{{ $t('walletTips.tips_six') }}</div>
         </div>
       </BasiceLayout>
     </AccountSetLayout>
@@ -71,7 +72,8 @@
 			"tips_three": "3.Don't use the exchange's address, which may result in a withdrawal failure and loss of revenue.",
       "tips_four": "4.Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
 			"tips_five": "5.Wallet Binding and Verification Tutorial：",
-			"tips_five_link": "https://bonuscloud.club/viewtopic.php?f=18&t=28"
+			"tips_five_link": "https://bonuscloud.club/viewtopic.php?f=18&t=28",
+			"tips_six": "After the wallet verification operation is completed, it will be verified at 4 o’clock UTC time on the next day. After the verification is passed, the label will be changed to  Verified status."
 		},
 		"sureTips": "The wallet unbinding function will not be opened yet. Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
 		"walletConfirm": "confirm",
@@ -98,7 +100,8 @@
 			"tips_three": "3.请勿使用交易所充值地址，可能会导致提现失败，收益丢失。",
 			"tips_four": "4.请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。",
       "tips_five": "5.钱包绑定及验证方法:",
-			"tips_five_link": "https://bonuscloud.gitbook.io/help/eth-qian-bao-yan-zheng-fang-fa"      
+      "tips_five_link": "https://bonuscloud.gitbook.io/help/eth-qian-bao-yan-zheng-fang-fa",
+			"tips_six": "6.完成钱包验证操作后，将于次日北京时间12点进行校验，校验通过后，标签将变更为已验证状态。"       
 		},
 		"sureTips": "暂未开放钱包解绑功能，请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。",
 		"walletConfirm": "确定",
@@ -255,8 +258,8 @@ export default {
               type: 'success',
               message: this.$t('unbindSuccess')
             })
-            this.getWalletAddress();
-            this.getCaptcha();
+            this.getWalletAddress()
+            this.getCaptcha()
           } else {
             Message({
               type: 'error',
@@ -275,7 +278,7 @@ export default {
         newScript.type = 'text/javascript'
         newScript.src = res.data.url
         document.body.appendChild(newScript)
-        let that = this;
+        let that = this
 
         setTimeout(() => {
           var capOption = {
