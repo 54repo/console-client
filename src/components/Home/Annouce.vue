@@ -74,7 +74,6 @@ export default {
   },
   "zn": {
 		"local_annouce_title": "公告",
-
     "local_annouce": [{
         "date": "2018.11.11",
 				"content": "新手入门",
