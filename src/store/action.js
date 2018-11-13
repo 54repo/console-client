@@ -144,7 +144,23 @@ export default {
     const res = await ajaxHardList(params);
     try {
       if (res.ret.list && res.ret.list.length > 0) {
-        commit(GET_HARDLIST, res.ret.list);
+        // commit(GET_HARDLIST, res.ret.list);
+        const results = await Promise.all(res.ret.list.map(async item => {	        
+          commit(GET_HARDLIST, res.ret.list);
+          try {	
+            let res_info = await ajaxNetInfo({	
+              mac_address: item.mac_address,	
+              bcode: item.bcode	
+            });	
+            item.status = res_info.ret.devnet.status || '';	
+            item.ip = res_info.ret.devnet.ext_ip || '';	
+          } catch (error) {	
+            item.status = '';	
+          }	
+          return item;	
+        }));	
+        let list = Object.values(results);	
+        commit(GET_HARDLIST, list);
       } else {
         commit(GET_HARDLIST, NO_CONTENT);
       }
