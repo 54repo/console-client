@@ -213,10 +213,10 @@ export default {
     const res = await ajaxWalletAddress();
     try {
       commit(GET_WALLET_ADDRESS, res.ret.eth_address || 'NO_ADDRESS');
-      commit(GET_WALLET_STATUS, res.ret.eth_verify_status || 'false');
+      commit(GET_WALLET_STATUS, res.ret.eth_verify_status);
     } catch (error) {
       commit(GET_WALLET_ADDRESS, 'NO_ADDRESS');
-      commit(GET_WALLET_STATUS, 'false');
+      commit(GET_WALLET_STATUS, false);
     }
   },
   //   绑定钱包地址
