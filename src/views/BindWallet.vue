@@ -82,7 +82,9 @@
 		"verifySuccess": "Certified",
 		"verifyError": "Unverified",
 		"unbindText": "unbind",
-		"unbindTips": "Are you sure to Unbunding? If authenticated, unbinding will fail"
+    "unbindTips": "Are you sure to Unbunding? If authenticated, unbinding will fail",
+    "unbindSuccess": "unbind success",
+    "unbindError": "unbind error"
   },
   "zn": {
     "bindWalletTitle": "钱包绑定",
@@ -107,7 +109,9 @@
 		"verifySuccess": "已认证",
 		"verifyError": "未认证",
 		"unbindText": "解绑",
-		"unbindTips": "是否确认解绑？钱包地址若已验证，解绑后验证失效"
+    "unbindTips": "是否确认解绑？钱包地址若已验证，解绑后验证失效",
+    "unbindSuccess": "解绑成功",
+    "unbindError": "解绑失败"
   }
 }
 </i18n>
@@ -247,16 +251,17 @@ export default {
         this.commitUnbindAddress().then(res => {
           if (res.code === 200) {
             // // messageTips('', this.$i18n.locale);
-            // Message({
-            //   type: 'success',
-            //   message: this.$t('withdrawal.recordsList.withSuccess')
-            // })
-            // this.getWithdrawalList()
+            Message({
+              type: 'success',
+              message: this.$t('unbindSuccess')
+            })
+            this.getWalletAddress();
           } else {
-            // Message({
-            //   type: 'error',
-            //   message: res.message || 'network error'
-            // })
+            Message({
+              type: 'error',
+              message: res.message || this.$t('unbindError')
+            });
+            this.getWalletAddress();
           }
         })
       })
