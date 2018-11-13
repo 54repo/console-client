@@ -256,14 +256,41 @@ export default {
               message: this.$t('unbindSuccess')
             })
             this.getWalletAddress();
+            this.getCaptcha();
           } else {
             Message({
               type: 'error',
               message: res.message || this.$t('unbindError')
-            });
-            this.getWalletAddress();
+            })
+            this.getWalletAddress()
           }
         })
+      })
+    },
+    // 刷新验证码
+    getCaptcha() {
+      this.getVertifUrl().then(res => {
+        this.csnonce = res.data.csnonce
+        let newScript = document.createElement('script')
+        newScript.type = 'text/javascript'
+        newScript.src = res.data.url
+        document.body.appendChild(newScript)
+        let that = this;
+
+        setTimeout(() => {
+          var capOption = {
+            callback: cbfn,
+            themeColor: '15bcad',
+            lang: LANG[this.$i18n.locale || 'en']
+          }
+          capInit(document.getElementById('TCaptcha'), capOption)
+          //回调函数：验证码页面关闭时回调
+          function cbfn(retJson) {
+            if (retJson.ret == 0) {
+              that.ticket = retJson.ticket
+            }
+          }
+        }, 1000)
       })
     }
   }
