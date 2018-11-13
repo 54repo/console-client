@@ -77,7 +77,7 @@
 		"verifySuccess": "Certified",
 		"verifyError": "Unverified",
 		"unbindText": "unbind",
-		"unbindTips": "Are you sure to Unbunding? Verification failed after Unbunding"
+		"unbindTips": "Are you sure to Unbunding? If authenticated, unbinding will fail"
   },
   "zn": {
     "bindWalletTitle": "钱包绑定",
@@ -100,7 +100,7 @@
 		"verifySuccess": "已认证",
 		"verifyError": "未认证",
 		"unbindText": "解绑",
-		"unbindTips": "是否确认解绑？解绑后验证失效"
+		"unbindTips": "是否确认解绑？若已解绑，解绑后验证失效"
   }
 }
 </i18n>
