@@ -47,6 +47,10 @@
           <div class="tips">{{ $t('walletTips.tips_two') }}</div>
           <div class="tips">{{ $t('walletTips.tips_three') }}</div>
           <div class="tips">{{ $t('walletTips.tips_four') }}</div>
+          <div class="tips">
+            {{ $t('walletTips.tips_five') }}
+            <a class="bonus-color" target="_blank" :href="$t('walletTips.tips_five_link')">{{ $t('walletTips.tips_five_link') }} </a>
+          </div>
         </div>
       </BasiceLayout>
     </AccountSetLayout>
@@ -62,17 +66,18 @@
 		"inputPasswordText": "Enter Password",
 		"walletTip": "Attention",
 		"walletTips": {
-			"tips_one": "1. Please use the ETH hot wallet that supports erc20 token as the wallet for cash withdrawal.",
-			"tips_two": "2. The wallet address format is a 42-bit string starting with 0x.",
-			"tips_three": "3. Don't use the exchange's address, which may result in a withdrawal failure and loss of revenue.",
-			"tips_four": "4. The wallet unbinding function will not be opened yet. Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility."
+			"tips_one": "1.Please use the ETH hot wallet that supports erc20 token as the wallet for cash withdrawal.",
+			"tips_two": "2.The wallet address format is a 42-bit string starting with 0x.",
+			"tips_three": "3.Don't use the exchange's address, which may result in a withdrawal failure and loss of revenue.",
+      "tips_four": "4.Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
+			"tips_five": "5.Wallet Binding and Verification Tutorial：",
+			"tips_five_link": "https://bonuscloud.club/viewtopic.php?f=18&t=28"
 		},
 		"sureTips": "The wallet unbinding function will not be opened yet. Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
 		"walletConfirm": "confirm",
 		"walletCancel": "cancel",
 		"imageVerCode": "Please verify the image",
 		"emailCode": "Please enter the email verification code",
-
 		"errorTipsAboutBind": "Please vertify the email code or wallet address",
 		"verifySuccess": "Certified",
 		"verifyError": "Unverified",
@@ -89,7 +94,9 @@
 			"tips_one": "1.请使用支持erc20 token的ETH热钱包作为用于提现的钱包。",
 			"tips_two": "2.钱包地址格式为0x开头的42位字符串。",
 			"tips_three": "3.请勿使用交易所充值地址，可能会导致提现失败，收益丢失。",
-			"tips_four": "4.暂未开放钱包解绑功能，请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。"
+			"tips_four": "4.请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。",
+      "tips_five": "5.钱包绑定及验证方法:",
+			"tips_five_link": "https://bonuscloud.gitbook.io/help/eth-qian-bao-yan-zheng-fang-fa"      
 		},
 		"sureTips": "暂未开放钱包解绑功能，请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。",
 		"walletConfirm": "确定",
@@ -100,7 +107,7 @@
 		"verifySuccess": "已认证",
 		"verifyError": "未认证",
 		"unbindText": "解绑",
-		"unbindTips": "是否确认解绑？若已解绑，解绑后验证失效"
+		"unbindTips": "是否确认解绑？钱包地址若已验证，解绑后验证失效"
   }
 }
 </i18n>
