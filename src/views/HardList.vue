@@ -23,7 +23,7 @@
               <template slot-scope="scope">
                 <div v-if="!scope.row.needs">-</div>
                 <el-tag v-if="scope.row.needs === '高'" type="success">高</el-tag>
-                <el-tag v-if="scope.row.needs === '中'" type="danger">中</el-tag>
+                <el-tag v-if="scope.row.needs === '中'" type="info">中</el-tag>
                 <el-tag v-if="scope.row.needs === '低'" type="danger">低</el-tag>
               </template>
             </el-table-column>
@@ -89,7 +89,10 @@
       "title": "Confirm Unbinding",
       "mailText": "Email Verfication Code",
       "imageVerify": "Image Verfication"
-    }
+    },
+    "needsHigh": "High",
+    "needsMiddle": "Medium",
+    "needsLow": "Low" 
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -109,7 +112,10 @@
       "title": "确认解绑",
       "mailText": "邮箱验证码",
       "imageVerify": "图片验证"
-    }
+    },
+    "needsHigh": "高",
+    "needsMiddle": "中",
+    "needsLow": "低"    
   }
 }
 </i18n>
