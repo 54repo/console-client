@@ -13,8 +13,18 @@
             <!-- IP -->
             <el-table-column prop="" label="IP" align='center'>
               <template slot-scope="scope">
-                <div v-if="!scope.row.ip">-</div>
-                <div v-if="scope.row.ip">{{scope.row.ip}}</div>
+                <div v-if="!scope.row.ext_ip">-</div>
+                <div v-if="scope.row.ext_ip">{{scope.row.ext_ip}}</div>
+              </template>
+            </el-table-column>
+            <el-table-column align='center' prop="location" :label="$t('location')"></el-table-column>
+            <!-- 需求杜 -->
+            <el-table-column prop="" :label="$t('needs')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="!scope.row.needs">-</div>
+                <el-tag v-if="scope.row.needs === '高'" type="success">高</el-tag>
+                <el-tag v-if="scope.row.needs === '中'" type="danger">中</el-tag>
+                <el-tag v-if="scope.row.needs === '低'" type="danger">低</el-tag>
               </template>
             </el-table-column>
             <!-- 在线状态 -->
@@ -31,6 +41,10 @@
               </template>
             </el-table-column>
           </el-table>
+          <div class="pagination" v-if="deviceSize > 1">
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceSize" layout="total, prev, pager, next" :total="hardLength">
+            </el-pagination>
+          </div>
           <el-table v-if="hardList === 'NO_CONTENT'" :empty-text="$t('noHardwareTip')" style="width: 100%">
           </el-table>
         </div>
@@ -60,7 +74,9 @@
   "en": {
 		"layoutTitile": "Hardware List",
 		"hardListLayoutTitile": "Hardware List",
-		"macAddress": "MAC Address",
+    "macAddress": "MAC Address",
+    "location": "Area",   
+    "needs": "Area Node Requirement",                                                                    
 		"date": "The Binding Date(UTC)",
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
@@ -78,7 +94,9 @@
   "zn": {
 		"layoutTitile": "硬件列表",
 		"hardListLayoutTitile": "硬件列表",
-		"macAddress": "硬件MAC地址",                                                                    
+    "macAddress": "硬件MAC地址",
+    "location": "所在地区",                                                                    
+    "needs": "当前地区节点需求度",                                                                    
 		"date": "绑定时间(UTC)",
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
@@ -113,49 +131,28 @@ export default {
   components: {
     BasiceLayout,
     AccountSetLayout,
-    // ImageCode,
     SendEmailCode,
     HardwareLayout
-    // EmailCodeWithTx,
   },
   data() {
     return {
       unbindId: '', //解绑Id
       showUnbindDialog: false, // 绑定弹框展示
       inputEmailCode: '', //输入的邮件码
-      // inputImageCode: "" // 图片验证码
       ticket: '', // 验证码ticket
       csnonce: '' //整数
     }
   },
   computed: mapState({
-    hardList(state) {
-      if (state.hardList.length > 0 && state.hardList !== 'NO_CONTENT') {
-        let hardList = state.hardList
-        hardList.map(val => {
-          if (val.bind_at) {
-            val.bind_at = moment(new Date(val.bind_at)).format(
-              'YYYY.MM.DD hh:mm:ss'
-            )
-          } else {
-            val.bind_at = '-'
-          }
-        })
-        return hardList
-      } else if (state.hardList === 'NO_CONTENT') {
-        return state.hardList
-      } else {
-        return []
-      }
-    },
-    // 验证码地址
-    // imageCodeSrc: state => state.signUp.imageCodeSrc,
+    hardList: state => state.hardWare.list,
+    hardLength: state => state.hardWare.hardLength,
+    deviceSize: state => state.hardWare.deviceSize,
+    currentPage: state => state.hardWare.currentPage,
     email: state => state.account.email
   }),
   methods: {
     ...mapActions(['getHardList', 'unbindHard', 'getVertifUrl']),
     change() {
-      console.log(this.oldPw)
       this.changePw({
         oldPassword: this.oldPw,
         newPassword: this.newPw,
@@ -166,7 +163,6 @@ export default {
       this.showUnbindDialog = true
       this.unbindId = id
       let that = this
-      console.log(id)
       setTimeout(() => {
         var capOption = {
           callback: cbfn,
@@ -178,7 +174,6 @@ export default {
         function cbfn(retJson) {
           if (retJson.ret == 0) {
             that.ticket = retJson.ticket
-            // that.sendCode();
             // 用户验证成功
           } else {
             //用户关闭验证码页面，没有验证
@@ -219,16 +214,21 @@ export default {
           type: 'error',
           message: error.message
         })
-        console.log(error)
       }
+    },
+    // handleSizeChange(val) {
+    //   console.log(`每页 ${val} 条`)
+    // },
+    handleCurrentChange(val) {
+      this.getHardList({ pageNum: val })
     }
   },
 
   created() {
-    this.getHardList()
+    this.getHardList({ pageNum: 1 })
     this.getVertifUrl().then(res => {
       this.csnonce = res.data.csnonce
-      var newScript = document.createElement('script')
+      let newScript = document.createElement('script')
       newScript.type = 'text/javascript'
       newScript.src = res.data.url
       document.body.appendChild(newScript)
@@ -245,6 +245,10 @@ export default {
 
 .hardList-content {
   margin-top: 40px;
+}
+
+.bonus-content {
+  min-height: 1000px;
 }
 
 .unbind-button {
@@ -279,7 +283,6 @@ export default {
   width: 100%;
 }
 
-
 .button {
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #15bcad), to(#10b2cb));
   background-image: linear-gradient(-180deg, #15bcad 2%, #10b2cb 100%);
@@ -295,5 +298,7 @@ export default {
   line-height: 35px;
   margin-left: 20px;
 }
+.pagination
+  margin: 20px
 </style>
 

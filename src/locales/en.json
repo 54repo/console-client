@@ -57,7 +57,7 @@
         "rule2": "2.Non-Chinese mainland can not activate equipment in mainland China with BCode.",
         "rule3": "3.Each account can receive 1 BCode per hour.",
         "rule4": "4.Each account can receive up to 10 BCodes per day.",
-        "rule5": "5.The maximum number of lists for each type of BCode per account is 10.",
+        "rule5": "5.The maximum number of lists for each type of BCode per account is 5.",
         "rule6": "6.After BCode is received, if the account has a binding device, it will expire for 20 days. If the account has no binding device, it will be invalid for 10 days.",
         "tele": "If you have any questions, please join the telegraph group to ask.",
         "joinTele": "Join Telegram",
@@ -87,12 +87,14 @@
       "title": "Attention",
       "detail": [
         "1. Please bind the wallet address in the account settings before withdrawing.",
-        "2. The single minimum withdrawal amount is 5000 BxC, and the maximum withdrawal amount is 10000BxC, which can only be withdrawn once every 24 hours.",
+        "2. The single minimum withdrawal amount is 5000 BxC, and the maximum withdrawal amount is 100000 BxC, which can only be withdrawn once every 24 hours.",
         "3. Each withdrawal requires 300 BxC to be paid as the ETH network's Gas fee. BonusCloud does not charge any fees.",
         "4. The cash withdrawal rate needs to refer to the ETH network congestion. Please pay attention to the cash withdrawal status update.",
         "5. Cannot withdraw cash within 24 hours after replacing the wallet.",
         "6. Cannot withdraw cash within 24 hours after modifying the account password.",
-        "7. Due to ETH network congestion and other reasons, withdrawal may fail. After the withdrawal fails, the balance will be returned. Please re-initiate the withdrawal request (failure without deducting the Gas fee)."
+        "7. Due to ETH network congestion and other reasons, withdrawal may fail. After the withdrawal fails, the balance will be returned. Please re-initiate the withdrawal request (failure without deducting the Gas fee).",
+        "8. Because of the delay in data logging to the blockchain, the gains made by the account in the last few hours are temporarily not available for withdrawal.",
+        "9. Only one record that is being withdrawn can exist at the same time."
       ],
       "confirmTips": "Each withdrawal requires 300 BxC to be paid as the ETH network’s Gas fee. BonusCloud does not charge any fees, please confirm account ETH address binding is correct."
     },
@@ -100,7 +102,7 @@
       "balanceText": "Account Balance",
       "balanceAmount": "Enter withdrawal amount",
       "verify": "Image verification code",
-      "emailCode": "E-mail verification code",
+      "emailCode": "Email verification code",
       "pwText": "Account password"
     },
     "recordsList": {

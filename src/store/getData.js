@@ -93,16 +93,10 @@ export const ajaxUnbindHard = (data) => {
   return fetch(baseUrl + '/api/web/devices/unbind/', data, 'POST');
 };
 /**
- * 设备网络信息
- */
-export const ajaxNetInfo = (data) => {
-  return fetch(baseUrl + '/api/web/devices/netInfo', data);
-};
-/**
  * 解绑
  */
 export const ajaxHardList = (data) => {
-  return fetch(baseUrl + '/api/web/devices/list/');
+  return fetch(baseUrl + '/api/web/devices/list_v2/', data);
 };
 /**
  * 用户收益详情	

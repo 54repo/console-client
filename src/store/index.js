@@ -25,7 +25,13 @@ export default new Vuex.Store({
       mainland_list: '', //邀请list
       non_mainland_list: '', //邀请list
     },
-    hardList: [],  //硬件列表
+    // hardList: [],  //硬件列表
+    hardWare: {
+      hardLength: '',
+      deviceSize: '',
+      currentPage: '',
+      hardList: ''
+    },
     revenue: {
       inviteRevenue: '', // 邀请收益
       accountRevenue: '', // 个人收益

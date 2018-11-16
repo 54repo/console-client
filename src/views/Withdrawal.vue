@@ -1,7 +1,7 @@
 /** 提现 */
 <template>
 	<div class="home">
-		<Layout type="WITHDRAWAl" isRevenue="true" :pageTitle="$t('withdrawal.pageTitle')">
+		<Layout type="WITHDRAWAl" isRevenue="true" :class="withdrawal-panel-layout" :pageTitle="$t('withdrawal.pageTitle')">
 			<CommitWithdrawal></CommitWithdrawal>
 			<Tips :title="$t('withdrawal.tips.title')" :tips="$t('withdrawal.tips.detail')" class="withdrawal-tips" />
 			<WithdrawalList></WithdrawalList>
@@ -45,6 +45,11 @@ export default {
 <style  lang="stylus">
 .data-panel-wrap, .data-panel-layout, .home {
 	height: 100%;
+}
+
+.withdrawal-panel-layout {
+	height: 100%;
+
 }
 
 .revenue-all-layout {

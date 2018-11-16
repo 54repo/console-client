@@ -24,17 +24,6 @@ export default {
     BasiceLayout,
     RevenueContent
   },
-  data() {
-    return {}
-  },
-  computed: mapState({
-    // 验证码地址
-    // inviteStatus: state => state.inviteCode.status,
-  }),
-  mounted() {},
-  methods: {
-    // 倒计时计算：按照当前时间计算该小时剩余分钟
-  }
 }
 </script>
 

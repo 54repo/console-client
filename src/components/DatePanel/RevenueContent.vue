@@ -2,13 +2,6 @@
 <template>
 	<div class="BasicInput">
 		<div class="revenueWrap">
-			<!-- <div class="one_day_total_revenue each_item_wrap">
-				<div class="revenue_item">
-					<img  class="revenue-icon home-icon" src="../../assets/revenue/total_venue.png" >
-					<div class="revenue_title">{{ $t('revenue_1') }} </div>
-				</div>
-				<div class="revunue_value">1917808 BxC</div>
-			</div> -->
 			<div class="one_day_revenue each_item_wrap">
 				<div class="revenue_item">
 					<img class="revenue-icon home-icon" src="../../assets/revenue/online_revunue.png">

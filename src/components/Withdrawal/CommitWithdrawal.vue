@@ -22,7 +22,7 @@
       </el-row>
       <el-row v-if="balance !== 'NONE'">
         <el-col :span="10">
-          <div class="verify-key withdrawal-key">{{$t('withdrawal.commitWith.balanceAmount')}}</div>
+          <div class="verify-key withdrawal-key">{{$t('withdrawal.commitWith.verify')}}</div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
           <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify>
@@ -126,7 +126,7 @@ export default {
         messageTips('password_error', this.$i18n.locale)
       } else if (!amount || isNaN(amount) || Number(amount) > Number(balance)) {
         messageTips('amount_error', this.$i18n.locale)
-      } else if (amount < 5000 || amount > 10000) {
+      } else if (amount < 5000 || amount > 100000) {
         messageTips('over_withdrawal_amount', this.$i18n.locale)
       } else {
         this.$confirm(this.$t('withdrawal.tips.confirmTips'), {

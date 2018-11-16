@@ -97,7 +97,7 @@ export default {
 }
 
 .invite-count {
-  text-align: left;
+  text-align: center;
   font-family: PingFangSC-Regular;
   font-size: 28px;
   color: #65686a;
