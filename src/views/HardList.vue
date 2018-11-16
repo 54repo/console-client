@@ -17,7 +17,7 @@
                 <div v-if="scope.row.ext_ip">{{scope.row.ext_ip}}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="location" :label="$t('location')"></el-table-column>
+            <el-table-column align='center' prop="location" :label="$t('location')"></el-table-column>
             <!-- 需求杜 -->
             <el-table-column prop="" :label="$t('needs')" align='center'>
               <template slot-scope="scope">
