@@ -92,7 +92,9 @@
         "4. The cash withdrawal rate needs to refer to the ETH network congestion. Please pay attention to the cash withdrawal status update.",
         "5. Cannot withdraw cash within 24 hours after replacing the wallet.",
         "6. Cannot withdraw cash within 24 hours after modifying the account password.",
-        "7. Due to ETH network congestion and other reasons, withdrawal may fail. After the withdrawal fails, the balance will be returned. Please re-initiate the withdrawal request (failure without deducting the Gas fee)."
+        "7. Due to ETH network congestion and other reasons, withdrawal may fail. After the withdrawal fails, the balance will be returned. Please re-initiate the withdrawal request (failure without deducting the Gas fee).",
+        "8. Because of the delay in data logging to the blockchain, the gains made by the account in the last few hours are temporarily not available for withdrawal.",
+        "9. Only one record that is being withdrawn can exist at the same time."
       ],
       "confirmTips": "Each withdrawal requires 300 BxC to be paid as the ETH network’s Gas fee. BonusCloud does not charge any fees, please confirm account ETH address binding is correct."
     },

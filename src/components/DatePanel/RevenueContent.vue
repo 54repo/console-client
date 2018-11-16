@@ -2,13 +2,6 @@
 <template>
 	<div class="BasicInput">
 		<div class="revenueWrap">
-			<!-- <div class="one_day_total_revenue each_item_wrap">
-				<div class="revenue_item">
-					<img  class="revenue-icon home-icon" src="../../assets/revenue/total_venue.png" >
-					<div class="revenue_title">{{ $t('revenue_1') }} </div>
-				</div>
-				<div class="revunue_value">1917808 BxC</div>
-			</div> -->
 			<div class="one_day_revenue each_item_wrap">
 				<div class="revenue_item">
 					<img class="revenue-icon home-icon" src="../../assets/revenue/online_revunue.png">
@@ -87,13 +80,13 @@ justify-content center, .revenue-icon {
 {
   "en": {
 		"revenue_1": "Total Mining Rewards In The Past 24 Hours All Network",
-		"revenue_2": "Mining Revenue In The Past 24 Hours",
+		"revenue_2": "Mining Revenue In The Past 1 Hours",
 		"revenue_3": "Invited Rewards In The Past 24 Hours",
 		"revenue_4": "Cumulative Revenue"
   },
   "zn": {
 		"revenue_1": "过去24小时全网挖矿奖励总量",
-		"revenue_2": "过去24小时账号挖矿收益",
+		"revenue_2": "过去1小时账号挖矿收益",
 		"revenue_3": "过去24小时账号邀请奖励",
 		"revenue_4": "账号累计收益"
   }

@@ -120,8 +120,11 @@ export default {
   },
   //  获取硬件列表
   [GET_HARDLIST](state, hardList) {
-    state.hardList = hardList;
-    // state.hardList =  Object.assign({}, state.hardList);
+    state.hardWare.list = hardList.list || 'NO_CONTENT';
+    state.hardWare.hardLength = hardList.deviceLength || 0;
+    state.hardWare.deviceSize = hardList.deviceSize || 0;
+    state.hardWare.currentPage = hardList.currentPage || 0;
+    state.hardWare =  Object.assign({}, state.hardWare);
   },
   //  ETH地址绑定
   [GET_WALLET_ADDRESS](state, address) {

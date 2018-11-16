@@ -11,20 +11,20 @@
 
 <script>
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
-import Layout from "@/components/DatePanel/Layout.vue";
-import RevenueData from "@/components/DatePanel/RevenueData.vue";
-import FAQ from "@/components/Revenue/FAQ.vue";
-import RevenueContent from "@/components/DatePanel/RevenueContent.vue";
-import { mapActions, mapState } from "vuex";
+import Header from '@/components/Header.vue'
+import Layout from '@/components/DatePanel/Layout.vue'
+import RevenueData from '@/components/DatePanel/RevenueData.vue'
+import FAQ from '@/components/Revenue/FAQ.vue'
+import RevenueContent from '@/components/DatePanel/RevenueContent.vue'
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  name: "home",
+  name: 'home',
   data() {
     return {
-      person_invite_revenue: "",
-      person_account_revenue: "",
-    };
+      person_invite_revenue: '',
+      person_account_revenue: ''
+    }
   },
   components: {
     Header,
@@ -37,28 +37,30 @@ export default {
     //  箭头函数可使代码更简练
     inviteRevenue: state => state.revenue.inviteRevenue,
     accountRevenue: state => state.revenue.accountRevenue,
-    allRenvue: state => state.revenue.allRenvue,
+    allRenvue: state => state.revenue.allRenvue
   }),
   methods: {
-    ...mapActions(["getAllRevenue", "getRevenueList"])
+    ...mapActions(['getAllRevenue', 'getRevenueList'])
   },
   created() {
-    let end = new Date().getTime();
-    let start = end - 24 * 60 * 60 * 1000;
+    let end = new Date().getTime()
+    let ReferStart = end - 24 * 60 * 60 * 1000
+    let AccountStart = end - 60 * 60 * 1000
 
-    this.getAllRevenue({ type: "all" });
-    this.getAllRevenue({ type: "refer", start, end });
-    this.getAllRevenue({ type: "account", start, end });
+    this.getAllRevenue({ type: 'all' })
+    this.getAllRevenue({ type: 'refer', start: ReferStart, end })
+    this.getAllRevenue({ type: 'account', start: AccountStart, end })
   }
-};
+}
 </script>
 
 <style  lang="stylus">
+.data-panel-wrap, .data-panel-layout, .home {
+  height: 100%;
+}
 
-.data-panel-wrap, .data-panel-layout, .home
-  height: 100%
 .revenue-all-layout {
-  height: 100%
+  height: 100%;
 }
 </style>
 
