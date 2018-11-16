@@ -13,8 +13,8 @@
             <!-- IP -->
             <el-table-column prop="" label="IP" align='center'>
               <template slot-scope="scope">
-                <div v-if="!scope.row.ip">-</div>
-                <div v-if="scope.row.ip">{{scope.row.ip}}</div>
+                <div v-if="!scope.row.ext_ip">-</div>
+                <div v-if="scope.row.ext_ip">{{scope.row.ext_ip}}</div>
               </template>
             </el-table-column>
             <el-table-column prop="location" :label="$t('location')"></el-table-column>
@@ -41,7 +41,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <div class="pagination" v-if="deviceSize">
+          <div class="pagination" v-if="deviceSize > 1">
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceSize" layout="total, prev, pager, next" :total="hardLength">
             </el-pagination>
           </div>
