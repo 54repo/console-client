@@ -216,17 +216,16 @@ export default {
         })
       }
     },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
-    },
+    // handleSizeChange(val) {
+    //   console.log(`每页 ${val} 条`)
+    // },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
       this.getHardList({ pageNum: val })
     }
   },
 
   created() {
-    this.getHardList({ pageNum: 0 })
+    this.getHardList({ pageNum: 1 })
     this.getVertifUrl().then(res => {
       this.csnonce = res.data.csnonce
       let newScript = document.createElement('script')

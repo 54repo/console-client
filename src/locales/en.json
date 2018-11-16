@@ -102,7 +102,7 @@
       "balanceText": "Account Balance",
       "balanceAmount": "Enter withdrawal amount",
       "verify": "Image verification code",
-      "emailCode": "E-mail verification code",
+      "emailCode": "Email verification code",
       "pwText": "Account password"
     },
     "recordsList": {

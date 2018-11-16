@@ -44,12 +44,11 @@ export default {
   },
   created() {
     let end = new Date().getTime()
-    let ReferStart = end - 24 * 60 * 60 * 1000
-    let AccountStart = end - 60 * 60 * 1000
+    let start = end - 24 * 60 * 60 * 1000
 
     this.getAllRevenue({ type: 'all' })
-    this.getAllRevenue({ type: 'refer', start: ReferStart, end })
-    this.getAllRevenue({ type: 'account', start: AccountStart, end })
+    this.getAllRevenue({ type: 'refer', start, end })
+    this.getAllRevenue({ type: 'account', start, end })
   }
 }
 </script>
