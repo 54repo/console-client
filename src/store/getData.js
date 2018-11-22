@@ -117,6 +117,12 @@ export const ajaxRevenueList = (data) => {
   return fetch(baseUrl + '/api/web/revenue/list/	', data);
 };
 /**
+ * 用户设备收益
+ */
+export const ajaxRevenueDetail = (data) => {
+  return fetch(baseUrl + '/api/web/revenueDetail/', data);
+};
+/**
  * 用户总收益
  */
 export const ajaxAllRevenue = (data) => {

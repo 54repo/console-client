@@ -4,11 +4,27 @@
     <Layout type="REVENUE" isRevenue="true" :pageTitle="$t('pageTitle')">
       <BasiceLayout :title=" $t('pageTitle') " class="revenue-layout">
         <div class="revenue-detail-select">
-          <!-- <el-select v-model="selectDate" filterable placeholder="请选择" @change="search">
-            <el-option v-for="item in detail-date" :key="item.value" :label="item.label" :value="item.value">
+          <span class="revenue-date-wrap">{{$t('revenueDate')}}:</span>
+          <el-select v-model="selectDate" filterable placeholder="请选择" @change="search">
+            <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">
             </el-option>
-          </el-select> -->
+          </el-select>
         </div>
+
+        <el-table v-if="deviceDetail !== 'NO_CONTENT'" :data="detailList" align="left" empty-text="Loading..." style="width: 100%">
+          <!-- mac address -->
+          <el-table-column prop="mac_address" align='center' :label="$t('mac_address')">
+          </el-table-column>
+          <!-- 设备收益 -->
+          <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
+        </el-table>
+
+        <div class="pagination">
+          <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceNumSize" layout="total, prev, pager, next" :total="deviceLength">
+          </el-pagination>
+        </div>
+        <el-table v-if="hardList === 'NO_CONTENT'" :empty-text="$t('noHardwareTip')" style="width: 100%">
+        </el-table>
       </BasiceLayout>
     </Layout>
   </div>
@@ -20,6 +36,7 @@ import Header from '@/components/Header.vue'
 import Layout from '@/components/DatePanel/Layout.vue'
 import RevenueContent from '@/components/RevenueDetail/RevenueContent.vue'
 import BasiceLayout from '@/components/Common/BasicLayout.vue'
+import moment from 'moment'
 
 // import FAQ from '@/components/Revenue/FAQ.vue'
 // import RevenueContent from '@/components/DatePanel/RevenueContent.vue'
@@ -29,7 +46,8 @@ export default {
   name: 'home',
   data() {
     return {
-      selectDate: ''
+      selectDate: '',
+      pageNum: 1
     }
   },
   components: {
@@ -42,20 +60,52 @@ export default {
   },
   computed: mapState({
     //  箭头函数可使代码更简练
-    // detailDate: state => state.revenueDetail.detailDate,
-  }),
-  methods: {
-    // ...mapActions(['getRevenueDetail']),
-    search(date) {
-      // this.getRevenueDetail({ date })
+    deviceLength: state => state.revenueDetail.deviceLength,
+    currentPage: state => state.revenueDetail.currentPage,
+    deviceNumSize: state => state.revenueDetail.deviceNumSize,
+    detailList: state => state.revenueDetail.detailList,
+    queryDate: () => {
+      let queryDate = []
+      let endDay = moment()
+        .utc()
+        .startOf('day')
+
+      let i = 0
+      while (i < 7) {
+        i++
+        queryDate.push(moment(endDay).format('YYYY-MM-DD'))
+        endDay -= 24 * 60 * 60 * 1000
+      }
+
+      return queryDate
     }
-  },
+  }),
   created() {
-    // let end = new Date().getTime()
-    // let start = end - 24 * 60 * 60 * 1000
-    // this.getAllRevenue({ type: 'all' })
-    // this.getAllRevenue({ type: 'refer', start, end })
-    // this.getAllRevenue({ type: 'account', start, end })
+    let queryDate = moment()
+      .utc()
+      .startOf('day')
+      .format('YYYY-MM-DD')
+    this.queryDate = queryDate
+    let pageNum = this.pageNum
+
+    this.getRevenueDetail({ queryDate, pageNum })
+  },
+  methods: {
+    ...mapActions(['getRevenueDetail']),
+    search(queryDate) {
+      this.queryDate = queryDate
+      let pageNum = this.pageNum;
+      this.getRevenueDetail({ queryDate, pageNum })
+    },
+    handleCurrentChange(value) {
+      console.log(value)
+      let queryDate = this.queryDate
+      this.pageNum = value
+      this.getRevenueDetail({
+        queryDate,
+        pageNum: value
+      })
+    }
   }
 }
 </script>
@@ -68,15 +118,32 @@ export default {
 .revenue-all-layout {
   height: 100%;
 }
+
+.revenue-date-wrap {
+  margin: 0 20px;
+}
+
+.revenue-detail-select {
+  text-align: left;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ddd;
+}
 </style>
 
 <i18n>
 {
   "zn": {
-    "pageTitle": "收益详情"
+    "pageTitle": "收益详情",
+    "revenueDate": "查询日期",
+    "mac_address": "Mac地址",
+    "device_revenue": "设备收益"
   },
   "en": {
-    "pageTitle": "Details"
+    "pageTitle": "Details",
+    "revenueDate": "date",
+    "mac_address": "Mac Address",
+    "device_revenue": "device revenue"
   }
 }
 </i18n>

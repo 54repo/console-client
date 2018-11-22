@@ -55,6 +55,8 @@ import {
   GET_WITHDRAWAL_LIST,
   GET_BALANCE,
   GET_WITHDRAWAL_STAUTS,
+  GET_SEARCH_LIST,
+  GET_RENVUE_DETAIL,
 } from './mutation-types';
 import router from '../router';
 
@@ -190,7 +192,7 @@ export default {
   async getRevenueDetail({ commit }, params) {
     const res = await ajaxRevenueDetail(params);
     try {
-      commit(GET_RENVUE_DETAIL, res.ret.revenue);
+      commit(GET_RENVUE_DETAIL, res.ret);
     } catch (error) {
       commit(GET_RENVUE_DETAIL, 'NONE');
     }

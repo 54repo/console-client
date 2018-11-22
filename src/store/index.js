@@ -29,7 +29,7 @@ export default new Vuex.Store({
     hardWare: {
       hardLength: '',
       deviceSize: '',
-      currentPage: '',
+      currentPage: 1,
       hardList: '',
       allDevices: [] //所有设备列表，帮助搜索
     },
@@ -37,6 +37,12 @@ export default new Vuex.Store({
       inviteRevenue: '', // 邀请收益
       accountRevenue: '', // 个人收益
       allRenvue: '' //用户总收益
+    },
+    revenueDetail: {
+      currentPage: '',
+      deviceLength: '',
+      deviceNumSize: '',
+      revenueDetail: []
     },
     recommend: {
       recommendRefer: '', //  用户推荐refer

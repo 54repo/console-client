@@ -15,6 +15,7 @@ import {
   GET_ALL_RENVUE,
   GET_LASTDAY_INVITE,
   ACCOUNT_REVENUE_LIST,
+  GET_RENVUE_DETAIL,
   // 推荐
   GET_RECOMMEND_INFO,
   GET_RECOMMEND_COUNT,
@@ -118,6 +119,16 @@ export default {
   [GET_RECOMMEND_COUNT](state, count) {
     state.recommend.count = count;
     state.recommend = Object.assign({}, state.recommend);
+  },
+  //  用户推荐总人数
+  [GET_RENVUE_DETAIL](state, deviceDetail) {
+
+
+    state.revenueDetail.currentPage = deviceDetail.currentPage;
+    state.revenueDetail.deviceLength = deviceDetail.deviceLength;
+    state.revenueDetail.deviceNumSize = deviceDetail.deviceNumSize;
+    state.revenueDetail.detailList = deviceDetail.detailList;
+    state.revenueDetail = Object.assign({}, state.revenueDetail);
   },
   //  获取硬件列表
   [GET_HARDLIST](state, hardList) {

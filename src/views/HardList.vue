@@ -4,7 +4,7 @@
       <BasiceLayout :title="$t('hardListLayoutTitile')">
         <div class="hardware-content">
           <!-- mac地址搜索 -->
-          <div class="hardware-search-wrap" v-if="allDevices">
+          <div class="hardware-search-wrap" v-if="allDevices" align='center'>
             <span class="search-text">{{$t('mac_address')}}</span>
             <el-select v-model="value8" filterable placeholder="请选择" @change="search">
               <el-option v-for="item in allDevices" :key="item.value" :label="item.label" :value="item.value">
@@ -14,7 +14,14 @@
           <!-- 硬件列表 -->
           <el-table v-if="hardList !== 'NO_CONTENT'" :data="hardList" align="left" empty-text="Loading..." style="width: 100%">
             <!-- mac address -->
-            <el-table-column prop="mac_address" :label="$t('macAddress')">
+            <el-table-column prop="mac_address" :label="$t('macAddress')" align='center'>
+            </el-table-column>
+            <!-- 备注 -->
+            <el-table-column :label="$t('noteText')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="scope.row.note">{{scope.row.note}}</div>
+                <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
+              </template>
             </el-table-column>
             <!-- 绑定时间 -->
             <el-table-column prop="bind_at" empty-text="-" :label="$t('date')" align='center'>
@@ -45,16 +52,9 @@
               </template>
             </el-table-column>
             <!-- 解绑 -->
-            <el-table-column label="" align='right'>
+            <el-table-column label="" align='center'>
               <template slot-scope="scope">
                 <div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">{{$t('unbindButton')}}</div>
-              </template>
-            </el-table-column>
-            <!-- 备注 -->
-            <el-table-column label="" align='right'>
-              <template slot-scope="scope">
-                <div v-if="scope.row.note">{{scope.row.note}}</div>
-                <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
               </template>
             </el-table-column>
           </el-table>
@@ -122,12 +122,13 @@
     "needsHigh": "High",
     "needsMiddle": "Medium",
     "needsLow": "Low",
-    "mac_address": "mac_address",
-    "addNote": "add mac notes",
+    "mac_address": "search Mac_address",
+    "addNote": "note",
     "addNotes": {
       "title": "Add device note",
       "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
-    }
+    },
+    "noteText": "note"
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -151,12 +152,13 @@
     "needsHigh": "高",
     "needsMiddle": "中",
     "needsLow": "低" ,
-    "mac_address": "mac地址",
-    "addNote": "增加mac备注",
+    "mac_address": "Mac地址搜索",
+    "addNote": "备注",
     "addNotes": {
       "title": "添加设备备注",
       "tipText": "输入该设备记录的备注名（仅可修改一次）："
-    }
+    },
+    "noteText": "备注"
   }
 }
 </i18n>
@@ -247,7 +249,7 @@ export default {
         note: this.addNoteInput
       }).then(res => {
         console.log(res)
-        if (res.status === 200) {
+        if (res.code === 200) {
         //   // 刷新硬件列表
         //   this.getHardList()
         //   this.showUnbindDialog = false

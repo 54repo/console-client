@@ -66,7 +66,7 @@ export default {
 <i18n>
 {
   "zn": {
-    "pageTitle": "收益情况"
+    "pageTitle": "情况"
   },
   "en": {
     "pageTitle": "Revenue"
