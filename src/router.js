@@ -5,6 +5,7 @@ import Login from './views/Login.vue';
 import SignUp from './views/SignUp.vue';
 import Forget from './views/Forget.vue';
 import Revenue from './views/Revenue.vue';
+import RevenueDetail from './views/RevenueDetail.vue';
 import AccountSet from './views/AccountSet.vue';
 import HardList from './views/HardList.vue';
 import BindWallet from './views/BindWallet.vue';
@@ -33,6 +34,14 @@ export default new Router({
         title,
       },
       component: Revenue,
+    },
+    {
+      path: '/revenueDetail',
+      name: 'revenueDetail',
+      meta: {
+        title,
+      },
+      component: RevenueDetail,
     },
     {
       path: '/login',

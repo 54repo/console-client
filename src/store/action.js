@@ -10,6 +10,7 @@ import {
   ajaxGetInviteCode,
   ajaxGetUserInfo,
   ajaxHardList,
+  ajaxDeviceDetail,
   ajaxRevenueList,
   ajaxAllRevenue,
   ajaxLogout,
@@ -25,6 +26,8 @@ import {
   ajaxWithdrawalBalance,
   ajaxUnbindAddress,
   ajaxWithdrawalList,
+  ajaxDeviceNotes,
+  ajaxRevenueDetail
 } from './getData';
 
 const NO_CONTENT = "NO_CONTENT";
@@ -152,6 +155,16 @@ export default {
     }
     return res;
   },
+  //  搜索硬件
+  async getDeviceDetail({ commit }, params) {
+    const res = await ajaxDeviceDetail(params);
+    commit(GET_SEARCH_LIST, res.ret);
+  },
+  //  搜索硬件
+  async addDeviceNotes({ commit }, params) {
+    const res = await ajaxDeviceNotes(params);
+    return res;
+  },
   //  获取硬件列表
   async unbindHard({ commit }, params) {
     const res = await ajaxUnbindHard(params);
@@ -170,6 +183,16 @@ export default {
       }
     } catch (error) {
       console.log(error);
+    }
+    return res;
+  },
+  //  获取用户单台设备收益
+  async getRevenueDetail({ commit }, params) {
+    const res = await ajaxRevenueDetail(params);
+    try {
+      commit(GET_RENVUE_DETAIL, res.ret.revenue);
+    } catch (error) {
+      commit(GET_RENVUE_DETAIL, 'NONE');
     }
     return res;
   },

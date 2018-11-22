@@ -3,6 +3,15 @@
     <HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
       <BasiceLayout :title="$t('hardListLayoutTitile')">
         <div class="hardware-content">
+          <!-- mac地址搜索 -->
+          <div class="hardware-search-wrap" v-if="allDevices">
+            <span class="search-text">{{$t('mac_address')}}</span>
+            <el-select v-model="value8" filterable placeholder="请选择" @change="search">
+              <el-option v-for="item in allDevices" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+          <!-- 硬件列表 -->
           <el-table v-if="hardList !== 'NO_CONTENT'" :data="hardList" align="left" empty-text="Loading..." style="width: 100%">
             <!-- mac address -->
             <el-table-column prop="mac_address" :label="$t('macAddress')">
@@ -35,14 +44,22 @@
                 <el-tag v-if="scope.row.status === 'offline'" type="danger">offline</el-tag>
               </template>
             </el-table-column>
+            <!-- 解绑 -->
             <el-table-column label="" align='right'>
               <template slot-scope="scope">
                 <div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">{{$t('unbindButton')}}</div>
               </template>
             </el-table-column>
+            <!-- 备注 -->
+            <el-table-column label="" align='right'>
+              <template slot-scope="scope">
+                <div v-if="scope.row.note">{{scope.row.note}}</div>
+                <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
+              </template>
+            </el-table-column>
           </el-table>
           <div class="pagination" v-if="deviceSize > 1">
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceSize" layout="total, prev, pager, next" :total="hardLength">
+            <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceSize" layout="total, prev, pager, next" :total="hardLength">
             </el-pagination>
           </div>
           <el-table v-if="hardList === 'NO_CONTENT'" :empty-text="$t('noHardwareTip')" style="width: 100%">
@@ -50,6 +67,7 @@
         </div>
       </BasiceLayout>
     </HardwareLayout>
+    <!-- 解绑 -->
     <el-dialog :title="$t('dialog.title')" :visible.sync="showUnbindDialog" width="480px" center>
       <div class="unbind-dialog-wrap">
         <span class="key">{{$t('dialog.imageVerify')}}</span>
@@ -64,6 +82,17 @@
       <span slot="footer" class="dialog-footer">
         <div class="sure-unbind button" @click="showUnbindDialog = false">{{ $t('dialog.cancel') }}</div>
         <div class="sure-unbind button" type="primary" @click="unbind">{{ $t('dialog.sure') }}</div>
+      </span>
+    </el-dialog>
+    <!-- 增加备注 -->
+    <el-dialog :title="$t('addNotes.title')" :visible.sync="showAddnoteDialog" width="480px" center>
+      <div class="addnote-dialog-wrap">
+        <span class="key">{{$t('addNotes.tipText')}}({{addNoteAddress}})</span>
+        <input type="text" class="basic-input input addnote-input"  v-model="addNoteInput">
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <div class="sure-unbind button" @click="showAddnoteDialog = false">{{ $t('dialog.cancel') }}</div>
+        <div class="sure-unbind button" type="primary" @click="addNote">{{ $t('dialog.sure') }}</div>
       </span>
     </el-dialog>
   </div>
@@ -92,7 +121,13 @@
     },
     "needsHigh": "High",
     "needsMiddle": "Medium",
-    "needsLow": "Low" 
+    "needsLow": "Low",
+    "mac_address": "mac_address",
+    "addNote": "add mac notes",
+    "addNotes": {
+      "title": "Add device note",
+      "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
+    }
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -115,7 +150,13 @@
     },
     "needsHigh": "高",
     "needsMiddle": "中",
-    "needsLow": "低"    
+    "needsLow": "低" ,
+    "mac_address": "mac地址",
+    "addNote": "增加mac备注",
+    "addNotes": {
+      "title": "添加设备备注",
+      "tipText": "输入该设备记录的备注名（仅可修改一次）："
+    }
   }
 }
 </i18n>
@@ -144,9 +185,14 @@ export default {
     return {
       unbindId: '', //解绑Id
       showUnbindDialog: false, // 绑定弹框展示
+      showAddnoteDialog: false, //添加备注
+      addNoteInput: '',
+      addNoteId: '', //添加备注Id
+      addNoteAddress: '', //添加备注Id
       inputEmailCode: '', //输入的邮件码
       ticket: '', // 验证码ticket
-      csnonce: '' //整数
+      csnonce: '', //整数
+      value8: ''
     }
   },
   computed: mapState({
@@ -154,10 +200,17 @@ export default {
     hardLength: state => state.hardWare.hardLength,
     deviceSize: state => state.hardWare.deviceSize,
     currentPage: state => state.hardWare.currentPage,
-    email: state => state.account.email
+    email: state => state.account.email,
+    allDevices: state => state.hardWare.allDevices
   }),
   methods: {
-    ...mapActions(['getHardList', 'unbindHard', 'getVertifUrl']),
+    ...mapActions([
+      'getHardList',
+      'unbindHard',
+      'getVertifUrl',
+      'getDeviceDetail',
+      'addDeviceNotes'
+    ]),
     change() {
       this.changePw({
         oldPassword: this.oldPw,
@@ -187,6 +240,36 @@ export default {
         }
       }, 1000)
     },
+    // 添加备注
+    addNote() {
+      this.addDeviceNotes({
+        deviceId: this.addNoteId,
+        note: this.addNoteInput
+      }).then(res => {
+        console.log(res)
+        if (res.status === 200) {
+        //   // 刷新硬件列表
+        //   this.getHardList()
+        //   this.showUnbindDialog = false
+          Message({
+            type: 'success',
+            message: res.message
+          });
+          window.location.reload()
+        } else {
+          Message({
+            type: 'error',
+            message: res.message || 'add note error'
+          })
+        }
+        // console.log(res)
+      })
+    },
+    showNotes(id, address) {
+      this.showAddnoteDialog = true
+      this.addNoteId = id
+      this.addNoteAddress = address
+    },
     emailCodeTip(tip) {
       console.log(tip)
     },
@@ -198,12 +281,13 @@ export default {
       }).then(res => {
         if (res.message === 'unregister success') {
           // 刷新硬件列表
-          this.getHardList()
-          this.showUnbindDialog = false
+          // this.getHardList()
+          this.showUnbindDialog = false;
           Message({
             type: 'success',
             message: res.message
           })
+          window.location.reload();
         } else {
           Message({
             type: 'error',
@@ -222,9 +306,16 @@ export default {
         })
       }
     },
-    // handleSizeChange(val) {
-    //   console.log(`每页 ${val} 条`)
-    // },
+    // 搜索
+    search() {
+      console.log(this.value8)
+      if (this.value8 === 'all') {
+        this.getHardList({ pageNum: 1 })
+      } else {
+        this.getDeviceDetail({ id: this.value8 })
+      }
+    },
+    // 分页
     handleCurrentChange(val) {
       this.getHardList({ pageNum: val })
     }
@@ -304,7 +395,33 @@ export default {
   line-height: 35px;
   margin-left: 20px;
 }
-.pagination
-  margin: 20px
+
+.pagination {
+  margin: 20px;
+}
+
+.hardware-search-wrap {
+  text-align: left;
+  margin-bottom: 20px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #ddd;
+}
+
+.search-text {
+  margin: 0 20px;
+}
+
+.addnote-input {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.add-note-button {
+  background: #909399;
+  color: #fff;
+  width: 110px;
+  height: 35px;
+  line-height: 35px;
+}
 </style>
 

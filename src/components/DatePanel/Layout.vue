@@ -18,26 +18,32 @@
           <el-submenu index="1" route="/revenue" class="revenue-wrap">
             <template slot="title">
               <div v-bind:class="{ revenuePad: true }">
-                <img class="menu-icon home-icon" src="../../assets/revenue.png" >
+                <img class="menu-icon home-icon" src="../../assets/menu/network.png" >
                 <span>{{ $t('local_home_layout.menu.1_value')}}</span>
               </div>
             </template>
             <el-menu-item-group :span="3" >
               <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.1_1_value') }}</el-menu-item>
-              <el-menu-item index="1-3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>              
-              <el-menu-item index="1-2" disabled>{{ $t('local_home_layout.menu.1_2_value') }}</el-menu-item>
+              <!-- <el-menu-item index="1-3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>               -->
+              <el-menu-item index="1-2" route="/revenueDetail">{{ $t('local_home_layout.menu.1_2_value') }}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+          <el-menu-item index="5" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
+            <img  class="menu-icon home-icon" src="../../assets/menu/withdrawal.png" >
+            <span slot="title">{{ $t('local_home_layout.menu.1_3_value') }}</span>
+          <!-- <el-menu-item index="1-3"  v-bind:class="{ isActive: (thisPath === '/withdrawal') }">{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>               -->
+
+          </el-menu-item>
           <el-menu-item index="2" disabled>
-            <img  class="menu-icon home-icon" src="../../assets/revenue.png" >
+            <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png" >
             <span slot="title">{{ $t('local_home_layout.menu.2_value') }}</span>
           </el-menu-item>
           <el-menu-item index="3" disabled>
-            <img  class="menu-icon home-icon" src="../../assets/home/task.png" >
+            <img  class="menu-icon home-icon" src="../../assets/menu/powerAnalysis.png" >
             <span slot="title">{{ $t('local_home_layout.menu.3_value') }}</span>
           </el-menu-item>
           <el-menu-item index="4" disabled>
-            <img  class="menu-icon home-icon" src="../../assets/revenue.png" >
+            <img  class="menu-icon home-icon" src="../../assets/menu/networkCbt.png" >
             <span slot="title">{{ $t('local_home_layout.menu.4_value') }}</span>
           </el-menu-item>
         </el-menu>
@@ -63,7 +69,7 @@
         "1_3_value": "Withdrawal",
         "2_value": "Computing Task Revenue",
         "2_1_value": "Revenue",
-        "2_2_value": "Contribution",
+        "2_2_value": "Details",
         "2_3_value": "Withdrawal",
         "3_value": "Power Analysis",
         "4_value": "Network Contribution"
@@ -77,7 +83,7 @@
         "0_value": "数据面板首页",
         "1_value": "网络任务收益",
         "1_1_value": "收益情况",
-        "1_2_value": "贡献详情",
+        "1_2_value": "收益详情",
         "1_3_value": "提现",
         "2_value": "计算任务收益",
         "2_1_value": "收益情况",

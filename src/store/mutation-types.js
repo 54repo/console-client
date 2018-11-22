@@ -11,8 +11,9 @@ export const INVITECODE_STATUS_CODE = 'INVITECODE_STATUS_CODE'; //邀请码可�
 export const GET_NON_MAINLAND_LIST = 'GET_NON_MAINLAND_LIST'; //邀请码NON_MAINLAND可领取列表
 export const GET_MAINLAND_LIST = 'GET_MAINLAND_LIST'; //邀请码MAINLAND可领取列表
 export const GET_USER_INFO = 'GET_USER_INFO'; //邀请码可领取状态
-// 账号设置
+// 硬件
 export const GET_HARDLIST = 'GET_HARDLIST'; //获取硬件列表
+export const GET_SEARCH_LIST = 'GET_SEARCH_LIST'; //获取硬件列表
 // 收益
 // export const INVITE_REVENUE_LIST = 'INVITE_REVENUE_LIST'; 
 export const GET_LASTDAY_INVITE = 'GET_LASTDAY_INVITE';

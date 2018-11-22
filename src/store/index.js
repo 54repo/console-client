@@ -30,7 +30,8 @@ export default new Vuex.Store({
       hardLength: '',
       deviceSize: '',
       currentPage: '',
-      hardList: ''
+      hardList: '',
+      allDevices: [] //所有设备列表，帮助搜索
     },
     revenue: {
       inviteRevenue: '', // 邀请收益
