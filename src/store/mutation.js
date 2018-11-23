@@ -122,9 +122,7 @@ export default {
   },
   //  用户推荐总人数
   [GET_RENVUE_DETAIL](state, deviceDetail) {
-
-
-    state.revenueDetail.currentPage = deviceDetail.currentPage;
+    state.revenueDetail.currentPage = Number(deviceDetail.currentPage);
     state.revenueDetail.deviceLength = deviceDetail.deviceLength;
     state.revenueDetail.deviceNumSize = deviceDetail.deviceNumSize;
     state.revenueDetail.detailList = deviceDetail.detailList;
@@ -135,7 +133,7 @@ export default {
     // let allText = this.$t('all_content');
     state.hardWare.list = hardList.list || 'NO_CONTENT';
     state.hardWare.hardLength = hardList.deviceLength || 0;
-    state.hardWare.deviceSize = hardList.deviceNumSize || 0;
+    state.hardWare.deviceSize = Number(hardList.deviceNumSize) || 0;
     state.hardWare.currentPage = hardList.currentPage || 0;
     // // 方便搜索
     // (hardList.allDevices && hardList.allDevices.length) && (hardList.allDevices.unshift({

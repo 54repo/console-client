@@ -41,7 +41,7 @@ export default new Vuex.Store({
     revenueDetail: {
       currentPage: '',
       deviceLength: '',
-      deviceNumSize: '',
+      deviceNumSize: 1,
       revenueDetail: []
     },
     recommend: {

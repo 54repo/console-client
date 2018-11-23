@@ -9,6 +9,7 @@
             <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
+          <span class="revenue-tips">{{$t('revenueTips')}}</span>
         </div>
 
         <el-table v-if="deviceDetail !== 'NO_CONTENT'" :data="detailList" align="left" empty-text="Loading..." style="width: 100%">
@@ -19,11 +20,11 @@
           <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
         </el-table>
 
-        <div class="pagination">
+        <div class="pagination" v-if="deviceNumSize > 1">
           <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceNumSize" layout="total, prev, pager, next" :total="deviceLength">
           </el-pagination>
         </div>
-        <el-table v-if="hardList === 'NO_CONTENT'" :empty-text="$t('noHardwareTip')" style="width: 100%">
+        <el-table v-if="deviceDetail === 'NONE'" :empty-text="$t('noHardwareTip')" style="width: 100%">
         </el-table>
       </BasiceLayout>
     </Layout>
@@ -131,21 +132,29 @@ export default {
   margin-bottom: 30px;
   border-bottom: 1px solid #ddd;
 }
+
+.revenue-tips{
+  display:inline-block;
+  margin: 0 20px;
+  color: #96999b;
+}
 </style>
 
 <i18n>
 {
   "zn": {
     "pageTitle": "详情",
-    "revenueDate": "查询日期",
+    "revenueDate": "查询日期（UTC）",
     "mac_address": "Mac地址",
-    "device_revenue": "设备收益"
+    "device_revenue": "设备收益",
+    "revenueTips":"默认显示当日收益"
   },
   "en": {
     "pageTitle": "Details",
-    "revenueDate": "Date",
+    "revenueDate": "Date（UTC）",
     "mac_address": "Mac Address",
-    "device_revenue": "device revenue"
+    "device_revenue": "device revenue",
+    "revenueTips":"Show daily revenue by default"
   }
 }
 </i18n>
