@@ -38,9 +38,9 @@
             <el-table-column prop="" :label="$t('needs')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.needs">-</div>
-                <el-tag v-if="scope.row.needs === '高'" type="success">高</el-tag>
-                <el-tag v-if="scope.row.needs === '中'" type="info">中</el-tag>
-                <el-tag v-if="scope.row.needs === '低'" type="danger">低</el-tag>
+                <el-tag v-if="scope.row.needs === '高' || scope.row.needs === 'High'" type="success">高</el-tag>
+                <el-tag v-if="scope.row.needs === '中' || scope.row.needs === 'Meduim'" type="info">中</el-tag>
+                <el-tag v-if="scope.row.needs === '低' || scope.row.needs === 'Low'" type="danger">低</el-tag>
               </template>
             </el-table-column>
             <!-- 在线状态 -->
