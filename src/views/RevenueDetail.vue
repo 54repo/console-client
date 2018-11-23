@@ -70,6 +70,7 @@ export default {
         .utc()
         .startOf('day')
 
+      endDay -= 24 * 60 * 60 * 1000;
       let i = 0
       while (i < 7) {
         i++
@@ -134,14 +135,14 @@ export default {
 <i18n>
 {
   "zn": {
-    "pageTitle": "收益详情",
+    "pageTitle": "详情",
     "revenueDate": "查询日期",
     "mac_address": "Mac地址",
     "device_revenue": "设备收益"
   },
   "en": {
     "pageTitle": "Details",
-    "revenueDate": "date",
+    "revenueDate": "Date",
     "mac_address": "Mac Address",
     "device_revenue": "device revenue"
   }

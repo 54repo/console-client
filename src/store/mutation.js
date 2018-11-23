@@ -137,11 +137,11 @@ export default {
     state.hardWare.hardLength = hardList.deviceLength || 0;
     state.hardWare.deviceSize = hardList.deviceNumSize || 0;
     state.hardWare.currentPage = hardList.currentPage || 0;
-    // 方便搜索
-    (hardList.allDevices && hardList.allDevices.length) && (hardList.allDevices.unshift({
-      value: 'all',
-      label: 'all'
-    }));
+    // // 方便搜索
+    // (hardList.allDevices && hardList.allDevices.length) && (hardList.allDevices.unshift({
+    //   value: 'all',
+    //   label: 'all'
+    // }));
     state.hardWare.allDevices = hardList.allDevices || [];
     state.hardWare = Object.assign({}, state.hardWare);
   },

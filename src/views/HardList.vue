@@ -6,7 +6,7 @@
           <!-- mac地址搜索 -->
           <div class="hardware-search-wrap" v-if="allDevices" align='center'>
             <span class="search-text">{{$t('mac_address')}}</span>
-            <el-select v-model="value8" filterable placeholder="请选择" @change="search">
+            <el-select v-model="searchMacAddress" filterable placeholder="请选择" @change="search">
               <el-option v-for="item in allDevices" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
@@ -33,7 +33,7 @@
                 <div v-if="scope.row.ext_ip">{{scope.row.ext_ip}}</div>
               </template>
             </el-table-column>
-            <el-table-column align='center' prop="location" :label="$t('location')"></el-table-column>
+            <el-table-column prop="location" :label="$t('location')"></el-table-column>
             <!-- 需求杜 -->
             <el-table-column prop="" :label="$t('needs')" align='center'>
               <template slot-scope="scope">
@@ -88,7 +88,7 @@
     <el-dialog :title="$t('addNotes.title')" :visible.sync="showAddnoteDialog" width="480px" center>
       <div class="addnote-dialog-wrap">
         <span class="key">{{$t('addNotes.tipText')}}({{addNoteAddress}})</span>
-        <input type="text" class="basic-input input addnote-input"  v-model="addNoteInput">
+        <input type="text" class="basic-input input addnote-input" v-model="addNoteInput">
       </div>
       <span slot="footer" class="dialog-footer">
         <div class="sure-unbind button" @click="showAddnoteDialog = false">{{ $t('dialog.cancel') }}</div>
@@ -122,13 +122,14 @@
     "needsHigh": "High",
     "needsMiddle": "Medium",
     "needsLow": "Low",
-    "mac_address": "search Mac_address",
+    "mac_address": "Search Mac Address",
     "addNote": "note",
     "addNotes": {
       "title": "Add device note",
       "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
     },
-    "noteText": "note"
+    "noteText": "note",
+    "allSearch": "All"
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -158,7 +159,8 @@
       "title": "添加设备备注",
       "tipText": "输入该设备记录的备注名（仅可修改一次）："
     },
-    "noteText": "备注"
+    "noteText": "备注",
+    "allSearch": "全部"
   }
 }
 </i18n>
@@ -194,7 +196,7 @@ export default {
       inputEmailCode: '', //输入的邮件码
       ticket: '', // 验证码ticket
       csnonce: '', //整数
-      value8: ''
+      searchMacAddress: ''
     }
   },
   computed: mapState({
@@ -248,32 +250,28 @@ export default {
         deviceId: this.addNoteId,
         note: this.addNoteInput
       }).then(res => {
-        console.log(res)
         if (res.code === 200) {
-        //   // 刷新硬件列表
-        //   this.getHardList()
-        //   this.showUnbindDialog = false
           Message({
             type: 'success',
             message: res.message
-          });
-          window.location.reload()
+          })
+          this.showAddnoteDialog = false
+          this.getRevenueDetail({
+            queryDate,
+            pageNum: value
+          })
         } else {
           Message({
             type: 'error',
             message: res.message || 'add note error'
           })
         }
-        // console.log(res)
       })
     },
     showNotes(id, address) {
       this.showAddnoteDialog = true
       this.addNoteId = id
       this.addNoteAddress = address
-    },
-    emailCodeTip(tip) {
-      console.log(tip)
     },
     // 解绑
     unbind() {
@@ -283,13 +281,13 @@ export default {
       }).then(res => {
         if (res.message === 'unregister success') {
           // 刷新硬件列表
-          // this.getHardList()
-          this.showUnbindDialog = false;
+          this.getHardList({ pageNum: this.currentPage })
+          this.showUnbindDialog = false
           Message({
             type: 'success',
             message: res.message
           })
-          window.location.reload();
+          // window.location.reload()
         } else {
           Message({
             type: 'error',
@@ -310,15 +308,15 @@ export default {
     },
     // 搜索
     search() {
-      console.log(this.value8)
-      if (this.value8 === 'all') {
+      if (this.searchMacAddress === 'all') {
         this.getHardList({ pageNum: 1 })
       } else {
-        this.getDeviceDetail({ id: this.value8 })
+        this.getDeviceDetail({ id: this.searchMacAddress })
       }
     },
     // 分页
     handleCurrentChange(val) {
+      this.currentPage = val;
       this.getHardList({ pageNum: val })
     }
   },
@@ -360,6 +358,7 @@ export default {
   width: 90px;
   height: 35px;
   display: inline-block;
+  width: 100%;
 }
 
 .unbind-dialog-wrap .key {
@@ -424,6 +423,9 @@ export default {
   width: 110px;
   height: 35px;
   line-height: 35px;
+  text-align: center;
+  margin: 0;
+  width: 100%;
 }
 </style>
 

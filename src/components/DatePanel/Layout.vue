@@ -24,8 +24,7 @@
             </template>
             <el-menu-item-group :span="3" >
               <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.1_1_value') }}</el-menu-item>
-              <!-- <el-menu-item index="1-3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>               -->
-              <el-menu-item index="1-2" route="/revenueDetail">{{ $t('local_home_layout.menu.1_2_value') }}</el-menu-item>
+              <el-menu-item index="1-2" route="/revenueDetail"  v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">{{ $t('local_home_layout.menu.1_2_value') }}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="5" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
@@ -65,7 +64,7 @@
         "0_value": "Home Page",
         "1_value": "Network Task Revenue",
         "1_1_value": "Revenue",
-        "1_2_value": "Contribution",
+        "1_2_value": "Details",
         "1_3_value": "Withdrawal",
         "2_value": "Computing Task Revenue",
         "2_1_value": "Revenue",
@@ -83,7 +82,7 @@
         "0_value": "数据面板首页",
         "1_value": "网络任务收益",
         "1_1_value": "收益情况",
-        "1_2_value": "收益详情",
+        "1_2_value": "详情",
         "1_3_value": "提现",
         "2_value": "计算任务收益",
         "2_1_value": "收益情况",
