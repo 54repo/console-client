@@ -2,6 +2,7 @@
   "message": "hello",
   "confirm": "确认",
   "cancel": "取消",
+  "all_content": "全部",
   "login": {
     "loginTitle": "用户登录",
     "loginPlaceHolder": "输入邮箱",

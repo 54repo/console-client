@@ -1,5 +1,6 @@
 {
   "message": "hello",
+  "all_content": "all",
   "login": {
     "loginTitle": "Users Login",
     "loginPlaceHolder": "Email",

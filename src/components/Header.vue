@@ -10,7 +10,7 @@
       <el-col :span="20" class="header-login-panel" >
         <div class="header-panel-wrap" v-if="type !== 'login-header'">
           <router-link to="/">
-            <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/' || thisPath === '/revenue' || thisPath === '/withdrawal') }">
+            <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/' || thisPath === '/revenue' || thisPath === '/withdrawal' || thisPath === '/revenueDetail') }">
               <img  class="menu-icon home-icon" src="../assets/home/data-panel-login.png" >            
               {{ $t('header.dataPanel') }}
             </div>
@@ -71,6 +71,7 @@ export default {
       this.whichLanguage = (locale === "zn");
       this.$i18n.locale = locale;
       this.$cookie.set("BASIC_LANUAGE", locale);
+      window.location.reload();
     }
   },
   created() {

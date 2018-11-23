@@ -87,22 +87,40 @@ export const ajaxChangePw = (data) => {
   return fetch(baseUrl + '/api/user/update/password/', data, 'POST');
 };
 /**
- * 硬件列表
+ * 解绑
  */
 export const ajaxUnbindHard = (data) => {
   return fetch(baseUrl + '/api/web/devices/unbind/', data, 'POST');
 };
 /**
- * 解绑
+ * 某个硬件列表
+ */
+export const ajaxDeviceDetail = (data) => {
+  return fetch(baseUrl + '/api/web/devices/getDetails', data);
+};
+/**
+ * 硬件列表
  */
 export const ajaxHardList = (data) => {
   return fetch(baseUrl + '/api/web/devices/list_v2/', data);
+};
+/**
+ * 添加备注
+ */
+export const ajaxDeviceNotes = (data) => {
+  return fetch(baseUrl + '/api/web/devices/saveNote/', data);
 };
 /**
  * 用户收益详情	
  */
 export const ajaxRevenueList = (data) => {
   return fetch(baseUrl + '/api/web/revenue/list/	', data);
+};
+/**
+ * 用户设备收益
+ */
+export const ajaxRevenueDetail = (data) => {
+  return fetch(baseUrl + '/api/web/revenueDetail/', data);
 };
 /**
  * 用户总收益

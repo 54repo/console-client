@@ -103,7 +103,7 @@
       "tips_five_link": "https://bonuscloud.gitbook.io/help/eth-qian-bao-yan-zheng-fang-fa",
 			"tips_six": "6.完成钱包验证操作后，将于次日北京时间12点进行校验，校验通过后，标签将变更为已验证状态。"       
 		},
-		"sureTips": "暂未开放钱包解绑功能，请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。",
+		"sureTips": "请认真核对绑定的钱包地址是否正确，若由于钱包地址错误导致提现失败，收益丢失，BonusCloud不承担任何责任。",
 		"walletConfirm": "确定",
 		"walletCancel": "取消",
 		"imageVerCode": "请进行验证",

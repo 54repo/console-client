@@ -15,11 +15,13 @@ import {
   GET_ALL_RENVUE,
   GET_LASTDAY_INVITE,
   ACCOUNT_REVENUE_LIST,
+  GET_RENVUE_DETAIL,
   // 推荐
   GET_RECOMMEND_INFO,
   GET_RECOMMEND_COUNT,
   // 硬件列表
   GET_HARDLIST,
+  GET_SEARCH_LIST,
   ACCOUNT_LASTDAY_REVENUE,
   // eth地址绑定
   GET_WALLET_ADDRESS,
@@ -37,7 +39,7 @@ export default {
   // login 
   [LOGIN_IN](state, status) {
     state.account.loginStatus = status;
-    state.account =  Object.assign({}, state.account);
+    state.account = Object.assign({}, state.account);
   },
   // //  login不可点击
   // [DISABLE_LOGIN](state) {
@@ -56,13 +58,13 @@ export default {
   [DISABLE_SIGNUP](state) {
     console.log(123);
     state.signUp.isSignUpDisable = true;
-    state.signUp =  Object.assign({}, state.signUp);
+    state.signUp = Object.assign({}, state.signUp);
   },
   //  signup可点击
   [ABLE_SIGNUP](state) {
     console.log(123);
     state.signUp.isSignUpDisable = false;
-    state.signUp =  Object.assign({}, state.signUp);
+    state.signUp = Object.assign({}, state.signUp);
   },
   // 图片验证码地址
   [GET_IMAGE_CODE](state, imageUrl) {
@@ -70,83 +72,108 @@ export default {
     console.log(imageUrl);
     // const signUp = (Object.assign({}, this.state.signUp, { imageCodeSrc: imageUrl, });
     state.signUp.imageCodeSrc = imageUrl;
-    state.signUp =  Object.assign({}, state.signUp);
+    state.signUp = Object.assign({}, state.signUp);
   },
   // 图片邀请码状态
   [INVITECODE_STATUS_CODE](state, status) {
     // const signUp = (Object.assign({}, this.state.signUp, { imageCodeSrc: imageUrl, });
     state.inviteCode.status = status;
-    state.inviteCode =  Object.assign({}, state.inviteCode);
+    state.inviteCode = Object.assign({}, state.inviteCode);
   },
   // 图片邀请码状态
   [GET_MAINLAND_LIST](state, list) {
     state.inviteCode.mainland_list = list;
-    state.inviteCode =  Object.assign({}, state.inviteCode);
+    state.inviteCode = Object.assign({}, state.inviteCode);
   },
   // 图片邀请码状态
   [GET_NON_MAINLAND_LIST](state, list) {
     state.inviteCode.non_mainland_list = list;
-    state.inviteCode =  Object.assign({}, state.inviteCode);
+    state.inviteCode = Object.assign({}, state.inviteCode);
   },
   // 获取用户信息
   [GET_USER_INFO](state, emaill) {
-    state.account.email= emaill;
-    state.account =  Object.assign({}, state.account);
+    state.account.email = emaill;
+    state.account = Object.assign({}, state.account);
   },
   // 用户收益
   [GET_ALL_RENVUE](state, revenue) {
-    state.revenue.allRenvue= revenue;
-    state.revenue =  Object.assign({}, state.revenue);
+    state.revenue.allRenvue = revenue;
+    state.revenue = Object.assign({}, state.revenue);
   },
   //  用户邀请收益
   [GET_LASTDAY_INVITE](state, revenueList) {
     state.revenue.inviteRevenue = revenueList;
-    state.revenue =  Object.assign({}, state.revenue);
+    state.revenue = Object.assign({}, state.revenue);
   },
   //  用户个人收益详情
   [ACCOUNT_LASTDAY_REVENUE](state, revenueList) {
     state.revenue.accountRevenue = revenueList;
-    state.revenue =  Object.assign({}, state.revenue);
+    state.revenue = Object.assign({}, state.revenue);
   },
   //  用户推荐链接
   [GET_RECOMMEND_INFO](state, recommend) {
     state.recommend.recommendRefer = recommend;
-    state.recommend =  Object.assign({}, state.recommend);
+    state.recommend = Object.assign({}, state.recommend);
   },
   //  用户推荐总人数
   [GET_RECOMMEND_COUNT](state, count) {
     state.recommend.count = count;
-    state.recommend =  Object.assign({}, state.recommend);
+    state.recommend = Object.assign({}, state.recommend);
+  },
+  //  用户推荐总人数
+  [GET_RENVUE_DETAIL](state, deviceDetail) {
+
+
+    state.revenueDetail.currentPage = deviceDetail.currentPage;
+    state.revenueDetail.deviceLength = deviceDetail.deviceLength;
+    state.revenueDetail.deviceNumSize = deviceDetail.deviceNumSize;
+    state.revenueDetail.detailList = deviceDetail.detailList;
+    state.revenueDetail = Object.assign({}, state.revenueDetail);
   },
   //  获取硬件列表
   [GET_HARDLIST](state, hardList) {
+    // let allText = this.$t('all_content');
     state.hardWare.list = hardList.list || 'NO_CONTENT';
     state.hardWare.hardLength = hardList.deviceLength || 0;
     state.hardWare.deviceSize = hardList.deviceNumSize || 0;
     state.hardWare.currentPage = hardList.currentPage || 0;
-    state.hardWare =  Object.assign({}, state.hardWare);
+    // // 方便搜索
+    // (hardList.allDevices && hardList.allDevices.length) && (hardList.allDevices.unshift({
+    //   value: 'all',
+    //   label: 'all'
+    // }));
+    state.hardWare.allDevices = hardList.allDevices || [];
+    state.hardWare = Object.assign({}, state.hardWare);
+  },
+  //  获取硬件列表
+  [GET_SEARCH_LIST](state, hardList) {
+    state.hardWare.list = hardList || 'NO_CONTENT';
+    state.hardWare.hardLength = 1;
+    state.hardWare.deviceSize = 1;
+    state.hardWare.currentPage = 1;
+    state.hardWare = Object.assign({}, state.hardWare);
   },
   //  ETH地址绑定
   [GET_WALLET_ADDRESS](state, address) {
     state.wallet.address = address;
-    state.wallet =  Object.assign({}, state.wallet);
+    state.wallet = Object.assign({}, state.wallet);
   },
   //  ETH状态获取
   [GET_WALLET_STATUS](state, eth_verify_status) {
     state.wallet.eth_verify_status = eth_verify_status;
-    state.wallet =  Object.assign({}, state.wallet);
+    state.wallet = Object.assign({}, state.wallet);
   },
   //  提现
   [GET_WITHDRAWAL_LIST](state, list) {
     state.withdrawal.list = list;
-    state.withdrawal =  Object.assign({}, state.withdrawal);
+    state.withdrawal = Object.assign({}, state.withdrawal);
   },
   [GET_BALANCE](state, balance) {
     state.withdrawal.balance = balance;
-    state.withdrawal =  Object.assign({}, state.withdrawal);
+    state.withdrawal = Object.assign({}, state.withdrawal);
   },
   [GET_WITHDRAWAL_STAUTS](state, withStatus) {
     state.withdrawal.commitStatus = withStatus;
-    state.withdrawal =  Object.assign({}, state.withdrawal);
+    state.withdrawal = Object.assign({}, state.withdrawal);
   },
 }
