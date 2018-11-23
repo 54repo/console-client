@@ -33,14 +33,15 @@
                 <div v-if="scope.row.ext_ip">{{scope.row.ext_ip}}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="location" :label="$t('location')"></el-table-column>
-            <!-- 需求杜 -->
+            <!-- 地区 -->
+            <el-table-column prop="location" :label="$t('location')" align='center'></el-table-column>
+            <!-- 需求度 -->
             <el-table-column prop="" :label="$t('needs')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.needs">-</div>
-                <el-tag v-if="scope.row.needs === '高' || scope.row.needs === 'High'" type="success">高</el-tag>
-                <el-tag v-if="scope.row.needs === '中' || scope.row.needs === 'Meduim'" type="info">中</el-tag>
-                <el-tag v-if="scope.row.needs === '低' || scope.row.needs === 'Low'" type="danger">低</el-tag>
+                <el-tag v-if="scope.row.needs === '高' || scope.row.needs === 'High'" type="success">scope.row.needs</el-tag>
+                <el-tag v-if="scope.row.needs === '中' || scope.row.needs === 'Meduim'" type="info">scope.row.needs</el-tag>
+                <el-tag v-if="scope.row.needs === '低' || scope.row.needs === 'Low'" type="danger">scope.row.needs</el-tag>
               </template>
             </el-table-column>
             <!-- 在线状态 -->
@@ -410,6 +411,8 @@ export default {
 
 .search-text {
   margin: 0 20px;
+  width: 200px;
+  display: inline-block;
 }
 
 .addnote-input {
