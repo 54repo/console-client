@@ -247,6 +247,7 @@ export default {
     },
     // 添加备注
     addNote() {
+      let that = this
       this.addDeviceNotes({
         deviceId: this.addNoteId,
         note: this.addNoteInput
@@ -256,11 +257,14 @@ export default {
             type: 'success',
             message: res.message
           })
-          this.showAddnoteDialog = false
-          this.getRevenueDetail({
-            queryDate,
-            pageNum: value
-          })
+          that.showAddnoteDialog = false
+          if (that.searchMacAddress === 'all' || that.searchMacAddress === '') {
+            that.getHardList({
+              pageNum: that.currentPage
+            })
+          } else {
+            this.getDeviceDetail({ id: that.searchMacAddress })
+          }
         } else {
           Message({
             type: 'error',
@@ -317,7 +321,7 @@ export default {
     },
     // 分页
     handleCurrentChange(val) {
-      this.currentPage = val;
+      this.currentPage = val
       this.getHardList({ pageNum: val })
     }
   },

@@ -100,7 +100,8 @@ export default {
     },
     handleCurrentChange(value) {
       console.log(value)
-      let queryDate = this.queryDate
+      let defaultDate =  moment().utc().startOf('day').format('YYYY-MM-DD');
+      let queryDate = this.selectDate || defaultDate;
       this.pageNum = value
       this.getRevenueDetail({
         queryDate,
