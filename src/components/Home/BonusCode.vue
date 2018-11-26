@@ -125,7 +125,7 @@ export default {
       this.getVertifUrl(params).then(res => {
         if (res.data && res.data.csnonce) {
           let that = this
-          that.hasLoadCaptcha = true;
+          that.hasLoadCaptcha = true
           this.showVerify = true
           this.csnonce = res.data.csnonce
           let newScript = document.createElement('script')
@@ -159,16 +159,8 @@ export default {
     getStatus(region) {
       this.region = region
       this.getInviteCodeStatus(region)
-      // if (region === 0) {
-        capDestroy();
-        this.getVerify({ action: 1, region })
-      // }
-
-      // if (region === 1 && hasLoadCaptcha) {
-      //   capRefresh();
-      // } else {
-      //   this.getVerify({ action: 1, region })
-      // }
+      capDestroy()
+      this.getVerify({ action: 1, region })
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
@@ -226,34 +218,7 @@ export default {
   created() {
     // 初始化大陆地区code
     this.getInviteCodeStatus('mainland')
-    this.getVerify({ action: 1, region: 0 })
-    // this.getVertifUrl({ action: 0, region: 0 }).then(res => {
-    //   this.csnonce = res.data.csnonce
-    //   var newScript = document.createElement('script')
-    //   newScript.type = 'text/javascript'
-    //   newScript.src = res.data.url
-    //   document.body.appendChild(newScript)
-    //   let that = this
-
-    //   setTimeout(() => {
-    //     var capOption = {
-    //       callback: cbfn,
-    //       themeColor: '15bcad',
-    //       lang: LANG[this.$i18n.locale || 'en']
-    //     }
-    //     capInit(document.getElementById('TCaptcha'), capOption)
-    //     //回调函数：验证码页面关闭时回调
-    //     function cbfn(retJson) {
-    //       if (retJson.ret == 0) {
-    //         that.ticket = retJson.ticket
-    //         // that.sendCode();
-    //         // 用户验证成功
-    //       } else {
-    //         //用户关闭验证码页面，没有验证
-    //       }
-    //     }
-    //   }, 1000)
-    // })
+    this.getVerify({ action: 1, region: 'mailland' })
   }
 }
 </script>
