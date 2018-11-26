@@ -81,7 +81,8 @@ export default {
       regionOptions: this.$t('HOME.BonusCode.regionOptions'),
       regionDefault: this.$t('HOME.BonusCode.regionOptions')[0].value,
       region: 'mainland',
-      showVerify: false //是否可验证验证码
+      showVerify: false, //是否可验证验证码
+      hasLoadCaptcha: false //记录是否首次加载验证码
     }
   },
 
@@ -124,6 +125,8 @@ export default {
       this.getVertifUrl(params).then(res => {
         if (res.data && res.data.csnonce) {
           let that = this
+          that.hasLoadCaptcha = true;
+          this.showVerify = true
           this.csnonce = res.data.csnonce
           let newScript = document.createElement('script')
           newScript.type = 'text/javascript'
@@ -149,14 +152,18 @@ export default {
             }
           }, 1000)
         } else {
-          this.showVerify = true
+          this.showVerify = false
         }
       })
     },
     getStatus(region) {
       this.region = region
       this.getInviteCodeStatus(region)
-      this.getVerify({ action: 1, region })
+      if (hasLoadCaptcha) {
+        capRefresh();
+      } else {
+        this.getVerify({ action: 1, region })
+      }
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
