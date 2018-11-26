@@ -85,4 +85,8 @@ a
 .bonus-color {
   color: #0db4c5
 }
+
+.none {
+  display: none
+}
 </style>
