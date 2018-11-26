@@ -17,90 +17,94 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { Message } from "element-ui";
-import { LANG } from "../config/contant.js";
+import { mapActions } from 'vuex'
+import { Message } from 'element-ui'
+import { LANG } from '../config/contant.js'
 
 export default {
-  name: "EmailCodeWithTX",
+  name: 'EmailCodeWithTX',
   props: {
-    iconType: "", // icon图地址
-    defaultValue: "",
-    placeValue: "", // input placehoder
-    type: "", // input类型,
-    value: "",
-    imageCodeSrc: "", //图片验证码地址,
-    email: "", //邮箱地址
+    iconType: '', // icon图地址
+    defaultValue: '',
+    placeValue: '', // input placehoder
+    type: '', // input类型,
+    value: '',
+    imageCodeSrc: '', //图片验证码地址,
+    email: '', //邮箱地址
     // needImageCode: false,
-    imageCode: "", // 图片验证码
-    imageStyle: "" //绑定页面特定样式
+    imageCode: '', // 图片验证码
+    imageStyle: '' //绑定页面特定样式
   },
   model: {
-    prop: "value",
-    event: "change"
+    prop: 'value',
+    event: 'change'
   },
   created() {
-    this.getVertifUrl().then(res => {
-      this.csnonce = res.data.csnonce;
-      var newScript = document.createElement("script");
-      newScript.type = "text/javascript";
-      newScript.src = res.data.url;
-      document.body.appendChild(newScript);
-      let that = this;
+    this.getVertifUrl({ action: 2 }).then(res => {
+      this.csnonce = res.data.csnonce
+      var newScript = document.createElement('script')
+      newScript.type = 'text/javascript'
+      newScript.src = res.data.url
+      document.body.appendChild(newScript)
+      let that = this
 
       setTimeout(() => {
-        let capOption = { callback: cbfn,  themeColor: '15bcad', lang: LANG[this.$i18n.locale]};
-        capInit(document.getElementById("TCaptcha"), capOption);
+        let capOption = {
+          callback: cbfn,
+          themeColor: '15bcad',
+          lang: LANG[this.$i18n.locale]
+        }
+        capInit(document.getElementById('TCaptcha'), capOption)
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
           if (retJson.ret == 0) {
-            that.ticket = retJson.ticket;
+            that.ticket = retJson.ticket
             // that.sendCode();
             // 用户验证成功
           } else {
             //用户关闭验证码页面，没有验证
           }
         }
-      }, 1000);
-    });
+      }, 1000)
+    })
   },
   data() {
     return {
       inputValue: this.value,
       sendStatus: true, // 验证码点击状态
       TIME_COUNT: 60, //倒计时时间
-      count: "", // 计数
+      count: '', // 计数
       timer: null, // 记录循环
 
       time: 60, // 发送验证码倒计时
       sendMsgDisabled: false,
 
-      ticket: "", // 验证码ticket
-      csnonce: "" //整数
-    };
+      ticket: '', // 验证码ticket
+      csnonce: '' //整数
+    }
   },
   methods: {
-    ...mapActions(["getVertifUrl", "sendEmailCode_v2"]),
+    ...mapActions(['getVertifUrl', 'sendEmailCode_v2']),
     sendCode() {
-      let that = this;
+      let that = this
       // -----后续建议提出来统一维护
-      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
+      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/
       if (!this.email || !emailRule.test(this.email)) {
-        that.$emit("emailCodeTip", {
-          type: "email",
-          message: "the email is error "
-        });
-        return;
+        that.$emit('emailCodeTip', {
+          type: 'email',
+          message: 'the email is error '
+        })
+        return
       }
       // 进行图片验证
       if (!this.ticket) {
-        that.$emit("emailCodeTip", {
-          type: "captcha",
-          message: "Please verify the picture."
-        });
+        that.$emit('emailCodeTip', {
+          type: 'captcha',
+          message: 'Please verify the picture.'
+        })
       } else {
         // 倒计时
-        this.startCountBack();
+        this.startCountBack()
 
         this.sendEmailCode_v2({
           email: this.email,
@@ -108,76 +112,81 @@ export default {
           csnonce: this.csnonce
         }).then(res => {
           try {
-            let { step, status } = res.ret;
-            if (status === "failed") {
-              clearInterval(that.timer);
-              that.sendStatus = true;
-              if (step === "captcha") {
-                that.$emit("emailCodeTip", {
-                  type: "captcha",
+            let { step, status } = res.ret
+            if (status === 'failed') {
+              clearInterval(that.timer)
+              that.sendStatus = true
+              if (step === 'captcha') {
+                that.$emit('emailCodeTip', {
+                  type: 'captcha',
                   message: res.message
-                });
-              } else if (step === "email") {
-                that.$emit("emailCodeTip", {
-                  type: "email",
+                })
+              } else if (step === 'email') {
+                that.$emit('emailCodeTip', {
+                  type: 'email',
                   message: res.message
-                });
+                })
               }
             } else {
-              that.$emit("emailCodeTip", {
-                type: "email",
-                message: ""
-              });
-              that.$emit("emailCodeTip", {
-                type: "captcha",
-                message: ""
-              });
+              that.$emit('emailCodeTip', {
+                type: 'email',
+                message: ''
+              })
+              that.$emit('emailCodeTip', {
+                type: 'captcha',
+                message: ''
+              })
             }
           } catch (error) {
-            clearInterval(that.timer);
-            that.sendStatus = true;
-            let message = error.message || "network error";
-            Message(message);
+            clearInterval(that.timer)
+            that.sendStatus = true
+            let message = error.message || 'network error'
+            Message(message)
           }
-        });
+        })
       }
     },
     startCountBack() {
-      let that = this;
-      that.sendStatus = false; //倒计时
-      const TIME_COUNT = that.TIME_COUNT;
-      that.count = TIME_COUNT;
+      let that = this
+      that.sendStatus = false //倒计时
+      const TIME_COUNT = that.TIME_COUNT
+      that.count = TIME_COUNT
       that.timer = setInterval(() => {
         if (that.count > 0 && that.count <= TIME_COUNT) {
-          that.count--;
+          that.count--
         } else {
-          that.show = true;
-          clearInterval(that.timer);
-          that.timer = null;
-          that.sendStatus = true;
+          that.show = true
+          clearInterval(that.timer)
+          that.timer = null
+          that.sendStatus = true
         }
-      }, 1000);
+      }, 1000)
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
-.account-email{
+.account-email {
   min-height: 100px;
 }
-.captcha_wrap
+
+.captcha_wrap {
   height: 30px;
   width: 270px;
-.EmailBaseInput.BasicInput
-  display: block;
-  min-height: 90px
+}
 
-.email_wrap{
+.EmailBaseInput.BasicInput {
+  display: block;
+  min-height: 90px;
+}
+
+.email_wrap {
   display: flex;
   margin: 30px 0 30px;
 }
+
 .BasicInput {
   height: 30px;
   display: flex;

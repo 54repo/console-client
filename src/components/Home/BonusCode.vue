@@ -16,11 +16,11 @@
                 </el-option>
               </el-select>
               <!-- 验证码 -->
-              <div class="captcha_wrap">
+              <div v-bind:class="{ none: !showVerify }" class="captcha_wrap">
                 <div id="TCaptcha" style="width:100%;height:20px;"></div>
               </div>
               <!-- 领码 -->
-              <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('HOME.BonusCode.getText')}}</div>
+              <div v-bind:class="{ none: !showVerify, noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('HOME.BonusCode.getText')}}</div>
             </div>
             <div class="count-time">
               <span class="key">{{ $t('HOME.BonusCode.nextTimeText') }}</span>
@@ -80,7 +80,9 @@ export default {
       csnonce: '',
       regionOptions: this.$t('HOME.BonusCode.regionOptions'),
       regionDefault: this.$t('HOME.BonusCode.regionOptions')[0].value,
-      region: 'mainland'
+      region: 'mainland',
+      showVerify: false, //是否可验证验证码
+      hasLoadCaptcha: false //记录是否首次加载验证码
     }
   },
 
@@ -119,10 +121,49 @@ export default {
       'sendEmailCode_v2',
       'getInviteCodeStatus'
     ]),
+    getVerify(params) {
+      this.getVertifUrl(params).then(res => {
+        if (res.data && res.data.csnonce) {
+          let that = this
+          that.hasLoadCaptcha = true
+          this.showVerify = true
+          this.csnonce = res.data.csnonce
+          let newScript = document.createElement('script')
+          newScript.type = 'text/javascript'
+          newScript.src = res.data.url
+          document.body.appendChild(newScript)
+
+          setTimeout(() => {
+            let capOption = {
+              callback: cbfn,
+              themeColor: '15bcad',
+              lang: LANG[this.$i18n.locale || 'en']
+            }
+            capInit(document.getElementById('TCaptcha'), capOption)
+            //回调函数：验证码页面关闭时回调
+            function cbfn(retJson) {
+              if (retJson.ret == 0) {
+                that.ticket = retJson.ticket
+                // that.sendCode();
+                // 用户验证成功
+              } else {
+                that.ticket = ''
+              }
+            }
+          }, 1000)
+        } else {
+          this.showVerify = false
+        }
+      })
+    },
     getStatus(region) {
-      this.region = region;
-      this.getInviteCodeStatus(region);
-      capRefresh();
+      this.region = region
+      this.getInviteCodeStatus(region)
+      if (this.hasLoadCaptcha) {
+        capDestroy()
+        this.hasLoadCaptcha = false
+      }
+      this.getVerify({ action: 1, region })
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
@@ -175,37 +216,12 @@ export default {
       }
     }
   },
+
   // 加载验证码
   created() {
     // 初始化大陆地区code
-    this.getInviteCodeStatus('mainland');
-    this.getVertifUrl().then(res => {
-      this.csnonce = res.data.csnonce
-      var newScript = document.createElement('script')
-      newScript.type = 'text/javascript'
-      newScript.src = res.data.url
-      document.body.appendChild(newScript)
-      let that = this
-
-      setTimeout(() => {
-        var capOption = {
-          callback: cbfn,
-          themeColor: '15bcad',
-          lang: LANG[this.$i18n.locale || 'en']
-        }
-        capInit(document.getElementById('TCaptcha'), capOption)
-        //回调函数：验证码页面关闭时回调
-        function cbfn(retJson) {
-          if (retJson.ret == 0) {
-            that.ticket = retJson.ticket
-            // that.sendCode();
-            // 用户验证成功
-          } else {
-            //用户关闭验证码页面，没有验证
-          }
-        }
-      }, 1000)
-    })
+    this.getInviteCodeStatus('mainland')
+    this.getVerify({ action: 1, region: "mainland" })
   }
 }
 </script>
