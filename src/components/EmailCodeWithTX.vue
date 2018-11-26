@@ -40,7 +40,7 @@ export default {
     event: 'change'
   },
   created() {
-    this.getVertifUrl({ action: 1 }).then(res => {
+    this.getVertifUrl({ action: 2 }).then(res => {
       this.csnonce = res.data.csnonce
       var newScript = document.createElement('script')
       newScript.type = 'text/javascript'

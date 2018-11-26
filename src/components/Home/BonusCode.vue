@@ -156,7 +156,7 @@ export default {
     getStatus(region) {
       this.region = region
       this.getInviteCodeStatus(region)
-      this.getVerify({ action: 0, region })
+      this.getVerify({ action: 1, region })
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
@@ -214,7 +214,7 @@ export default {
   created() {
     // 初始化大陆地区code
     this.getInviteCodeStatus('mainland')
-    this.getVerify({ action: 0, region: 0 })
+    this.getVerify({ action: 1, region: 0 })
     // this.getVertifUrl({ action: 0, region: 0 }).then(res => {
     //   this.csnonce = res.data.csnonce
     //   var newScript = document.createElement('script')

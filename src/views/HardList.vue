@@ -328,7 +328,7 @@ export default {
 
   created() {
     this.getHardList({ pageNum: 1 })
-    this.getVertifUrl({ action: 1}).then(res => {
+    this.getVertifUrl({ action: 2 }).then(res => {
       this.csnonce = res.data.csnonce
       let newScript = document.createElement('script')
       newScript.type = 'text/javascript'

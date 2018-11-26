@@ -25,7 +25,7 @@ export default {
     ...mapActions(['getVertifUrl'])
   },
   created() {
-    this.getVertifUrl({ action: 1 }).then(res => {
+    this.getVertifUrl({ action: 2 }).then(res => {
       this.$emit('changeTicket', { csnonce: res.data.csnonce })
       let capScript = document.createElement('script')
       capScript.type = 'text/javascript'
