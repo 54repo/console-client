@@ -218,7 +218,7 @@ export default {
   created() {
     // 初始化大陆地区code
     this.getInviteCodeStatus('mainland')
-    this.getVerify({ action: 1, region: 'mailland' })
+    this.getVerify({ action: 1, region: "mainland" })
   }
 }
 </script>
