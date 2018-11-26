@@ -88,7 +88,7 @@
       "title": "Attention",
       "detail": [
         "1. Please bind the wallet address in the account settings before withdrawing.",
-        "2. The single minimum withdrawal amount is 5000 BxC, and the maximum withdrawal amount is 100000 BxC, which can only be withdrawn once every 24 hours.",
+        "2. The single minimum withdrawal amount is 5,000 BxC, and the maximum withdrawal amount is 1,000,000 BxC.",
         "3. Each withdrawal requires 300 BxC to be paid as the ETH network's Gas fee. BonusCloud does not charge any fees.",
         "4. The cash withdrawal rate needs to refer to the ETH network congestion. Please pay attention to the cash withdrawal status update.",
         "5. Cannot withdraw cash within 24 hours after replacing the wallet.",

@@ -7,8 +7,8 @@ const ERROR = 'error';
 const CONFIG = {
 	over_withdrawal_amount: {
 		type: ERROR,
-		en: " The single minimum withdrawal amount is 5000 BxC, and the maximum withdrawal amount is 10000BxC, which can only be withdrawn once every 24 hours.",
-		zn: "单次最小提现数量为 5000 BxC，最大提现数量为10000BxC，每24小时只能提现一次。"
+		en: " The single minimum withdrawal amount is 5,000 BxC, and the maximum withdrawal amount is 1,000,000 BxC.",
+		zn: "单次最小提现数量为 5,000 BxC，最大提现数量为 1,000,000 BxC。"
 	},
 	RELOAD_THE_PAGE: {
 		type: ERROR,

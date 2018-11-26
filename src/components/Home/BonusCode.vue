@@ -20,7 +20,7 @@
                 <div id="TCaptcha" style="width:100%;height:20px;"></div>
               </div>
               <!-- 领码 -->
-              <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('HOME.BonusCode.getText')}}</div>
+              <div v-if="ticket" v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('HOME.BonusCode.getText')}}</div>
             </div>
             <div class="count-time">
               <span class="key">{{ $t('HOME.BonusCode.nextTimeText') }}</span>
@@ -120,9 +120,13 @@ export default {
       'getInviteCodeStatus'
     ]),
     getStatus(region) {
-      this.region = region;
-      this.getInviteCodeStatus(region);
-      capRefresh();
+      this.region = region
+      this.getInviteCodeStatus(region)
+      if (capRefresh) {
+        capRefresh();
+      } else {
+        this.getVerify({ action: 0, region })
+      }
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
@@ -175,11 +179,8 @@ export default {
       }
     }
   },
-  // 加载验证码
-  created() {
-    // 初始化大陆地区code
-    this.getInviteCodeStatus('mainland');
-    this.getVertifUrl().then(res => {
+  getVerify(params) {
+     this.getVertifUrl(params).then(res => {
       this.csnonce = res.data.csnonce
       var newScript = document.createElement('script')
       newScript.type = 'text/javascript'
@@ -201,11 +202,44 @@ export default {
             // that.sendCode();
             // 用户验证成功
           } else {
-            //用户关闭验证码页面，没有验证
+            that.ticket = "";
           }
         }
       }, 1000)
     })
+  },
+  // 加载验证码
+  created() {
+    // 初始化大陆地区code
+    this.getInviteCodeStatus('mainland')
+    this.getVerify({ action: 0, region: 0 })
+    // this.getVertifUrl({ action: 0, region: 0 }).then(res => {
+    //   this.csnonce = res.data.csnonce
+    //   var newScript = document.createElement('script')
+    //   newScript.type = 'text/javascript'
+    //   newScript.src = res.data.url
+    //   document.body.appendChild(newScript)
+    //   let that = this
+
+    //   setTimeout(() => {
+    //     var capOption = {
+    //       callback: cbfn,
+    //       themeColor: '15bcad',
+    //       lang: LANG[this.$i18n.locale || 'en']
+    //     }
+    //     capInit(document.getElementById('TCaptcha'), capOption)
+    //     //回调函数：验证码页面关闭时回调
+    //     function cbfn(retJson) {
+    //       if (retJson.ret == 0) {
+    //         that.ticket = retJson.ticket
+    //         // that.sendCode();
+    //         // 用户验证成功
+    //       } else {
+    //         //用户关闭验证码页面，没有验证
+    //       }
+    //     }
+    //   }, 1000)
+    // })
   }
 }
 </script>

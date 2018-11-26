@@ -157,7 +157,7 @@ export default {
   created() {
     this.getWalletAddress()
 
-    this.getVertifUrl().then(res => {
+    this.getVertifUrl({ action: 1}).then(res => {
       this.csnonce = res.data.csnonce
       var newScript = document.createElement('script')
       newScript.type = 'text/javascript'
@@ -272,7 +272,7 @@ export default {
     },
     // 刷新验证码
     getCaptcha() {
-      this.getVertifUrl().then(res => {
+      this.getVertifUrl({ action: 1 }).then(res => {
         this.csnonce = res.data.csnonce
         let newScript = document.createElement('script')
         newScript.type = 'text/javascript'
