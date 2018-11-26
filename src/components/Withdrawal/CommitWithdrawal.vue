@@ -126,7 +126,7 @@ export default {
         messageTips('password_error', this.$i18n.locale)
       } else if (!amount || isNaN(amount) || Number(amount) > Number(balance)) {
         messageTips('amount_error', this.$i18n.locale)
-      } else if (amount < 5000 || amount > 100000) {
+      } else if (amount < 5000 || amount > 1000000) {
         messageTips('over_withdrawal_amount', this.$i18n.locale)
       } else {
         this.$confirm(this.$t('withdrawal.tips.confirmTips'), {
