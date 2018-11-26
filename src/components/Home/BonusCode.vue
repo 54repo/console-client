@@ -159,7 +159,10 @@ export default {
     getStatus(region) {
       this.region = region
       this.getInviteCodeStatus(region)
-      capDestroy()
+      if (this.hasLoadCaptcha) {
+        capDestroy()
+        this.hasLoadCaptcha = false
+      }
       this.getVerify({ action: 1, region })
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
