@@ -119,11 +119,40 @@ export default {
       'sendEmailCode_v2',
       'getInviteCodeStatus'
     ]),
+    getVerify(params) {
+      this.getVertifUrl(params).then(res => {
+        this.csnonce = res.data.csnonce
+        let newScript = document.createElement('script')
+        newScript.type = 'text/javascript'
+        newScript.src = res.data.url
+        document.body.appendChild(newScript)
+        let that = this
+
+        setTimeout(() => {
+          let capOption = {
+            callback: cbfn,
+            themeColor: '15bcad',
+            lang: LANG[this.$i18n.locale || 'en']
+          }
+          capInit(document.getElementById('TCaptcha'), capOption)
+          //回调函数：验证码页面关闭时回调
+          function cbfn(retJson) {
+            if (retJson.ret == 0) {
+              that.ticket = retJson.ticket
+              // that.sendCode();
+              // 用户验证成功
+            } else {
+              that.ticket = ''
+            }
+          }
+        }, 1000)
+      })
+    },
     getStatus(region) {
       this.region = region
       this.getInviteCodeStatus(region)
       if (capRefresh) {
-        capRefresh();
+        capRefresh()
       } else {
         this.getVerify({ action: 0, region })
       }
@@ -179,35 +208,7 @@ export default {
       }
     }
   },
-  getVerify(params) {
-     this.getVertifUrl(params).then(res => {
-      this.csnonce = res.data.csnonce
-      var newScript = document.createElement('script')
-      newScript.type = 'text/javascript'
-      newScript.src = res.data.url
-      document.body.appendChild(newScript)
-      let that = this
 
-      setTimeout(() => {
-        var capOption = {
-          callback: cbfn,
-          themeColor: '15bcad',
-          lang: LANG[this.$i18n.locale || 'en']
-        }
-        capInit(document.getElementById('TCaptcha'), capOption)
-        //回调函数：验证码页面关闭时回调
-        function cbfn(retJson) {
-          if (retJson.ret == 0) {
-            that.ticket = retJson.ticket
-            // that.sendCode();
-            // 用户验证成功
-          } else {
-            that.ticket = "";
-          }
-        }
-      }, 1000)
-    })
-  },
   // 加载验证码
   created() {
     // 初始化大陆地区code
