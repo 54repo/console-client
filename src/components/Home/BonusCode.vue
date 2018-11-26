@@ -149,7 +149,7 @@ export default {
             }
           }, 1000)
         } else {
-          this.showVerify = false
+          this.showVerify = true
         }
       })
     },

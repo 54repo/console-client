@@ -87,6 +87,6 @@ a
 }
 
 .none {
-  display: none
+  display: none!important;
 }
 </style>
