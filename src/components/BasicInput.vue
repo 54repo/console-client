@@ -10,6 +10,7 @@
       v-bind:type="type"
       v-bind:value="value"
       v-on:change="$emit('change', $event.target.value)"
+      @keyup.enter="$emit('keyUpEnter')"
       />
       <div
         v-if="imageCodeSrc" 

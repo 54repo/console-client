@@ -23,7 +23,7 @@
           class="account-input password-email"
           v-model="inputPassword"
           needKeyEnter=true
-          @keyEnter="startLogin"
+          @keyUpEnter="startLogin"
           :placeValue="$t('login.PWPlaceHolder')"></BasicInput>
         <div v-if="passwordErrorMsg" class="account-error">
             <i class="el-alert__icon el-icon-error"></i>
