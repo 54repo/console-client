@@ -124,22 +124,17 @@ export default {
   [GET_RENVUE_DETAIL](state, deviceDetail) {
     state.revenueDetail.currentPage = Number(deviceDetail.currentPage);
     state.revenueDetail.deviceLength = deviceDetail.deviceLength;
-    state.revenueDetail.deviceNumSize = deviceDetail.deviceNumSize;
+    state.revenueDetail.deviceNumSize = deviceDetail.pageSize;
     state.revenueDetail.detailList = deviceDetail.detailList;
     state.revenueDetail = Object.assign({}, state.revenueDetail);
   },
   //  获取硬件列表
   [GET_HARDLIST](state, hardList) {
-    // let allText = this.$t('all_content');
     state.hardWare.list = hardList.list || 'NO_CONTENT';
     state.hardWare.hardLength = hardList.deviceLength || 0;
-    state.hardWare.deviceSize = Number(hardList.deviceNumSize) || 0;
+    state.hardWare.deviceSize = Number(hardList.pageSize) || 0;
     state.hardWare.currentPage = hardList.currentPage || 0;
     // // 方便搜索
-    // (hardList.allDevices && hardList.allDevices.length) && (hardList.allDevices.unshift({
-    //   value: 'all',
-    //   label: 'all'
-    // }));
     state.hardWare.allDevices = hardList.allDevices || [];
     state.hardWare = Object.assign({}, state.hardWare);
   },
