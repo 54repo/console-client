@@ -38,9 +38,6 @@ import Layout from '@/components/DatePanel/Layout.vue'
 import RevenueContent from '@/components/RevenueDetail/RevenueContent.vue'
 import BasiceLayout from '@/components/Common/BasicLayout.vue'
 import moment from 'moment'
-
-// import FAQ from '@/components/Revenue/FAQ.vue'
-// import RevenueContent from '@/components/DatePanel/RevenueContent.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -55,9 +52,6 @@ export default {
     Header,
     Layout,
     BasiceLayout
-    // RevenueData,
-    // FAQ,
-    // RevenueContent
   },
   computed: mapState({
     //  箭头函数可使代码更简练

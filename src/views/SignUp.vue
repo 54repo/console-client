@@ -57,7 +57,6 @@ export default {
       secPsErrMsg: "",
       // 输入的注册字段
       inputEmail: "",
-      // inputImageCode: "",
       inputEmailCode: "",
       inputPw: "",
       inputSePw: "",
@@ -69,8 +68,6 @@ export default {
     Header,
     AccountLayout,
     BasicInput,
-    // SendEmailCode,
-    // ImageCode,
     EmailCodeWithTx
   },
   computed: mapState({
@@ -97,7 +94,6 @@ export default {
 
       // 避免多次点击
       if (isSignUpDisable) {
-        console.log("不可点击状态");
         return true;
       }
 

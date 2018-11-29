@@ -1,12 +1,21 @@
 /** 提现 */
 <template>
-	<div class="home">
-		<Layout type="WITHDRAWAl" isRevenue="true" :class="withdrawal-panel-layout" :pageTitle="$t('withdrawal.pageTitle')">
-			<CommitWithdrawal></CommitWithdrawal>
-			<Tips :title="$t('withdrawal.tips.title')" :tips="$t('withdrawal.tips.detail')" class="withdrawal-tips" />
-			<WithdrawalList></WithdrawalList>
-		</Layout>
-	</div>
+  <div class="home">
+    <Layout
+      type="WITHDRAWAl"
+      isRevenue="true"
+      :class="withdrawal-panel-layout"
+      :pageTitle="$t('withdrawal.pageTitle')"
+    >
+      <CommitWithdrawal></CommitWithdrawal>
+      <Tips
+        :title="$t('withdrawal.tips.title')"
+        :tips="$t('withdrawal.tips.detail')"
+        class="withdrawal-tips"
+      />
+      <WithdrawalList></WithdrawalList>
+    </Layout>
+  </div>
 </template>
 
 <script>
@@ -31,32 +40,23 @@ export default {
     WithdrawalList,
     Tips
   },
-  computed: mapState({
-    //  箭头函数可使代码更简练
-    // inviteRevenue: state => state.revenue.inviteRevenue,
-  }),
-  methods: {
-    ...mapActions([])
-  },
-  created() {}
 }
 </script>
 
 <style  lang="stylus">
 .data-panel-wrap, .data-panel-layout, .home {
-	height: 100%;
+  height: 100%;
 }
 
 .withdrawal-panel-layout {
-	height: 100%;
-
+  height: 100%;
 }
 
 .revenue-all-layout {
-	height: 100%;
+  height: 100%;
 }
 
 .withdrawal-tips {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 </style>
