@@ -42,7 +42,8 @@ export default new Vuex.Store({
       currentPage: '',
       deviceLength: '',
       deviceNumSize: 1,
-      revenueDetail: []
+      revenueDetail: [],
+      allDevices: []
     },
     recommend: {
       recommendRefer: '', //  用户推荐refer

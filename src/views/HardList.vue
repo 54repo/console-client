@@ -92,8 +92,8 @@
         <input type="text" class="basic-input input addnote-input" v-model="addNoteInput">
       </div>
       <span slot="footer" class="dialog-footer">
-        <div class="sure-unbind button" @click="showAddnoteDialog = false">{{ $t('dialog.cancel') }}</div>
-        <div class="sure-unbind button" type="primary" @click="addNote">{{ $t('dialog.sure') }}</div>
+        <div class="sure-unbind button" @click="showAddnoteDialog = false">{{ $t('cancel') }}</div>
+        <div class="sure-unbind button" type="primary" @click="addNote">{{ $t('confirm') }}</div>
       </span>
     </el-dialog>
   </div>

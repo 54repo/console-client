@@ -126,6 +126,7 @@ export default {
     state.revenueDetail.deviceLength = deviceDetail.deviceLength;
     state.revenueDetail.deviceNumSize = deviceDetail.pageSize;
     state.revenueDetail.detailList = deviceDetail.detailList;
+    state.revenueDetail.allDevices = deviceDetail.allDevices;
     state.revenueDetail = Object.assign({}, state.revenueDetail);
   },
   //  获取硬件列表

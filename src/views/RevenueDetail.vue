@@ -1,37 +1,135 @@
 /** 收益页 **/
 <template>
   <div class="home">
-    <Layout type="REVENUE" isRevenue="true" :pageTitle="$t('pageTitle')">
-      <BasiceLayout :title=" $t('pageTitle') " class="revenue-layout">
+    <Layout
+      type="REVENUE"
+      isRevenue="true"
+      :pageTitle="$t('pageTitle')"
+    >
+      <BasiceLayout
+        :title=" $t('pageTitle') "
+        class="revenue-layout"
+      >
         <div class="revenue-detail-select">
           <span class="revenue-date-wrap">{{$t('revenueDate')}}:</span>
-          <el-select v-model="selectDate" filterable placeholder="请选择" @change="search">
-            <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">
+          <el-select
+            v-model="selectDate"
+            filterable
+            placeholder="请选择"
+            @change="search"
+          >
+            <el-option
+              v-for="item in queryDate"
+              :key="item"
+              :label="item"
+              :value="item"
+            >
+            </el-option>
+          </el-select>
+          <span class="search-text">{{$t('mac_address')}}</span>
+          <el-select
+            v-model="searchMacAddress"
+            filterable
+            placeholder="请选择"
+            @change="searchMac"
+          >
+            <el-option
+              v-for="item in allDevices"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
             </el-option>
           </el-select>
           <span class="revenue-tips">{{$t('revenueTips')}}</span>
         </div>
-
-        <el-table v-if="deviceDetail !== 'NO_CONTENT'" :data="detailList" align="left" empty-text="Loading..." style="width: 100%">
+        <el-table
+          v-if="detailList !== 'NO_CONTENT'"
+          :data="detailList"
+          align="left"
+          empty-text="Loading..."
+          style="width: 100%"
+        >
           <!-- mac address -->
-          <el-table-column prop="mac_address" align='center' :label="$t('mac_address')">
+          <el-table-column
+            prop="mac_address"
+            align='center'
+            :label="$t('mac_address')"
+          >
           </el-table-column>
-           <!-- 备注 -->
-          <el-table-column :label="$t('noteText')" align='center'>
+          <!-- 备注 -->
+          <el-table-column
+            :label="$t('noteText')"
+            align='center'
+          >
             <template slot-scope="scope">
               <div v-if="scope.row.note">{{scope.row.note}}</div>
-              <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
+              <div
+                v-if="!scope.row.note"
+                :deviceId="scope.row.deviceId"
+                @click="showNotes(scope.row.id, scope.row.mac_address)"
+                class="add-note-button button bonus-cursor"
+              >{{$t('addNote')}}</div>
             </template>
           </el-table-column>
           <!-- 设备收益 -->
-          <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
+          <el-table-column
+            prop="revenue"
+            align='center'
+            :label="$t('device_revenue')"
+          ></el-table-column>
         </el-table>
-        <div class="pagination" v-if="deviceNumSize > 1">
-          <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceNumSize" layout="total, prev, pager, next" :total="deviceLength">
+        <el-table
+          v-if="detailList === 'NO_CONTENT'"
+          :data="detailList"
+          align="left"
+          empty-text="system upgrade.."
+          style="width: 100%"
+        >
+        </el-table>
+        <div
+          class="pagination"
+          v-if="deviceNumSize > 1"
+        >
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage"
+            :page-size="deviceNumSize"
+            layout="total, prev, pager, next"
+            :total="deviceLength"
+          >
           </el-pagination>
         </div>
-        <el-table v-if="deviceDetail === 'NONE'" :empty-text="$t('noHardwareTip')" style="width: 100%">
-        </el-table>
+        <!-- 增加备注 -->
+        <el-dialog
+          :title="$t('addNotes.title')"
+          :visible.sync="showAddnoteDialog"
+          width="480px"
+          center
+        >
+          <div class="addnote-dialog-wrap">
+            <span class="key">{{$t('addNotes.tipText')}}({{addNoteAddress}})</span>
+            <input
+              type="text"
+              class="basic-input input addnote-input"
+              v-model="addNoteInput"
+            >
+          </div>
+          <span
+            slot="footer"
+            class="dialog-footer"
+          >
+            <div
+              class="sure-unbind button"
+              @click="showAddnoteDialog = false"
+            >{{ $t('cancel') }}</div>
+            <div
+              class="sure-unbind button"
+              type="primary"
+              @click="addNote"
+            >{{ $t('confirm') }}</div>
+          </span>
+        </el-dialog>
       </BasiceLayout>
     </Layout>
   </div>
@@ -50,8 +148,12 @@ export default {
   name: 'home',
   data() {
     return {
-      selectDate: '',
-      pageNum: 1
+      selectDate: moment().utc().startOf('day').format('YYYY-MM-DD'),
+      pageNum: 1,
+      addNoteInput: '',
+      addNoteAddress: '', //添加备注Id
+      showAddnoteDialog: false,
+      searchMacAddress: ''
     }
   },
   components: {
@@ -65,6 +167,7 @@ export default {
     currentPage: state => state.revenueDetail.currentPage,
     deviceNumSize: state => state.revenueDetail.deviceNumSize,
     detailList: state => state.revenueDetail.detailList,
+    allDevices: state => state.revenueDetail.allDevices,
     queryDate: () => {
       let queryDate = []
       let endDay = moment()
@@ -94,10 +197,22 @@ export default {
   },
   methods: {
     ...mapActions(['getRevenueDetail']),
+    // 日期搜索
     search(queryDate) {
       this.queryDate = queryDate
       let pageNum = this.pageNum;
       this.getRevenueDetail({ queryDate, pageNum })
+    },
+    // mac搜索
+    searchMac(deviceId){
+      let mac_address = this.allDevices.find(item => {return item.value === deviceId}).label;
+      let {selectDate, pageNum = 1} = this;
+      this.getRevenueDetail({ 
+        pageNum, 
+        mac_address, 
+        deviceId ,
+        queryDate: selectDate,
+      })
     },
     handleCurrentChange(value) {
       console.log(value)
@@ -108,7 +223,42 @@ export default {
         queryDate,
         pageNum: value
       })
-    }
+    },
+    // 添加备注
+    addNote() {
+      let that = this
+      this.addDeviceNotes({
+        deviceId: this.addNoteId,
+        note: this.addNoteInput
+      }).then(res => {
+        if (res.code === 200) {
+          Message({
+            type: 'success',
+            message: res.message
+          })
+          that.showAddnoteDialog = false
+          if (that.searchMacAddress === 'all' || that.searchMacAddress === '') {
+            this.getRevenueDetail({ 
+              queryDate: that.queryDate, 
+              pageNum: that.pageNum 
+            })
+          } else {
+            this.getDeviceDetail({ id: that.searchMacAddress })
+          }
+        } else {
+          Message({
+            type: 'error',
+            message: res.message || 'add note error'
+          })
+        }
+      })
+    },
+    // 备注框
+    showNotes(id, address) {
+      this.showAddnoteDialog = true
+      this.addNoteId = id
+      this.addNoteAddress = address
+    },
   }
 }
 </script>
@@ -133,10 +283,14 @@ export default {
   border-bottom: 1px solid #ddd;
 }
 
-.revenue-tips{
-  display:inline-block;
+.revenue-tips {
+  display: inline-block;
   margin: 0 20px;
   color: #96999b;
+}
+
+.add-note-button {
+  max-width: 80px;
 }
 </style>
 
@@ -145,18 +299,33 @@ export default {
   "zn": {
     "pageTitle": "详情",
     "revenueDate": "查询日期（UTC）",
+    "revenueMac": "查询MAC地址",
     "mac_address": "Mac地址",
     "device_revenue": "设备收益",
     "revenueTips":"默认显示当日收益",
     "noteText": "备注",
+    "addNotes": {
+      "title": "Add device note",
+      "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
+    },
+    "noteText": "note",
+    "allSearch": "All"
   },
   "en": {
     "pageTitle": "Details",
     "revenueDate": "Date（UTC）",
+    "revenueMac": "Mac Address",
     "mac_address": "Mac Address",
     "device_revenue": "device revenue",
     "revenueTips":"Show daily revenue by default",
-    "noteText": "note"
+    "mac_address": "Mac地址搜索",
+    "addNote": "note",
+    "addNotes": {
+      "title": "添加设备备注",
+      "tipText": "输入该设备记录的备注名（仅可修改一次）："
+    },
+    "noteText": "备注",
+    "allSearch": "全部"
   }
 }
 </i18n>
