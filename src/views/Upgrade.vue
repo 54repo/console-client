@@ -6,7 +6,7 @@
     /* text-align: left; */
     font-weight: 700;
     margin: 80px;">
-    系统升级中，请稍后....
+    System upgrade, please wait.....
     <!-- <Layout type="HOME" :pageTitle="$t('pageTitle')" > -->
       <!-- <Annouce></Annouce>
       <BonusCode :status="inviteCodeStatus"/>
