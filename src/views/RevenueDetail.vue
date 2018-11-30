@@ -205,14 +205,22 @@ export default {
     },
     // mac搜索
     searchMac(deviceId){
-      let mac_address = this.allDevices.find(item => {return item.value === deviceId}).label;
-      let {selectDate, pageNum = 1} = this;
-      this.getRevenueDetail({ 
-        pageNum, 
-        mac_address, 
-        deviceId ,
-        queryDate: selectDate,
-      })
+      if (deviceId !== 'all') {
+        let mac_address = this.allDevices.find(item => {return item.value === deviceId}).label;
+        let {selectDate, pageNum = 1} = this;
+        this.getRevenueDetail({ 
+          pageNum, 
+          mac_address, 
+          deviceId ,
+          queryDate: selectDate,
+        })
+      } else {
+         this.getRevenueDetail({ 
+           queryDate: this.selectDate, 
+           pageNum: this.pageNum
+          })
+      }
+     
     },
     handleCurrentChange(value) {
       console.log(value)
