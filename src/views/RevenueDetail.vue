@@ -16,10 +16,16 @@
           <!-- mac address -->
           <el-table-column prop="mac_address" align='center' :label="$t('mac_address')">
           </el-table-column>
+           <!-- 备注 -->
+          <el-table-column :label="$t('noteText')" align='center'>
+            <template slot-scope="scope">
+              <div v-if="scope.row.note">{{scope.row.note}}</div>
+              <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
+            </template>
+          </el-table-column>
           <!-- 设备收益 -->
           <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
         </el-table>
-
         <div class="pagination" v-if="deviceNumSize > 1">
           <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceNumSize" layout="total, prev, pager, next" :total="deviceLength">
           </el-pagination>
@@ -141,14 +147,16 @@ export default {
     "revenueDate": "查询日期（UTC）",
     "mac_address": "Mac地址",
     "device_revenue": "设备收益",
-    "revenueTips":"默认显示当日收益"
+    "revenueTips":"默认显示当日收益",
+    "noteText": "备注",
   },
   "en": {
     "pageTitle": "Details",
     "revenueDate": "Date（UTC）",
     "mac_address": "Mac Address",
     "device_revenue": "device revenue",
-    "revenueTips":"Show daily revenue by default"
+    "revenueTips":"Show daily revenue by default",
+    "noteText": "note"
   }
 }
 </i18n>
