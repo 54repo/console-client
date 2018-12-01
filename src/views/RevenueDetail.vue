@@ -142,6 +142,7 @@ import RevenueContent from '@/components/RevenueDetail/RevenueContent.vue'
 import BasiceLayout from '@/components/Common/BasicLayout.vue'
 import moment from 'moment'
 import { mapActions, mapState } from 'vuex'
+import { Message } from 'element-ui'
 
 export default {
   name: 'home',
@@ -245,7 +246,7 @@ export default {
           that.showAddnoteDialog = false
           if (that.searchMacAddress === 'all' || that.searchMacAddress === '') {
             this.getRevenueDetail({ 
-              queryDate: that.queryDate, 
+              queryDate: that.selectDate, 
               pageNum: that.pageNum 
             })
           } else {
