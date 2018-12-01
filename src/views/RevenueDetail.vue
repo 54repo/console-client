@@ -40,7 +40,6 @@
             >
             </el-option>
           </el-select>
-          <span class="revenue-tips">{{$t('revenueTips')}}</span>
         </div>
         <el-table
           v-if="detailList !== 'NO_CONTENT'"
@@ -309,7 +308,6 @@ export default {
     "revenueMac": "查询MAC地址",
     "mac_address": "Mac地址",
     "device_revenue": "设备收益",
-    "revenueTips":"默认显示当日收益",
     "noteText": "备注",
     "search_mac_address": "搜索Mac地址",
     "addNote": "备注",
@@ -326,7 +324,6 @@ export default {
     "revenueMac": "Mac Address",
     "mac_address": "Mac Address",
     "device_revenue": "device revenue",
-    "revenueTips":"Show daily revenue by default",
     "search_mac_address": "Mac Address",
     "addNote": "note",
     "addNotes": {
