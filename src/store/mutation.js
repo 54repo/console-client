@@ -125,7 +125,7 @@ export default {
     state.revenueDetail.currentPage = Number(deviceDetail.currentPage);
     state.revenueDetail.deviceLength = deviceDetail.deviceLength;
     state.revenueDetail.deviceNumSize = deviceDetail.pageSize;
-    state.revenueDetail.detailList = deviceDetail.detailList;
+    state.revenueDetail.detailList = deviceDetail.detailList || 'NO_CONTENT';
     state.revenueDetail.allDevices = deviceDetail.allDevices;
     state.revenueDetail = Object.assign({}, state.revenueDetail);
   },

@@ -47,7 +47,7 @@
           v-if="detailList !== 'NO_CONTENT'"
           :data="detailList"
           align="left"
-          empty-text="Loading..."
+          empty-text="-"
           style="width: 100%"
         >
           <!-- mac address -->
@@ -148,7 +148,7 @@ export default {
   name: 'home',
   data() {
     return {
-      selectDate: moment().utc().startOf('day').format('YYYY-MM-DD'),
+      selectDate: moment().utc().startOf('day').subtract(1, 'days').format('YYYY-MM-DD'),
       pageNum: 1,
       addNoteInput: '',
       addNoteAddress: '', //添加备注Id
@@ -189,6 +189,7 @@ export default {
     let queryDate = moment()
       .utc()
       .startOf('day')
+      .subtract(1, 'days')
       .format('YYYY-MM-DD')
     this.queryDate = queryDate
     let pageNum = this.pageNum
@@ -196,7 +197,7 @@ export default {
     this.getRevenueDetail({ queryDate, pageNum })
   },
   methods: {
-    ...mapActions(['getRevenueDetail']),
+    ...mapActions(['getRevenueDetail', 'addDeviceNotes']),
     // 日期搜索
     search(queryDate) {
       this.queryDate = queryDate
@@ -220,10 +221,8 @@ export default {
            pageNum: this.pageNum
           })
       }
-     
     },
     handleCurrentChange(value) {
-      console.log(value)
       let defaultDate =  moment().utc().startOf('day').format('YYYY-MM-DD');
       let queryDate = this.selectDate || defaultDate;
       this.pageNum = value
@@ -312,12 +311,14 @@ export default {
     "device_revenue": "设备收益",
     "revenueTips":"默认显示当日收益",
     "noteText": "备注",
+    "search_mac_address": "搜索Mac地址",
+    "addNote": "备注",
     "addNotes": {
-      "title": "Add device note",
-      "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
+      "title": "添加设备备注",
+      "tipText": "输入该设备记录的备注名（仅可修改一次）："
     },
-    "noteText": "note",
-    "allSearch": "All"
+    "noteText": "备注",
+    "allSearch": "全部"
   },
   "en": {
     "pageTitle": "Details",
@@ -326,14 +327,14 @@ export default {
     "mac_address": "Mac Address",
     "device_revenue": "device revenue",
     "revenueTips":"Show daily revenue by default",
-    "mac_address": "Mac地址搜索",
+    "search_mac_address": "Mac Address",
     "addNote": "note",
     "addNotes": {
-      "title": "添加设备备注",
-      "tipText": "输入该设备记录的备注名（仅可修改一次）："
+      "title": "Add device note",
+      "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
     },
-    "noteText": "备注",
-    "allSearch": "全部"
+    "noteText": "note",
+    "allSearch": "All"
   }
 }
 </i18n>
