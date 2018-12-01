@@ -15,7 +15,6 @@
           <el-select
             v-model="selectDate"
             filterable
-            placeholder="请选择"
             @change="search"
           >
             <el-option
@@ -30,7 +29,7 @@
           <el-select
             v-model="searchMacAddress"
             filterable
-            placeholder="请选择"
+            placeholder=""
             @change="searchMac"
           >
             <el-option
