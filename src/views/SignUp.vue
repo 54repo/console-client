@@ -192,12 +192,10 @@ export default {
 <style lang="stylus">
 .account-dialog {
   width: 52%;
-  max-height: 430px;
   max-width: 430px;
   background: #fff;
   border: 1px solid #e3e3e7;
   margin: 18% 0 0 10%;
-  padding-bottom: 35px;
 }
 
 .account-dialog .title {
@@ -243,8 +241,6 @@ export default {
 @media screen and (max-width: 1200px) {
   .account-dialog {
     width: 300px;
-    // height: 280px;
-    max-height: 420px
     max-width: 420px;
     background: #fff;
     border: 1px solid #e3e3e7;
@@ -283,6 +279,7 @@ export default {
 .protocol-wrap 
   margin: 15px 30px;
   text-align: left;
+  line-height: 14 px;
   font-size: 12px!important;
 .protocol-wrap .el-radio__label
   font-size: 12px!important;

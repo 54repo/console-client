@@ -98,12 +98,6 @@ a
   color: #0db4c5
 }
 
-.none {
+.none
   display: none!important;
-}
-
-a:hover {
-  color: #fff
-}
-
 </style>
