@@ -189,7 +189,7 @@ export default {
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="stylus">
+<style lang="stylus">
 .account-dialog {
   width: 52%;
   max-height: 430px;
@@ -280,9 +280,11 @@ export default {
   font-size: 10px;
 }
 
-.protocol-wrap
+.protocol-wrap 
   margin: 15px 30px;
   text-align: left;
+  font-size: 12px!important;
+.protocol-wrap .el-radio__label
   font-size: 12px!important;
 </style>
 
