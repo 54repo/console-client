@@ -29,7 +29,7 @@
 
         <p class="v3">2.2 When you use the products, services or applications of BonusCloud, or post in the forum, chat rooms or social media provided by BonusCloud, your personal information and contents shared by you will be seen by other users, which means they might read, collect or use your personal information. You are responsible to the your own behaviors of sharing and uploading your personal information. For example, when you post your name and email address in the forum, the information will be open to the public. Please be careful and cautious when you use such functions.</p>
 
-        <p class="v3">2.3 If you and any other user who log in your account by devices owned by third party, some of the information related to your account might be downloaded in the third-party devices, which might cause the leakage of such shared information.</p>
+        <p class="v3">2.3 If you and any other user who logs in your account by devices owned by third party, some of the information related to your account might be downloaded in the third-party devices, which might cause the leakage of such shared information.</p>
 
         <b class="v2">3. Collection of Personal Information</b>
 
@@ -304,11 +304,10 @@ export default {
   width: 50%;
   max-width: 1140px;
   text-align:left;
-  margin: 40px auto;
+  margin: 40px auto 80px;
   padding-left: 15px;
   padding-right: 15px;
   text-align: justify;
-  margin-bottom: 10px;
   text-align: justify;
   color: #fff;
   letter-spacing: 0.5px;

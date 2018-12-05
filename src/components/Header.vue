@@ -33,8 +33,8 @@
           <div class="header-email header-each-tab">{{email}}</div>
           <div class="header-logout header-each-tab  bonus-cursor" @click="clickLogout">{{ $t('header.logout') }}</div>
         </div>
-        <div v-if="!whichLanguage" class="header-language header-each-tab  bonus-cursor" @click="changeLanguage('zn')">中文</div>
-        <div v-if="whichLanguage" class="header-language header-each-tab  bonus-cursor" @click="changeLanguage('en')">English</div>
+        <div v-if="!whichLanguage && type !== 'protocol-header'" class="header-language header-each-tab  bonus-cursor" @click="changeLanguage('zn')">中文</div>
+        <div v-if="whichLanguage && type !== 'protocol-header'" class="header-language header-each-tab  bonus-cursor" @click="changeLanguage('en')">English</div>
       </el-col>
     </el-row>
   </div>

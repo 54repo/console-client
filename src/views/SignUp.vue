@@ -34,7 +34,7 @@
           <el-radio v-model="agreeProtocol" label="1">
             {{$t('register.agreeProtocol')}}
           </el-radio>
-          <router-link class="agree-link" target="_blank" to="/protocol">{{$t('register.agreeLink')}} </router-link>
+          <router-link class="agree-link" target="_blank" to="/protocol"> {{$t('register.agreeLink')}} </router-link>
         </div>
         <div class="sign-up-button bonus-cursor" v-on:click="signUp">{{ $t('register.signButton') }}</div>
         <div class="login-sign-wrap bonus-cursor" v-on:click="login">{{ $t('register.redirectLogin') }}</div>
