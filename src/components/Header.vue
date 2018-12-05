@@ -8,7 +8,7 @@
         <div class="line"></div>
       </div></el-col>
       <el-col :span="20" class="header-login-panel" >
-        <div class="header-panel-wrap" v-if="type !== 'login-header'">
+        <div class="header-panel-wrap" v-if="type !== 'login-header' && type !== 'protocol-header'">
           <router-link to="/">
             <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/' || thisPath === '/revenue' || thisPath === '/withdrawal' || thisPath === '/revenueDetail') }">
               <img  class="menu-icon home-icon" src="../assets/home/data-panel-login.png" >            
@@ -76,7 +76,7 @@ export default {
   },
   created() {
     //  用户账号信息获取
-    if (!this.email && this.type !== 'login-header') {
+    if (!this.email && this.type !== 'login-header' && this.type !== 'protocol-header') {
       // 获取用户信息
       this.getUserInfo();
     } else if (this.email && this.type === 'login-header') {
@@ -110,7 +110,7 @@ export default {
   margin: 19px 25px;
 }
 
-.login-header {
+.login-header, .protocol-header{
   background: #000519;
 }
 
