@@ -192,7 +192,7 @@ export default {
 <style scoped lang="stylus">
 .account-dialog {
   width: 52%;
-  max-height: 390px;
+  max-height: 430px;
   max-width: 430px;
   background: #fff;
   border: 1px solid #e3e3e7;
@@ -283,6 +283,6 @@ export default {
 .protocol-wrap
   margin: 15px 30px;
   text-align: left;
-  font-size: 14px;
+  font-size: 12px!important;
 </style>
 
