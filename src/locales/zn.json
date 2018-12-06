@@ -76,7 +76,7 @@
           "label": "非中国大陆"
         }
       ],
-      "limitVerify": "请完成图片校验"
+      "limitVerify": "请完成校验"
     }
   },
   "withdrawal": {
