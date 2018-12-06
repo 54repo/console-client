@@ -29,6 +29,13 @@
           <i class="el-alert__icon el-icon-error"></i>
           <span class="secPsErrMsg">{{ secPsErrMsg }}</span>
         </div>
+        <!-- agree protocol -->
+        <div class="protocol-wrap">
+          <el-radio v-model="agreeProtocol" label="1">
+            {{$t('register.agreeProtocol')}}
+          </el-radio>
+          <router-link class="agree-link" target="_blank" to="/protocol"> {{$t('register.agreeLink')}} </router-link>
+        </div>
         <div class="sign-up-button bonus-cursor" v-on:click="signUp">{{ $t('register.signButton') }}</div>
         <div class="login-sign-wrap bonus-cursor" v-on:click="login">{{ $t('register.redirectLogin') }}</div>
       </div>
@@ -61,7 +68,8 @@ export default {
       inputPw: "",
       inputSePw: "",
       //注册可点击状态
-      isSignUpDisable: false
+      isSignUpDisable: false,
+      agreeProtocol: false
     };
   },
   components: {
@@ -137,6 +145,14 @@ export default {
         return true;
       }
 
+      if (!this.agreeProtocol) {
+        Message({
+          message: "you have not agree to the User Agreement",
+          type: "error"
+        });
+        return true;
+      }
+
       this.ajaxSignUp({
         email: inputEmail,
         emailVerifyCode: inputEmailCode,
@@ -173,15 +189,13 @@ export default {
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="stylus">
+<style lang="stylus">
 .account-dialog {
   width: 52%;
-  max-height: 390px;
-  max-width: 420px;
+  max-width: 430px;
   background: #fff;
   border: 1px solid #e3e3e7;
   margin: 18% 0 0 10%;
-  padding-bottom: 35px;
 }
 
 .account-dialog .title {
@@ -227,8 +241,6 @@ export default {
 @media screen and (max-width: 1200px) {
   .account-dialog {
     width: 300px;
-    // height: 280px;
-    max-height: 390px;
     max-width: 420px;
     background: #fff;
     border: 1px solid #e3e3e7;
@@ -263,5 +275,13 @@ export default {
 .el-alert__icon {
   font-size: 10px;
 }
+
+.protocol-wrap 
+  margin: 15px 30px;
+  text-align: left;
+  line-height: 14 px;
+  font-size: 12px!important;
+.protocol-wrap .el-radio__label
+  font-size: 12px!important;
 </style>
 

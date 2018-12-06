@@ -5,8 +5,20 @@
       <router-link to="/about">About</router-link>
     </div> -->
     <router-view/>
+    <Footer></Footer>
   </div>
 </template>
+
+<script>
+import Footer from '@/components/Common/Footer.vue'
+
+export default {
+  components: {
+    Footer,
+  },
+}
+</script>
+
 <style lang="stylus">
 html, body
   height: 100%
@@ -86,7 +98,6 @@ a
   color: #0db4c5
 }
 
-.none {
+.none
   display: none!important;
-}
 </style>

@@ -19,7 +19,9 @@
     "newPw": "New Password",
     "confirmPw": "Comfirm Password",
     "signButton": "Sign Up",
-    "redirectLogin": "Login"
+    "redirectLogin": "Login",
+    "agreeProtocol": "I have read and agree to",
+    "agreeLink": "the User Agreement"
   },
   "header": {
     "dataPanel": "Data Panel",
