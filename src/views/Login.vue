@@ -83,7 +83,8 @@ export default {
       passwordErrorMsg: "",
       inputEmail: "",
       inputPassword: "",
-      sitekey: '6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d',
+      sitekey: '6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d', //ga verify key
+      response: '', //ga verify response
       isLoginDisable: false //login可点击状态
     };
   },
@@ -95,7 +96,7 @@ export default {
   methods: {
     onVerify: function (response) {
       console.log('Verify: ' + response);
-      this.verify = response;
+      this.response = response;
     },
     onExpired: function () {
       console.log('Expired');
@@ -111,7 +112,7 @@ export default {
     ...mapActions(["login"]),
     // 登陆
     startLogin() {
-      const { inputEmail, inputPassword, isLoginDisable } = this;
+      const { inputEmail, inputPassword, isLoginDisable, response } = this;
       if (isLoginDisable) {
         return true;
       }
@@ -132,7 +133,7 @@ export default {
       }
 
       this.isLoginDisable = true;
-      this.login({ email: inputEmail, password: inputPassword }).then(res => {
+      this.login({ email: inputEmail, password: inputPassword, response }).then(res => {
         if (res.code === 200) {
           Message({
             message: this.$t('login.loginSuccessTip'),
@@ -219,7 +220,7 @@ export default {
 
 .login {
   box-sizing: border-box;
-  margin: 35px 30px 5px 30px;
+  margin: 15px 30px 5px 30px;
   background-image: linear-gradient(-180deg, #15BCAD 2%, #10B2CB 100%);
   line-height: 30px;
   height: 30px;
