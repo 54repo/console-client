@@ -4,6 +4,7 @@ import {
   // ajaxImageCode,
   // ajaxEmailCode,
   ajaxEmailCode_v2,
+  ajaxEmailCode_v3,
   signUp,
   ajaxInviteCodeStatus,
   ajaxGetAbleList,
