@@ -80,6 +80,10 @@ export default {
     const res = await ajaxEmailCode_v2(params);
     return res;
   },
+  async sendEmailCode_v3({ commit }, params) {
+    const res = await ajaxEmailCode_v3(params);
+    return res;
+  },
   // 发送邮箱码
   async ajaxSignUp({ commit }, params) {
     const res = await signUp(params);

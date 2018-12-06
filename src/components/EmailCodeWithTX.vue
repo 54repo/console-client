@@ -1,9 +1,18 @@
 /** 登录框组件 **/
 <template>
   <div class="BasicInput EmailBaseInput">
-    <div class="captcha_wrap">
+    <!-- <div class="captcha_wrap">
       <div id="TCaptcha" style="width:100%;height:20px;"></div>
-    </div>
+    </div> -->
+    <vue-recaptcha
+      class="captcha-wrap"
+      ref="recaptcha"
+      @verify="onVerify"
+      @expired="onExpired"
+      data-size="normal"
+      :sitekey="sitekey"
+    >
+    </vue-recaptcha>
     <div class="email_wrap">
       <div v-if="iconType" class="icon-wrap">
         <div v-bind:class="iconType" class="icon"></div>
@@ -20,6 +29,7 @@
 import { mapActions } from 'vuex'
 import { Message } from 'element-ui'
 import { LANG } from '../config/contant.js'
+import VueRecaptcha from "vue-recaptcha";
 
 export default {
   name: 'EmailCodeWithTX',
@@ -39,34 +49,8 @@ export default {
     prop: 'value',
     event: 'change'
   },
-  created() {
-    this.getVertifUrl({ action: 2 }).then(res => {
-      this.csnonce = res.data.csnonce
-      var newScript = document.createElement('script')
-      newScript.type = 'text/javascript'
-      newScript.src = res.data.url
-      document.body.appendChild(newScript)
-      let that = this
-
-      setTimeout(() => {
-        let capOption = {
-          callback: cbfn,
-          themeColor: '15bcad',
-          lang: LANG[this.$i18n.locale]
-        }
-        capInit(document.getElementById('TCaptcha'), capOption)
-        //回调函数：验证码页面关闭时回调
-        function cbfn(retJson) {
-          if (retJson.ret == 0) {
-            that.ticket = retJson.ticket
-            // that.sendCode();
-            // 用户验证成功
-          } else {
-            //用户关闭验证码页面，没有验证
-          }
-        }
-      }, 1000)
-    })
+  components: {
+    VueRecaptcha
   },
   data() {
     return {
@@ -75,16 +59,31 @@ export default {
       TIME_COUNT: 60, //倒计时时间
       count: '', // 计数
       timer: null, // 记录循环
-
       time: 60, // 发送验证码倒计时
       sendMsgDisabled: false,
-
       ticket: '', // 验证码ticket
-      csnonce: '' //整数
+      csnonce: '', //整数
+      // sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI", //ga verify key
+      sitekey: "6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d", //ga verify key
+      response: "", //ga verify response
     }
   },
   methods: {
-    ...mapActions(['getVertifUrl', 'sendEmailCode_v2']),
+    // ...mapActions(['getVertifUrl', 'sendEmailCode_v2']),
+    ...mapActions(['sendEmailCode_v3']),
+    onVerify: function(response) {
+      this.response = response;
+    },
+    onExpired: function() {
+      Message({
+        message: this.$t("captcha.expired"),
+        type: "error"
+      });
+      this.$refs.recaptcha.reset();
+    },
+    resetRecaptcha() {
+      this.$refs.recaptcha.reset();
+    },
     sendCode() {
       let that = this
       // -----后续建议提出来统一维护
@@ -97,19 +96,18 @@ export default {
         return
       }
       // 进行图片验证
-      if (!this.ticket) {
+      if (!this.response) {
         that.$emit('emailCodeTip', {
           type: 'captcha',
-          message: 'Please verify the picture.'
+          message: 'Please verify.'
         })
       } else {
         // 倒计时
         this.startCountBack()
 
-        this.sendEmailCode_v2({
+        this.sendEmailCode_v3({
           email: this.email,
-          ticket: this.ticket,
-          csnonce: this.csnonce
+          response: this.response
         }).then(res => {
           try {
             let { step, status } = res.ret
@@ -168,6 +166,40 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.EmailBaseInput .captcha-wrap
+  margin: 0px;
+  transform: scale(0.96);
+  -webkit-transform: scale(0.96);
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+
+.BasicInput.EmailBaseInput.account-input.password-email {
+  height: 120px;
+}
+
+.email_wrap {
+  display: flex;
+  margin: 10px 0 0px;
+}
+
+@media screen and (max-width: 1200px) {
+  .EmailBaseInput .captcha-wrap {
+    transform: scale(0.79);
+    -webkit-transform: scale(0.79);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+  }
+  .BasicInput.EmailBaseInput.account-input.password-email {
+    height: 110px;
+  }
+
+  .email_wrap {
+    display: flex;
+    margin: 0px;
+  }
+}
+
+
 .account-email {
   min-height: 100px;
 }
@@ -180,11 +212,6 @@ export default {
 .EmailBaseInput.BasicInput {
   display: block;
   min-height: 90px;
-}
-
-.email_wrap {
-  display: flex;
-  margin: 30px 0 30px;
 }
 
 .BasicInput {
