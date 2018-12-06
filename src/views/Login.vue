@@ -30,6 +30,25 @@
             <span class="passwordErrorMsg">{{ passwordErrorMsg }}</span>
           </div>
         <!-- 登陆 -->
+        <!-- <vue-recaptcha sitekey="6LdbH38UAAAAANLQ_3ki_GErrNx6pRhhOOgVf8Kl"></vue-recaptcha> -->
+        <!-- <vue-recaptcha
+          @verify="onVerify"
+          @expired="onExpired"
+          :sitekey="sitekey">
+          <button>Click me</button>
+        </vue-recaptcha> -->
+        <!-- <div class="captcha-wrap" > -->
+          <vue-recaptcha
+            class="captcha-wrap"
+            ref="recaptcha"
+            @verify="onVerify"
+            @expired="onExpired"
+            data-size="normal"
+            :sitekey="sitekey">
+          </vue-recaptcha>
+
+
+        <!-- </div> -->
         <div class="login bonus-cursor" v-on:click="startLogin">{{ $t('login.loginButton') }}</div>
         <div class="login-sign-wrap">
           <div class="login-sign-up bonus-cursor" v-on:click="signUp">{{ $t('login.redirectSign') }}</div>
@@ -47,13 +66,15 @@ import AccountLayout from "@/components/AccountLayout.vue";
 import BasicInput from "@/components/BasicInput.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
 import { Message } from "element-ui";
+  import VueRecaptcha from 'vue-recaptcha';
 
 export default {
   name: "Login",
   components: {
     Header,
     AccountLayout,
-    BasicInput
+    BasicInput,
+    VueRecaptcha
   },
 
   data() {
@@ -62,6 +83,7 @@ export default {
       passwordErrorMsg: "",
       inputEmail: "",
       inputPassword: "",
+      sitekey: '6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d',
       isLoginDisable: false //login可点击状态
     };
   },
@@ -71,6 +93,21 @@ export default {
     // isLoginDisable: state => state.account.isLoginDisable
   }),
   methods: {
+    onVerify: function (response) {
+      console.log('Verify: ' + response);
+      this.verify = response;
+    },
+    onExpired: function () {
+      console.log('Expired');
+      Message({
+        message: this.$t('captcha.expired'),
+        type: "error"
+      });
+      this.$refs.recaptcha.reset();
+    },
+    resetRecaptcha () {
+      this.$refs.recaptcha.reset();
+    },
     ...mapActions(["login"]),
     // 登陆
     startLogin() {
@@ -128,6 +165,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.captcha-wrap
+  transform:scale(0.96);
+  -webkit-transform:scale(0.96);
+  transform-origin:0 0;
+  -webkit-transform-origin:0 0;
+  margin : 10px 30px;
+
+@media screen and (max-width: 1200px) {
+  .captcha-wrap{
+    transform:scale(0.78);-webkit-transform:scale(0.78);transform-origin:0 0;-webkit-transform-origin:0 0;
+  }
+}
 .account-error {
   box-sizing: border-box;
   padding: 5px 30px 0;
