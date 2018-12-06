@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit&hl=en" async defer>
     </script>
     <title>bonus_back_website</title>
   </head>
@@ -16,4 +15,19 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+      const url = 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit';
+      function createJs(src) {
+        let script= document.createElement("script");
+          script.type = "text/javascript";
+          script.src= src;
+          document.body.appendChild(script);
+      }
+      let isEn = document.cookie.includes('BASIC_LANUAGE=en');
+      if (isEn) {
+        createJs(url + '&hl=en');
+      } else {
+        createJs(url + '&hl=zh-CN');
+      }
+    </script>
 </html>
