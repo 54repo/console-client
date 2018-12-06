@@ -24,4 +24,6 @@
     padding: 20px 0 10px;
     z-index: 20000;
     position: relative;
+  .user-protocol a:hover  
+    color: #fff;
 </style>

@@ -1,6 +1,6 @@
 /** 用户协议 */
 <template>
-  <div class="home">
+  <div class="home protocol-home">
     <Header type='protocol-header' />
     <div class="protocol-contnet">
       <div class='protocol-detail'>
@@ -356,4 +356,7 @@ export default {
   padding-right: 15px;
   margin: 0 auto;
   text-align: left;
+
+.protocol-home.home
+  height: auto!important;
 </style>
