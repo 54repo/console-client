@@ -1,6 +1,5 @@
 <template>
-  <div class="home">
-          
+  <div class="home data-panel-home">
     <Layout type="HOME" :pageTitle="$t('pageTitle')" >
       <Annouce></Annouce>
       <BonusCode :status="inviteCodeStatus"/>
@@ -52,6 +51,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.data-panel-home.home
+  height: auto!important;
 </style>
 
 <i18n>

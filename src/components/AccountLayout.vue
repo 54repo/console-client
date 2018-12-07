@@ -37,6 +37,9 @@ export default {
   width: 48%
   position: relative;
 
+@media screen and (min-width: 1200px)
+  .left-bg-img
+      height: 90%;
 
 @media screen and (max-width: 1200px)
   .left-bg-img
