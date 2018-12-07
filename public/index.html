@@ -16,7 +16,7 @@
     <!-- built files will be auto injected -->
   </body>
   <script>
-      const url = 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit';
+      const url = 'https://www.recaptcha.net/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit';
       function createJs(src) {
         let script= document.createElement("script");
           script.type = "text/javascript";
@@ -29,5 +29,6 @@
       } else {
         createJs(url + '&hl=zh-CN');
       }
+      // '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
     </script>
 </html>
