@@ -7,4 +7,7 @@ module.exports = {
       enableInSFC: true //  本土化语言可放到单个组件中
     }
   },
+  devServer: {
+    proxy: 'http://localhost:7001'
+  }
 }

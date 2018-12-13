@@ -85,7 +85,7 @@ export default {
       }, {
         "date": "2018.10.10",
 				"content": "BonusCloud Lite节点接入教程（BonusCloud只提供镜像，不负责刷机技术支持，刷机有风险，自行担责）",
-				"link": "https://bonuscloud.club/viewforum.php?f=14"
+				"link": "https://bonuscloud.club/viewtopic.php?f=15&t=2014"
       }, {
         "date": "2018.10.10",
 				"content": "Lite 节点设备支持列表",
