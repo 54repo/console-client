@@ -92,6 +92,11 @@ export default {
     state.revenue.inviteRevenue = revenueList;
     state.revenue = Object.assign({}, state.revenue);
   },
+  //  用户邀请收益详情
+  [GET_INVITE_DETAIL](state, revenueList) {
+    state.revenue.inviteRevenue = revenueList;
+    state.revenue = Object.assign({}, state.revenue);
+  },
   //  用户个人收益详情
   [ACCOUNT_LASTDAY_REVENUE](state, revenueList) {
     state.revenue.accountRevenue = revenueList;

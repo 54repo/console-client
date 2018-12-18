@@ -45,6 +45,7 @@ export default new Vuex.Store({
       revenueDetail: [],
       allDevices: []
     },
+    inviteDetail: {},
     recommend: {
       recommendRefer: '', //  用户推荐refer
       count: '' //  用户推荐数

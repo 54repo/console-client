@@ -28,7 +28,8 @@ import {
   ajaxUnbindAddress,
   ajaxWithdrawalList,
   ajaxDeviceNotes,
-  ajaxRevenueDetail
+  ajaxRevenueDetail,
+  ajaxInviteRevenue
 } from './getData';
 
 const NO_CONTENT = "NO_CONTENT";
@@ -197,6 +198,16 @@ export default {
       commit(GET_RENVUE_DETAIL, res.ret);
     } catch (error) {
       commit(GET_RENVUE_DETAIL, 'NONE');
+    }
+    return res;
+  },
+  //  获取用户邀请收益
+  async getInviteRevenue({ commit }, params) {
+    const res = await ajaxInviteRevenue(params);
+    try {
+      commit(GET_INVITE_DETAIL, res.ret);
+    } catch (error) {
+      commit(GET_INVITE_DETAIL, 'NONE');
     }
     return res;
   },
