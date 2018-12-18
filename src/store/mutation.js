@@ -41,19 +41,6 @@ export default {
     state.account.loginStatus = status;
     state.account = Object.assign({}, state.account);
   },
-  // //  login不可点击
-  // [DISABLE_LOGIN](state) {
-  //   console.log(123);
-  //   state.account.isLoginDisable = true;
-  //   state.account =  Object.assign({}, state.account);
-  // },
-  //  login可点击
-  // [ABLE_LOGIN](state) {
-  //   console.log(123);
-  //   // state.account.isLoginDisable = false;
-  //   state.account =  Object.assign({}, state.account);
-
-  // },
   //  signup不可点击
   [DISABLE_SIGNUP](state) {
     console.log(123);

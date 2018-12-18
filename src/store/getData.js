@@ -26,6 +26,9 @@ export const ajaxEmailCode = (data) => {
 export const ajaxEmailCode_v2 = (data) => {
   return fetch(baseUrl + '/api/web/email/verification_v2/', data, 'POST');
 };
+export const ajaxEmailCode_v3 = (data) => {
+  return fetch(baseUrl + '/api/web/email/verification_v3/', data, 'POST');
+};
 /**
  * 注册
  */
