@@ -11,6 +11,7 @@ import actions from './action'
 
 export default new Vuex.Store({
   state: {
+    sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
     account: {
       email: '',  //  用户登录邮箱
       loginSuccess: '', //登录
@@ -25,7 +26,6 @@ export default new Vuex.Store({
       mainland_list: '', //邀请list
       non_mainland_list: '', //邀请list
     },
-    // hardList: [],  //硬件列表
     hardWare: {
       hardLength: '',
       deviceSize: '',

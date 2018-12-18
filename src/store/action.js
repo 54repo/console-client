@@ -4,6 +4,7 @@ import {
   // ajaxImageCode,
   // ajaxEmailCode,
   ajaxEmailCode_v2,
+  ajaxEmailCode_v3,
   signUp,
   ajaxInviteCodeStatus,
   ajaxGetAbleList,
@@ -35,16 +36,13 @@ import moment from 'moment'
 
 import {
   LOGIN_IN,
-  // ABLE_LOGIN,
   GET_IMAGE_CODE,
   INVITECODE_STATUS_CODE,
   GET_ABLE_LIST,
   GET_USER_INFO,
   GET_HARDLIST,
   GET_ALL_RENVUE,
-  // INVITE_REVENUE_LIST,
   GET_LASTDAY_INVITE,
-  // ACCOUNT_REVENUE_LIST,
   ACCOUNT_LASTDAY_REVENUE,
   GET_RECOMMEND_INFO,
   GET_RECOMMEND_COUNT,
@@ -78,6 +76,10 @@ export default {
   },
   async sendEmailCode_v2({ commit }, params) {
     const res = await ajaxEmailCode_v2(params);
+    return res;
+  },
+  async sendEmailCode_v3({ commit }, params) {
+    const res = await ajaxEmailCode_v3(params);
     return res;
   },
   // 发送邮箱码
