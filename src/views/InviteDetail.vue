@@ -27,15 +27,38 @@
           </el-select>
         </div>
         <el-table
-          v-if="detailList !== 'NO_CONTENT'"
+          v-if="detailList !== 'NONE'"
           :data="detailList"
           align="left"
           empty-text="-"
           style="width: 100%"
         >
+          <!-- invited account -->
+          <el-table-column
+            prop="email"
+            align='center'
+            :label="$t('invite_account')"
+          >
+          </el-table-column>
+
+          <!-- register time -->
+          <el-table-column
+            prop="sign_up_time"
+            align='center'
+            :label="$t('register_time')"
+          >
+          </el-table-column>
+
+          <!-- invite bxc -->
+          <el-table-column
+            prop="bxc"
+            align='center'
+            :label="$t('invite_bxc')"
+          >
+          </el-table-column>
         </el-table>
         <el-table
-          v-if="detailList === 'NO_CONTENT'"
+          v-if="detailList === 'NONE'"
           :data="detailList"
           align="left"
           empty-text="system upgrade.."
@@ -44,18 +67,17 @@
         </el-table>
         <div
           class="pagination"
-          v-if="deviceNumSize > 1"
+          v-if="numSize > 1"
         >
           <el-pagination
             @current-change="handleCurrentChange"
             :current-page.sync="currentPage"
-            :page-size="deviceNumSize"
+            :page-size="numSize"
             layout="total, prev, pager, next"
             :total="deviceLength"
           >
           </el-pagination>
         </div>
-
       </BasiceLayout>
     </Layout>
   </div>
@@ -75,8 +97,12 @@ export default {
   name: "home",
   data() {
     return {
-      selectDate: moment().utc().startOf('day').subtract(1, 'days').format('YYYY-MM-DD'),
-
+      pageNum: 1,
+      selectDate: moment()
+        .utc()
+        .startOf("day")
+        .subtract(1, "days")
+        .format("YYYY-MM-DD")
     };
   },
   components: {
@@ -85,6 +111,9 @@ export default {
     BasiceLayout
   },
   computed: mapState({
+    detailList: state => state.inviteDetail.detailList,
+    numSize: state => state.inviteDetail.numSize,
+    currentPage: state => state.inviteDetail.currentPage,
     queryDate: () => {
       let queryDate = [];
       let endDay = moment()
@@ -102,14 +131,24 @@ export default {
       return queryDate;
     }
   }),
-  created() {},
+  created() {
+    let queryDate = moment()
+      .utc()
+      .startOf("day")
+      .subtract(1, "days")
+      .format("YYYY-MM-DD");
+    // this.queryDate = queryDate
+    let pageNum = this.pageNum;
+
+    this.getInviteDetail({ queryDate, pageNum });
+  },
   methods: {
-    ...mapActions(["getInviteRevenue"]),
+    ...mapActions(["getInviteDetail"]),
     search(queryDate) {
-      this.queryDate = queryDate
+      this.queryDate = queryDate;
       let pageNum = this.pageNum;
-      this.getInviteRevenue({ queryDate, pageNum })
-    },
+      this.getInviteDetail({ queryDate, pageNum });
+    }
   }
 };
 </script>
@@ -140,12 +179,18 @@ export default {
   "zn": {
     "pageTitle": "邀请奖励详情",
     "revenueDate": "查询日期（UTC）",
-    "allSearch": "全部"
+    "allSearch": "全部",
+    "invite_account" : "被邀请者账号",
+    "register_time": "注册日期（UTC）",
+    "invite_bxc": "奖励收益"
   },
   "en": {
     "pageTitle": "Details",
     "revenueDate": "Date（UTC）",
-    "allSearch": "All"
+    "allSearch": "All",
+    "invite_account" : "Invitatory Account",
+    "register_time": "Register Time（UTC）",
+    "invite_bxc": "Invited BxC"
   }
 }
 </i18n>
