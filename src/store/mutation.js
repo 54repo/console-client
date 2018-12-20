@@ -30,6 +30,7 @@ import {
   GET_WITHDRAWAL_LIST,
   GET_BALANCE,
   GET_WITHDRAWAL_STAUTS,
+  GET_INVITE_DETAIL,
 } from './mutation-types.js'
 
 // import {setStore, getStore} from '../config/mUtils'
@@ -92,11 +93,6 @@ export default {
     state.revenue.inviteRevenue = revenueList;
     state.revenue = Object.assign({}, state.revenue);
   },
-  //  用户邀请收益详情
-  [GET_INVITE_DETAIL](state, revenueList) {
-    state.revenue.inviteRevenue = revenueList;
-    state.revenue = Object.assign({}, state.revenue);
-  },
   //  用户个人收益详情
   [ACCOUNT_LASTDAY_REVENUE](state, revenueList) {
     state.revenue.accountRevenue = revenueList;
@@ -112,7 +108,7 @@ export default {
     state.recommend.count = count;
     state.recommend = Object.assign({}, state.recommend);
   },
-  //  用户推荐总人数
+  //  收益详情
   [GET_RENVUE_DETAIL](state, deviceDetail) {
     state.revenueDetail.currentPage = Number(deviceDetail.currentPage);
     state.revenueDetail.deviceLength = deviceDetail.deviceLength;
@@ -120,6 +116,14 @@ export default {
     state.revenueDetail.detailList = deviceDetail.detailList || 'NO_CONTENT';
     state.revenueDetail.allDevices = deviceDetail.allDevices;
     state.revenueDetail = Object.assign({}, state.revenueDetail);
+  },
+  //  用户邀请收益详情
+  [GET_INVITE_DETAIL](state, inviteDetail) {
+    state.inviteDetail.currentPage = Number(inviteDetail.currentPage);
+    state.inviteDetail.length = inviteDetail.length;
+    state.inviteDetail.numSize = inviteDetail.numSize;
+    state.inviteDetail.detailList = inviteDetail.detailList || 'NONE';
+    state.inviteDetail = Object.assign({}, state.inviteDetail);
   },
   //  获取硬件列表
   [GET_HARDLIST](state, hardList) {

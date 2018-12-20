@@ -6,7 +6,7 @@ import SignUp from './views/SignUp.vue';
 import Forget from './views/Forget.vue';
 import Revenue from './views/Revenue.vue';
 import RevenueDetail from './views/RevenueDetail.vue';
-import InviteRevenue from './views/InviteRevenue.vue';
+import InviteDetail from './views/InviteDetail.vue';
 import AccountSet from './views/AccountSet.vue';
 import HardList from './views/HardList.vue';
 import BindWallet from './views/BindWallet.vue';
@@ -46,12 +46,12 @@ export default new Router({
       component: RevenueDetail,
     },
     {
-      path: '/inviteRevenue',
-      name: 'inviteRevenue',
+      path: '/inviteDetail',
+      name: 'inviteDetail',
       meta: {
         title,
       },
-      component: InviteRevenue,
+      component: InviteDetail,
     },
     {
       path: '/login',

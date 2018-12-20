@@ -29,7 +29,7 @@ import {
   ajaxWithdrawalList,
   ajaxDeviceNotes,
   ajaxRevenueDetail,
-  ajaxInviteRevenue
+  ajaxInviteDetail
 } from './getData';
 
 const NO_CONTENT = "NO_CONTENT";
@@ -56,6 +56,7 @@ import {
   GET_WITHDRAWAL_STAUTS,
   GET_SEARCH_LIST,
   GET_RENVUE_DETAIL,
+  GET_INVITE_DETAIL,
 } from './mutation-types';
 import router from '../router';
 
@@ -202,8 +203,8 @@ export default {
     return res;
   },
   //  获取用户邀请收益
-  async getInviteRevenue({ commit }, params) {
-    const res = await ajaxInviteRevenue(params);
+  async getInviteDetail({ commit }, params) {
+    const res = await ajaxInviteDetail(params);
     try {
       commit(GET_INVITE_DETAIL, res.ret);
     } catch (error) {
