@@ -10,7 +10,7 @@
       <el-col :span="20" class="header-login-panel" >
         <div class="header-panel-wrap" v-if="type !== 'login-header' && type !== 'protocol-header'">
           <router-link to="/">
-            <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/' || thisPath === '/revenue' || thisPath === '/withdrawal' || thisPath === '/revenueDetail') }">
+            <div  class="header-date-panel header-each-tab" v-bind:class="{opacityPercent: !(thisPath === '/' || thisPath === '/revenue' || thisPath === '/withdrawal' || thisPath === '/revenueDetail' || thisPath === '/inviteDetail') }">
               <img  class="menu-icon home-icon" src="../assets/home/data-panel-login.png" >            
               {{ $t('header.dataPanel') }}
             </div>

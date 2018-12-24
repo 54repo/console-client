@@ -135,7 +135,7 @@ export const ajaxInviteDetail = (data) => {
  * 用户总收益
  */
 export const ajaxAllRevenue = (data) => {
-  return fetch(baseUrl + '/api/web/revenue_v2/', data);
+  return fetch(baseUrl + '/api/web/revenue_v3/', data);
 };
 /**
  * 用户推荐链接

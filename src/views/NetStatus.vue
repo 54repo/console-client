@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    <HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
-      <BasiceLayout :title="$t('hardListLayoutTitile')">
+  <div class="network-status">
+    <Layout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
+      <BasiceLayout :title="$t('Network_status')">
         <div class="hardware-content">
           <!-- mac地址搜索 -->
           <div class="hardware-search-wrap" v-if="allDevices" align='center'>
@@ -23,6 +23,9 @@
                 <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
               </template>
             </el-table-column>
+            <!-- 绑定时间 -->
+            <el-table-column prop="bind_at" empty-text="-" :label="$t('date')" align='center'>
+            </el-table-column>
             <!-- IP -->
             <el-table-column prop="" label="IP" align='center'>
               <template slot-scope="scope">
@@ -42,7 +45,7 @@
               </template>
             </el-table-column>
             <!-- 在线状态 -->
-            <!-- <el-table-column prop="" :label="$t('netStatus')" align='center'>
+            <el-table-column prop="" :label="$t('netStatus')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.status">-</div>
                 <el-tag v-if="scope.row.status === 'online'" type="success">online</el-tag>
@@ -50,11 +53,11 @@
               </template>
             </el-table-column>
             <!-- 解绑 -->
-            <!-- <el-table-column label="" align='center'>
+            <el-table-column label="" align='center'>
               <template slot-scope="scope">
                 <div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">{{$t('unbindButton')}}</div>
               </template>
-            </el-table-column> --> -->
+            </el-table-column>
           </el-table>
           <div class="pagination" v-if="deviceSize > 1">
             <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceSize" layout="total, prev, pager, next" :total="hardLength">
@@ -64,24 +67,7 @@
           </el-table>
         </div>
       </BasiceLayout>
-    </HardwareLayout>
-    <!-- 解绑 -->
-    <el-dialog :title="$t('dialog.title')" :visible.sync="showUnbindDialog" width="480px" center>
-      <div class="unbind-dialog-wrap">
-        <span class="key">{{$t('dialog.imageVerify')}}</span>
-        <div class="hard-captcha">
-          <div id="TCaptcha" style="width:100%;height:30px;"></div>
-        </div>
-      </div>
-      <div class="unbind-dialog-wrap">
-        <span class="key">{{$t('dialog.mailText')}}</span>
-        <SendEmailCode type="text" imageStyle="unbind-style" :csnonce="csnonce" :ticket="ticket" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <div class="sure-unbind button" @click="showUnbindDialog = false">{{ $t('dialog.cancel') }}</div>
-        <div class="sure-unbind button" type="primary" @click="unbind">{{ $t('dialog.sure') }}</div>
-      </span>
-    </el-dialog>
+    </Layout>
     <!-- 增加备注 -->
     <el-dialog :title="$t('addNotes.title')" :visible.sync="showAddnoteDialog" width="480px" center>
       <div class="addnote-dialog-wrap">
@@ -99,15 +85,24 @@
 <i18n>
 {
   "en": {
-		"layoutTitile": "Hardware List",
-		"hardListLayoutTitile": "Hardware List",
+		"layoutTitile": "Network Task",
+		"Network_status": "Tast Status",
     "macAddress": "MAC Address",
     "location": "Area",   
     "needs": "Area Node Requirement",                                                                    
+		"date": "The Binding Date(UTC)",
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
     "netStatus": "Status",
     "noHardwareTip": "No Device",
+    "unbindButton": "unbind",
+    "dialog": {
+      "cancel": "Cancel",
+      "sure": "Sure",
+      "title": "Confirm Unbinding",
+      "mailText": "Email Verfication Code",
+      "imageVerify": "Image Verfication"
+    },
     "needsHigh": "High",
     "needsMiddle": "Medium",
     "needsLow": "Low",
@@ -121,15 +116,24 @@
     "allSearch": "All"
   },
   "zn": {
-		"layoutTitile": "硬件列表",
-		"hardListLayoutTitile": "硬件列表",
+		"layoutTitile": "网络任务",
+		"Network_status": "任务执行状态",
     "macAddress": "硬件MAC地址",
     "location": "所在地区",                                                                    
     "needs": "当前地区节点需求度",                                                                    
+		"date": "绑定时间(UTC)",
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
     "netStatus": "在线状态",
     "noHardwareTip": "硬件列表为空",
+    "unbindButton": "解绑",
+    "dialog": {
+      "cancel": "取 消",
+      "sure": "确 定",
+      "title": "确认解绑",
+      "mailText": "邮箱验证码",
+      "imageVerify": "图片验证"
+    },
     "needsHigh": "高",
     "needsMiddle": "中",
     "needsLow": "低" ,
@@ -156,6 +160,7 @@ import SendEmailCode from '@/components/SendEmailCode.vue'
 import moment from 'moment'
 import { Message } from 'element-ui'
 import { LANG } from '../config/contant.js'
+import Layout from "@/components/DatePanel/Layout.vue";
 
 export default {
   name: 'home',
@@ -163,7 +168,8 @@ export default {
     BasiceLayout,
     AccountSetLayout,
     SendEmailCode,
-    HardwareLayout
+    HardwareLayout,
+    Layout
   },
   data() {
     return {
@@ -202,28 +208,28 @@ export default {
         reNewPassword: this.newSecPw
       })
     },
-    // checkUnBind(id) {
-    //   this.showUnbindDialog = true
-    //   this.unbindId = id
-    //   let that = this
-    //   setTimeout(() => {
-    //     var capOption = {
-    //       callback: cbfn,
-    //       themeColor: '15bcad',
-    //       lang: LANG[this.$i18n.locale || 'en']
-    //     }
-    //     capInit(document.getElementById('TCaptcha'), capOption)
-    //     //回调函数：验证码页面关闭时回调
-    //     function cbfn(retJson) {
-    //       if (retJson.ret == 0) {
-    //         that.ticket = retJson.ticket
-    //         // 用户验证成功
-    //       } else {
-    //         //用户关闭验证码页面，没有验证
-    //       }
-    //     }
-    //   }, 1000)
-    // },
+    checkUnBind(id) {
+      this.showUnbindDialog = true
+      this.unbindId = id
+      let that = this
+      setTimeout(() => {
+        var capOption = {
+          callback: cbfn,
+          themeColor: '15bcad',
+          lang: LANG[this.$i18n.locale || 'en']
+        }
+        capInit(document.getElementById('TCaptcha'), capOption)
+        //回调函数：验证码页面关闭时回调
+        function cbfn(retJson) {
+          if (retJson.ret == 0) {
+            that.ticket = retJson.ticket
+            // 用户验证成功
+          } else {
+            //用户关闭验证码页面，没有验证
+          }
+        }
+      }, 1000)
+    },
     // 添加备注
     addNote() {
       let that = this
@@ -242,7 +248,7 @@ export default {
               pageNum: that.currentPage
             })
           } else {
-            this.getDeviceDetail({ id: that.searchMacAddress })
+            this.getDeviceDetail({ id: that.searchMacAddress, type: 'network' })
           }
         } else {
           Message({
@@ -295,7 +301,7 @@ export default {
       if (this.searchMacAddress === 'all') {
         this.getHardList({ pageNum: 1 })
       } else {
-        this.getDeviceDetail({ id: this.searchMacAddress })
+        this.getDeviceDetail({ id: this.searchMacAddress, type: 'network' })
       }
     },
     // 分页

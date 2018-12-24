@@ -18,30 +18,41 @@
           <el-submenu index="1" route="/revenue" class="revenue-wrap">
             <template slot="title">
               <div v-bind:class="{ revenuePad: true }">
-                <img class="menu-icon home-icon" src="../../assets/menu/network.png" >
-                <span>{{ $t('local_home_layout.menu.1_value')}}</span>
+                <img class="menu-icon home-icon total-revenue-icon" src="../../assets/menu/totalRevenue.png" >
+                <span>{{ $t('local_home_layout.menu.5_value')}}</span>
               </div>
             </template>
             <el-menu-item-group :span="3" >
               <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.1_1_value') }}</el-menu-item>
               <el-menu-item index="1-2" route="/revenueDetail"  v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">{{ $t('local_home_layout.menu.1_2_value') }}</el-menu-item>
+              <el-menu-item index="1-3" route="/inviteDetail"  v-bind:class="{ isActive: (thisPath === '/inviteDetail') }">{{ $t('local_home_layout.menu.1_4_value') }}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="5" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
+          <el-submenu index="2" route="/revenue" class="revenue-wrap">
+            <template slot="title">
+              <div v-bind:class="{ revenuePad: true }">
+                <img class="menu-icon home-icon" src="../../assets/menu/network.png" >
+                <span>{{ $t('local_home_layout.menu.1_value')}}</span>
+              </div>
+            </template>
+            <el-menu-item-group :span="3" >
+              <el-menu-item index="1-1" route="/netStatus" v-bind:class="{ isActive: (thisPath === '/netStatus') }">{{ $t('local_home_layout.menu.net_status') }}</el-menu-item>
+              <el-menu-item index="1-2" route="/netDetail"  v-bind:class="{ isActive: (thisPath === '/netDetail') }">{{ $t('local_home_layout.menu.net_detail') }}</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-menu-item index="3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/withdrawal.png" >
             <span slot="title">{{ $t('local_home_layout.menu.1_3_value') }}</span>
-          <!-- <el-menu-item index="1-3"  v-bind:class="{ isActive: (thisPath === '/withdrawal') }">{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>               -->
-
           </el-menu-item>
-          <el-menu-item index="2" disabled>
+          <el-menu-item index="4" route="/calcuteDetail" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png" >
             <span slot="title">{{ $t('local_home_layout.menu.2_value') }}</span>
           </el-menu-item>
-          <el-menu-item index="3" disabled>
+          <el-menu-item index="5" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/powerAnalysis.png" >
             <span slot="title">{{ $t('local_home_layout.menu.3_value') }}</span>
           </el-menu-item>
-          <el-menu-item index="4" disabled>
+          <el-menu-item index="6" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/networkCbt.png" >
             <span slot="title">{{ $t('local_home_layout.menu.4_value') }}</span>
           </el-menu-item>
@@ -66,12 +77,17 @@
         "1_1_value": "Revenue",
         "1_2_value": "Details",
         "1_3_value": "Withdrawal",
+        "1_4_value": "Invite Details",
         "2_value": "Computing Task Revenue",
         "2_1_value": "Revenue",
         "2_2_value": "Details",
         "2_3_value": "Withdrawal",
         "3_value": "Power Analysis",
-        "4_value": "Network Contribution"
+        "4_value": "Network Contribution",
+        "5_value": "Total revenue",
+
+        "net_status": "Online Network Status",
+        "net_detail": "Details"
       }
     }
   },
@@ -82,14 +98,18 @@
         "0_value": "数据面板首页",
         "1_value": "网络任务收益",
         "1_1_value": "收益情况",
-        "1_2_value": "详情",
+        "1_2_value": "在线收益详情",
         "1_3_value": "提现",
+        "1_4_value": "邀请奖励详情",        
         "2_value": "计算任务收益",
         "2_1_value": "收益情况",
         "2_2_value": "任务执行",
         "2_3_value": "提现",
         "3_value": "算力分析",
-        "4_value": "全网贡献"
+        "5_value": "收益总览",
+
+        "net_status": "在线收益状态",
+        "net_detail": "收益详情"
       }
     }
   }
@@ -285,4 +305,5 @@ export default {
 .annouce-content {
   margin: 0 23px;
 }
+
 </style>

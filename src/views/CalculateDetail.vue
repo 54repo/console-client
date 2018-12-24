@@ -1,4 +1,4 @@
-/** 收益页 **/
+/** 计算任务收益页 **/
 <template>
   <div class="home">
     <Layout
@@ -197,7 +197,7 @@ export default {
     this.queryDate = queryDate;
     let pageNum = this.pageNum;
 
-    this.getRevenueDetail({ queryDate, pageNum, type: "online" });
+    this.getRevenueDetail({ queryDate, pageNum, type: "calcute" });
   },
   methods: {
     ...mapActions(["getRevenueDetail", "addDeviceNotes"]),
@@ -205,7 +205,7 @@ export default {
     search(queryDate) {
       this.queryDate = queryDate;
       let pageNum = this.pageNum;
-      this.getRevenueDetail({ queryDate, pageNum, type: "online" });
+      this.getRevenueDetail({ queryDate, pageNum, type: "calcute" });
     },
     // mac搜索
     searchMac(deviceId) {
@@ -219,13 +219,13 @@ export default {
           mac_address,
           deviceId,
           queryDate: selectDate,
-          type: "online"
+          type: "calcute"
         });
       } else {
         this.getRevenueDetail({
           queryDate: this.selectDate,
           pageNum: this.pageNum,
-          type: "online"
+          type: "calcute"
         });
       }
     },

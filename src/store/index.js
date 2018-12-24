@@ -34,9 +34,15 @@ export default new Vuex.Store({
       allDevices: [] //所有设备列表，帮助搜索
     },
     revenue: {
-      inviteRevenue: '', // 邀请收益
-      accountRevenue: '', // 个人收益
-      allRenvue: '' //用户总收益
+      // inviteRevenue: '', // 邀请收益
+      // accountRevenue: '', // 个人收益
+      // allRenvue: '', //用户总收益
+
+      balance: 0,
+      totalInvite : 0, 
+      totalNetRevenue: 0, 
+      totalOnlineRevenue: 0, 
+      totalRevenue: 0
     },
     revenueDetail: {
       currentPage: '',

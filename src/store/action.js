@@ -180,13 +180,13 @@ export default {
   async getAllRevenue({ commit }, params) {
     const res = await ajaxAllRevenue(params);
     try {
-      if (params.type === 'all') {
-        commit(GET_ALL_RENVUE, res.ret.revenue);
-      } else if (params.type === 'refer') {
-        commit(GET_LASTDAY_INVITE, res.ret.revenue);
-      } else if (params.type === 'account') {
-        commit(ACCOUNT_LASTDAY_REVENUE, res.ret.revenue);
-      }
+      // if (params.type === 'all') {
+        commit(GET_ALL_RENVUE, res.ret);
+      // } else if (params.type === 'refer') {
+      //   commit(GET_LASTDAY_INVITE, res.ret.revenue);
+      // } else if (params.type === 'account') {
+      //   commit(ACCOUNT_LASTDAY_REVENUE, res.ret.revenue);
+      // }
     } catch (error) {
       console.log(error);
     }

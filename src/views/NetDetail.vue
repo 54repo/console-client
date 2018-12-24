@@ -1,4 +1,4 @@
-/** 收益页 **/
+/** 网络收益详情 **/
 <template>
   <div class="home">
     <Layout
@@ -197,7 +197,7 @@ export default {
     this.queryDate = queryDate;
     let pageNum = this.pageNum;
 
-    this.getRevenueDetail({ queryDate, pageNum, type: "online" });
+    this.getRevenueDetail({ queryDate, pageNum });
   },
   methods: {
     ...mapActions(["getRevenueDetail", "addDeviceNotes"]),
@@ -205,7 +205,7 @@ export default {
     search(queryDate) {
       this.queryDate = queryDate;
       let pageNum = this.pageNum;
-      this.getRevenueDetail({ queryDate, pageNum, type: "online" });
+      this.getRevenueDetail({ queryDate, pageNum, type: "network" });
     },
     // mac搜索
     searchMac(deviceId) {
@@ -219,13 +219,13 @@ export default {
           mac_address,
           deviceId,
           queryDate: selectDate,
-          type: "online"
+          type: "network"
         });
       } else {
         this.getRevenueDetail({
           queryDate: this.selectDate,
           pageNum: this.pageNum,
-          type: "online"
+          type: "network"
         });
       }
     },
@@ -314,7 +314,7 @@ export default {
 <i18n>
 {
   "zn": {
-    "pageTitle": "详情",
+    "pageTitle": "收益详情",
     "revenueDate": "查询日期（UTC）",
     "revenueMac": "查询MAC地址",
     "mac_address": "Mac地址",
