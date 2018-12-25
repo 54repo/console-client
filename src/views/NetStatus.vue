@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
+    <Layout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
       <BasiceLayout :title="$t('hardListLayoutTitile')">
         <div class="hardware-content">
           <!-- mac地址搜索 -->
@@ -51,7 +51,7 @@
           </el-table>
         </div>
       </BasiceLayout>
-    </HardwareLayout>
+    </Layout>
     <!-- 解绑 -->
     <el-dialog :title="$t('dialog.title')" :visible.sync="showUnbindDialog" width="480px" center>
       <div class="unbind-dialog-wrap">
@@ -145,6 +145,7 @@ import SendEmailCode from '@/components/SendEmailCode.vue'
 import moment from 'moment'
 import { Message } from 'element-ui'
 import { LANG } from '../config/contant.js'
+import Layout from "@/components/DatePanel/Layout.vue";
 
 export default {
   name: 'home',

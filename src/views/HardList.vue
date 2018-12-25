@@ -1,82 +1,193 @@
 <template>
   <div class="network-status">
-    <Layout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
+    <AccountSetLayout
+      layoutType="HARDLIST"
+      :layoutTitile="$t('layoutTitile')"
+    >
       <BasiceLayout :title="$t('Network_status')">
         <div class="hardware-content">
           <!-- mac地址搜索 -->
-          <div class="hardware-search-wrap" v-if="allDevices" align='center'>
+          <div
+            class="hardware-search-wrap"
+            v-if="allDevices"
+            align='center'
+          >
             <span class="search-text">{{$t('mac_address')}}</span>
-            <el-select v-model="searchMacAddress" filterable placeholder="请选择" @change="search">
-              <el-option v-for="item in allDevices" :key="item.value" :label="item.label" :value="item.value">
+            <el-select
+              v-model="searchMacAddress"
+              filterable
+              placeholder="请选择"
+              @change="search"
+            >
+              <el-option
+                v-for="item in allDevices"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
               </el-option>
             </el-select>
           </div>
           <!-- 硬件列表 -->
-          <el-table v-if="hardList !== 'NO_CONTENT'" :data="hardList" align="left" empty-text="Loading..." style="width: 100%">
+          <el-table
+            v-if="hardList !== 'NO_CONTENT'"
+            :data="hardList"
+            align="left"
+            empty-text="Loading..."
+            style="width: 100%"
+          >
             <!-- mac address -->
-            <el-table-column prop="mac_address" :label="$t('macAddress')" align='center'>
+            <el-table-column
+              prop="mac_address"
+              :label="$t('macAddress')"
+              align='center'
+            >
             </el-table-column>
             <!-- 备注 -->
-            <el-table-column :label="$t('noteText')" align='center'>
+            <el-table-column
+              :label="$t('noteText')"
+              align='center'
+            >
               <template slot-scope="scope">
                 <div v-if="scope.row.note">{{scope.row.note}}</div>
-                <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
+                <div
+                  v-if="!scope.row.note"
+                  :deviceId="scope.row.deviceId"
+                  @click="showNotes(scope.row.id, scope.row.mac_address)"
+                  class="add-note-button button bonus-cursor"
+                >{{$t('addNote')}}</div>
               </template>
             </el-table-column>
             <!-- 绑定时间 -->
-            <el-table-column prop="bind_at" empty-text="-" :label="$t('date')" align='center'>
+            <el-table-column
+              prop="bind_at"
+              empty-text="-"
+              :label="$t('date')"
+              align='center'
+            >
             </el-table-column>
             <!-- IP -->
-            <el-table-column prop="" label="IP" align='center'>
+            <el-table-column
+              prop=""
+              label="IP"
+              align='center'
+            >
               <template slot-scope="scope">
                 <div v-if="!scope.row.ext_ip">-</div>
                 <div v-if="scope.row.ext_ip">{{scope.row.ext_ip}}</div>
               </template>
             </el-table-column>
             <!-- 地区 -->
-            <el-table-column prop="location" :label="$t('location')" align='center'></el-table-column>
+            <el-table-column
+              prop="location"
+              :label="$t('location')"
+              align='center'
+            ></el-table-column>
             <!-- 需求度 -->
-            <el-table-column prop="" :label="$t('needs')" align='center'>
+            <el-table-column
+              prop=""
+              :label="$t('needs')"
+              align='center'
+            >
               <template slot-scope="scope">
                 <div v-if="!scope.row.needs">-</div>
-                <el-tag v-if="scope.row.needs === '高'" type="success">{{$t('needsHigh')}}</el-tag>
-                <el-tag v-if="scope.row.needs === '中'" type="warning">{{$t('needsMiddle')}}</el-tag>
-                <el-tag v-if="scope.row.needs === '低'" type="danger">{{$t('needsLow')}}</el-tag>
+                <el-tag
+                  v-if="scope.row.needs === '高'"
+                  type="success"
+                >{{$t('needsHigh')}}</el-tag>
+                <el-tag
+                  v-if="scope.row.needs === '中'"
+                  type="warning"
+                >{{$t('needsMiddle')}}</el-tag>
+                <el-tag
+                  v-if="scope.row.needs === '低'"
+                  type="danger"
+                >{{$t('needsLow')}}</el-tag>
               </template>
             </el-table-column>
             <!-- 在线状态 -->
-            <el-table-column prop="" :label="$t('netStatus')" align='center'>
+            <el-table-column
+              prop=""
+              :label="$t('netStatus')"
+              align='center'
+            >
               <template slot-scope="scope">
                 <div v-if="!scope.row.status">-</div>
-                <el-tag v-if="scope.row.status === 'online'" type="success">online</el-tag>
-                <el-tag v-if="scope.row.status === 'offline'" type="danger">offline</el-tag>
+                <el-tag
+                  v-if="scope.row.status === 'online'"
+                  type="success"
+                >online</el-tag>
+                <el-tag
+                  v-if="scope.row.status === 'offline'"
+                  type="danger"
+                >offline</el-tag>
               </template>
             </el-table-column>
             <!-- 解绑 -->
-            <el-table-column label="" align='center'>
+            <el-table-column
+              label=""
+              align='center'
+            >
               <template slot-scope="scope">
-                <div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">{{$t('unbindButton')}}</div>
+                <div
+                  type="danger"
+                  :deviceId="scope.row.id"
+                  @click="checkUnBind(scope.row.id)"
+                  class="unbind-button bonus-cursor"
+                >{{$t('unbindButton')}}</div>
               </template>
             </el-table-column>
           </el-table>
-          <div class="pagination" v-if="deviceSize > 1">
-            <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceSize" layout="total, prev, pager, next" :total="hardLength">
+          <div
+            class="pagination"
+            v-if="deviceSize > 1"
+          >
+            <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage"
+              :page-size="deviceSize"
+              layout="total, prev, pager, next"
+              :total="hardLength"
+            >
             </el-pagination>
           </div>
-          <el-table v-if="hardList === 'NO_CONTENT'" :empty-text="$t('noHardwareTip')" style="width: 100%">
+          <el-table
+            v-if="hardList === 'NO_CONTENT'"
+            :empty-text="$t('noHardwareTip')"
+            style="width: 100%"
+          >
           </el-table>
         </div>
       </BasiceLayout>
-    </Layout>
+    </AccountSetLayout>
     <!-- 增加备注 -->
-    <el-dialog :title="$t('addNotes.title')" :visible.sync="showAddnoteDialog" width="480px" center>
+    <el-dialog
+      :title="$t('addNotes.title')"
+      :visible.sync="showAddnoteDialog"
+      width="480px"
+      center
+    >
       <div class="addnote-dialog-wrap">
         <span class="key">{{$t('addNotes.tipText')}}({{addNoteAddress}})</span>
-        <input type="text" class="basic-input input addnote-input" v-model="addNoteInput">
+        <input
+          type="text"
+          class="basic-input input addnote-input"
+          v-model="addNoteInput"
+        >
       </div>
-      <span slot="footer" class="dialog-footer">
-        <div class="sure-unbind button" @click="showAddnoteDialog = false">{{ $t('cancel') }}</div>
-        <div class="sure-unbind button" type="primary" @click="addNote">{{ $t('confirm') }}</div>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <div
+          class="sure-unbind button"
+          @click="showAddnoteDialog = false"
+        >{{ $t('cancel') }}</div>
+        <div
+          class="sure-unbind button"
+          type="primary"
+          @click="addNote"
+        >{{ $t('confirm') }}</div>
       </span>
     </el-dialog>
   </div>
@@ -152,18 +263,17 @@
 
 <script>
 // @ is an alias to /src
-import { mapState, mapActions, mapMutations } from 'vuex'
-import BasiceLayout from '@/components/Common/BasicLayout.vue'
-import AccountSetLayout from '@/components/AccountSet/AccountSetLayout.vue'
-import HardwareLayout from '@/components/Hardware/HardwareLayout.vue'
-import SendEmailCode from '@/components/SendEmailCode.vue'
-import moment from 'moment'
-import { Message } from 'element-ui'
-import { LANG } from '../config/contant.js'
-import Layout from "@/components/DatePanel/Layout.vue";
+import { mapState, mapActions, mapMutations } from "vuex";
+import BasiceLayout from "@/components/Common/BasicLayout.vue";
+import AccountSetLayout from "@/components/AccountSet/AccountSetLayout.vue";
+import HardwareLayout from "@/components/Hardware/HardwareLayout.vue";
+import SendEmailCode from "@/components/SendEmailCode.vue";
+import moment from "moment";
+import { Message } from "element-ui";
+import { LANG } from "../config/contant.js";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
     BasiceLayout,
     AccountSetLayout,
@@ -173,17 +283,17 @@ export default {
   },
   data() {
     return {
-      unbindId: '', //解绑Id
+      unbindId: "", //解绑Id
       showUnbindDialog: false, // 绑定弹框展示
       showAddnoteDialog: false, //添加备注
-      addNoteInput: '',
-      addNoteId: '', //添加备注Id
-      addNoteAddress: '', //添加备注Id
-      inputEmailCode: '', //输入的邮件码
-      ticket: '', // 验证码ticket
-      csnonce: '', //整数
-      searchMacAddress: ''
-    }
+      addNoteInput: "",
+      addNoteId: "", //添加备注Id
+      addNoteAddress: "", //添加备注Id
+      inputEmailCode: "", //输入的邮件码
+      ticket: "", // 验证码ticket
+      csnonce: "", //整数
+      searchMacAddress: ""
+    };
   },
   computed: mapState({
     hardList: state => state.hardWare.list,
@@ -195,73 +305,76 @@ export default {
   }),
   methods: {
     ...mapActions([
-      'getHardList',
-      'unbindHard',
-      'getVertifUrl',
-      'getDeviceDetail',
-      'addDeviceNotes'
+      "getHardList",
+      "unbindHard",
+      "getVertifUrl",
+      "getDeviceDetail",
+      "addDeviceNotes"
     ]),
     change() {
       this.changePw({
         oldPassword: this.oldPw,
         newPassword: this.newPw,
         reNewPassword: this.newSecPw
-      })
+      });
     },
     checkUnBind(id) {
-      this.showUnbindDialog = true
-      this.unbindId = id
-      let that = this
+      this.showUnbindDialog = true;
+      this.unbindId = id;
+      let that = this;
       setTimeout(() => {
         var capOption = {
           callback: cbfn,
-          themeColor: '15bcad',
-          lang: LANG[this.$i18n.locale || 'en']
-        }
-        capInit(document.getElementById('TCaptcha'), capOption)
+          themeColor: "15bcad",
+          lang: LANG[this.$i18n.locale || "en"]
+        };
+        capInit(document.getElementById("TCaptcha"), capOption);
         //回调函数：验证码页面关闭时回调
         function cbfn(retJson) {
           if (retJson.ret == 0) {
-            that.ticket = retJson.ticket
+            that.ticket = retJson.ticket;
             // 用户验证成功
           } else {
             //用户关闭验证码页面，没有验证
           }
         }
-      }, 1000)
+      }, 1000);
     },
     // 添加备注
     addNote() {
-      let that = this
+      let that = this;
       this.addDeviceNotes({
         deviceId: this.addNoteId,
         note: this.addNoteInput
       }).then(res => {
         if (res.code === 200) {
           Message({
-            type: 'success',
+            type: "success",
             message: res.message
-          })
-          that.showAddnoteDialog = false
-          if (that.searchMacAddress === 'all' || that.searchMacAddress === '') {
+          });
+          that.showAddnoteDialog = false;
+          if (that.searchMacAddress === "all" || that.searchMacAddress === "") {
             that.getHardList({
               pageNum: that.currentPage
-            })
+            });
           } else {
-            this.getDeviceDetail({ id: that.searchMacAddress, type: 'network' })
+            this.getDeviceDetail({
+              id: that.searchMacAddress,
+              type: "network"
+            });
           }
         } else {
           Message({
-            type: 'error',
-            message: res.message || 'add note error'
-          })
+            type: "error",
+            message: res.message || "add note error"
+          });
         }
-      })
+      });
     },
     showNotes(id, address) {
-      this.showAddnoteDialog = true
-      this.addNoteId = id
-      this.addNoteAddress = address
+      this.showAddnoteDialog = true;
+      this.addNoteId = id;
+      this.addNoteAddress = address;
     },
     // 解绑
     unbind() {
@@ -269,60 +382,60 @@ export default {
         deviceId: this.unbindId,
         emailVerifyCode: this.inputEmailCode
       }).then(res => {
-        if (res.message === 'unregister success') {
+        if (res.message === "unregister success") {
           // 刷新硬件列表
-          this.getHardList({ pageNum: this.currentPage })
-          this.showUnbindDialog = false
+          this.getHardList({ pageNum: this.currentPage });
+          this.showUnbindDialog = false;
           Message({
-            type: 'success',
+            type: "success",
             message: res.message
-          })
+          });
           // window.location.reload()
         } else {
           Message({
-            type: 'error',
-            message: res.message || 'unbind error'
-          })
+            type: "error",
+            message: res.message || "unbind error"
+          });
         }
-        console.log(res)
-      })
+        console.log(res);
+      });
     },
     // email错误提示
     emailCodeTip(error) {
       if (error.message) {
         Message({
-          type: 'error',
+          type: "error",
           message: error.message
-        })
+        });
       }
     },
     // 搜索
     search() {
-      if (this.searchMacAddress === 'all') {
-        this.getHardList({ pageNum: 1 })
+      if (this.searchMacAddress === "all") {
+        this.getHardList({ pageNum: 1 });
       } else {
-        this.getDeviceDetail({ id: this.searchMacAddress, type: 'network' })
+        this.getDeviceDetail({ id: this.searchMacAddress, type: "network" });
       }
     },
     // 分页
     handleCurrentChange(val) {
-      this.currentPage = val
-      this.getHardList({ pageNum: val })
+      this.currentPage = val;
+      this.getHardList({ pageNum: val });
     }
   },
 
   created() {
-    this.getHardList({ pageNum: 1 })
+    this.getHardList({ pageNum: 1 });
     this.getVertifUrl({ action: 2 }).then(res => {
-      this.csnonce = res.data.csnonce
-      let newScript = document.createElement('script')
-      newScript.type = 'text/javascript'
-      newScript.src = res.data.url
-      document.body.appendChild(newScript)
-      let that = this
-    })
+      this.csnonce = res.data.csnonce;
+      let newScript = document.createElement("script");
+      newScript.type = "text/javascript";
+      newScript.src = res.data.url;
+      document.body.appendChild(newScript);
+      let that = this;
+    });
   }
-}
+};
 </script>
 
 <style lang="stylus">
