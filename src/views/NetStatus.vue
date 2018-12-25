@@ -153,17 +153,15 @@ export default {
     BasiceLayout,
     AccountSetLayout,
     SendEmailCode,
-    HardwareLayout
+    HardwareLayout,
+    Layout
   },
   data() {
     return {
-      unbindId: '', //解绑Id
-      showUnbindDialog: false, // 绑定弹框展示
       showAddnoteDialog: false, //添加备注
       addNoteInput: '',
       addNoteId: '', //添加备注Id
       addNoteAddress: '', //添加备注Id
-      inputEmailCode: '', //输入的邮件码
       ticket: '', // 验证码ticket
       csnonce: '', //整数
       searchMacAddress: ''
@@ -192,28 +190,6 @@ export default {
         reNewPassword: this.newSecPw
       })
     },
-    // checkUnBind(id) {
-    //   this.showUnbindDialog = true
-    //   this.unbindId = id
-    //   let that = this
-    //   setTimeout(() => {
-    //     var capOption = {
-    //       callback: cbfn,
-    //       themeColor: '15bcad',
-    //       lang: LANG[this.$i18n.locale || 'en']
-    //     }
-    //     capInit(document.getElementById('TCaptcha'), capOption)
-    //     //回调函数：验证码页面关闭时回调
-    //     function cbfn(retJson) {
-    //       if (retJson.ret == 0) {
-    //         that.ticket = retJson.ticket
-    //         // 用户验证成功
-    //       } else {
-    //         //用户关闭验证码页面，没有验证
-    //       }
-    //     }
-    //   }, 1000)
-    // },
     // 添加备注
     addNote() {
       let that = this
@@ -246,39 +222,6 @@ export default {
       this.showAddnoteDialog = true
       this.addNoteId = id
       this.addNoteAddress = address
-    },
-    // 解绑
-    unbind() {
-      this.unbindHard({
-        deviceId: this.unbindId,
-        emailVerifyCode: this.inputEmailCode
-      }).then(res => {
-        if (res.message === 'unregister success') {
-          // 刷新硬件列表
-          this.getHardList({ pageNum: this.currentPage })
-          this.showUnbindDialog = false
-          Message({
-            type: 'success',
-            message: res.message
-          })
-          // window.location.reload()
-        } else {
-          Message({
-            type: 'error',
-            message: res.message || 'unbind error'
-          })
-        }
-        console.log(res)
-      })
-    },
-    // email错误提示
-    emailCodeTip(error) {
-      if (error.message) {
-        Message({
-          type: 'error',
-          message: error.message
-        })
-      }
     },
     // 搜索
     search() {
