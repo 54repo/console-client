@@ -48,7 +48,6 @@
                 <div v-if="!scope.row.tx_bw">-</div>
                 <el-tag v-if="scope.row.tx_bw < 1" type="danger">1 M &lt;</el-tag>
                 <el-tag v-if="scope.row.tx_bw > 4" type="success">offline</el-tag>
-                <el-tag v-else>offline</el-tag>
               </template>
             </el-table-column>
             <!-- 地区 -->

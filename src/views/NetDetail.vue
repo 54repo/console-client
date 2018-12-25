@@ -198,7 +198,7 @@ export default {
     this.queryDate = queryDate;
     let pageNum = this.pageNum;
 
-    this.getRevenueDetail({ queryDate, pageNum });
+    this.getRevenueDetail({ queryDate, pageNum, type });
   },
   methods: {
     ...mapActions(["getRevenueDetail", "addDeviceNotes"]),
