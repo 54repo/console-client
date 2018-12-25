@@ -142,6 +142,7 @@ import BasiceLayout from "@/components/Common/BasicLayout.vue";
 import moment from "moment";
 import { mapActions, mapState } from "vuex";
 import { Message } from "element-ui";
+const type = "network";
 
 export default {
   name: "home",
@@ -205,7 +206,7 @@ export default {
     search(queryDate) {
       this.queryDate = queryDate;
       let pageNum = this.pageNum;
-      this.getRevenueDetail({ queryDate, pageNum, type: "network" });
+      this.getRevenueDetail({ queryDate, pageNum, type });
     },
     // mac搜索
     searchMac(deviceId) {
@@ -219,13 +220,13 @@ export default {
           mac_address,
           deviceId,
           queryDate: selectDate,
-          type: "network"
+          type
         });
       } else {
         this.getRevenueDetail({
           queryDate: this.selectDate,
           pageNum: this.pageNum,
-          type: "network"
+          type
         });
       }
     },
@@ -238,7 +239,8 @@ export default {
       this.pageNum = value;
       this.getRevenueDetail({
         queryDate,
-        pageNum: value
+        pageNum: value,
+        type
       });
     },
     // 添加备注
@@ -257,7 +259,8 @@ export default {
           if (that.searchMacAddress === "all" || that.searchMacAddress === "") {
             this.getRevenueDetail({
               queryDate: that.selectDate,
-              pageNum: that.pageNum
+              pageNum: that.pageNum,
+              type
             });
           } else {
             this.getDeviceDetail({ id: that.searchMacAddress });
@@ -346,4 +349,7 @@ export default {
   }
 }
 </i18n>
+
+
+
 
