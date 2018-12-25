@@ -131,7 +131,7 @@ export default {
     state.hardWare.list = hardList.list || 'NO_CONTENT';
     state.hardWare.hardLength = hardList.deviceLength || 0;
     state.hardWare.deviceSize = Number(hardList.pageSize) || 0;
-    state.hardWare.currentPage = hardList.currentPage || 0;
+    state.hardWare.currentPage = Number(hardList.currentPage) || 0;
     // // 方便搜索
     state.hardWare.allDevices = hardList.allDevices || [];
     state.hardWare = Object.assign({}, state.hardWare);

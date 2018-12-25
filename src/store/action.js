@@ -43,8 +43,8 @@ import {
   GET_USER_INFO,
   GET_HARDLIST,
   GET_ALL_RENVUE,
-  GET_LASTDAY_INVITE,
-  ACCOUNT_LASTDAY_REVENUE,
+  // GET_LASTDAY_INVITE,
+  // ACCOUNT_LASTDAY_REVENUE,
   GET_RECOMMEND_INFO,
   GET_RECOMMEND_COUNT,
   GET_WALLET_ADDRESS,
@@ -154,7 +154,7 @@ export default {
       if (res.ret.list && res.ret.list.length > 0) {
         commit(GET_HARDLIST, res.ret);
       } else {
-        commit(GET_IST, NO_CONTENT);
+        commit(GET_HARDLIST, NO_CONTENT);
       }
     } catch (error) {
       commit(GET_HARDLIST, NO_CONTENT);

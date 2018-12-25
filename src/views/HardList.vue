@@ -39,6 +39,18 @@
             <el-table-column prop="mem_size" :label="$t('mem_size')" align='center'></el-table-column>
             <!-- 硬盘 -->
             <el-table-column prop="storage_size" :label="$t('storage_size')" align='center'></el-table-column>
+            <!-- 版本 -->
+            <el-table-column prop="info" :label="$t('info')" align='center'></el-table-column>
+            <!-- 上行宽带 -->
+            <!-- <el-table-column prop="tx_bw" :label="$t('tx_bw')" align='center'></el-table-column> -->
+             <el-table-column prop="" :label="$t('tx_bw')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="!scope.row.tx_bw">-</div>
+                <el-tag v-if="scope.row.tx_bw < 1" type="danger">1 M &lt;</el-tag>
+                <el-tag v-if="scope.row.tx_bw > 4" type="success">offline</el-tag>
+                <el-tag v-else>offline</el-tag>
+              </template>
+            </el-table-column>
             <!-- 地区 -->
             <!-- <el-table-column prop="location" :label="$t('location')" align='center'></el-table-column> -->
             <!-- 在线状态 -->
@@ -106,6 +118,8 @@
     "CPU": "CPU",   
     "mem_size": "Memory",   
     "storage_size": "Storage",
+    "info": "Version",
+    "tx_bw": "Maximum broadband",
     "needs": "Area Node Requirement",                                                                    
 		"date": "The Binding Date(UTC)",
 		"code": "Binding BonusCode",
@@ -139,6 +153,8 @@
     "location": "所在地区", 
     "CPU": "CPU",   
     "mem_size": "内存",  
+    "info": "版本",  
+    "tx_bw": "上行宽带",
     "storage_size": "硬盘",   
     "needs": "当前地区节点需求度",                                                                    
 		"date": "绑定时间(UTC)",

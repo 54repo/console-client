@@ -52,23 +52,6 @@
         </div>
       </BasiceLayout>
     </Layout>
-    <!-- 解绑 -->
-    <el-dialog :title="$t('dialog.title')" :visible.sync="showUnbindDialog" width="480px" center>
-      <div class="unbind-dialog-wrap">
-        <span class="key">{{$t('dialog.imageVerify')}}</span>
-        <div class="hard-captcha">
-          <div id="TCaptcha" style="width:100%;height:30px;"></div>
-        </div>
-      </div>
-      <div class="unbind-dialog-wrap">
-        <span class="key">{{$t('dialog.mailText')}}</span>
-        <SendEmailCode type="text" imageStyle="unbind-style" :csnonce="csnonce" :ticket="ticket" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <div class="sure-unbind button" @click="showUnbindDialog = false">{{ $t('dialog.cancel') }}</div>
-        <div class="sure-unbind button" type="primary" @click="unbind">{{ $t('dialog.sure') }}</div>
-      </span>
-    </el-dialog>
     <!-- 增加备注 -->
     <el-dialog :title="$t('addNotes.title')" :visible.sync="showAddnoteDialog" width="480px" center>
       <div class="addnote-dialog-wrap">

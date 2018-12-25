@@ -133,13 +133,24 @@ export default {
     return {
       activeIndex: "0",
       revenueActive: true,
-      defaultOption: ['1']
+      // defaultOption: ['2']
     };
   },
   computed: {
     thisPath() {
       return  this.$route.path;
     },
+    defaultOption() {
+      let thisPath = this.$route.path;
+      if (thisPath  === '/revenueDetail'  
+        || thisPath === '/inviteDetail' 
+        || thisPath === '/revenue') { 
+        return ["1"];
+      } else if (thisPath) {
+        return ["2"];
+      }
+    }
+
   },
 };
 </script>
