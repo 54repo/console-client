@@ -6,38 +6,90 @@
       <div class="account-dialog">
         <div class="title">{{ $t('register.registerTitle') }}</div>
         <!-- 邮箱 -->
-        <BasicInput type="text" icon-type="email" class="account-input account-email" :placeValue="$t('register.registerPlaceHolder')" v-model="inputEmail"></BasicInput>
-        <div v-if="EmailErrMsg" class="account-error">
+        <BasicInput
+          type="text"
+          icon-type="email"
+          class="account-input account-email"
+          :placeValue="$t('register.registerPlaceHolder')"
+          v-model="inputEmail"
+        ></BasicInput>
+        <div
+          v-if="EmailErrMsg"
+          class="account-error"
+        >
           <i class="el-alert__icon el-icon-error"></i>
           <span class="EmailErrorMsg">{{ EmailErrMsg }}</span>
         </div>
         <!-- 验证&邮件码 -->
-        <EmailCodeWithTx type="text" icon-type="emailCode" class="account-input password-email" v-model="inputEmailCode" :email="inputEmail" @emailCodeTip="emailCodeTip" :placeValue="$t('register.verfPlaceHolder')"></EmailCodeWithTx>
-        <div v-if="EmailCodeErrMsg" class="account-error">
+        <EmailCodeByGVerify
+          type="text"
+          icon-type="emailCode"
+          class="account-input password-email"
+          v-model="inputEmailCode"
+          :email="inputEmail"
+          @emailCodeTip="emailCodeTip"
+          :placeValue="$t('register.verfPlaceHolder')"
+        >
+        </EmailCodeByGVerify>
+        <div
+          v-if="EmailCodeErrMsg"
+          class="account-error"
+        >
           <i class="el-alert__icon el-icon-error"></i>
           <span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span>
         </div>
         <!-- 密码 -->
-        <BasicInput type="password" icon-type="password" class="account-input password-email" v-model="inputPw" :placeValue="$t('register.newPw')"></BasicInput>
-        <div v-if="PwErrMsg" class="account-error">
+        <BasicInput
+          type="password"
+          icon-type="password"
+          class="account-input password-email"
+          v-model="inputPw"
+          :placeValue="$t('register.newPw')"
+        ></BasicInput>
+        <div
+          v-if="PwErrMsg"
+          class="account-error"
+        >
           <i class="el-alert__icon el-icon-error"></i>
           <span class="PwErrMsg">{{ PwErrMsg }}</span>
         </div>
         <!-- 第二密码 -->
-        <BasicInput type="password" icon-type="password" class="account-input password-email" v-model="inputSePw" :placeValue="$t('register.confirmPw')"></BasicInput>
-        <div v-if="secPsErrMsg" class="account-error">
+        <BasicInput
+          type="password"
+          icon-type="password"
+          class="account-input password-email"
+          v-model="inputSePw"
+          :placeValue="$t('register.confirmPw')"
+        ></BasicInput>
+        <div
+          v-if="secPsErrMsg"
+          class="account-error"
+        >
           <i class="el-alert__icon el-icon-error"></i>
           <span class="secPsErrMsg">{{ secPsErrMsg }}</span>
         </div>
         <!-- agree protocol -->
         <div class="protocol-wrap">
-          <el-radio v-model="agreeProtocol" label="1">
+          <el-radio
+            v-model="agreeProtocol"
+            label="1"
+          >
             {{$t('register.agreeProtocol')}}
           </el-radio>
-          <router-link class="agree-link" target="_blank" to="/protocol"> {{$t('register.agreeLink')}} </router-link>
+          <router-link
+            class="agree-link"
+            target="_blank"
+            to="/protocol"
+          > {{$t('register.agreeLink')}} </router-link>
         </div>
-        <div class="sign-up-button bonus-cursor" v-on:click="signUp">{{ $t('register.signButton') }}</div>
-        <div class="login-sign-wrap bonus-cursor" v-on:click="login">{{ $t('register.redirectLogin') }}</div>
+        <div
+          class="sign-up-button bonus-cursor"
+          v-on:click="signUp"
+        >{{ $t('register.signButton') }}</div>
+        <div
+          class="login-sign-wrap bonus-cursor"
+          v-on:click="login"
+        >{{ $t('register.redirectLogin') }}</div>
       </div>
     </AccountLayout>
   </div>
@@ -48,7 +100,8 @@
 import Header from "@/components/Header.vue";
 import AccountLayout from "@/components/AccountLayout.vue";
 import BasicInput from "@/components/BasicInput.vue";
-import EmailCodeWithTx from "@/components/EmailCodeWithTX.vue";
+// import EmailCodeByGVerify from "@/components/EmailCodeByGVerify.vue";
+import EmailCodeByGVerify from "@/components/Common/EmailCodeByGVerify.vue";
 import { mapMutations, mapActions, mapState } from "vuex";
 import { Message } from "element-ui";
 
@@ -76,24 +129,23 @@ export default {
     Header,
     AccountLayout,
     BasicInput,
-    EmailCodeWithTx
+    // EmailCodeWithTx,
+    EmailCodeByGVerify
   },
   computed: mapState({
     // 验证码地址
     imageCodeSrc: state => state.signUp.imageCodeSrc
   }),
   methods: {
-    ...mapActions(["getImageCode", "ajaxSignUp"]),
+    ...mapActions(["ajaxSignUp"]),
     // 登录
     login() {
       this.$router.push({ name: "login" });
     },
-    // ...mapMutations(["isSignUpDisable"]),
     // 注册
     signUp() {
       const {
         inputEmail,
-        // inputImageCode,
         inputEmailCode,
         inputPw,
         inputSePw,
@@ -276,12 +328,15 @@ export default {
   font-size: 10px;
 }
 
-.protocol-wrap 
+.protocol-wrap {
   margin: 15px 30px;
   text-align: left;
   line-height: 14 px;
-  font-size: 12px!important;
-.protocol-wrap .el-radio__label
-  font-size: 12px!important;
+  font-size: 12px !important;
+}
+
+.protocol-wrap .el-radio__label {
+  font-size: 12px !important;
+}
 </style>
 

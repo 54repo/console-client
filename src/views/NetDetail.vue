@@ -1,6 +1,6 @@
 /** 网络收益详情 **/
 <template>
-  <div class="home">
+  <div class="home net-detail-home">
     <Layout
       type="REVENUE"
       isRevenue="true"

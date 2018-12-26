@@ -15,10 +15,6 @@
                 <el-option default v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
-              <!-- 验证码 -->
-              <!-- <div v-bind:class="{ none: !showVerify }" class="captcha_wrap">
-                <div id="TCaptcha" style="width:100%;height:20px;"></div>
-              </div> -->
               <vue-recaptcha
                 class="captcha-wrap"
                 ref="recaptcha"
@@ -67,7 +63,7 @@ import BasiceLayout from '@/components/Common/BasicLayout.vue'
 import CodeList from '@/components/Home/CodeList.vue'
 import { mapState, mapActions } from 'vuex'
 import { Message } from 'element-ui'
-import { LANG } from '../../config/contant.js'
+import { LANG, SITEKEY } from '../../config/contant.js'
 import VueRecaptcha from "vue-recaptcha";
 
 export default {
@@ -86,15 +82,10 @@ export default {
       timeSeconds: '', // 倒计时秒数
       showA: '',
       showB: '',
-
-      // ticket: '', // 验证码ticket
-      // csnonce: '',
       regionOptions: this.$t('HOME.BonusCode.regionOptions'),
       regionDefault: this.$t('HOME.BonusCode.regionOptions')[0].value,
       region: 'mainland',
-      // showVerify: false, //是否可验证验证码
-      // hasLoadCaptcha: false, //记录是否首次加载验证码
-      sitekey: "6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d", //ga verify key
+      sitekey: SITEKEY['HIGH'], //ga verify key
       response: "", //ga verify response
     }
   },
@@ -375,6 +366,6 @@ export default {
   color: #0db4c5;
 }
 
-.captcha-wrap
+.bonus-code-layout .captcha-wrap
   margin: 20px;
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home net-status-home">
     <Layout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
       <BasiceLayout :title="$t('hardListLayoutTitile')">
         <div class="hardware-content">
@@ -41,7 +41,16 @@
                 <el-tag v-if="scope.row.needs === '低'" type="danger">{{$t('needsLow')}}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column prop="stable" :label="$t('stable')" align='center'></el-table-column>
+            <!-- 网络质量 -->
+            <el-table-column prop="" :label="$t('stable')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="!scope.row.stable">-</div>
+                <el-tag v-if="scope.row.stable === '好'" type="success">{{$t('stableHigh')}}</el-tag>
+                <el-tag v-if="scope.row.stable === '中'" type="warning">{{$t('stableMiddle')}}</el-tag>
+                <el-tag v-if="scope.row.stable === '差'" type="danger">{{$t('stableLow')}}</el-tag>
+              </template>
+            </el-table-column>
+            <!-- <el-table-column prop="stable" :label="$t('stable')" align='center'></el-table-column> -->
           </el-table>
           <div class="pagination" v-if="deviceSize > 1">
             <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceSize" layout="total, prev, pager, next" :total="hardLength">
@@ -82,6 +91,9 @@
     "needsHigh": "High",
     "needsMiddle": "Medium",
     "needsLow": "Low",
+    "stableHigh": "High",
+    "stableMiddle": "Medium",
+    "stableLow": "Low",
     "mac_address": "Search Mac Address",
     "addNote": "note",
     "addNotes": {
@@ -105,6 +117,9 @@
     "needsHigh": "高",
     "needsMiddle": "中",
     "needsLow": "低" ,
+    "stableHigh": "好",
+    "stableMiddle": "中",
+    "stableLow": "差",
     "mac_address": "Mac地址搜索",
     "addNote": "备注",
     "addNotes": {
@@ -328,6 +343,10 @@ export default {
   text-align: center;
   margin: 0;
   width: 100%;
+}
+
+.net-status-home.home{
+  height: auto!important;
 }
 </style>
 

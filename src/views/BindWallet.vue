@@ -24,14 +24,23 @@
             <div class="wallet-wrap captcha-bind-wrap">
               <span class="key">{{$t('imageVerCode')}}:</span>
               <div class="hard-captcha">
-                <div id="TCaptcha" style="width:270px;height:30px;"></div>
+                 <!-- 谷歌验证 -->
+                <vue-recaptcha
+                  class="captcha-wrap"
+                  ref="recaptcha"
+                  @verify="onVerify"
+                  @expired="onExpired"
+                  data-size="normal"
+                  :sitekey="sitekey"
+                />
+                <!-- <div id="TCaptcha" style="width:270px;height:30px;"></div> -->
               </div>
               <!-- <ImageCode imageStyle="" type="text" v-model="inputImageCode" class="wallet-image-code"></ImageCode> -->
             </div>
             <div class="wallet-wrap email-bind-wrap">
               <span class="key">{{$t('emailCode')}}:</span>
               <div class="wallet-email">
-                <SendEmailCode type="text" imageStyle="unbind-style" v-model="inputEmailCode" needImageCode=true :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+                <SendEmailCode type="text" imageStyle="unbind-style" v-model="inputEmailCode" needImageCode=true :response='response'  :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
               </div>
             </div>
             <div class="button wallet-bind" @click="bindWallet( $t('sureTips') )">确定</div>
@@ -130,6 +139,8 @@ import { Message } from 'element-ui'
 import ImageCode from '@/components/ImageCode.vue'
 import SendEmailCode from '@/components/SendEmailCode.vue'
 import { LANG } from '../config/contant.js'
+import VueRecaptcha from "vue-recaptcha";
+import { SITEKEY } from '../config/contant.js'
 
 export default {
   name: 'home',
@@ -138,7 +149,8 @@ export default {
     BasiceLayout,
     AccountSetLayout,
     ImageCode,
-    SendEmailCode
+    SendEmailCode,
+    VueRecaptcha
   },
   computed: mapState({
     address: state => state.wallet.address,
@@ -148,54 +160,36 @@ export default {
   data() {
     return {
       new_eth_address: '',
-      // inputImageCode: '',
       inputEmailCode: '',
-      ticket: '', // 验证码ticket
-      csnonce: '' //整数
+      // ticket: '', // 验证码ticket
+      // csnonce: '', //整数
+      response: '',
+      sitekey: SITEKEY['LOW'], //ga verify key
     }
   },
   created() {
-    this.getWalletAddress()
-
-    this.getVertifUrl({ action: 2 }).then(res => {
-      this.csnonce = res.data.csnonce
-      var newScript = document.createElement('script')
-      newScript.type = 'text/javascript'
-      newScript.src = res.data.url
-      document.body.appendChild(newScript)
-      let that = this
-
-      setTimeout(() => {
-        var capOption = {
-          callback: cbfn,
-          themeColor: '15bcad',
-          lang: LANG[this.$i18n.locale || 'en']
-        }
-        capInit(document.getElementById('TCaptcha'), capOption)
-        //回调函数：验证码页面关闭时回调
-        function cbfn(retJson) {
-          if (retJson.ret == 0) {
-            that.ticket = retJson.ticket
-            // that.sendCode();
-            // 用户验证成功
-          } else {
-            //用户关闭验证码页面，没有验证
-          }
-        }
-      }, 1000)
-    })
+    this.getWalletAddress();
   },
   methods: {
     ...mapActions([
       'getWalletAddress',
       'bindWalletAddress',
-      'getVertifUrl',
       'commitUnbindAddress'
     ]),
+    onVerify: function(response) {
+      this.response = response;
+    },
+    onExpired: function() {
+      Message({
+        message: this.$t("captcha.expired"),
+        type: "error"
+      });
+      this.$refs.recaptcha.reset();
+    },
+    resetRecaptcha() {
+      this.$refs.recaptcha.reset();
+    },
     bindWallet(text) {
-      console.log(this.$i18n.messages)
-
-      // let { password, new_eth_address } = this;
       let { ticket, inputEmailCode, new_eth_address } = this
 
       if (!inputEmailCode || !new_eth_address) {
@@ -231,13 +225,12 @@ export default {
             }
           })
         })
-        .catch(() => {
-          console.log('cancel')
+        .catch((error) => {
+          console.log(error);
         })
     },
     // 邮箱验证错误
     emailCodeTip(error) {
-      console.log(error)
       if (error.message) {
         Message({
           type: 'error',
@@ -270,37 +263,17 @@ export default {
         })
       })
     },
-    // 刷新验证码
-    getCaptcha() {
-      this.getVertifUrl({ action: 2 }).then(res => {
-        this.csnonce = res.data.csnonce
-        let newScript = document.createElement('script')
-        newScript.type = 'text/javascript'
-        newScript.src = res.data.url
-        document.body.appendChild(newScript)
-        let that = this
-
-        setTimeout(() => {
-          var capOption = {
-            callback: cbfn,
-            themeColor: '15bcad',
-            lang: LANG[this.$i18n.locale || 'en']
-          }
-          capInit(document.getElementById('TCaptcha'), capOption)
-          //回调函数：验证码页面关闭时回调
-          function cbfn(retJson) {
-            if (retJson.ret == 0) {
-              that.ticket = retJson.ticket
-            }
-          }
-        }, 1000)
-      })
-    }
   }
 }
 </script>
 
 <style scoped lang="stylus">
+.email-bind-wrap span{
+  height: 40px;
+  line-height: 40px; 
+}
+
+
 .hard-captcha {
   height: 40px;
 }
@@ -313,7 +286,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  line-height: 40px;
+  height: 70px;
+  line-height: 70px; 
 }
 
 .hard-captcha {

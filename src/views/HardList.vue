@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home hardlist-home">
     <HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
       <BasiceLayout :title="$t('hardListLayoutTitile')">
         <div class="hardware-content">
@@ -34,16 +34,31 @@
               </template>
             </el-table-column>
             <!-- cpu -->
-            <el-table-column prop="cpu_count" :label="$t('CPU')" align='center'></el-table-column>
+            <el-table-column prop="" :label="$t('CPU')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="scope.row.cpu_count">{{scope.row.cpu_count}}</div>
+                <div v-else>-</div>
+              </template>
+            </el-table-column>
             <!-- 内存 -->
-            <el-table-column prop="mem_size" :label="$t('mem_size')" align='center'></el-table-column>
+            <el-table-column prop="" :label="$t('mem_size')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="scope.row.mem_size">{{scope.row.mem_size}}</div>
+                <div v-else>-</div>
+              </template>
+            </el-table-column>
             <!-- 硬盘 -->
-            <el-table-column prop="storage_size" :label="$t('storage_size')" align='center'></el-table-column>
+            <el-table-column prop="" :label="$t('storage_size')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="scope.row.storage_size">{{scope.row.storage_size}}</div>
+                <div v-else>-</div>
+              </template>
+            </el-table-column>
             <!-- 版本 -->
             <el-table-column prop="info" :label="$t('info')" align='center'></el-table-column>
             <!-- 上行宽带 -->
             <!-- <el-table-column prop="tx_bw" :label="$t('tx_bw')" align='center'></el-table-column> -->
-             <el-table-column prop="" :label="$t('tx_bw')" align='center'>
+            <el-table-column prop="" :label="$t('tx_bw')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.tx_bw">-</div>
                 <el-tag v-if="scope.row.tx_bw < 1" type="danger">1 M &lt;</el-tag>
@@ -357,6 +372,9 @@ export default {
 </script>
 
 <style lang="stylus">
+.hardlist-home.home{
+  height: auto!important;
+}
 .hard-captcha {
   width: 100%;
 }

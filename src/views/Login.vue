@@ -74,6 +74,7 @@ import BasicInput from "@/components/BasicInput.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
 import { Message } from "element-ui";
 import VueRecaptcha from "vue-recaptcha";
+import { SITEKEY } from '../config/contant.js'
 
 export default {
   name: "Login",
@@ -90,7 +91,7 @@ export default {
       passwordErrorMsg: "",
       inputEmail: "",
       inputPassword: "",
-      sitekey: "6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d", //ga verify key
+      sitekey: SITEKEY['LOW'], //ga verify key
       response: "", //ga verify response
       isLoginDisable: false //login可点击状态
     };
@@ -102,11 +103,9 @@ export default {
   }),
   methods: {
     onVerify: function(response) {
-      console.log("Verify: " + response);
       this.response = response;
     },
     onExpired: function() {
-      console.log("Expired");
       Message({
         message: this.$t("captcha.expired"),
         type: "error"
@@ -282,5 +281,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
+
 </style>
 
