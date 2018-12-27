@@ -73,7 +73,7 @@ export default {
     ...mapActions(["sendEmailCode_v3"]),
     sendCode() {
       let that = this;
-      let { response, email, ticket } = this;
+      let { response, email } = this;
       // -----后续建议提出来统一维护
       const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
       if (!email || !emailRule.test(email)) {
@@ -84,10 +84,10 @@ export default {
         return;
       }
 
-      if (!ticket) {
+      if (!response) {
         that.$emit("emailCodeTip", {
           type: "captcha",
-          message: "Please verify the picture."
+          message: "Please verify the verification code"
         });
         return;
       }
@@ -95,7 +95,7 @@ export default {
       // 倒计时
       this.startCountBack();
 
-      this.sendEmailCode_v2({
+      this.sendEmailCode_v3({
         email,
         response
       }).then(res => {

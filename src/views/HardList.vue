@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home hardlist-home">
     <HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
       <BasiceLayout :title="$t('hardListLayoutTitile')">
         <div class="hardware-content">
@@ -71,14 +71,22 @@
     <!-- 解绑 -->
     <el-dialog :title="$t('dialog.title')" :visible.sync="showUnbindDialog" width="480px" center>
       <div class="unbind-dialog-wrap">
-        <span class="key">{{$t('dialog.imageVerify')}}</span>
+        <span class="key verify-key">{{$t('dialog.imageVerify')}}</span>
         <div class="hard-captcha">
-          <div id="TCaptcha" style="width:100%;height:30px;"></div>
+          <!-- 谷歌验证 -->
+          <vue-recaptcha
+            class="captcha-wrap"
+            ref="recaptcha"
+            @verify="onVerify"
+            @expired="onExpired"
+            data-size="normal"
+            :sitekey="sitekey"
+          />
         </div>
       </div>
       <div class="unbind-dialog-wrap">
-        <span class="key">{{$t('dialog.mailText')}}</span>
-        <SendEmailCode type="text" imageStyle="unbind-style" :csnonce="csnonce" :ticket="ticket" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+        <span class="key mail-key">{{$t('dialog.mailText')}}</span>
+        <SendEmailCode type="text" imageStyle="unbind-style" :response="response" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
       </div>
       <span slot="footer" class="dialog-footer">
         <div class="sure-unbind button" @click="showUnbindDialog = false">{{ $t('dialog.cancel') }}</div>
@@ -176,7 +184,8 @@ import HardwareLayout from '@/components/Hardware/HardwareLayout.vue'
 import SendEmailCode from '@/components/SendEmailCode.vue'
 import moment from 'moment'
 import { Message } from 'element-ui'
-import { LANG } from '../config/contant.js'
+import { LANG, SITEKEY } from '../config/contant.js'
+import VueRecaptcha from "vue-recaptcha";
 
 export default {
   name: 'home',
@@ -184,7 +193,8 @@ export default {
     BasiceLayout,
     AccountSetLayout,
     SendEmailCode,
-    HardwareLayout
+    HardwareLayout,
+    VueRecaptcha
   },
   data() {
     return {
@@ -195,9 +205,11 @@ export default {
       addNoteId: '', //添加备注Id
       addNoteAddress: '', //添加备注Id
       inputEmailCode: '', //输入的邮件码
-      ticket: '', // 验证码ticket
-      csnonce: '', //整数
-      searchMacAddress: ''
+      // ticket: '', // 验证码ticket
+      // csnonce: '', //整数
+      searchMacAddress: '',
+      response: '',
+      sitekey: SITEKEY['LOW'], //ga verify key
     }
   },
   computed: mapState({
@@ -212,10 +224,24 @@ export default {
     ...mapActions([
       'getHardList',
       'unbindHard',
-      'getVertifUrl',
       'getDeviceDetail',
       'addDeviceNotes'
     ]),
+    onVerify: function(response) {
+      console.log("Verify: " + response);
+      this.response = response;
+    },
+    onExpired: function() {
+      console.log("Expired");
+      Message({
+        message: this.$t("captcha.expired"),
+        type: "error"
+      });
+      this.$refs.recaptcha.reset();
+    },
+    resetRecaptcha() {
+      this.$refs.recaptcha.reset();
+    },
     change() {
       this.changePw({
         oldPassword: this.oldPw,
@@ -224,26 +250,8 @@ export default {
       })
     },
     checkUnBind(id) {
-      this.showUnbindDialog = true
-      this.unbindId = id
-      let that = this
-      setTimeout(() => {
-        var capOption = {
-          callback: cbfn,
-          themeColor: '15bcad',
-          lang: LANG[this.$i18n.locale || 'en']
-        }
-        capInit(document.getElementById('TCaptcha'), capOption)
-        //回调函数：验证码页面关闭时回调
-        function cbfn(retJson) {
-          if (retJson.ret == 0) {
-            that.ticket = retJson.ticket
-            // 用户验证成功
-          } else {
-            //用户关闭验证码页面，没有验证
-          }
-        }
-      }, 1000)
+      this.showUnbindDialog = true;
+      this.unbindId = id;
     },
     // 添加备注
     addNote() {
@@ -284,6 +292,7 @@ export default {
         deviceId: this.unbindId,
         emailVerifyCode: this.inputEmailCode
       }).then(res => {
+        this.resetRecaptcha();
         if (res.message === 'unregister success') {
           // 刷新硬件列表
           this.getHardList({ pageNum: this.currentPage })
@@ -328,14 +337,6 @@ export default {
 
   created() {
     this.getHardList({ pageNum: 1 })
-    this.getVertifUrl({ action: 2 }).then(res => {
-      this.csnonce = res.data.csnonce
-      let newScript = document.createElement('script')
-      newScript.type = 'text/javascript'
-      newScript.src = res.data.url
-      document.body.appendChild(newScript)
-      let that = this
-    })
   }
 }
 </script>
@@ -378,8 +379,18 @@ export default {
 
 .unbind-dialog-wrap {
   display: flex;
-  height: 42px;
+  height: 78px;
   margin-bottom: 20px;
+}
+
+.unbind-dialog-wrap .verify-key {
+  line-height: 78px;
+}
+.unbind-dialog-wrap .mail-key {
+  width: 180px;
+  line-height: 40px;
+  height: 40px;
+  padding-top: 15px;
 }
 
 .unbind-input {
@@ -434,5 +445,21 @@ export default {
   margin: 0;
   width: 100%;
 }
+
+// // .hardlist-home .captcha-wrap {
+// //   transform: scale(0.96);
+// //   -webkit-transform: scale(0.96);
+// //   transform-origin: 0 0;
+// //   -webkit-transform-origin: 0 0;
+// //   margin: 10px 30px;
+// // }
+
+
+//   .hardlist-home  .captcha-wrap {
+//     transform: scale(0.78);
+//     -webkit-transform: scale(0.78);
+//     transform-origin: 0 0;
+//     -webkit-transform-origin: 0 0;
+//   }
 </style>
 
