@@ -14,18 +14,6 @@ export const loginIn = (data) => {
 export const ajaxImageCode = () => {
   return fetch(baseUrl + '/api/web/captcha/get/');
 };
-/**
- * 发送邮箱验证码
- */
-export const ajaxEmailCode = (data) => {
-  return fetch(baseUrl + '/api/web/email/verification/', data, 'POST');
-};
-/**
- * 发送邮箱验证码
- */
-export const ajaxEmailCode_v2 = (data) => {
-  return fetch(baseUrl + '/api/web/email/verification_v2/', data, 'POST');
-};
 export const ajaxEmailCode_v3 = (data) => {
   return fetch(baseUrl + '/api/web/email/verification_v3/', data, 'POST');
 };

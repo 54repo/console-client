@@ -1,53 +1,71 @@
 /** 登录框组件 **/
 <template>
   <div class="BasicInput EmailBaseInput">
-    <!-- <div class="captcha_wrap">
-      <div id="TCaptcha" style="width:100%;height:20px;"></div>
-    </div> -->
     <vue-recaptcha
       class="captcha-wrap"
       ref="recaptcha"
       @verify="onVerify"
       @expired="onExpired"
       data-size="normal"
-      :sitekey="sitekey"
+      :sitekey="siteKey"
     >
     </vue-recaptcha>
     <div class="email_wrap">
-      <div v-if="iconType" class="icon-wrap">
-        <div v-bind:class="iconType" class="icon"></div>
+      <div
+        v-if="iconType"
+        class="icon-wrap"
+      >
+        <div
+          v-bind:class="iconType"
+          class="icon"
+        ></div>
       </div>
-      <input class="basic-input" v-bind:placeholder="placeValue" v-bind:type="type" v-model="inputValue" v-on:input="$emit('change', $event.target.value)" />
-      <div v-if="sendStatus" class="send-code bonus-cursor" v-bind:class="imageStyle" v-on:click="sendCode">{{ $t('register.sendVCOde') }}</div>
-      <div v-if="!sendStatus" class="send-code" v-bind:class="imageStyle">{{ count }}</div>
+      <input
+        class="basic-input"
+        v-bind:placeholder="placeValue"
+        v-bind:type="type"
+        v-model="inputValue"
+        v-on:input="$emit('change', $event.target.value)"
+      />
+      <div
+        v-if="sendStatus"
+        class="send-code bonus-cursor"
+        v-bind:class="imageStyle"
+        v-on:click="sendCode"
+      >{{ $t('register.sendVCOde') }}</div>
+      <div
+        v-if="!sendStatus"
+        class="send-code"
+        v-bind:class="imageStyle"
+      >{{ count }}</div>
     </div>
 
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { Message } from 'element-ui'
-import { LANG } from '../config/contant.js'
+import { mapActions, mapState } from "vuex";
+import { Message } from "element-ui";
+import { LANG } from "../../config/contant.js";
 import VueRecaptcha from "vue-recaptcha";
 
 export default {
-  name: 'EmailCodeWithTX',
+  name: "EmailCode",
   props: {
-    iconType: '', // icon图地址
-    defaultValue: '',
-    placeValue: '', // input placehoder
-    type: '', // input类型,
-    value: '',
-    imageCodeSrc: '', //图片验证码地址,
-    email: '', //邮箱地址
-    // needImageCode: false,
-    imageCode: '', // 图片验证码
-    imageStyle: '' //绑定页面特定样式
+    iconType: "", // icon图地址
+    defaultValue: "",
+    placeValue: "", // input placehoder
+    type: "", // input类型,
+    value: "",
+    imageCodeSrc: "", //图片验证码地址,
+    email: "", //邮箱地址
+    imageCode: "", // 图片验证码
+    imageStyle: "", //绑定页面特定样式
+    siteKey: ''
   },
   model: {
-    prop: 'value',
-    event: 'change'
+    prop: "value",
+    event: "change"
   },
   components: {
     VueRecaptcha
@@ -57,20 +75,15 @@ export default {
       inputValue: this.value,
       sendStatus: true, // 验证码点击状态
       TIME_COUNT: 60, //倒计时时间
-      count: '', // 计数
+      count: "", // 计数
       timer: null, // 记录循环
       time: 60, // 发送验证码倒计时
       sendMsgDisabled: false,
-      ticket: '', // 验证码ticket
-      csnonce: '', //整数
-      // sitekey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI", //ga verify key
-      sitekey: "6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d", //ga verify key
-      response: "", //ga verify response
-    }
+      response: "" //ga verify response
+    };
   },
   methods: {
-    // ...mapActions(['getVertifUrl', 'sendEmailCode_v2']),
-    ...mapActions(['sendEmailCode_v3']),
+    ...mapActions(["sendEmailCode_v3"]),
     onVerify: function(response) {
       this.response = response;
     },
@@ -85,93 +98,94 @@ export default {
       this.$refs.recaptcha.reset();
     },
     sendCode() {
-      let that = this
+      let that = this;
+      let {email, response} = this;
       // -----后续建议提出来统一维护
-      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/
-      if (!this.email || !emailRule.test(this.email)) {
-        that.$emit('emailCodeTip', {
-          type: 'email',
-          message: 'the email is error '
-        })
-        return
+      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
+      if (!email || !emailRule.test(email)) {
+        that.$emit("emailCodeTip", {
+          type: "email",
+          message: "the email is error "
+        });
+        return;
       }
       // 进行图片验证
-      if (!this.response) {
-        that.$emit('emailCodeTip', {
-          type: 'captcha',
-          message: 'Please verify.'
-        })
+      if (!response) {
+        that.$emit("emailCodeTip", {
+          type: "captcha",
+          message: "Please verify."
+        });
       } else {
         // 倒计时
-        this.startCountBack()
+        this.startCountBack();
 
         this.sendEmailCode_v3({
-          email: this.email,
-          response: this.response
+          email,
+          response
         }).then(res => {
-          try {
-            let { step, status } = res.ret
-            if (status === 'failed') {
-              clearInterval(that.timer)
-              that.sendStatus = true
-              if (step === 'captcha') {
-                that.$emit('emailCodeTip', {
-                  type: 'captcha',
+          if (!res.ret) {
+            clearInterval(that.timer);
+            that.sendStatus = true;
+            Message(res.message || "network error");
+          } else {
+            let { step, status } = res.ret;
+            if (status === "failed") {
+              clearInterval(that.timer);
+              that.sendStatus = true;
+              if (step === "captcha") {
+                that.$emit("emailCodeTip", {
+                  type: "captcha",
                   message: res.message
-                })
-              } else if (step === 'email') {
-                that.$emit('emailCodeTip', {
-                  type: 'email',
+                });
+              } else if (step === "email") {
+                that.$emit("emailCodeTip", {
+                  type: "email",
                   message: res.message
-                })
+                });
               }
             } else {
-              that.$emit('emailCodeTip', {
-                type: 'email',
-                message: ''
-              })
-              that.$emit('emailCodeTip', {
-                type: 'captcha',
-                message: ''
-              })
+              that.$emit("emailCodeTip", {
+                type: "email",
+                message: ""
+              });
+              that.$emit("emailCodeTip", {
+                type: "captcha",
+                message: ""
+              });
             }
-          } catch (error) {
-            clearInterval(that.timer)
-            that.sendStatus = true
-            let message = error.message || 'network error'
-            Message(message)
           }
-        })
+        });
       }
     },
     startCountBack() {
-      let that = this
-      that.sendStatus = false //倒计时
-      const TIME_COUNT = that.TIME_COUNT
-      that.count = TIME_COUNT
+      let that = this;
+      that.sendStatus = false; //倒计时
+      const TIME_COUNT = that.TIME_COUNT;
+      that.count = TIME_COUNT;
       that.timer = setInterval(() => {
         if (that.count > 0 && that.count <= TIME_COUNT) {
-          that.count--
+          that.count--;
         } else {
-          that.show = true
-          clearInterval(that.timer)
-          that.timer = null
-          that.sendStatus = true
+          that.show = true;
+          clearInterval(that.timer);
+          that.timer = null;
+          that.sendStatus = true;
         }
-      }, 1000)
+      }, 1000);
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
-.EmailBaseInput .captcha-wrap
+.EmailBaseInput .captcha-wrap {
   margin: 0px;
   transform: scale(0.96);
   -webkit-transform: scale(0.96);
   transform-origin: 0 0;
   -webkit-transform-origin: 0 0;
+}
 
 .BasicInput.EmailBaseInput.account-input.password-email {
   height: 120px;
@@ -189,6 +203,7 @@ export default {
     transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
   }
+
   .BasicInput.EmailBaseInput.account-input.password-email {
     height: 110px;
   }
@@ -198,7 +213,6 @@ export default {
     margin: 0px;
   }
 }
-
 
 .account-email {
   min-height: 100px;
@@ -259,7 +273,7 @@ input.basic-input {
 }
 
 .emailCode {
-  background-image: url('../assets/account/emailCode.png');
+  background-image: url('../../assets/account/emailCode.png');
 }
 
 .send-code {

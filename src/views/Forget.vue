@@ -19,7 +19,8 @@
               <span class="EmailErrorMsg">{{ EmailErrMsg }}</span>
           </div>
 					<!-- 验证码 -->    
-          <EmailCodeWithTx 
+          <EmailCodeByGVerify 
+            :siteKey="siteKey" 
             type="text" 
             icon-type="emailCode" 
             class="account-input password-email" 
@@ -27,7 +28,7 @@
             :email="inputEmail" 
             @emailCodeTip="emailCodeTip" 
             :placeValue="$t('forgetPW.forgetVer')">
-          </EmailCodeWithTx>
+          </EmailCodeByGVerify>
           <div v-if="EmailCodeErrMsg" class="account-error">
             <i class="el-alert__icon el-icon-error"></i>
             <span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span>
@@ -66,11 +67,10 @@
 import Header from "@/components/Header.vue";
 import AccountLayout from "@/components/AccountLayout.vue";
 import BasicInput from "@/components/BasicInput.vue";
-// import EmailCodeWithTx from "@/components/EmailCodeWithTx.vue";
-import EmailCodeWithTx from "@/components/EmailCodeWithTX.vue";
-
+import EmailCodeByGVerify from "@/components/Common/EmailCodeByGVerify.vue";
 import { mapMutations, mapActions, mapState } from "vuex";
 import { Message } from "element-ui";
+import { SITEKEY } from '../config/contant.js'
 
 export default {
   name: "forget",
@@ -82,14 +82,12 @@ export default {
       EmailCodeErrMsg: "",
       PwErrMsg: "",
       secPsErrMsg: "",
-
       //	输入的注册字段
       inputEmail: "",
       // inputImageCode: "",
       inputEmailCode: "",
       inputPw: "",
       inputSePw: "",
-
       // 注册可点击状态
       isSignUpDisable: false
     };
@@ -98,7 +96,7 @@ export default {
     Header,
     AccountLayout,
     BasicInput,
-    EmailCodeWithTx,
+    EmailCodeByGVerify,
   },
   mounted() {
     // 获取注册初始化图片验证码
@@ -107,7 +105,10 @@ export default {
   },
   computed: mapState({
     // 验证码地址
-    imageCodeSrc: state => state.signUp.imageCodeSrc
+    imageCodeSrc: state => state.signUp.imageCodeSrc,
+    siteKey() {
+      return SITEKEY.LOW
+    }
   }),
   methods: {
     ...mapActions(["getImageCode", "ajaxForget"]),
@@ -218,12 +219,10 @@ export default {
 <style scoped lang="stylus">
 .account-dialog {
 	width: 52%;
-	max-height: 390px;
 	max-width: 420px;
 	background: #fff;
 	border: 1px solid #e3e3e7;
 	margin: 18% 0 0 10%;
-	padding-bottom: 35px;
 }
 
 .account-dialog .title {
@@ -262,15 +261,13 @@ export default {
 @media screen and (min-width: 1200px) {
 	.account-dialog {
 		width: 350px;
-		// height: 320px;
 	}
 }
 
 @media screen and (max-width: 1200px) {
 	.account-dialog {
 		width: 300px;
-		// height: 280px;
-		max-height: 390px;
+		// max-height: 410px;
 		max-width: 420px;
 		background: #fff;
 		border: 1px solid #e3e3e7;
