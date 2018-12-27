@@ -264,7 +264,7 @@ export default {
       if (res.data && res.data.balance) {
         commit(GET_BALANCE, res.data.balance.amount);
 
-        if (res.withdrawalStatus === '0') {
+        if (res.withdrawalStatus === 'closed') {
           commit(GET_WITHDRAWAL_STAUTS, 'closed');
         }
       } else {
