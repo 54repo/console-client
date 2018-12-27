@@ -270,6 +270,10 @@ export default {
     try {
       if (res.data && res.data.balance) {
         commit(GET_BALANCE, res.data.balance.amount);
+
+        if (res.withdrawalStatus === '0') {
+          commit(GET_WITHDRAWAL_STAUTS, 'closed');
+        }
       } else {
         commit(GET_BALANCE, '-');
       }

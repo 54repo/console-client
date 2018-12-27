@@ -45,8 +45,7 @@
         </el-col>
       </el-row>
       <div v-if="balance !== 'NONE'" class="buttonWrap">
-        <div class="button " v-bind:class="{ buttonDisabled: (this.balance < 5000 || this.commitStatus === 'created') }" @click="sureWithdrawal">{{$t('confirm')}}</div>
-      </div>
+        <div class="button " v-bind:class="{ buttonDisabled: (this.balance < 5000 || this.commitStatus === 'created' ||  this.commitStatus === 'closed') }" @click="sureWithdrawal">{{$t('confirm')}}</div>      </div>
       <div v-if="balance === 'NONE'" class="withdrawal-upgrade">{{$t('withdrawal.withUpgrade')}}</div>
     </BasiceLayout>
   </div>
