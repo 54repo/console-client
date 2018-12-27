@@ -67,7 +67,7 @@ import BasiceLayout from '@/components/Common/BasicLayout.vue'
 import CodeList from '@/components/Home/CodeList.vue'
 import { mapState, mapActions } from 'vuex'
 import { Message } from 'element-ui'
-import { LANG } from '../../config/contant.js'
+import { LANG, SITEKEY } from '../../config/contant.js'
 import VueRecaptcha from "vue-recaptcha";
 
 export default {
@@ -86,16 +86,11 @@ export default {
       timeSeconds: '', // 倒计时秒数
       showA: '',
       showB: '',
-
-      // ticket: '', // 验证码ticket
-      // csnonce: '',
       regionOptions: this.$t('HOME.BonusCode.regionOptions'),
       regionDefault: this.$t('HOME.BonusCode.regionOptions')[0].value,
       region: 'mainland',
-      // showVerify: false, //是否可验证验证码
-      // hasLoadCaptcha: false, //记录是否首次加载验证码
-      sitekey: "6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d", //ga verify key
       response: "", //ga verify response
+      sitekey: SITEKEY['HIGH'], //ga verify key
     }
   },
 
@@ -147,50 +142,10 @@ export default {
     resetRecaptcha() {
       this.$refs.recaptcha.reset();
     },
-    // getVerify(params) {
-    //   this.getVertifUrl(params).then(res => {
-    //     if (res.data && res.data.csnonce) {
-    //       let that = this
-    //       that.hasLoadCaptcha = true
-    //       this.showVerify = true
-    //       this.csnonce = res.data.csnonce
-    //       let newScript = document.createElement('script')
-    //       newScript.type = 'text/javascript'
-    //       newScript.src = res.data.url
-    //       document.body.appendChild(newScript)
-
-    //       setTimeout(() => {
-    //         let capOption = {
-    //           callback: cbfn,
-    //           themeColor: '15bcad',
-    //           lang: LANG[this.$i18n.locale || 'en']
-    //         }
-    //         capInit(document.getElementById('TCaptcha'), capOption)
-    //         //回调函数：验证码页面关闭时回调
-    //         function cbfn(retJson) {
-    //           if (retJson.ret == 0) {
-    //             that.ticket = retJson.ticket
-    //             // that.sendCode();
-    //             // 用户验证成功
-    //           } else {
-    //             that.ticket = ''
-    //           }
-    //         }
-    //       }, 1000)
-    //     } else {
-    //       this.showVerify = false
-    //     }
-    //   })
-    // },
     getStatus(region) {
       this.region = region
       this.getInviteCodeStatus(region)
-      // if (this.hasLoadCaptcha) {
-      //   capDestroy()
-      //   this.hasLoadCaptcha = false
-      // }
       this.resetRecaptcha();
-      // this.getVerify({ action: 1, region })
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
     countTime() {
@@ -375,6 +330,6 @@ export default {
   color: #0db4c5;
 }
 
-.captcha-wrap
+.bonus-code-layout .captcha-wrap
   margin: 20px;
 </style>

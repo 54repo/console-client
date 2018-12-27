@@ -1,9 +1,6 @@
 // action
 import {
   loginIn,
-  // ajaxImageCode,
-  // ajaxEmailCode,
-  ajaxEmailCode_v2,
   ajaxEmailCode_v3,
   signUp,
   ajaxInviteCodeStatus,
@@ -72,10 +69,6 @@ export default {
     const res = await ajaxLogout();
     commit(LOGIN_IN, false);
     router.push({ name: 'login' });
-    return res;
-  },
-  async sendEmailCode_v2({ commit }, params) {
-    const res = await ajaxEmailCode_v2(params);
     return res;
   },
   async sendEmailCode_v3({ commit }, params) {

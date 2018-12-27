@@ -19,7 +19,7 @@ if (process.env.NODE_ENV == 'development') {
 	// baseUrl = 'http://localhost:7001';
     imgBaseUrl = '/img/';
 }else if(process.env.NODE_ENV == 'production'){
-	apiUrl = 'http://203.76.212.73:7001'; 
+	// apiUrl = 'http://203.76.212.73:7001'; 
 	baseUrl = '';
     imgBaseUrl = '';
 } 
