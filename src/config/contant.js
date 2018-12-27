@@ -7,6 +7,6 @@ const testKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
 export const SITEKEY = {
     HIGH:  "6LedIH8UAAAAAC4uGYgNVeilo2SIqriySTr0w-1d",
-    // LOW: "6LfxtYIUAAAAALdn2__RJYJHwwz25yTJiORxnbk2",
-    LOW: testKey,
+    LOW: "6LfxtYIUAAAAALdn2__RJYJHwwz25yTJiORxnbk2",
+    // LOW: testKey,
 }
