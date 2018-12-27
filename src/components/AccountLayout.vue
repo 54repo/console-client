@@ -51,6 +51,7 @@ export default {
 @media screen and (min-width: 1200px) and (max-width: 1600px)
   .left-bg-img
     width: 500px;
+    height: auto;
     margin-top: 80px;
     position: absolute;
     right: 80px;
@@ -58,6 +59,7 @@ export default {
 @media screen and (min-width: 1601px) and (max-width: 2048px)
   .left-bg-img
     width: 620px;
+    height: auto;
     position: absolute;
     right: 0;
 

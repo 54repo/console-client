@@ -12,7 +12,7 @@
           <span class="EmailErrorMsg">{{ EmailErrMsg }}</span>
         </div>
         <!-- 验证&邮件码 -->
-        <EmailCodeWithTx type="text" icon-type="emailCode" class="account-input password-email" v-model="inputEmailCode" :email="inputEmail" @emailCodeTip="emailCodeTip" :placeValue="$t('register.verfPlaceHolder')"></EmailCodeWithTx>
+        <EmailCodeByGVerify :siteKey="siteKey" type="text" icon-type="emailCode" class="account-input password-email" v-model="inputEmailCode" :email="inputEmail" @emailCodeTip="emailCodeTip" :placeValue="$t('register.verfPlaceHolder')"></EmailCodeByGVerify>
         <div v-if="EmailCodeErrMsg" class="account-error">
           <i class="el-alert__icon el-icon-error"></i>
           <span class="EmailCodeErrMsg">{{ EmailCodeErrMsg }}</span>
@@ -48,9 +48,10 @@
 import Header from "@/components/Header.vue";
 import AccountLayout from "@/components/AccountLayout.vue";
 import BasicInput from "@/components/BasicInput.vue";
-import EmailCodeWithTx from "@/components/EmailCodeWithTX.vue";
+import EmailCodeByGVerify from "@/components/Common/EmailCodeByGVerify.vue";
 import { mapMutations, mapActions, mapState } from "vuex";
 import { Message } from "element-ui";
+import { SITEKEY } from '../config/contant.js'
 
 export default {
   name: "SignUp",
@@ -76,19 +77,21 @@ export default {
     Header,
     AccountLayout,
     BasicInput,
-    EmailCodeWithTx
+    EmailCodeByGVerify
   },
   computed: mapState({
     // 验证码地址
-    imageCodeSrc: state => state.signUp.imageCodeSrc
+    imageCodeSrc: state => state.signUp.imageCodeSrc,
+    siteKey() {
+      return SITEKEY.LOW
+    }
   }),
   methods: {
-    ...mapActions(["getImageCode", "ajaxSignUp"]),
+    ...mapActions(["ajaxSignUp"]),
     // 登录
     login() {
       this.$router.push({ name: "login" });
     },
-    // ...mapMutations(["isSignUpDisable"]),
     // 注册
     signUp() {
       const {

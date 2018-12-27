@@ -1,8 +1,17 @@
 /** 登录框组件 **/
 <template>
-  <div class="BasicInput"  v-bind:class="imageStyle">
-    <div v-if="iconType" class="icon-wrap">
-      <div  v-bind:class="iconType" class="icon"></div>
+  <div
+    class="BasicInput"
+    v-bind:class="imageStyle"
+  >
+    <div
+      v-if="iconType"
+      class="icon-wrap"
+    >
+      <div
+        v-bind:class="iconType"
+        class="icon"
+      ></div>
     </div>
     <input
       class="basic-input"
@@ -10,13 +19,18 @@
       v-bind:type="type"
       v-model="inputValue"
       v-on:input="$emit('change', $event.target.value)"
-      />
-    <div 
-      v-if="sendStatus" 
-      class="send-code bonus-cursor" 
+    />
+    <div
+      v-if="sendStatus"
+      class="send-code bonus-cursor"
       v-bind:class="imageStyle"
-      v-on:click="sendCode">{{ $t('register.sendVCOde') }}</div>
-    <div v-if="!sendStatus" class="send-code" v-bind:class="imageStyle">{{ count }}</div>
+      v-on:click="sendCode"
+    >{{ $t('register.sendVCOde') }}</div>
+    <div
+      v-if="!sendStatus"
+      class="send-code"
+      v-bind:class="imageStyle"
+    >{{ count }}</div>
   </div>
 </template>
 
@@ -34,13 +48,10 @@ export default {
     type: "", // input类型,
     value: "",
     imageCodeSrc: "", //图片验证码地址,
-
     email: "", //邮箱地址
     imageCode: "", // 图片验证码
-    imageStyle: '', //绑定页面特定样式
-
-    ticket: '',
-    csnonce: ''
+    imageStyle: "", //绑定页面特定样式
+    response: ""
   },
   model: {
     prop: "value",
@@ -59,12 +70,13 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["sendEmailCode_v2"]),
+    ...mapActions(["sendEmailCode_v3"]),
     sendCode() {
       let that = this;
+      let { response, email, ticket } = this;
       // -----后续建议提出来统一维护
       const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
-      if (!this.email || !emailRule.test(this.email)) {
+      if (!email || !emailRule.test(email)) {
         that.$emit("emailCodeTip", {
           type: "email",
           message: "the email is error "
@@ -72,23 +84,26 @@ export default {
         return;
       }
 
-      if (!this.ticket) {
+      if (!ticket) {
         that.$emit("emailCodeTip", {
           type: "captcha",
           message: "Please verify the picture."
         });
-        return
+        return;
       }
 
       // 倒计时
       this.startCountBack();
-      
+
       this.sendEmailCode_v2({
-        email: this.email,
-        ticket: this.ticket,
-        csnonce: this.csnonce
+        email,
+        response
       }).then(res => {
-        try {
+        if (!res.ret) {
+          clearInterval(that.timer);
+          that.sendStatus = true;
+          Message(res.message || "network error");
+        } else {
           let { step, status } = res.ret;
           if (status === "failed") {
             clearInterval(that.timer);
@@ -114,11 +129,6 @@ export default {
               message: ""
             });
           }
-        } catch (error) {
-          clearInterval(that.timer);
-          that.sendStatus = true;
-          let message = error.message || "network error";
-          Message(message);
         }
       });
     },
@@ -192,7 +202,7 @@ input.basic-input {
   background-image: url('../assets/account/emailCode.png');
 }
 
-.send-code
+.send-code {
   font-family: PingFangSC-Regular;
   font-size: 10px;
   color: #13B8BC;
@@ -200,6 +210,6 @@ input.basic-input {
   position: absolute;
   right: 5px;
   line-height: 42px;
-
+}
 </style>
 
