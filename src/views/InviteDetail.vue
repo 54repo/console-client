@@ -188,9 +188,9 @@ export default {
     "pageTitle": "Details",
     "revenueDate": "Date（UTC）",
     "allSearch": "All",
-    "invite_account" : "Invitatory Account",
-    "register_time": "Register Time（UTC）",
-    "invite_bxc": "Invited BxC"
+    "invite_account" : "Invited Account",
+    "register_time": "Registration Date(UTC)",
+    "invite_bxc": "Bonus"
   }
 }
 </i18n>

@@ -140,7 +140,7 @@
 		"totalTime": "Total Online Time",
     "netStatus": "Status",
     "noHardwareTip": "No Device",
-    "unbindButton": "unbind",
+    "unbindButton": "Unbind",
     "dialog": {
       "cancel": "Cancel",
       "sure": "Sure",
@@ -152,12 +152,12 @@
     "needsMiddle": "Medium",
     "needsLow": "Low",
     "mac_address": "Search Mac Address",
-    "addNote": "note",
+    "addNote": "Note",
     "addNotes": {
       "title": "Add device note",
       "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
     },
-    "noteText": "note",
+    "noteText": "Note",
     "allSearch": "All"
   },
   "zn": {
@@ -394,7 +394,6 @@ export default {
   width: 90px;
   height: 35px;
   display: inline-block;
-  width: 100%;
 }
 .unbind-dialog-wrap .key {
   font-family: PingFangSC-Regular;

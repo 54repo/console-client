@@ -138,12 +138,12 @@ justify-content center, .revenue-icon {
 <i18n>
 {
   "en": {
-		"revenue_1": "Total Mining Rewards",
+		"revenue_1": "Account Total Revenue",
 		"revenue_2": "Account Balance",
-		"revenue_3": "Total Invited Rewards",
-		"revenue_4": "Total Online Revenue",
-		"revenue_5": "Total Network Revenue",
-		"revenue_6": "Total Cumulative Revenue"
+		"revenue_3": "Cumulative Invitation Bonus",
+		"revenue_4": "Cumulative Online Revenue",
+		"revenue_5": "Cumulative Network Task Revenue",
+		"revenue_6": "Cumulative Computing Task Revenue"
   },
   "zn": {
 		"revenue_1": "账号累计收益",

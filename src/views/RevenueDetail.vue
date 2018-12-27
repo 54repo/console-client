@@ -320,7 +320,7 @@ export default {
     "pageTitle": "详情",
     "revenueDate": "查询日期（UTC）",
     "revenueMac": "查询MAC地址",
-    "mac_address": "Mac地址",
+    "mac_address": "设备",
     "device_revenue": "设备收益",
     "noteText": "备注",
     "search_mac_address": "搜索Mac地址",

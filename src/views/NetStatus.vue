@@ -83,7 +83,7 @@
     "macAddress": "MAC Address",
     "location": "Area",   
     "stable": "Stable",   
-    "needs": "Area Node Requirement",                                                                    
+    "needs": "Node Demand",                                                                    
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
     "netStatus": "Status",
