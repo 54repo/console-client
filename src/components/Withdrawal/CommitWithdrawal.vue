@@ -1,7 +1,7 @@
 /** 提现 */
 <template>
   <div class="commit-withdrawal-wrap">
-    <BasiceLayout :title="$t('withdrawal.pageTitle') " class="bonus-code-layout revenue-all-layout">
+    <BasiceLayout :title="$t('withdrawal.pageTitle') " class="bonus-code-layout revenue-all-layout commit-layout">
       <el-row v-if="balance !== 'NONE'">
         <el-col :span="10">
           <div class="left-wrap">
@@ -25,7 +25,15 @@
           <div class="verify-key withdrawal-key">{{$t('withdrawal.commitWith.verify')}}</div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
-          <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify>
+          <!-- <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify> -->
+          <vue-recaptcha
+            class="captcha-wrap"
+            ref="recaptcha"
+            @verify="onVerify"
+            @expired="onExpired"
+            data-size="normal"
+            :sitekey="sitekey"
+          />
         </el-col>
       </el-row>
       <el-row v-if="balance !== 'NONE'">
@@ -33,7 +41,7 @@
           <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
-          <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+          <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :response="response" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
         </el-col>
       </el-row>
       <el-row v-if="balance !== 'NONE'" class="pw-wrap">
@@ -58,6 +66,8 @@ import SendEmailCode from '@/components/SendEmailCode.vue'
 import { mapActions, mapState } from 'vuex'
 import { Message } from 'element-ui'
 import { messageTips } from '../../utils/tips.js'
+import { SITEKEY } from '../../config/contant.js'
+import VueRecaptcha from "vue-recaptcha";
 
 export default {
   name: 'AccountLayout',
@@ -65,7 +75,8 @@ export default {
   components: {
     BasiceLayout,
     TencentVerify,
-    SendEmailCode
+    SendEmailCode,
+    VueRecaptcha
   },
   computed: mapState({
     //  箭头函数可使代码更简练
@@ -82,7 +93,9 @@ export default {
       csnonce: '',
       amount: '',
       inputEmailCode: '',
-      password: ''
+      password: '',
+      response: '',
+      sitekey: SITEKEY['LOW'], //ga verify key
     }
   },
   created() {
@@ -95,6 +108,20 @@ export default {
       'getWithdrawalList',
       'getWithdrawalBalance'
     ]),
+    onVerify: function(response) {
+      this.response = response;
+    },
+    onExpired: function() {
+      console.log("Expired");
+      Message({
+        message: this.$t("captcha.expired"),
+        type: "error"
+      });
+      this.$refs.recaptcha.reset();
+    },
+    resetRecaptcha() {
+      this.$refs.recaptcha.reset();
+    },
     emailCodeTip(error) {
       if (error.message) {
         Message({
@@ -238,5 +265,9 @@ export default {
 
 .verify-wrap {
   margin: 20px 0;
+}
+
+.commit-layout .captcha-wrap {
+  margin: 20px 20px 20px 0;
 }
 </style>
