@@ -1,7 +1,7 @@
 /** 提现 */
 <template>
   <div class="commit-withdrawal-wrap">
-    <BasiceLayout :title="$t('withdrawal.pageTitle') " class="bonus-code-layout revenue-all-layout">
+    <BasiceLayout :title="$t('withdrawal.pageTitle') " class="bonus-code-layout revenue-all-layout commit-layout">
       <el-row v-if="balance !== 'NONE'">
         <el-col :span="10">
           <div class="left-wrap">
@@ -25,15 +25,22 @@
           <div class="verify-key withdrawal-key">{{$t('withdrawal.commitWith.verify')}}</div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
-          <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify>
+          <vue-recaptcha
+            class="captcha-wrap"
+            ref="recaptcha"
+            @verify="onVerify"
+            @expired="onExpired"
+            data-size="normal"
+            :sitekey="sitekey"
+          />
         </el-col>
       </el-row>
       <el-row v-if="balance !== 'NONE'">
         <el-col :span="10">
-          <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
+          <div class="withdrawal-key email-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
-          <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :ticket='ticket' :csnonce="csnonce" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
+          <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :response="response" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
         </el-col>
       </el-row>
       <el-row v-if="balance !== 'NONE'" class="pw-wrap">
@@ -58,14 +65,16 @@ import SendEmailCode from '@/components/SendEmailCode.vue'
 import { mapActions, mapState } from 'vuex'
 import { Message } from 'element-ui'
 import { messageTips } from '../../utils/tips.js'
-
+import { SITEKEY } from '../../config/contant.js'
+import VueRecaptcha from "vue-recaptcha";
 export default {
   name: 'AccountLayout',
   props: {},
   components: {
     BasiceLayout,
     TencentVerify,
-    SendEmailCode
+    SendEmailCode,
+    VueRecaptcha
   },
   computed: mapState({
     //  箭头函数可使代码更简练
@@ -82,7 +91,9 @@ export default {
       csnonce: '',
       amount: '',
       inputEmailCode: '',
-      password: ''
+      password: '',
+      response: '',
+      sitekey: SITEKEY['LOW'], //ga verify key
     }
   },
   created() {
@@ -95,6 +106,20 @@ export default {
       'getWithdrawalList',
       'getWithdrawalBalance'
     ]),
+    onVerify: function(response) {
+      this.response = response;
+    },
+    onExpired: function() {
+      console.log("Expired");
+      Message({
+        message: this.$t("captcha.expired"),
+        type: "error"
+      });
+      this.$refs.recaptcha.reset();
+    },
+    resetRecaptcha() {
+      this.$refs.recaptcha.reset();
+    },
     emailCodeTip(error) {
       if (error.message) {
         Message({
@@ -110,7 +135,6 @@ export default {
     },
     sureWithdrawal() {
       let { inputEmailCode, password, amount, balance } = this
-
       if (this.balance < 5000 || this.commitStatus === 'created') {
         return;
       }
@@ -162,8 +186,9 @@ export default {
 <style scoped lang="stylus">
 .verify-key {
   margin: 18px 0;
+  height: 82px;
+  line-height: 82px;
 }
-
 .withdrawal-key {
   width: 100%;
   color: #96999b;
@@ -173,61 +198,49 @@ export default {
   line-height: 50px;
   // margin: 10px 0;
 }
-
 . withdrawal-value {
   height: 50x;
   margin: 10px 0;
 }
-
 .withdrawal-balance {
   height: 50px;
   line-height: 50px;
   font-size: 24px;
 }
-
 .commit-right-wrap {
   padding-left: 50px;
 }
-
 .balance-distance {
   margin: 10px 0;
 }
-
 .TencentVerify {
   height: 40px;
   width: 150px;
   margin: 10px 0;
 }
-
 .buttonWrap {
   width: 100%;
   display: flex;
   justify-content: center;
   margin: 30px;
 }
-
 .withdrawal-ammount {
   margin-top: 5px;
 }
-
 .withdrawal-ammount, .send-wrap {
   width: 230px;
   height: 40px;
 }
-
 .pw-key {
   padding: 5px 0;
 }
-
 .pw-wrap {
   margin: 10px 0;
 }
-
 .with-pw {
   margin: 10px 0;
   width: 230px;
 }
-
 .withdrawal-upgrade {
   color: #909399;
   line-height: 30px;
@@ -235,8 +248,14 @@ export default {
   margin: 40px auto;
   text-align: center;
 }
-
 .verify-wrap {
   margin: 20px 0;
+}
+.commit-layout .captcha-wrap {
+  margin: 20px 20px 20px 0;
+}
+.commit-withdrawal-wrap .email-key{
+  height: 40px;
+  line-height: 40px;
 }
 </style>
