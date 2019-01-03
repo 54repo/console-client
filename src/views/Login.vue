@@ -103,11 +103,9 @@ export default {
   }),
   methods: {
     onVerify: function(response) {
-      console.log("Verify: " + response);
       this.response = response;
     },
     onExpired: function() {
-      console.log("Expired");
       Message({
         message: this.$t("captcha.expired"),
         type: "error"
@@ -283,5 +281,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
+
 </style>
 

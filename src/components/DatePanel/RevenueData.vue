@@ -2,8 +2,7 @@
   <!-- <div class=" annouce-content"> -->
   <div class="BonusCode">
     <BasiceLayout :title=" $t('revenue_data_text') " class="bonus-code-layout revenue-all-layout">
-      <RevenueContent :allRenvue="allRenvue" :person_invite_revenue="person_invite_revenue" :person_account_revenue="person_account_revenue">
-      </RevenueContent>
+      <RevenueContent />
     </BasiceLayout>
   </div>
 </template>
@@ -15,11 +14,6 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'BonusCode',
-  props: {
-    allRenvue: '',
-    person_invite_revenue: '',
-    person_account_revenue: ''
-  },
   components: {
     BasiceLayout,
     RevenueContent
@@ -42,5 +36,9 @@ export default {
 <style lang="stylus">
 .revenue-all-layout {
   margin-top: 0px;
+}
+
+.revenue-all-layout .layout-content {
+  margin: 0;
 }
 </style>

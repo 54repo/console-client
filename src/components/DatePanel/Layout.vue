@@ -13,37 +13,48 @@
 					router="router">
           <el-menu-item index="0"  route="/" class="home-page-wrap"  v-bind:class="{ isActive: (thisPath === '/') }">
             <img  class="menu-icon home-icon" src="../../assets/homeIcon.png" >
-            <span slot="title">{{ $t('local_home_layout.menu.0_value')}}</span>
+            <span slot="title">{{ $t('local_home_layout.menu.data_panel')}}</span>
           </el-menu-item>
           <el-submenu index="1" route="/revenue" class="revenue-wrap">
             <template slot="title">
               <div v-bind:class="{ revenuePad: true }">
-                <img class="menu-icon home-icon" src="../../assets/menu/network.png" >
-                <span>{{ $t('local_home_layout.menu.1_value')}}</span>
+                <img class="menu-icon home-icon total-revenue-icon" src="../../assets/menu/totalRevenue.png" >
+                <span>{{ $t('local_home_layout.menu.network_revenue')}}</span>
               </div>
             </template>
             <el-menu-item-group :span="3" >
-              <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.1_1_value') }}</el-menu-item>
-              <el-menu-item index="1-2" route="/revenueDetail"  v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">{{ $t('local_home_layout.menu.1_2_value') }}</el-menu-item>
+              <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.network_revenue') }}</el-menu-item>
+              <el-menu-item index="1-2" route="/revenueDetail"  v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">{{ $t('local_home_layout.menu.revenue_detail') }}</el-menu-item>
+              <el-menu-item index="1-3" route="/inviteDetail"  v-bind:class="{ isActive: (thisPath === '/inviteDetail') }">{{ $t('local_home_layout.menu.invite_detail') }}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="5" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
+          <el-submenu index="2" route="/revenue" class="revenue-wrap">
+            <template slot="title">
+              <div v-bind:class="{ revenuePad: true }">
+                <img class="menu-icon home-icon" src="../../assets/menu/network.png" >
+                <span>{{ $t('local_home_layout.menu.network_task')}}</span>
+              </div>
+            </template>
+            <el-menu-item-group :span="3" >
+              <el-menu-item index="1-1" route="/netStatus" v-bind:class="{ isActive: (thisPath === '/netStatus') }">{{ $t('local_home_layout.menu.task_status') }}</el-menu-item>
+              <el-menu-item index="1-2" route="/netDetail"  v-bind:class="{ isActive: (thisPath === '/netDetail') }">{{ $t('local_home_layout.menu.revenue_details') }}</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-menu-item index="3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/withdrawal.png" >
-            <span slot="title">{{ $t('local_home_layout.menu.1_3_value') }}</span>
-          <!-- <el-menu-item index="1-3"  v-bind:class="{ isActive: (thisPath === '/withdrawal') }">{{ $t('local_home_layout.menu.1_3_value') }}</el-menu-item>               -->
-
+            <span slot="title">{{ $t('local_home_layout.menu.withdrawal') }}</span>
           </el-menu-item>
-          <el-menu-item index="2" disabled>
+          <el-menu-item index="4" route="/calcuteDetail" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png" >
-            <span slot="title">{{ $t('local_home_layout.menu.2_value') }}</span>
+            <span slot="title">{{ $t('local_home_layout.menu.computing_task') }}</span>
           </el-menu-item>
-          <el-menu-item index="3" disabled>
+          <el-menu-item index="5" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/powerAnalysis.png" >
-            <span slot="title">{{ $t('local_home_layout.menu.3_value') }}</span>
+            <span slot="title">{{ $t('local_home_layout.menu.power_analysis') }}</span>
           </el-menu-item>
-          <el-menu-item index="4" disabled>
+          <el-menu-item index="6" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/networkCbt.png" >
-            <span slot="title">{{ $t('local_home_layout.menu.4_value') }}</span>
+            <span slot="title">{{ $t('local_home_layout.menu.net_contribution') }}</span>
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -61,17 +72,17 @@
     "local_home_layout": {
       "dataPanel": "Data Panel",
       "menu": {
-        "0_value": "Home Page",
-        "1_value": "Network Task Revenue",
-        "1_1_value": "Revenue",
-        "1_2_value": "Details",
-        "1_3_value": "Withdrawal",
-        "2_value": "Computing Task Revenue",
-        "2_1_value": "Revenue",
-        "2_2_value": "Details",
-        "2_3_value": "Withdrawal",
-        "3_value": "Power Analysis",
-        "4_value": "Network Contribution"
+        "data_panel": "Home Page",
+        "network_revenue": "Revenue Overview",
+        "revenue_detail": "Online Revenue Details",
+        "invite_detail": "Invitation Bonus Details",
+        "network_task": "Network Task",
+        "task_status":"Task Status",
+        "revenue_details": "Revenue Details",
+        "computing_task": "Computing Task",
+        "withdrawal": "Withdrawal",
+        "power_analysis": "Power Analysis",
+        "net_contribution": "Network Contribution"
       }
     }
   },
@@ -79,17 +90,18 @@
     "local_home_layout": {
       "dataPanel": "数据面板",
       "menu": {
-        "0_value": "数据面板首页",
-        "1_value": "网络任务收益",
-        "1_1_value": "收益情况",
-        "1_2_value": "详情",
-        "1_3_value": "提现",
-        "2_value": "计算任务收益",
-        "2_1_value": "收益情况",
-        "2_2_value": "任务执行",
-        "2_3_value": "提现",
-        "3_value": "算力分析",
-        "4_value": "全网贡献"
+        "data_panel": "数据面板首页",
+        "network_revenue": "收益总览",
+        "revenue_detail": "在线收益详情",
+        "invite_detail": "邀请奖励详情",
+
+        "network_task": "网络任务",
+        "task_status": "任务执行状态",
+        "revenue_details": "收益详情",
+        "computing_task": "计算任务",
+        "withdrawal": "提现",
+        "power_analysis": "算力分析",
+        "network_contribution": "全网贡献"
       }
     }
   }
@@ -113,13 +125,24 @@ export default {
     return {
       activeIndex: "0",
       revenueActive: true,
-      defaultOption: ['1']
+      // defaultOption: ['2']
     };
   },
   computed: {
     thisPath() {
       return  this.$route.path;
     },
+    defaultOption() {
+      let thisPath = this.$route.path;
+      if (thisPath  === '/revenueDetail'  
+        || thisPath === '/inviteDetail' 
+        || thisPath === '/revenue') { 
+        return ["1"];
+      } else if (thisPath) {
+        return ["2"];
+      }
+    }
+
   },
 };
 </script>
@@ -285,4 +308,5 @@ export default {
 .annouce-content {
   margin: 0 23px;
 }
+
 </style>

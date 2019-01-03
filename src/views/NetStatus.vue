@@ -1,6 +1,6 @@
 <template>
-  <div class="home hardlist-home">
-    <HardwareLayout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
+  <div class="home net-status-home">
+    <Layout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
       <BasiceLayout :title="$t('hardListLayoutTitile')">
         <div class="hardware-content">
           <!-- mac地址搜索 -->
@@ -23,9 +23,6 @@
                 <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
               </template>
             </el-table-column>
-            <!-- 绑定时间 -->
-            <el-table-column prop="bind_at" empty-text="-" :label="$t('date')" align='center'>
-            </el-table-column>
             <!-- IP -->
             <el-table-column prop="" label="IP" align='center'>
               <template slot-scope="scope">
@@ -33,54 +30,27 @@
                 <div v-if="scope.row.ext_ip">{{scope.row.ext_ip}}</div>
               </template>
             </el-table-column>
-            <!-- cpu -->
-            <el-table-column prop="" :label="$t('CPU')" align='center'>
-              <template slot-scope="scope">
-                <div v-if="scope.row.cpu_count">{{scope.row.cpu_count}}</div>
-                <div v-else>-</div>
-              </template>
-            </el-table-column>
-            <!-- 内存 -->
-            <el-table-column prop="" :label="$t('mem_size')" align='center'>
-              <template slot-scope="scope">
-                <div v-if="scope.row.mem_size">{{scope.row.mem_size}}</div>
-                <div v-else>-</div>
-              </template>
-            </el-table-column>
-            <!-- 硬盘 -->
-            <el-table-column prop="" :label="$t('storage_size')" align='center'>
-              <template slot-scope="scope">
-                <div v-if="scope.row.storage_size">{{scope.row.storage_size}}</div>
-                <div v-else>-</div>
-              </template>
-            </el-table-column>
-            <!-- 版本 -->
-            <el-table-column prop="info" :label="$t('info')" align='center'></el-table-column>
-            <!-- 上行宽带 -->
-            <!-- <el-table-column prop="tx_bw" :label="$t('tx_bw')" align='center'></el-table-column> -->
-            <el-table-column prop="" :label="$t('tx_bw')" align='center'>
-              <template slot-scope="scope">
-                <div v-if="!scope.row.tx_bw">-</div>
-                <el-tag v-if="scope.row.tx_bw < 1" type="danger">1 M &lt;</el-tag>
-                <el-tag v-if="scope.row.tx_bw > 4" type="success">offline</el-tag>
-              </template>
-            </el-table-column>
             <!-- 地区 -->
-            <!-- <el-table-column prop="location" :label="$t('location')" align='center'></el-table-column> -->
-            <!-- 在线状态 -->
-            <el-table-column prop="" :label="$t('netStatus')" align='center'>
+            <el-table-column prop="location" :label="$t('location')" align='center'></el-table-column>
+            <!-- 需求度 -->
+            <el-table-column prop="" :label="$t('needs')" align='center'>
               <template slot-scope="scope">
-                <div v-if="!scope.row.status">-</div>
-                <el-tag v-if="scope.row.status === 'online'" type="success">online</el-tag>
-                <el-tag v-if="scope.row.status === 'offline'" type="danger">offline</el-tag>
+                <div v-if="!scope.row.needs">-</div>
+                <el-tag v-if="scope.row.needs === '高'" type="success">{{$t('needsHigh')}}</el-tag>
+                <el-tag v-if="scope.row.needs === '中'" type="warning">{{$t('needsMiddle')}}</el-tag>
+                <el-tag v-if="scope.row.needs === '低'" type="danger">{{$t('needsLow')}}</el-tag>
               </template>
             </el-table-column>
-            <!-- 解绑 -->
-            <el-table-column label="" align='center'>
+            <!-- 网络质量 -->
+            <el-table-column prop="" :label="$t('stable')" align='center'>
               <template slot-scope="scope">
-                <div type="danger" :deviceId="scope.row.id" @click="checkUnBind(scope.row.id)" class="unbind-button bonus-cursor">{{$t('unbindButton')}}</div>
+                <div v-if="!scope.row.stable">-</div>
+                <el-tag v-if="scope.row.stable === '好'" type="success">{{$t('stableHigh')}}</el-tag>
+                <el-tag v-if="scope.row.stable === '中'" type="warning">{{$t('stableMiddle')}}</el-tag>
+                <el-tag v-if="scope.row.stable === '差'" type="danger">{{$t('stableLow')}}</el-tag>
               </template>
             </el-table-column>
+            <!-- <el-table-column prop="stable" :label="$t('stable')" align='center'></el-table-column> -->
           </el-table>
           <div class="pagination" v-if="deviceSize > 1">
             <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="deviceSize" layout="total, prev, pager, next" :total="hardLength">
@@ -90,32 +60,7 @@
           </el-table>
         </div>
       </BasiceLayout>
-    </HardwareLayout>
-    <!-- 解绑 -->
-    <el-dialog :title="$t('dialog.title')" :visible.sync="showUnbindDialog" width="480px" center>
-      <div class="unbind-dialog-wrap">
-        <span class="key verify-key">{{$t('dialog.imageVerify')}}</span>
-        <div class="hard-captcha">
-          <!-- 谷歌验证 -->
-          <vue-recaptcha
-            class="captcha-wrap"
-            ref="recaptcha"
-            @verify="onVerify"
-            @expired="onExpired"
-            data-size="normal"
-            :sitekey="sitekey"
-          />
-        </div>
-      </div>
-      <div class="unbind-dialog-wrap">
-        <span class="key mail-key">{{$t('dialog.mailText')}}</span>
-        <SendEmailCode type="text" imageStyle="unbind-style" :response="response" class="unbind-input password-email" v-model="inputEmailCode" needImageCode=true :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <div class="sure-unbind button" @click="showUnbindDialog = false">{{ $t('dialog.cancel') }}</div>
-        <div class="sure-unbind button" type="primary" @click="unbind">{{ $t('dialog.sure') }}</div>
-      </span>
-    </el-dialog>
+    </Layout>
     <!-- 增加备注 -->
     <el-dialog :title="$t('addNotes.title')" :visible.sync="showAddnoteDialog" width="480px" center>
       <div class="addnote-dialog-wrap">
@@ -137,35 +82,25 @@
 		"hardListLayoutTitile": "Hardware List",
     "macAddress": "MAC Address",
     "location": "Area",   
-    "CPU": "CPU",   
-    "mem_size": "Memory",   
-    "storage_size": "Storage",
-    "info": "Version",
-    "tx_bw": "Maximum broadband",
-    "needs": "Area Node Requirement",                                                                    
-		"date": "The Binding Date(UTC)",
+    "stable": "Stable",   
+    "needs": "Node Demand",                                                                    
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
     "netStatus": "Status",
     "noHardwareTip": "No Device",
-    "unbindButton": "Unbind",
-    "dialog": {
-      "cancel": "Cancel",
-      "sure": "Sure",
-      "title": "Confirm Unbinding",
-      "mailText": "Email Verfication Code",
-      "imageVerify": "Image Verfication"
-    },
     "needsHigh": "High",
     "needsMiddle": "Medium",
     "needsLow": "Low",
+    "stableHigh": "High",
+    "stableMiddle": "Medium",
+    "stableLow": "Low",
     "mac_address": "Search Mac Address",
-    "addNote": "Note",
+    "addNote": "note",
     "addNotes": {
       "title": "Add device note",
       "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
     },
-    "noteText": "Note",
+    "noteText": "note",
     "allSearch": "All"
   },
   "zn": {
@@ -173,28 +108,18 @@
 		"hardListLayoutTitile": "硬件列表",
     "macAddress": "硬件MAC地址",
     "location": "所在地区", 
-    "CPU": "CPU",   
-    "mem_size": "内存",  
-    "info": "版本",  
-    "tx_bw": "上行宽带",
-    "storage_size": "硬盘",   
+    "stable": "节点网络质量",   
     "needs": "当前地区节点需求度",                                                                    
-		"date": "绑定时间(UTC)",
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
     "netStatus": "在线状态",
     "noHardwareTip": "硬件列表为空",
-    "unbindButton": "解绑",
-    "dialog": {
-      "cancel": "取 消",
-      "sure": "确 定",
-      "title": "确认解绑",
-      "mailText": "邮箱验证码",
-      "imageVerify": "图片验证"
-    },
     "needsHigh": "高",
     "needsMiddle": "中",
     "needsLow": "低" ,
+    "stableHigh": "好",
+    "stableMiddle": "中",
+    "stableLow": "差",
     "mac_address": "Mac地址搜索",
     "addNote": "备注",
     "addNotes": {
@@ -217,8 +142,8 @@ import HardwareLayout from '@/components/Hardware/HardwareLayout.vue'
 import SendEmailCode from '@/components/SendEmailCode.vue'
 import moment from 'moment'
 import { Message } from 'element-ui'
-import { LANG, SITEKEY } from '../config/contant.js'
-import VueRecaptcha from "vue-recaptcha";
+import { LANG } from '../config/contant.js'
+import Layout from "@/components/DatePanel/Layout.vue";
 
 export default {
   name: 'home',
@@ -227,22 +152,16 @@ export default {
     AccountSetLayout,
     SendEmailCode,
     HardwareLayout,
-    VueRecaptcha
+    Layout
   },
   data() {
     return {
-      unbindId: '', //解绑Id
-      showUnbindDialog: false, // 绑定弹框展示
       showAddnoteDialog: false, //添加备注
       addNoteInput: '',
       addNoteId: '', //添加备注Id
       addNoteAddress: '', //添加备注Id
-      inputEmailCode: '', //输入的邮件码
-      // ticket: '', // 验证码ticket
-      // csnonce: '', //整数
-      searchMacAddress: '',
-      response: '',
-      sitekey: SITEKEY['LOW'], //ga verify key
+      ticket: '', // 验证码ticket
+      searchMacAddress: ''
     }
   },
   computed: mapState({
@@ -260,31 +179,12 @@ export default {
       'getDeviceDetail',
       'addDeviceNotes'
     ]),
-    onVerify: function(response) {
-      console.log("Verify: " + response);
-      this.response = response;
-    },
-    onExpired: function() {
-      console.log("Expired");
-      Message({
-        message: this.$t("captcha.expired"),
-        type: "error"
-      });
-      this.$refs.recaptcha.reset();
-    },
-    resetRecaptcha() {
-      this.$refs.recaptcha.reset();
-    },
     change() {
       this.changePw({
         oldPassword: this.oldPw,
         newPassword: this.newPw,
         reNewPassword: this.newSecPw
       })
-    },
-    checkUnBind(id) {
-      this.showUnbindDialog = true;
-      this.unbindId = id;
     },
     // 添加备注
     addNote() {
@@ -319,40 +219,6 @@ export default {
       this.addNoteId = id
       this.addNoteAddress = address
     },
-    // 解绑
-    unbind() {
-      this.unbindHard({
-        deviceId: this.unbindId,
-        emailVerifyCode: this.inputEmailCode
-      }).then(res => {
-        this.resetRecaptcha();
-        if (res.message === 'unregister success') {
-          // 刷新硬件列表
-          this.getHardList({ pageNum: this.currentPage })
-          this.showUnbindDialog = false
-          Message({
-            type: 'success',
-            message: res.message
-          })
-          // window.location.reload()
-        } else {
-          Message({
-            type: 'error',
-            message: res.message || 'unbind error'
-          })
-        }
-        console.log(res)
-      })
-    },
-    // email错误提示
-    emailCodeTip(error) {
-      if (error.message) {
-        Message({
-          type: 'error',
-          message: error.message
-        })
-      }
-    },
     // 搜索
     search() {
       if (this.searchMacAddress === 'all') {
@@ -367,25 +233,26 @@ export default {
       this.getHardList({ pageNum: val })
     }
   },
+
   created() {
-    this.getHardList({ pageNum: 1 })
+    this.getHardList({ pageNum: 1 });
   }
 }
 </script>
 
 <style lang="stylus">
-.hardlist-home.home{
-  height: auto!important;
-}
 .hard-captcha {
   width: 100%;
 }
+
 .hardList-content {
   margin-top: 40px;
 }
+
 .bonus-content {
   min-height: 1000px;
 }
+
 .unbind-button {
   background: #f56c6c;
   font-family: PingFangSC-Regular;
@@ -396,7 +263,9 @@ export default {
   width: 90px;
   height: 35px;
   display: inline-block;
+  width: 100%;
 }
+
 .unbind-dialog-wrap .key {
   font-family: PingFangSC-Regular;
   font-size: 12px;
@@ -406,25 +275,17 @@ export default {
   display: inline-block;
   width: 250px;
 }
+
 .unbind-dialog-wrap {
   display: flex;
-  height: 78px;
+  height: 42px;
   margin-bottom: 20px;
-}
-
-.unbind-dialog-wrap .verify-key {
-  line-height: 78px;
-}
-.unbind-dialog-wrap .mail-key {
-  width: 180px;
-  line-height: 40px;
-  height: 40px;
-  padding-top: 15px;
 }
 
 .unbind-input {
   width: 100%;
 }
+
 .button {
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #15bcad), to(#10b2cb));
   background-image: linear-gradient(-180deg, #15bcad 2%, #10b2cb 100%);
@@ -440,24 +301,29 @@ export default {
   line-height: 35px;
   margin-left: 20px;
 }
+
 .pagination {
   margin: 20px;
 }
+
 .hardware-search-wrap {
   text-align: left;
   margin-bottom: 20px;
   padding-bottom: 30px;
   border-bottom: 1px solid #ddd;
 }
+
 .search-text {
   margin: 0 20px;
   iwidth: 200px;
   display: inline-block;
 }
+
 .addnote-input {
   width: 100%;
   margin-top: 20px;
 }
+
 .add-note-button {
   background: #909399;
   color: #fff;
@@ -468,4 +334,11 @@ export default {
   margin: 0;
   width: 100%;
 }
+
+.net-status-home.home{
+  height: auto!important;
+}
 </style>
+
+
+

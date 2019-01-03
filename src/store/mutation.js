@@ -13,8 +13,8 @@ import {
   GET_NON_MAINLAND_LIST,
   GET_USER_INFO,
   GET_ALL_RENVUE,
-  GET_LASTDAY_INVITE,
-  ACCOUNT_REVENUE_LIST,
+  // GET_LASTDAY_INVITE,
+  // ACCOUNT_REVENUE_LIST,
   GET_RENVUE_DETAIL,
   // 推荐
   GET_RECOMMEND_INFO,
@@ -22,7 +22,7 @@ import {
   // 硬件列表
   GET_HARDLIST,
   GET_SEARCH_LIST,
-  ACCOUNT_LASTDAY_REVENUE,
+  // ACCOUNT_LASTDAY_REVENUE,
   // eth地址绑定
   GET_WALLET_ADDRESS,
   GET_WALLET_STATUS,
@@ -30,6 +30,7 @@ import {
   GET_WITHDRAWAL_LIST,
   GET_BALANCE,
   GET_WITHDRAWAL_STAUTS,
+  GET_INVITE_DETAIL,
 } from './mutation-types.js'
 
 // import {setStore, getStore} from '../config/mUtils'
@@ -83,20 +84,21 @@ export default {
     state.account = Object.assign({}, state.account);
   },
   // 用户收益
-  [GET_ALL_RENVUE](state, revenue) {
-    state.revenue.allRenvue = revenue;
+  [GET_ALL_RENVUE](state, ret) {
+    // let {balance= 0, totalInvite = 0, totalNetRevenue= 0, totalOnlineRevenue= 0, totalRevenue= 0} = ret;
+    state.revenue = ret;
     state.revenue = Object.assign({}, state.revenue);
   },
   //  用户邀请收益
-  [GET_LASTDAY_INVITE](state, revenueList) {
-    state.revenue.inviteRevenue = revenueList;
-    state.revenue = Object.assign({}, state.revenue);
-  },
-  //  用户个人收益详情
-  [ACCOUNT_LASTDAY_REVENUE](state, revenueList) {
-    state.revenue.accountRevenue = revenueList;
-    state.revenue = Object.assign({}, state.revenue);
-  },
+  // [GET_LASTDAY_INVITE](state, revenueList) {
+  //   state.revenue.inviteRevenue = revenueList;
+  //   state.revenue = Object.assign({}, state.revenue);
+  // },
+  // //  用户个人收益详情
+  // [ACCOUNT_LASTDAY_REVENUE](state, revenueList) {
+  //   state.revenue.accountRevenue = revenueList;
+  //   state.revenue = Object.assign({}, state.revenue);
+  // },
   //  用户推荐链接
   [GET_RECOMMEND_INFO](state, recommend) {
     state.recommend.recommendRefer = recommend;
@@ -107,7 +109,7 @@ export default {
     state.recommend.count = count;
     state.recommend = Object.assign({}, state.recommend);
   },
-  //  用户推荐总人数
+  //  收益详情
   [GET_RENVUE_DETAIL](state, deviceDetail) {
     state.revenueDetail.currentPage = Number(deviceDetail.currentPage);
     state.revenueDetail.deviceLength = deviceDetail.deviceLength;
@@ -116,12 +118,20 @@ export default {
     state.revenueDetail.allDevices = deviceDetail.allDevices;
     state.revenueDetail = Object.assign({}, state.revenueDetail);
   },
+  //  用户邀请收益详情
+  [GET_INVITE_DETAIL](state, inviteDetail) {
+    state.inviteDetail.currentPage = Number(inviteDetail.currentPage);
+    state.inviteDetail.length = inviteDetail.length;
+    state.inviteDetail.numSize = inviteDetail.numSize;
+    state.inviteDetail.detailList = inviteDetail.detailList || 'NONE';
+    state.inviteDetail = Object.assign({}, state.inviteDetail);
+  },
   //  获取硬件列表
   [GET_HARDLIST](state, hardList) {
     state.hardWare.list = hardList.list || 'NO_CONTENT';
     state.hardWare.hardLength = hardList.deviceLength || 0;
     state.hardWare.deviceSize = Number(hardList.pageSize) || 0;
-    state.hardWare.currentPage = hardList.currentPage || 0;
+    state.hardWare.currentPage = Number(hardList.currentPage) || 0;
     // // 方便搜索
     state.hardWare.allDevices = hardList.allDevices || [];
     state.hardWare = Object.assign({}, state.hardWare);

@@ -64,7 +64,6 @@ export default {
       TIME_COUNT: 60, //倒计时时间
       count: "", // 计数
       timer: null, // 记录循环
-
       time: 60, // 发送验证码倒计时
       sendMsgDisabled: false
     };
@@ -87,7 +86,7 @@ export default {
       if (!response) {
         that.$emit("emailCodeTip", {
           type: "captcha",
-          message: "Please verify the verification code"
+          message: "Please verify the captcha."
         });
         return;
       }
