@@ -55,7 +55,7 @@
               </template>
             </el-table-column>
             <!-- 版本 -->
-            <el-table-column prop="" label="$t('info')" align='center'>
+            <el-table-column prop="" :label="$t('info')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.info">-</div>
                 <div v-if="scope.row.info">{{scope.row.info}}</div>

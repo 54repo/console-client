@@ -45,9 +45,9 @@
             <el-table-column prop="" :label="$t('stable')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.stable">-</div>
-                <el-tag v-if="scope.row.stable === '好'" type="success">{{$t('stableHigh')}}</el-tag>
+                <el-tag v-if="scope.row.stable === '高'" type="success">{{$t('stableHigh')}}</el-tag>
                 <el-tag v-if="scope.row.stable === '中'" type="warning">{{$t('stableMiddle')}}</el-tag>
-                <el-tag v-if="scope.row.stable === '差'" type="danger">{{$t('stableLow')}}</el-tag>
+                <el-tag v-if="scope.row.stable === '低'" type="danger">{{$t('stableLow')}}</el-tag>
               </template>
             </el-table-column>
             <!-- <el-table-column prop="stable" :label="$t('stable')" align='center'></el-table-column> -->
