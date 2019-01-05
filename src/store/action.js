@@ -25,7 +25,8 @@ import {
   ajaxUnbindAddress,
   ajaxWithdrawalList,
   ajaxDeviceNotes,
-  ajaxRevenueDetail
+  ajaxRevenueDetail,
+  ajaxInviteDetail
 } from './getData';
 
 const NO_CONTENT = "NO_CONTENT";
@@ -39,8 +40,8 @@ import {
   GET_USER_INFO,
   GET_HARDLIST,
   GET_ALL_RENVUE,
-  GET_LASTDAY_INVITE,
-  ACCOUNT_LASTDAY_REVENUE,
+  // GET_LASTDAY_INVITE,
+  // ACCOUNT_LASTDAY_REVENUE,
   GET_RECOMMEND_INFO,
   GET_RECOMMEND_COUNT,
   GET_WALLET_ADDRESS,
@@ -52,6 +53,7 @@ import {
   GET_WITHDRAWAL_STAUTS,
   GET_SEARCH_LIST,
   GET_RENVUE_DETAIL,
+  GET_INVITE_DETAIL,
 } from './mutation-types';
 import router from '../router';
 
@@ -145,7 +147,7 @@ export default {
       if (res.ret.list && res.ret.list.length > 0) {
         commit(GET_HARDLIST, res.ret);
       } else {
-        commit(GET_IST, NO_CONTENT);
+        commit(GET_HARDLIST, NO_CONTENT);
       }
     } catch (error) {
       commit(GET_HARDLIST, NO_CONTENT);
@@ -171,13 +173,13 @@ export default {
   async getAllRevenue({ commit }, params) {
     const res = await ajaxAllRevenue(params);
     try {
-      if (params.type === 'all') {
-        commit(GET_ALL_RENVUE, res.ret.revenue);
-      } else if (params.type === 'refer') {
-        commit(GET_LASTDAY_INVITE, res.ret.revenue);
-      } else if (params.type === 'account') {
-        commit(ACCOUNT_LASTDAY_REVENUE, res.ret.revenue);
-      }
+      // if (params.type === 'all') {
+        commit(GET_ALL_RENVUE, res.ret);
+      // } else if (params.type === 'refer') {
+      //   commit(GET_LASTDAY_INVITE, res.ret.revenue);
+      // } else if (params.type === 'account') {
+      //   commit(ACCOUNT_LASTDAY_REVENUE, res.ret.revenue);
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -190,6 +192,16 @@ export default {
       commit(GET_RENVUE_DETAIL, res.ret);
     } catch (error) {
       commit(GET_RENVUE_DETAIL, 'NONE');
+    }
+    return res;
+  },
+  //  获取用户邀请收益
+  async getInviteDetail({ commit }, params) {
+    const res = await ajaxInviteDetail(params);
+    try {
+      commit(GET_INVITE_DETAIL, res.ret || {});
+    } catch (error) {
+      commit(GET_INVITE_DETAIL, 'NONE');
     }
     return res;
   },

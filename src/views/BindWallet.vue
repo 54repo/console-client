@@ -77,11 +77,11 @@
 		"walletTips": {
 			"tips_one": "1.Please use the ETH hot wallet that supports erc20 token as the wallet for cash withdrawal.",
 			"tips_two": "2.The wallet address format is a 42-bit string starting with 0x.",
-			"tips_three": "3.Don't use the exchange's address, which may result in a withdrawal failure and loss of revenue.",
+			"tips_three": "3.Please don’t use the exchange’s address, which may result in a withdrawal failure and loss of revenue.",
       "tips_four": "4.Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
-			"tips_five": "5.Wallet Binding and Verification Tutorial：",
+			"tips_five": "5.Wallet binding and verification tutorial： https://bonuscloud.club/viewtopic.php?f=18&t=28",
 			"tips_five_link": "https://bonuscloud.club/viewtopic.php?f=18&t=28",
-			"tips_six": "6.After the wallet verification operation is completed, it will be verified at 4 o’clock UTC time on the next day. After the verification is passed, the label will be changed to  Verified status."
+			"tips_six": "6.After the wallet verification operation completed, it will be verified at 4 o’clock UTC time of the next day. After the verification passed, the label will be changed to “Verified” status."
 		},
 		"sureTips": "The wallet unbinding function will not be opened yet. Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
 		"walletConfirm": "confirm",
@@ -158,7 +158,6 @@ export default {
   data() {
     return {
       new_eth_address: '',
-      // inputImageCode: '',
       inputEmailCode: '',
       response: '',
       sitekey: SITEKEY['LOW'], //ga verify key
@@ -166,39 +165,11 @@ export default {
   },
   created() {
     this.getWalletAddress();
-    this.getVertifUrl({ action: 2 }).then(res => {
-      this.csnonce = res.data.csnonce
-      var newScript = document.createElement('script')
-      newScript.type = 'text/javascript'
-      newScript.src = res.data.url
-      document.body.appendChild(newScript)
-      let that = this
-
-      setTimeout(() => {
-        var capOption = {
-          callback: cbfn,
-          themeColor: '15bcad',
-          lang: LANG[this.$i18n.locale || 'en']
-        }
-        capInit(document.getElementById('TCaptcha'), capOption)
-        //回调函数：验证码页面关闭时回调
-        function cbfn(retJson) {
-          if (retJson.ret == 0) {
-            that.ticket = retJson.ticket
-            // that.sendCode();
-            // 用户验证成功
-          } else {
-            //用户关闭验证码页面，没有验证
-          }
-        }
-      }, 1000)
-    })
   },
   methods: {
     ...mapActions([
       'getWalletAddress',
       'bindWalletAddress',
-      'getVertifUrl',
       'commitUnbindAddress'
     ]),
     onVerify: function(response) {
@@ -215,9 +186,6 @@ export default {
       this.$refs.recaptcha.reset();
     },
     bindWallet(text) {
-      console.log(this.$i18n.messages)
-
-      // let { password, new_eth_address } = this;
       let { ticket, inputEmailCode, new_eth_address } = this
 
       if (!inputEmailCode || !new_eth_address) {
@@ -253,13 +221,12 @@ export default {
             }
           })
         })
-        .catch(() => {
-          console.log('cancel')
+        .catch((error) => {
+          console.log(error);
         })
     },
     // 邮箱验证错误
     emailCodeTip(error) {
-      console.log(error)
       if (error.message) {
         Message({
           type: 'error',
@@ -297,6 +264,12 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.email-bind-wrap span{
+  height: 40px;
+  line-height: 40px; 
+}
+
+
 .hard-captcha {
   height: 40px;
 }
@@ -309,7 +282,8 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  line-height: 40px;
+  height: 70px;
+  line-height: 70px; 
 }
 
 .hard-captcha {

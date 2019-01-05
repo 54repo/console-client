@@ -25,7 +25,6 @@
           <div class="verify-key withdrawal-key">{{$t('withdrawal.commitWith.verify')}}</div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
-          <!-- <TencentVerify :ticket="ticket" :csnonce="csnonce" class="TencentVerify withdrawal-value verify-wrap" width="120px" @changeTicket="changeTicket"> </TencentVerify> -->
           <vue-recaptcha
             class="captcha-wrap"
             ref="recaptcha"
@@ -38,7 +37,7 @@
       </el-row>
       <el-row v-if="balance !== 'NONE'">
         <el-col :span="10">
-          <div class="withdrawal-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
+          <div class="withdrawal-key email-key">{{$t('withdrawal.commitWith.emailCode')}}</div>
         </el-col>
         <el-col :span="14" class="commit-right-wrap">
           <SendEmailCode class="send-wrap withdrawal-value" v-model="inputEmailCode" :response="response" :email="email" @emailCodeTip="emailCodeTip"></SendEmailCode>
@@ -68,7 +67,6 @@ import { Message } from 'element-ui'
 import { messageTips } from '../../utils/tips.js'
 import { SITEKEY } from '../../config/contant.js'
 import VueRecaptcha from "vue-recaptcha";
-
 export default {
   name: 'AccountLayout',
   props: {},
@@ -137,7 +135,6 @@ export default {
     },
     sureWithdrawal() {
       let { inputEmailCode, password, amount, balance } = this
-
       if (this.balance < 5000 || this.commitStatus === 'created') {
         return;
       }
@@ -187,10 +184,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
-.verify-key {
+.verify-key.withdrawal-key {
   margin: 18px 0;
+  height: 82px;
+  line-height: 82px;
 }
-
 .withdrawal-key {
   width: 100%;
   color: #96999b;
@@ -200,61 +198,49 @@ export default {
   line-height: 50px;
   // margin: 10px 0;
 }
-
 . withdrawal-value {
   height: 50x;
   margin: 10px 0;
 }
-
 .withdrawal-balance {
   height: 50px;
   line-height: 50px;
   font-size: 24px;
 }
-
 .commit-right-wrap {
   padding-left: 50px;
 }
-
 .balance-distance {
   margin: 10px 0;
 }
-
 .TencentVerify {
   height: 40px;
   width: 150px;
   margin: 10px 0;
 }
-
 .buttonWrap {
   width: 100%;
   display: flex;
   justify-content: center;
   margin: 30px;
 }
-
 .withdrawal-ammount {
   margin-top: 5px;
 }
-
 .withdrawal-ammount, .send-wrap {
   width: 230px;
   height: 40px;
 }
-
 .pw-key {
   padding: 5px 0;
 }
-
 .pw-wrap {
   margin: 10px 0;
 }
-
 .with-pw {
   margin: 10px 0;
   width: 230px;
 }
-
 .withdrawal-upgrade {
   color: #909399;
   line-height: 30px;
@@ -262,12 +248,14 @@ export default {
   margin: 40px auto;
   text-align: center;
 }
-
 .verify-wrap {
   margin: 20px 0;
 }
-
 .commit-layout .captcha-wrap {
   margin: 20px 20px 20px 0;
+}
+.commit-withdrawal-wrap .email-key{
+  height: 40px;
+  line-height: 40px;
 }
 </style>

@@ -15,10 +15,6 @@
                 <el-option default v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
-              <!-- 验证码 -->
-              <!-- <div v-bind:class="{ none: !showVerify }" class="captcha_wrap">
-                <div id="TCaptcha" style="width:100%;height:20px;"></div>
-              </div> -->
               <vue-recaptcha
                 class="captcha-wrap"
                 ref="recaptcha"
@@ -185,7 +181,7 @@ export default {
             if (res.message === 'getSuccess') {
               Message({
                 type: 'success',
-                message: 'receive success'
+                message: 'receive successfully'
               })
               // 刷新BCode
               this.getAbleList()

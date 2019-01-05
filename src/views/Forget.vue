@@ -187,7 +187,7 @@ export default {
         if (res && res.message) {
 					if (res.message === 'password reset success') {
 						Message({
-							message: 'reset password success',
+							message: 'reset password successfully',
 							type: 'success'
 						});
 						setTimeout(() => {

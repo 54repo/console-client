@@ -1,4 +1,4 @@
-/** 收益页 **/
+/** 计算任务收益页 **/
 <template>
   <div class="home">
     <Layout
@@ -25,7 +25,7 @@
             >
             </el-option>
           </el-select>
-          <span class="search-text">{{$t('search_mac_address')}}</span>
+          <span class="search-text">{{$t('mac_address')}}</span>
           <el-select
             v-model="searchMacAddress"
             filterable
@@ -142,7 +142,6 @@ import BasiceLayout from "@/components/Common/BasicLayout.vue";
 import moment from "moment";
 import { mapActions, mapState } from "vuex";
 import { Message } from "element-ui";
-const type = "online";
 
 export default {
   name: "home",
@@ -198,7 +197,7 @@ export default {
     this.queryDate = queryDate;
     let pageNum = this.pageNum;
 
-    this.getRevenueDetail({ queryDate, pageNum, type });
+    this.getRevenueDetail({ queryDate, pageNum, type: "calcute" });
   },
   methods: {
     ...mapActions(["getRevenueDetail", "addDeviceNotes"]),
@@ -206,7 +205,7 @@ export default {
     search(queryDate) {
       this.queryDate = queryDate;
       let pageNum = this.pageNum;
-      this.getRevenueDetail({ queryDate, pageNum, type });
+      this.getRevenueDetail({ queryDate, pageNum, type: "calcute" });
     },
     // mac搜索
     searchMac(deviceId) {
@@ -220,13 +219,13 @@ export default {
           mac_address,
           deviceId,
           queryDate: selectDate,
-          type
+          type: "calcute"
         });
       } else {
         this.getRevenueDetail({
           queryDate: this.selectDate,
           pageNum: this.pageNum,
-          type
+          type: "calcute"
         });
       }
     },
@@ -239,8 +238,7 @@ export default {
       this.pageNum = value;
       this.getRevenueDetail({
         queryDate,
-        pageNum: value,
-        type
+        pageNum: value
       });
     },
     // 添加备注
@@ -258,7 +256,6 @@ export default {
           that.showAddnoteDialog = false;
           if (that.searchMacAddress === "all" || that.searchMacAddress === "") {
             this.getRevenueDetail({
-              type,
               queryDate: that.selectDate,
               pageNum: that.pageNum
             });

@@ -114,10 +114,16 @@ export const ajaxRevenueDetail = (data) => {
   return fetch(baseUrl + '/api/web/revenueDetail/', data);
 };
 /**
+ * 用户邀请收益
+ */
+export const ajaxInviteDetail = (data) => {
+  return fetch(baseUrl + '/api/web/inviteDetail/', data);
+};
+/**
  * 用户总收益
  */
 export const ajaxAllRevenue = (data) => {
-  return fetch(baseUrl + '/api/web/revenue_v2/', data);
+  return fetch(baseUrl + '/api/web/revenue_v3/', data);
 };
 /**
  * 用户推荐链接

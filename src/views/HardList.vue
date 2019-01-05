@@ -33,17 +33,46 @@
                 <div v-if="scope.row.ext_ip">{{scope.row.ext_ip}}</div>
               </template>
             </el-table-column>
-            <!-- 地区 -->
-            <el-table-column prop="location" :label="$t('location')" align='center'></el-table-column>
-            <!-- 需求度 -->
-            <el-table-column prop="" :label="$t('needs')" align='center'>
+            <!-- cpu -->
+            <el-table-column prop="" :label="$t('CPU')" align='center'>
               <template slot-scope="scope">
-                <div v-if="!scope.row.needs">-</div>
-                <el-tag v-if="scope.row.needs === '高'" type="success">{{$t('needsHigh')}}</el-tag>
-                <el-tag v-if="scope.row.needs === '中'" type="warning">{{$t('needsMiddle')}}</el-tag>
-                <el-tag v-if="scope.row.needs === '低'" type="danger">{{$t('needsLow')}}</el-tag>
+                <div v-if="scope.row.cpu_count">{{scope.row.cpu_count}}</div>
+                <div v-else>-</div>
               </template>
             </el-table-column>
+            <!-- 内存 -->
+            <el-table-column prop="" :label="$t('mem_size')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="scope.row.mem_size">{{scope.row.mem_size}}</div>
+                <div v-else>-</div>
+              </template>
+            </el-table-column>
+            <!-- 硬盘 -->
+            <el-table-column prop="" :label="$t('storage_size')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="scope.row.storage_size">{{scope.row.storage_size}}</div>
+                <div v-else>-</div>
+              </template>
+            </el-table-column>
+            <!-- 版本 -->
+            <el-table-column prop="" :label="$t('info')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="!scope.row.info">-</div>
+                <div v-if="scope.row.info">{{scope.row.info}}</div>
+              </template>
+            </el-table-column>
+            <!-- 上行宽带 -->
+            <!-- <el-table-column prop="tx_bw" :label="$t('tx_bw')" align='center'></el-table-column> -->
+            <el-table-column prop="" :label="$t('tx_bw')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="!scope.row.tx_bw">-</div>
+                <el-tag v-if="scope.row.tx_bw < 1" type="danger">1 M &lt;</el-tag>
+                <el-tag v-if="scope.row.tx_bw > 4" type="success">&gt; 4 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw <= 4 && scope.row.tx_bw >= 1">1-4 M</el-tag>
+              </template>
+            </el-table-column>
+            <!-- 地区 -->
+            <!-- <el-table-column prop="location" :label="$t('location')" align='center'></el-table-column> -->
             <!-- 在线状态 -->
             <el-table-column prop="" :label="$t('netStatus')" align='center'>
               <template slot-scope="scope">
@@ -114,13 +143,18 @@
 		"hardListLayoutTitile": "Hardware List",
     "macAddress": "MAC Address",
     "location": "Area",   
+    "CPU": "CPU",   
+    "mem_size": "Memory",   
+    "storage_size": "Storage",
+    "info": "Version",
+    "tx_bw": "Upstream Bandwidth",
     "needs": "Area Node Requirement",                                                                    
 		"date": "The Binding Date(UTC)",
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
     "netStatus": "Status",
     "noHardwareTip": "No Device",
-    "unbindButton": "unbind",
+    "unbindButton": "Unbind",
     "dialog": {
       "cancel": "Cancel",
       "sure": "Sure",
@@ -132,19 +166,24 @@
     "needsMiddle": "Medium",
     "needsLow": "Low",
     "mac_address": "Search Mac Address",
-    "addNote": "note",
+    "addNote": "Note",
     "addNotes": {
       "title": "Add device note",
       "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
     },
-    "noteText": "note",
+    "noteText": "Note",
     "allSearch": "All"
   },
   "zn": {
 		"layoutTitile": "硬件列表",
 		"hardListLayoutTitile": "硬件列表",
     "macAddress": "硬件MAC地址",
-    "location": "所在地区",                                                                    
+    "location": "所在地区", 
+    "CPU": "CPU",   
+    "mem_size": "内存",  
+    "info": "版本",  
+    "tx_bw": "上行宽带",
+    "storage_size": "硬盘",   
     "needs": "当前地区节点需求度",                                                                    
 		"date": "绑定时间(UTC)",
 		"code": "已绑定激活码 ",
@@ -293,7 +332,7 @@ export default {
         emailVerifyCode: this.inputEmailCode
       }).then(res => {
         this.resetRecaptcha();
-        if (res.message === 'unregister success') {
+        if (res.code === 200) {
           // 刷新硬件列表
           this.getHardList({ pageNum: this.currentPage })
           this.showUnbindDialog = false
@@ -334,7 +373,6 @@ export default {
       this.getHardList({ pageNum: val })
     }
   },
-
   created() {
     this.getHardList({ pageNum: 1 })
   }
@@ -342,18 +380,18 @@ export default {
 </script>
 
 <style lang="stylus">
+.hardlist-home.home{
+  height: auto!important;
+}
 .hard-captcha {
   width: 100%;
 }
-
 .hardList-content {
   margin-top: 40px;
 }
-
 .bonus-content {
   min-height: 1000px;
 }
-
 .unbind-button {
   background: #f56c6c;
   font-family: PingFangSC-Regular;
@@ -363,10 +401,9 @@ export default {
   line-height: 30px;
   width: 90px;
   height: 35px;
+  max-width: 120px;
   display: inline-block;
-  width: 100%;
 }
-
 .unbind-dialog-wrap .key {
   font-family: PingFangSC-Regular;
   font-size: 12px;
@@ -376,7 +413,6 @@ export default {
   display: inline-block;
   width: 250px;
 }
-
 .unbind-dialog-wrap {
   display: flex;
   height: 78px;
@@ -386,7 +422,7 @@ export default {
 .unbind-dialog-wrap .verify-key {
   line-height: 78px;
 }
-.unbind-dialog-wrap .mail-key {
+.unbind-dialog-wrap .mail-key.key {
   width: 180px;
   line-height: 40px;
   height: 40px;
@@ -396,7 +432,6 @@ export default {
 .unbind-input {
   width: 100%;
 }
-
 .button {
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #15bcad), to(#10b2cb));
   background-image: linear-gradient(-180deg, #15bcad 2%, #10b2cb 100%);
@@ -412,29 +447,24 @@ export default {
   line-height: 35px;
   margin-left: 20px;
 }
-
 .pagination {
   margin: 20px;
 }
-
 .hardware-search-wrap {
   text-align: left;
   margin-bottom: 20px;
   padding-bottom: 30px;
   border-bottom: 1px solid #ddd;
 }
-
 .search-text {
   margin: 0 20px;
   iwidth: 200px;
   display: inline-block;
 }
-
 .addnote-input {
   width: 100%;
   margin-top: 20px;
 }
-
 .add-note-button {
   background: #909399;
   color: #fff;
@@ -446,20 +476,12 @@ export default {
   width: 100%;
 }
 
-// // .hardlist-home .captcha-wrap {
-// //   transform: scale(0.96);
-// //   -webkit-transform: scale(0.96);
-// //   transform-origin: 0 0;
-// //   -webkit-transform-origin: 0 0;
-// //   margin: 10px 30px;
-// // }
 
+.hardlist-home .captcha-wrap {
+  transform: scale(0.79);
+  -webkit-transform: scale(0.79);
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+}
 
-//   .hardlist-home  .captcha-wrap {
-//     transform: scale(0.78);
-//     -webkit-transform: scale(0.78);
-//     transform-origin: 0 0;
-//     -webkit-transform-origin: 0 0;
-//   }
 </style>
-

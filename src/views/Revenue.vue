@@ -1,9 +1,8 @@
-/** 收益页 **/
+/** 收益总览页 **/
 <template>
   <div class="home">
     <Layout type="REVENUE" isRevenue="true" :pageTitle="$t('pageTitle')">
-      <RevenueData :allRenvue="allRenvue" :person_invite_revenue="inviteRevenue" :person_account_revenue="accountRevenue">
-      </RevenueData>
+      <RevenueData></RevenueData>
       <FAQ />
     </Layout>
   </div>
@@ -16,16 +15,9 @@ import Layout from '@/components/DatePanel/Layout.vue'
 import RevenueData from '@/components/DatePanel/RevenueData.vue'
 import FAQ from '@/components/Revenue/FAQ.vue'
 import RevenueContent from '@/components/DatePanel/RevenueContent.vue'
-import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'home',
-  data() {
-    return {
-      person_invite_revenue: '',
-      person_account_revenue: ''
-    }
-  },
   components: {
     Header,
     Layout,
@@ -33,23 +25,6 @@ export default {
     FAQ,
     RevenueContent
   },
-  computed: mapState({
-    //  箭头函数可使代码更简练
-    inviteRevenue: state => state.revenue.inviteRevenue,
-    accountRevenue: state => state.revenue.accountRevenue,
-    allRenvue: state => state.revenue.allRenvue
-  }),
-  methods: {
-    ...mapActions(['getAllRevenue', 'getRevenueList'])
-  },
-  created() {
-    let end = new Date().getTime()
-    let start = end - 24 * 60 * 60 * 1000
-
-    this.getAllRevenue({ type: 'all' })
-    this.getAllRevenue({ type: 'refer', start, end })
-    this.getAllRevenue({ type: 'account', start, end })
-  }
 }
 </script>
 
@@ -66,10 +41,10 @@ export default {
 <i18n>
 {
   "zn": {
-    "pageTitle": "情况"
+    "pageTitle": "收益总览"
   },
   "en": {
-    "pageTitle": "Revenue"
+    "pageTitle": "Revenue Overview"
   }
 }
 </i18n>

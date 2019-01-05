@@ -6,11 +6,15 @@ import SignUp from './views/SignUp.vue';
 import Forget from './views/Forget.vue';
 import Revenue from './views/Revenue.vue';
 import RevenueDetail from './views/RevenueDetail.vue';
+import InviteDetail from './views/InviteDetail.vue';
 import AccountSet from './views/AccountSet.vue';
 import HardList from './views/HardList.vue';
 import BindWallet from './views/BindWallet.vue';
 import Withdrawal from './views/Withdrawal.vue';
 import Protocol from './views/Protocol.vue';
+import NetStatus from './views/NetStatus.vue';
+import NetDetail from './views/NetDetail.vue';
+import CalculateDetail from './views/CalculateDetail.vue';
 // import Change from './views/Change.vue';
 
 Vue.use(Router);
@@ -43,6 +47,14 @@ export default new Router({
         title,
       },
       component: RevenueDetail,
+    },
+    {
+      path: '/inviteDetail',
+      name: 'inviteDetail',
+      meta: {
+        title,
+      },
+      component: InviteDetail,
     },
     {
       path: '/login',
@@ -107,6 +119,30 @@ export default new Router({
         title,
       },
       component: Protocol,
+    },
+    {
+      path: '/netStatus',
+      name: 'netStatus',
+      meta: {
+        title,
+      },
+      component: NetStatus,
+    },
+    {
+      path: '/netDetail',
+      name: 'netDetail',
+      meta: {
+        title,
+      },
+      component: NetDetail,
+    },
+    {
+      path: '/calculateDetail',
+      name: 'calculateDetail',
+      meta: {
+        title,
+      },
+      component: CalculateDetail,
     },
     // {
     //   path: '/about',

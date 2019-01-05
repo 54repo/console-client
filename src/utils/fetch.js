@@ -22,6 +22,9 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
 		if (type == 'GET') {
 			response = await axios.get(url, {
 				params: data,
+				headers: {
+					from: 'BXC_WEB',
+				},
 				validateStatus: status => {
 					return status < 500; // 仅当状态代码大于或等于500时拒绝             
 				}
