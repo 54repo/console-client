@@ -67,7 +67,8 @@
               <template slot-scope="scope">
                 <div v-if="!scope.row.tx_bw">-</div>
                 <el-tag v-if="scope.row.tx_bw < 1" type="danger">1 M &lt;</el-tag>
-                <el-tag v-if="scope.row.tx_bw > 4" type="success">offline</el-tag>
+                <el-tag v-if="scope.row.tx_bw > 4" type="success">&gt; 4 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw <= 4 && scope.row.tx_bw >= 1">1-4 M</el-tag>
               </template>
             </el-table-column>
             <!-- 地区 -->
@@ -146,7 +147,7 @@
     "mem_size": "Memory",   
     "storage_size": "Storage",
     "info": "Version",
-    "tx_bw": "Maximum broadband",
+    "tx_bw": "Upstream Bandwidth",
     "needs": "Area Node Requirement",                                                                    
 		"date": "The Binding Date(UTC)",
 		"code": "Binding BonusCode",
@@ -331,7 +332,7 @@ export default {
         emailVerifyCode: this.inputEmailCode
       }).then(res => {
         this.resetRecaptcha();
-        if (res.message === 'unregister success') {
+        if (res.code === 200) {
           // 刷新硬件列表
           this.getHardList({ pageNum: this.currentPage })
           this.showUnbindDialog = false

@@ -181,7 +181,7 @@ export default {
             if (res.message === 'getSuccess') {
               Message({
                 type: 'success',
-                message: 'receive success'
+                message: 'receive successfully'
               })
               // 刷新BCode
               this.getAbleList()

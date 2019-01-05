@@ -8,7 +8,7 @@
     "loginButton": "Login",
     "redirectForget": "Forgot Password",
     "redirectSign": "Sign Up",
-    "loginSuccessTip": "login success"
+    "loginSuccessTip": "login successfully"
   },
   "register": {
     "registerTitle": "Sign Up",
