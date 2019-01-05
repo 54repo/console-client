@@ -117,9 +117,9 @@
     "needsHigh": "高",
     "needsMiddle": "中",
     "needsLow": "低" ,
-    "stableHigh": "好",
+    "stableHigh": "高",
     "stableMiddle": "中",
-    "stableLow": "差",
+    "stableLow": "低",
     "mac_address": "Mac地址搜索",
     "addNote": "备注",
     "addNotes": {
