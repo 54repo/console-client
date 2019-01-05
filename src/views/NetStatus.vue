@@ -82,7 +82,7 @@
 		"hardListLayoutTitile": "Hardware List",
     "macAddress": "MAC Address",
     "location": "Area",   
-    "stable": "Stable",   
+    "stable": "Stability",   
     "needs": "Node Demand",                                                                    
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
@@ -241,67 +241,6 @@ export default {
 </script>
 
 <style lang="stylus">
-.hard-captcha {
-  width: 100%;
-}
-
-.hardList-content {
-  margin-top: 40px;
-}
-
-.bonus-content {
-  min-height: 1000px;
-}
-
-.unbind-button {
-  background: #f56c6c;
-  font-family: PingFangSC-Regular;
-  font-size: 14px;
-  color: #fff;
-  text-align: center;
-  line-height: 30px;
-  width: 90px;
-  height: 35px;
-  display: inline-block;
-  width: 100%;
-}
-
-.unbind-dialog-wrap .key {
-  font-family: PingFangSC-Regular;
-  font-size: 12px;
-  color: #343739;
-  text-align: left;
-  line-height: 42px;
-  display: inline-block;
-  width: 250px;
-}
-
-.unbind-dialog-wrap {
-  display: flex;
-  height: 42px;
-  margin-bottom: 20px;
-}
-
-.unbind-input {
-  width: 100%;
-}
-
-.button {
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(2%, #15bcad), to(#10b2cb));
-  background-image: linear-gradient(-180deg, #15bcad 2%, #10b2cb 100%);
-  font-size: 14px;
-  color: #fff;
-  text-align: center;
-  line-height: 18px;
-  border-radius: 0;
-  border: 0;
-  display: inline-block;
-  width: 90px;
-  height: 35px;
-  line-height: 35px;
-  margin-left: 20px;
-}
-
 .pagination {
   margin: 20px;
 }

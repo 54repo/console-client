@@ -55,7 +55,12 @@
               </template>
             </el-table-column>
             <!-- 版本 -->
-            <el-table-column prop="info" :label="$t('info')" align='center'></el-table-column>
+            <el-table-column prop="" label="$t('info')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="!scope.row.info">-</div>
+                <div v-if="scope.row.info">{{scope.row.info}}</div>
+              </template>
+            </el-table-column>
             <!-- 上行宽带 -->
             <!-- <el-table-column prop="tx_bw" :label="$t('tx_bw')" align='center'></el-table-column> -->
             <el-table-column prop="" :label="$t('tx_bw')" align='center'>
@@ -395,6 +400,7 @@ export default {
   line-height: 30px;
   width: 90px;
   height: 35px;
+  max-width: 120px;
   display: inline-block;
 }
 .unbind-dialog-wrap .key {
@@ -415,7 +421,7 @@ export default {
 .unbind-dialog-wrap .verify-key {
   line-height: 78px;
 }
-.unbind-dialog-wrap .mail-key {
+.unbind-dialog-wrap .mail-key.key {
   width: 180px;
   line-height: 40px;
   height: 40px;
@@ -468,4 +474,13 @@ export default {
   margin: 0;
   width: 100%;
 }
+
+
+.hardlist-home .captcha-wrap {
+  transform: scale(0.79);
+  -webkit-transform: scale(0.79);
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+}
+
 </style>

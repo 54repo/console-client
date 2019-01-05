@@ -82,7 +82,7 @@
         "computing_task": "Computing Task",
         "withdrawal": "Withdrawal",
         "power_analysis": "Power Analysis",
-        "net_contribution": "Network Contribution"
+        "net_contribution": "全网贡献"
       }
     }
   },
@@ -101,7 +101,7 @@
         "computing_task": "计算任务",
         "withdrawal": "提现",
         "power_analysis": "算力分析",
-        "network_contribution": "全网贡献"
+        "network_contribution": "Network Contribution"
       }
     }
   }
@@ -138,11 +138,11 @@ export default {
         || thisPath === '/inviteDetail' 
         || thisPath === '/revenue') { 
         return ["1"];
-      } else if (thisPath) {
+      } else if (thisPath === '/netStatus'
+        || thisPath === '/netDetail') {
         return ["2"];
       }
     }
-
   },
 };
 </script>

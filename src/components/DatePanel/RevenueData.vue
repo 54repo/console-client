@@ -24,10 +24,10 @@ export default {
 <i18n>
 {
   "en": {
-		"revenue_data_text": "Revenue Data"
+		"revenue_data_text": "Revenue Overview"
   },
   "zn": {
-		"revenue_data_text": "收益数据"
+		"revenue_data_text": "收益总览"
   }
 }
 </i18n>

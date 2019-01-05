@@ -64,7 +64,7 @@ export default {
 				"link": "https://bonuscloud.gitbook.io/help/bonuscloud-whitepaper-v-1.1-2018"
       }, {
         "date": "2018.10.10",
-				"content": "BonusCloud Lite Node Tutorial (BonusCloud only provides ROM, is not responsible for brushing technical support, brushing  machine is risky, conceited at your own riskt.)",
+				"content": "BonusCloud Lite Node Tutorial (BonusCloud only provides ROM. Please be noted that brushing machine remains certain risks assumed by you, and BonusCloud bears no responsibility for any potential risk.)",
 				"link": "https://bonuscloud.club/viewforum.php?f=19"
       }, {
         "date": "2018.10.10",

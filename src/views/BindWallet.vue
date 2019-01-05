@@ -77,11 +77,11 @@
 		"walletTips": {
 			"tips_one": "1.Please use the ETH hot wallet that supports erc20 token as the wallet for cash withdrawal.",
 			"tips_two": "2.The wallet address format is a 42-bit string starting with 0x.",
-			"tips_three": "3.Don't use the exchange's address, which may result in a withdrawal failure and loss of revenue.",
+			"tips_three": "3.Please don’t use the exchange’s address, which may result in a withdrawal failure and loss of revenue.",
       "tips_four": "4.Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
-			"tips_five": "5.Wallet Binding and Verification Tutorial：",
+			"tips_five": "5.Wallet binding and verification tutorial： https://bonuscloud.club/viewtopic.php?f=18&t=28",
 			"tips_five_link": "https://bonuscloud.club/viewtopic.php?f=18&t=28",
-			"tips_six": "6.After the wallet verification operation is completed, it will be verified at 4 o’clock UTC time on the next day. After the verification is passed, the label will be changed to  Verified status."
+			"tips_six": "6.After the wallet verification operation completed, it will be verified at 4 o’clock UTC time of the next day. After the verification passed, the label will be changed to “Verified” status."
 		},
 		"sureTips": "The wallet unbinding function will not be opened yet. Please check whether the bound wallet address is correct. If the cashier's address is incorrect, the cash will be lost, and BonusCloud will not bear any responsibility.",
 		"walletConfirm": "confirm",

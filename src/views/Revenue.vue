@@ -15,7 +15,6 @@ import Layout from '@/components/DatePanel/Layout.vue'
 import RevenueData from '@/components/DatePanel/RevenueData.vue'
 import FAQ from '@/components/Revenue/FAQ.vue'
 import RevenueContent from '@/components/DatePanel/RevenueContent.vue'
-// import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'home',
@@ -42,10 +41,10 @@ export default {
 <i18n>
 {
   "zn": {
-    "pageTitle": "情况"
+    "pageTitle": "收益总览"
   },
   "en": {
-    "pageTitle": "Revenue"
+    "pageTitle": "Revenue Overview"
   }
 }
 </i18n>
