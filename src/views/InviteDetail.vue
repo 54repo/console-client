@@ -27,6 +27,7 @@
           </el-select>
         </div>
         <el-table
+          v-if="detailList !== 'NONE'"
           :data="detailList"
           align="left"
           empty-text="-"
