@@ -27,7 +27,6 @@
           </el-select>
         </div>
         <el-table
-          v-if="detailList !== 'NONE'"
           :data="detailList"
           align="left"
           empty-text="-"
@@ -56,14 +55,6 @@
             :label="$t('invite_bxc')"
           >
           </el-table-column>
-        </el-table>
-        <el-table
-          v-if="detailList === 'NONE'"
-          :data="detailList"
-          align="left"
-          empty-text="system upgrade.."
-          style="width: 100%"
-        >
         </el-table>
         <div
           class="pagination"

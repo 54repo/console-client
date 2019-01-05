@@ -199,7 +199,7 @@ export default {
   async getInviteDetail({ commit }, params) {
     const res = await ajaxInviteDetail(params);
     try {
-      commit(GET_INVITE_DETAIL, res.ret);
+      commit(GET_INVITE_DETAIL, res.ret || {});
     } catch (error) {
       commit(GET_INVITE_DETAIL, 'NONE');
     }

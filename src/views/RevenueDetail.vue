@@ -25,7 +25,7 @@
             >
             </el-option>
           </el-select>
-          <span class="search-text">{{$t('mac_address')}}</span>
+          <span class="search-text">{{$t('search_mac_address')}}</span>
           <el-select
             v-model="searchMacAddress"
             filterable

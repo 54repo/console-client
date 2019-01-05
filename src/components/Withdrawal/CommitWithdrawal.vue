@@ -184,7 +184,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
-.verify-key {
+.verify-key.withdrawal-key {
   margin: 18px 0;
   height: 82px;
   line-height: 82px;

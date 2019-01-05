@@ -82,7 +82,7 @@
         "computing_task": "Computing Task",
         "withdrawal": "Withdrawal",
         "power_analysis": "Power Analysis",
-        "net_contribution": "全网贡献"
+        "net_contribution": "Network Contribution"
       }
     }
   },
@@ -101,7 +101,7 @@
         "computing_task": "计算任务",
         "withdrawal": "提现",
         "power_analysis": "算力分析",
-        "network_contribution": "Network Contribution"
+        "net_contribution": "全网贡献"
       }
     }
   }
