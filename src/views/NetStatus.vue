@@ -1,7 +1,9 @@
 <template>
   <div class="home net-status-home">
-    <Layout layoutType="HARDLIST" :layoutTitile="$t('layoutTitile')">
-      <BasiceLayout :title="$t('hardListLayoutTitile')">
+    <Layout layoutType="HARDLIST"
+      isRevenue="true"
+      :pageTitle="$t('layoutTitile')">
+      <BasiceLayout :title="$t('basicTitle')">
         <div class="hardware-content">
           <!-- mac地址搜索 -->
           <div class="hardware-search-wrap" v-if="allDevices" align='center'>
@@ -78,8 +80,8 @@
 <i18n>
 {
   "en": {
-		"layoutTitile": "Hardware List",
-		"hardListLayoutTitile": "Hardware List",
+		"layoutTitile": "Network Task",
+		"basicTitle": "Task Status",
     "macAddress": "MAC Address",
     "location": "Area",   
     "stable": "Stability",   
@@ -104,8 +106,8 @@
     "allSearch": "All"
   },
   "zn": {
-		"layoutTitile": "硬件列表",
-		"hardListLayoutTitile": "硬件列表",
+		"layoutTitile": "网络任务",
+		"basicTitle": "任务执行状态",
     "macAddress": "硬件MAC地址",
     "location": "所在地区", 
     "stable": "节点网络质量",   

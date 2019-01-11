@@ -1,6 +1,6 @@
 <template>
   <div class="home data-panel-home">
-    <Layout type="HOME" :pageTitle="$t('pageTitle')" >
+    <Layout type="HOME" :pageTitle="$t('pageTitle')" titleSrc="/menu/homeIcon_black.png">
       <Annouce></Annouce>
       <BonusCode :status="inviteCodeStatus"/>
       <Invite />
@@ -76,7 +76,6 @@ export default {
 			"question": "如何获得 BonusCode ？",
 			"anwser": "可以通过BonusCloud官网后台首页领取 BonusCode ，每个账号每天有十次领取 BonusCode 的机会。BonusCode 分时段发放，每个时段发放一定量。领取成功后，BonusCode 会展示在后台首页已领取的有效列表中，激活设备后可以在账号设置-硬件列表中查看 BonusCode 和设备的绑定情况。"
 		}]
-   
   }
 }
 </i18n>

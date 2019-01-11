@@ -1,6 +1,6 @@
-/** 网络收益详情 **/
+/** 收益页 **/
 <template>
-  <div class="home net-detail-home">
+  <div class="home">
     <Layout
       type="REVENUE"
       isRevenue="true"
@@ -142,7 +142,7 @@ import BasiceLayout from "@/components/Common/BasicLayout.vue";
 import moment from "moment";
 import { mapActions, mapState } from "vuex";
 import { Message } from "element-ui";
-const type = "network";
+const type = "all";
 
 export default {
   name: "home",
@@ -258,9 +258,9 @@ export default {
           that.showAddnoteDialog = false;
           if (that.searchMacAddress === "all" || that.searchMacAddress === "") {
             this.getRevenueDetail({
+              type,
               queryDate: that.selectDate,
-              pageNum: that.pageNum,
-              type
+              pageNum: that.pageNum
             });
           } else {
             this.getDeviceDetail({ id: that.searchMacAddress });
@@ -317,8 +317,8 @@ export default {
 <i18n>
 {
   "zn": {
-    "pageTitle": "网络任务",
-    "layoutTitle": "收益详情",
+    "pageTitle": "收益总览",
+    "layoutTitle": "设备收益详情",
     "revenueDate": "查询日期（UTC）",
     "revenueMac": "查询MAC地址",
     "mac_address": "设备",
@@ -334,8 +334,8 @@ export default {
     "allSearch": "全部"
   },
   "en": {
-    "pageTitle": "Network Task",
-    "layoutTitle": "Details",
+    "pageTitle": "Revenue Overview",
+    "layoutTitle": "Device Revenue Detatils",
     "revenueDate": "Date（UTC）",
     "revenueMac": "Mac Address",
     "mac_address": "Mac Address",
@@ -351,7 +351,4 @@ export default {
   }
 }
 </i18n>
-
-
-
 

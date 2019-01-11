@@ -11,23 +11,25 @@
           active-text-color="#fff"
           text-color="#989AA2" 
 					router="router">
+          <!-- 数据面板 -->
           <el-menu-item index="0"  route="/" class="home-page-wrap"  v-bind:class="{ isActive: (thisPath === '/') }">
-            <img  class="menu-icon home-icon" src="../../assets/homeIcon.png" >
+            <img  class="menu-icon home-icon" src="../../assets/menu/homeIcon.png" >
             <span slot="title">{{ $t('local_home_layout.menu.data_panel')}}</span>
           </el-menu-item>
+          <!-- 收益总览 -->
           <el-submenu index="1" route="/revenue" class="revenue-wrap">
             <template slot="title">
               <div v-bind:class="{ revenuePad: true }">
                 <img class="menu-icon home-icon total-revenue-icon" src="../../assets/menu/totalRevenue.png" >
-                <span>{{ $t('local_home_layout.menu.network_revenue')}}</span>
+                <span>{{ $t('local_home_layout.menu.all_revenue')}}</span>
               </div>
             </template>
-            <el-menu-item-group :span="3" >
-              <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.network_revenue') }}</el-menu-item>
-              <el-menu-item index="1-2" route="/revenueDetail"  v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">{{ $t('local_home_layout.menu.revenue_detail') }}</el-menu-item>
-              <el-menu-item index="1-3" route="/inviteDetail"  v-bind:class="{ isActive: (thisPath === '/inviteDetail') }">{{ $t('local_home_layout.menu.invite_detail') }}</el-menu-item>
+            <el-menu-item-group :span="3">
+              <el-menu-item route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.all_revenue') }}</el-menu-item>
+              <el-menu-item route="/devAllRevenue" v-bind:class="{ isActive: (thisPath === '/devAllRevenue') }">{{ $t('local_home_layout.menu.dev_all_revenue') }}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
+          <!-- 网络任务 -->
           <el-submenu index="2" route="/revenue" class="revenue-wrap">
             <template slot="title">
               <div v-bind:class="{ revenuePad: true }">
@@ -39,14 +41,25 @@
               <el-menu-item index="1-1" route="/netStatus" v-bind:class="{ isActive: (thisPath === '/netStatus') }">{{ $t('local_home_layout.menu.task_status') }}</el-menu-item>
               <el-menu-item index="1-2" route="/netDetail"  v-bind:class="{ isActive: (thisPath === '/netDetail') }">{{ $t('local_home_layout.menu.revenue_details') }}</el-menu-item>
             </el-menu-item-group>
-          </el-submenu>
+          </el-submenu>  
+           <!-- 在线收益详情 -->
+          <el-menu-item index="3" route="/revenueDetail" v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">
+            <img  class="menu-icon home-icon" src="../../assets/menu/online.png" >
+            <span slot="title">{{ $t('local_home_layout.menu.revenue_detail') }}</span>
+          </el-menu-item>     
+          <!-- 邀请奖励详情 -->
+          <el-menu-item index="3" route="/inviteDetail" v-bind:class="{ isActive: (thisPath === '/inviteDetail') }">
+            <img  class="menu-icon home-icon" src="../../assets/menu/invite.png" >
+            <span slot="title">{{ $t('local_home_layout.menu.invite_detail') }}</span>
+          </el-menu-item>     
+          <!-- 提现 -->
           <el-menu-item index="3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/withdrawal.png" >
             <span slot="title">{{ $t('local_home_layout.menu.withdrawal') }}</span>
           </el-menu-item>
           <el-menu-item index="4" route="/calcuteDetail" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png" >
-            <span slot="title">{{ $t('local_home_layout.menu.computing_task') }}</span>
+            <span slot="title">{{ $t('local_home_layout.menu.compute.png') }}</span>
           </el-menu-item>
           <el-menu-item index="5" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/powerAnalysis.png" >
@@ -59,7 +72,16 @@
         </el-menu>
       </el-col>
       <el-col :span="20" class="bonus-content">
-        <div class="title">{{ pageTitle }}</div>
+        <div class="title">
+          <!-- title img -->
+          <img v-if="thisPath === '/'" class="title-img" src="../../assets/menu/homeIconBlack.png" />
+          <img v-if="thisPath === '/revenue' || thisPath === '/devAllRevenue'" class="title-img" src="../../assets/menu/totalRevenueBlack.png" />
+          <img v-if="thisPath === '/netStatus' || thisPath === '/netDetail'" class="title-img" src="../../assets/menu/networdBlack.png" />
+          <img v-if="thisPath === '/revenueDetail'" class="title-img" src="../../assets/menu/onlineBlack.png" />
+          <img v-if="thisPath === '/inviteDetail'" class="title-img" src="../../assets/menu/inviteBlack.png" />
+          <img v-if="thisPath === '/withdrawal'" class="title-img" src="../../assets/menu/withdrawalBlack.png" />
+          {{ pageTitle }}
+        </div>
 				<slot></slot>
       </el-col>
     </el-row>
@@ -73,7 +95,8 @@
       "dataPanel": "Data Panel",
       "menu": {
         "data_panel": "Home Page",
-        "network_revenue": "Revenue Overview",
+        "all_revenue": "Revenue Overview",
+        "dev_all_revenue": "Device Revenue Detatils",
         "revenue_detail": "Online Revenue Details",
         "invite_detail": "Invitation Bonus Details",
         "network_task": "Network Task",
@@ -91,10 +114,10 @@
       "dataPanel": "数据面板",
       "menu": {
         "data_panel": "数据面板首页",
-        "network_revenue": "收益总览",
+        "all_revenue": "收益总览",
+        "dev_all_revenue": "设备收益详情",
         "revenue_detail": "在线收益详情",
         "invite_detail": "邀请奖励详情",
-
         "network_task": "网络任务",
         "task_status": "任务执行状态",
         "revenue_details": "收益详情",
@@ -117,6 +140,7 @@ export default {
     type: "",
     isRevenue: '',
     pageTitle: '',
+    titleSrc: ''
   },
   components: {
     Header
@@ -134,9 +158,8 @@ export default {
     },
     defaultOption() {
       let thisPath = this.$route.path;
-      if (thisPath  === '/revenueDetail'  
-        || thisPath === '/inviteDetail' 
-        || thisPath === '/revenue') { 
+      if (thisPath === '/revenue'
+      || thisPath === '/devAllRevenue') { 
         return ["1"];
       } else if (thisPath === '/netStatus'
         || thisPath === '/netDetail') {
@@ -237,6 +260,11 @@ export default {
   width: 100%;
 }
 
+.title-img{
+  width: 12px;
+  height:12px;
+}
+
 .el-alert__title {
   font-size: 10px;
 }
@@ -249,7 +277,6 @@ export default {
   margin: -2px 8px 0 0;
   width: 12px;
   height: 12px;
-  padding-top: 2px;
 }
 
 .isActive, .el-menu-item.is-active {

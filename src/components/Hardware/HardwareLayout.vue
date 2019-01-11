@@ -17,7 +17,10 @@
         </el-menu>
       </el-col>
       <el-col :span="20" class="bonus-content">
-        <div class="title">{{layoutTitile}}</div>
+        <div class="title">
+          <img class="title-img" src="../../assets/accountSet/hardwareBlack.png" />
+          {{layoutTitile}}
+        </div>
 				<slot></slot>
       </el-col>
     </el-row>

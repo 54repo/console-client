@@ -317,7 +317,7 @@ export default {
 <i18n>
 {
   "zn": {
-    "pageTitle": "详情",
+    "pageTitle": "在线收益详情",
     "revenueDate": "查询日期（UTC）",
     "revenueMac": "查询MAC地址",
     "mac_address": "设备",
@@ -333,7 +333,7 @@ export default {
     "allSearch": "全部"
   },
   "en": {
-    "pageTitle": "Details",
+    "pageTitle": "Online Revenue Details",
     "revenueDate": "Date（UTC）",
     "revenueMac": "Mac Address",
     "mac_address": "Mac Address",

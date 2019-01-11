@@ -5,6 +5,7 @@ import Login from './views/Login.vue';
 import SignUp from './views/SignUp.vue';
 import Forget from './views/Forget.vue';
 import Revenue from './views/Revenue.vue';
+import DevAllRevenue from './views/DevAllRevenue.vue';
 import RevenueDetail from './views/RevenueDetail.vue';
 import InviteDetail from './views/InviteDetail.vue';
 import AccountSet from './views/AccountSet.vue';
@@ -143,6 +144,14 @@ export default new Router({
         title,
       },
       component: CalculateDetail,
+    },
+    {
+      path: '/devAllRevenue',
+      name: 'devAllRevenue',
+      meta: {
+        title,
+      },
+      component: DevAllRevenue,
     },
     // {
     //   path: '/about',
