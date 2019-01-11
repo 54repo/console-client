@@ -58,11 +58,11 @@
             <span slot="title">{{ $t('local_home_layout.menu.withdrawal') }}</span>
           </el-menu-item>
           <el-menu-item index="4" route="/calcuteDetail" disabled>
-            <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png" >
+            <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png">
             <span slot="title">{{ $t('local_home_layout.menu.computing_task') }}</span>
           </el-menu-item>
           <el-menu-item index="5" disabled>
-            <img  class="menu-icon home-icon" src="../../assets/menu/powerAnalysis.png" >
+            <img  class="menu-icon home-icon" src="../../assets/menu/powerAnalysis.png">
             <span slot="title">{{ $t('local_home_layout.menu.power_analysis') }}</span>
           </el-menu-item>
           <el-menu-item index="6" disabled>
@@ -263,6 +263,7 @@ export default {
 .title-img{
   width: 12px;
   height:12px;
+  margin-right:5px;
 }
 
 .el-alert__title {
