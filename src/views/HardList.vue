@@ -6,7 +6,7 @@
           <!-- mac地址搜索 -->
           <div class="hardware-search-wrap" v-if="allDevices" align='center'>
             <span class="search-text">{{$t('mac_address')}}</span>
-            <el-select v-model="searchMacAddress" filterable placeholder="请选择" @change="search">
+            <el-select v-model="searchMacAddress" filterable placeholder="" @change="search">
               <el-option v-for="item in allDevices" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
@@ -182,7 +182,7 @@
     "CPU": "CPU",   
     "mem_size": "内存",  
     "info": "版本",  
-    "tx_bw": "上行宽带",
+    "tx_bw": "上行带宽",
     "storage_size": "硬盘",   
     "needs": "当前地区节点需求度",                                                                    
 		"date": "绑定时间(UTC)",

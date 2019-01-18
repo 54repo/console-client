@@ -17,7 +17,7 @@
             <el-select
               v-model="searchMacAddress"
               filterable
-              placeholder="请选择"
+              placeholder=""
               @change="search"
             >
               <el-option
@@ -209,7 +209,7 @@
 <i18n>
 {
   "en": {
-    "layoutTitile": "Network Task",
+    "layoutTitile": "Computing Task",
     "basicTitle": "Task Status",
     "macAddress": "MAC Address",
     "location": "Area",   
@@ -242,7 +242,7 @@
     "schedule": "Scheduling Capability"
   },
   "zn": {
-    "layoutTitile": "网络任务",
+    "layoutTitile": "计算任务",
     "basicTitle": "任务执行状态",
     "macAddress": "硬件MAC地址",
     "location": "所在地区", 
@@ -271,7 +271,7 @@
     "schedule": "是否可被调度",
     "CPU": "CPU",   
     "mem_size": "内存",  
-    "tx_bw": "上行宽带",
+    "tx_bw": "上行带宽",
     "storage_size": "硬盘"
   }
 }

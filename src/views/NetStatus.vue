@@ -8,7 +8,7 @@
           <!-- mac地址搜索 -->
           <div class="hardware-search-wrap" v-if="allDevices" align='center'>
             <span class="search-text">{{$t('mac_address')}}</span>
-            <el-select v-model="searchMacAddress" filterable placeholder="请选择" @change="search">
+            <el-select v-model="searchMacAddress" filterable placeholder="" @change="search">
               <el-option v-for="item in allDevices" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>

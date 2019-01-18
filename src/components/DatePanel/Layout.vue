@@ -92,6 +92,7 @@
           <img v-if="thisPath === '/revenueDetail'" class="title-img" src="../../assets/menu/onlineBlack.png" />
           <img v-if="thisPath === '/inviteDetail'" class="title-img" src="../../assets/menu/inviteBlack.png" />
           <img v-if="thisPath === '/withdrawal'" class="title-img" src="../../assets/menu/withdrawalBlack.png" />
+          <img v-if="thisPath === '/calcuteStatus'" class="title-img" src="../../assets/menu/couputeBlack.png" />
           {{ pageTitle }}
         </div>
 				<slot></slot>

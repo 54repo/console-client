@@ -4,7 +4,7 @@
     <el-select
       v-model="searchMacAddress"
       filterable
-      placeholder="请选择"
+      placeholder=""
       @change="search"
     >
       <el-option
