@@ -239,7 +239,8 @@
     "noteText": "note",
     "allSearch": "All",
     "scheduleFalse": "No",
-    "scheduleSuccess": "Yes"
+    "scheduleSuccess": "Yes",
+    "schedule": "Scheduling Capability"
   },
   "zn": {
     "layoutTitile": "网络任务",
@@ -268,6 +269,7 @@
     "allSearch": "全部",
     "scheduleSuccess": "是",
     "scheduleFalse": "否",
+    "schedule": "是否可被调度",
     "CPU": "CPU",   
     "mem_size": "内存",  
     "tx_bw": "上行宽带",
