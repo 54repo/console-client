@@ -101,4 +101,7 @@ a
 
 .none
   display: none!important;
+
+.el-menu-item-group__title
+  padding: 3px !important;
 </style>
