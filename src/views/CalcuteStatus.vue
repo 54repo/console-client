@@ -118,17 +118,17 @@
               align='center'
             >
               <template slot-scope="scope">
-                <div v-if="!scope.row.needs">-</div>
+                <div v-if="!scope.row.calNeeds">-</div>
                 <el-tag
-                  v-if="scope.row.needs === '高'"
+                  v-if="scope.row.calNeeds === '高'"
                   type="success"
                 >{{$t('needsHigh')}}</el-tag>
                 <el-tag
-                  v-if="scope.row.needs === '中'"
+                  v-if="scope.row.calNeeds === '中'"
                   type="warning"
                 >{{$t('needsMiddle')}}</el-tag>
                 <el-tag
-                  v-if="scope.row.needs === '低'"
+                  v-if="scope.row.calNeeds === '低'"
                   type="danger"
                 >{{$t('needsLow')}}</el-tag>
               </template>
