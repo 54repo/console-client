@@ -16,6 +16,7 @@ import Protocol from './views/Protocol.vue';
 import NetStatus from './views/NetStatus.vue';
 import NetDetail from './views/NetDetail.vue';
 import CalculateDetail from './views/CalculateDetail.vue';
+import CalcuteStatus from './views/CalcuteStatus.vue';
 // import Change from './views/Change.vue';
 
 Vue.use(Router);
@@ -153,6 +154,15 @@ export default new Router({
       },
       component: DevAllRevenue,
     },
+    {
+      path: '/calcuteStatus',
+      name: 'calcuteStatus',
+      meta: {
+        title,
+      },
+      component: CalcuteStatus,
+    },
+    
     // {
     //   path: '/about',
     //   name: 'about',

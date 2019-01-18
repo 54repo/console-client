@@ -42,6 +42,22 @@
               <el-menu-item index="1-2" route="/netDetail"  v-bind:class="{ isActive: (thisPath === '/netDetail') }">{{ $t('local_home_layout.menu.revenue_details') }}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>  
+          <!-- 计算任务 -->
+           <el-submenu index="3" route="/calcuteDetail" class="revenue-wrap">
+            <template slot="title">
+              <div v-bind:class="{ revenuePad: true }">
+                <img class="menu-icon home-icon" src="../../assets/menu/computeTask.png" >
+                <span>{{ $t('local_home_layout.menu.computing_task')}}</span>
+              </div>
+            </template>
+            <el-menu-item-group :span="3" >
+              <el-menu-item index="1-1" route="/calcuteStatus" v-bind:class="{ isActive: (thisPath === '/calcuteStatus') }">{{ $t('local_home_layout.menu.task_status') }}</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>  
+          <!-- <el-menu-item index="4" route="/calcuteDetail">
+            <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png">
+            <span slot="title">{{ $t('local_home_layout.menu.computing_task') }}</span>
+          </el-menu-item> -->
            <!-- 在线收益详情 -->
           <el-menu-item index="3" route="/revenueDetail" v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/online.png" >
@@ -56,10 +72,6 @@
           <el-menu-item index="3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/withdrawal.png" >
             <span slot="title">{{ $t('local_home_layout.menu.withdrawal') }}</span>
-          </el-menu-item>
-          <el-menu-item index="4" route="/calcuteDetail" disabled>
-            <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png">
-            <span slot="title">{{ $t('local_home_layout.menu.computing_task') }}</span>
           </el-menu-item>
           <el-menu-item index="5" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/powerAnalysis.png">
