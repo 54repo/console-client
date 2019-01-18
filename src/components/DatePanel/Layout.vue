@@ -59,25 +59,25 @@
             <span slot="title">{{ $t('local_home_layout.menu.computing_task') }}</span>
           </el-menu-item> -->
            <!-- 在线收益详情 -->
-          <el-menu-item index="3" route="/revenueDetail" v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">
+          <el-menu-item index="4" route="/revenueDetail" v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/online.png" >
             <span slot="title">{{ $t('local_home_layout.menu.revenue_detail') }}</span>
           </el-menu-item>     
           <!-- 邀请奖励详情 -->
-          <el-menu-item index="3" route="/inviteDetail" v-bind:class="{ isActive: (thisPath === '/inviteDetail') }">
+          <el-menu-item index="5" route="/inviteDetail" v-bind:class="{ isActive: (thisPath === '/inviteDetail') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/invite.png" >
             <span slot="title">{{ $t('local_home_layout.menu.invite_detail') }}</span>
           </el-menu-item>     
           <!-- 提现 -->
-          <el-menu-item index="3" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
+          <el-menu-item index="6" route="/withdrawal" v-bind:class="{ isActive: (thisPath === '/withdrawal') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/withdrawal.png" >
             <span slot="title">{{ $t('local_home_layout.menu.withdrawal') }}</span>
           </el-menu-item>
-          <el-menu-item index="5" disabled>
+          <el-menu-item index="7" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/powerAnalysis.png">
             <span slot="title">{{ $t('local_home_layout.menu.power_analysis') }}</span>
           </el-menu-item>
-          <el-menu-item index="6" disabled>
+          <el-menu-item index="8" disabled>
             <img  class="menu-icon home-icon" src="../../assets/menu/networkCbt.png" >
             <span slot="title">{{ $t('local_home_layout.menu.net_contribution') }}</span>
           </el-menu-item>
@@ -176,8 +176,11 @@ export default {
       } else if (thisPath === '/netStatus'
         || thisPath === '/netDetail') {
         return ["2"];
+      } else if (thisPath === '/calcuteStatus') {
+        return ["3"];
       }
-    }
+
+}
   },
 };
 </script>

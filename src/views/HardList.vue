@@ -66,7 +66,7 @@
             <el-table-column prop="" :label="$t('tx_bw')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.tx_bw">-</div>
-                <el-tag v-if="scope.row.tx_bw < 1" type="danger">1 M &lt;</el-tag>
+                <el-tag v-if="scope.row.tx_bw < 1 && scope.row.tx_bw > 0" type="danger">&lt; 1 M</el-tag>
                 <el-tag v-if="scope.row.tx_bw > 4" type="success">&gt; 4 M</el-tag>
                 <el-tag v-if="scope.row.tx_bw <= 4 && scope.row.tx_bw >= 1">1-4 M</el-tag>
               </template>

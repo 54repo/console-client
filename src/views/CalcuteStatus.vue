@@ -93,7 +93,6 @@
               </template>
             </el-table-column>
             <!-- 上行宽带 -->
-            <!-- <el-table-column prop="tx_bw" :label="$t('tx_bw')" align='center'></el-table-column> -->
             <el-table-column
               prop=""
               :label="$t('tx_bw')"
@@ -102,9 +101,9 @@
               <template slot-scope="scope">
                 <div v-if="!scope.row.tx_bw">-</div>
                 <el-tag
-                  v-if="scope.row.tx_bw < 1"
+                  v-if="scope.row.tx_bw < 1 && scope.row.tx_bw > 0"
                   type="danger"
-                >1 M &lt;</el-tag>
+                >&lt; 1 M</el-tag>
                 <el-tag
                   v-if="scope.row.tx_bw > 4"
                   type="success"
@@ -347,7 +346,8 @@ export default {
           that.showAddnoteDialog = false;
           if (that.searchMacAddress === "all" || that.searchMacAddress === "") {
             that.getHardList({
-              pageNum: that.currentPage
+              pageNum: that.currentPage,
+              type: 'CALCULATE'
             });
           } else {
             this.getDeviceDetail({ id: that.searchMacAddress });
@@ -368,7 +368,7 @@ export default {
     // 搜索
     search() {
       if (this.searchMacAddress === "all") {
-        this.getHardList({ pageNum: 1 });
+        this.getHardList({ pageNum: 1, type: 'CALCULATE' });
       } else {
         this.getDeviceDetail({ id: this.searchMacAddress });
       }
@@ -376,12 +376,12 @@ export default {
     // 分页
     handleCurrentChange(val) {
       this.currentPage = val;
-      this.getHardList({ pageNum: val });
+      this.getHardList({ pageNum: val, type: 'CALCULATE' });
     }
   },
 
   created() {
-    this.getHardList({ pageNum: 1 });
+    this.getHardList({ pageNum: 1, type: 'CALCULATE' });
   }
 };
 </script>
