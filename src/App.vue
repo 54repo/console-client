@@ -6,6 +6,11 @@
     </div> -->
     <router-view/>
     <Footer></Footer>
+    <div class="guide">
+      <div class="guide-icon"></div>
+      <a class="guid-link" :href="$t('guideLink')" target="_blank">{{$t('guide')}}</a>
+      <a class="guid-link" :href="$t('tutorialLink')" target="_blank">{{$t('tutorial')}}</a>
+    </div>
   </div>
 </template>
 
@@ -19,7 +24,43 @@ export default {
 }
 </script>
 
+<i18n>
+{
+  "en": {
+    "tutorial": "Tutorial",
+		"tutorialLink": "https://bonuscloud.club/viewforum.php?f=19",
+		"guide": "Guide",
+		"guideLink": "https://bonuscloud.club/viewtopic.php?f=18&t=17"
+  },
+  "zn": {
+		"tutorial": "刷机教程",
+		"tutorialLink": "https://bonuscloud.club/viewtopic.php?f=15&t=2014",
+		"guide": "新手入门",
+    "guideLink": "https://bonuscloud.club/viewtopic.php?f=15&t=12"
+  }
+}
+</i18n>
+
 <style lang="stylus">
+.guid-link:hover
+  color: #666
+.guid-link 
+  display: block;
+  font-size: 14px;
+.guide
+  border: 1px solid #e7eaec;
+  border-right: 0;
+  position: fixed;
+  top:60%;
+  right:0;
+  background-color: #f4f4f5;
+  padding: 10px;
+.guide-icon
+  background-image: url('assets/guide.png');
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+  margin: 0 auto 5px;
 html, body
   height: 100%
   font-family: 'Avenir', Arial, sans-serif, Helvetica, Tahoma, Arial, STXihei, '华文细黑', Heiti, '黑体', 'Microsoft YaHei', '微软雅黑', SimSun, '宋体', sans-serif;
@@ -30,7 +71,6 @@ html, body
   margin: 0
   padding: 0
 body
-  // background: #171E22;
   background: #0A0E22;
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif

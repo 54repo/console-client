@@ -14,7 +14,7 @@
           <el-table-column class-name="detail-more" height="40px">
             <template slot-scope="scope">
               <a target="_blank" :href="scope.row.link">
-                <span>{{scope.row.content}}</span>
+                <span  v-bind:class="{ activeAnnouce: scope.$index === 0 }">{{scope.row.content}}</span>
               </a>
             </template>
           </el-table-column>
@@ -64,7 +64,7 @@ export default {
 				"link": "https://bonuscloud.gitbook.io/help/bonuscloud-whitepaper-v-1.1-2018"
       }, {
         "date": "2018.10.10",
-				"content": "BonusCloud Lite Node Tutorial (BonusCloud only provides ROM. Please be noted that brushing machine remains certain risks assumed by you, and BonusCloud bears no responsibility for any potential risk.)",
+				"content": "BonusCloud Tutorial (BonusCloud only provides ROM and tutorials. Please be noted that brushing machine remains certain risks assumed by you, and BonusCloud bears no responsibility for any potential risk.)",
 				"link": "https://bonuscloud.club/viewforum.php?f=19"
       }, {
         "date": "2018.10.10",
@@ -84,7 +84,7 @@ export default {
 				"link": "https://bonuscloud.gitbook.io/help/bonuscloud-bai-pi-shu-v1.0"
       }, {
         "date": "2018.10.10",
-				"content": "BonusCloud Lite节点接入教程（BonusCloud只提供镜像，不负责刷机技术支持，刷机有风险，自行担责）",
+				"content": "BonusCloud 刷机教程（BonusCloud只提供镜像及教程，不负责刷机技术支持，刷机有风险，自行担责）",
 				"link": "https://bonuscloud.club/viewtopic.php?f=15&t=2014"
       }, {
         "date": "2018.10.10",
@@ -135,5 +135,8 @@ export default {
 
 a {
   color: #96999b;
+}
+.annouce-content  .detail-more  span.activeAnnouce{
+  color: #f56c6c;
 }
 </style>
