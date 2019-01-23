@@ -44,22 +44,25 @@ export default {
 <style lang="stylus">
 .guid-link:hover
   color: #666
+  font-size: 12px;
 .guid-link 
   display: block;
   font-size: 14px;
+  color: #fff;
 .guide
   border: 1px solid #e7eaec;
   border-right: 0;
   position: fixed;
   top:60%;
   right:0;
-  background-color: #f4f4f5;
+  background-color: #0db4c5;
   padding: 10px;
+  border-radius: 5px;
 .guide-icon
   background-image: url('assets/guide.png');
   background-size: cover;
-  width: 15px;
-  height: 15px;
+  width: 30px;
+  height: 30px;
   margin: 0 auto 5px;
 html, body
   height: 100%
