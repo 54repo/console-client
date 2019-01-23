@@ -50,7 +50,6 @@ export default {
   font-size: 14px;
   color: #fff;
 .guide
-  border: 1px solid #e7eaec;
   border-right: 0;
   position: fixed;
   top:60%;
