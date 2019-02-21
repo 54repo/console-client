@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Download from './views/Download.vue';
 import Login from './views/Login.vue';
 import SignUp from './views/SignUp.vue';
 import Forget from './views/Forget.vue';
@@ -33,6 +34,14 @@ export default new Router({
         title,
       },
       component: Home,
+    },
+    {
+      path: '/download',
+      name: 'download',
+      meta: {
+        title,
+      },
+      component: Download,
     },
     {
       path: '/revenue',
