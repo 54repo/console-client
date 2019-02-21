@@ -171,6 +171,11 @@ export default {
 };
 </script>
 
+<style lang="stylus">
+  #app 
+    height: 90%;
+</style>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
