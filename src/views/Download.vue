@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home down-home">
     <div class="header">
       <a class="logo" href="https://bonuscloud.io">
         <img class="header-logo " alt="header-logo" src="../assets/bonus-logo.png">
@@ -8,7 +8,7 @@
     </div>
     <main class="download-wrap">
       <div class="download-content">
-        <h2 class="download-title">Download</h2>
+        <h1 class="download-title">DOWNLOAD</h1>
         <!-- android -->
         <section class="download-node">
           <div class="section-wrap">
@@ -24,11 +24,9 @@
             <div>MD5: 1454b4b5312033d19c164a598d4d0823</div>
           </div>
           <a href="http://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-admin-forPI.apk" target="_blank" class="download-tab">
-            <icon class="download-icon xz-icon"></icon>
             <span>Download</span>
           </a>
           <a href="https://play.google.com/store/apps/details?id=io.bonuscloud.app" target="_blank" class="download-tab second-tab">
-            <icon class="download-icon google-icon small-icon"></icon>
             <span>Google Play</span>
           </a>
         </section>
@@ -47,11 +45,9 @@
             <div>MD5: e74f1456538b436716b651ef54c81b8a</div>
           </div>
           <a href="http://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-raspberryPi-armv7l-20181210.img.xz" target="_blank" class="download-tab">
-            <icon class="download-icon xz-icon"></icon>
             <span>Download</span>
           </a>
           <a href="https://bonuscloud.club/viewtopic.php?f=19&t=802" target="_blank" class="download-tab second-tab">
-            <icon class="download-icon small-icon down-guide-icon"></icon>
             <span>Tutorial</span>
           </a>
         </section>
@@ -70,11 +66,9 @@
             <div>MD5: 90268ee4780237e57a90b486ae21a446</div>
           </div>
           <a href="http://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-raspberryPi-armv7l-20181210.img.xz" target="_blank" class="download-tab">
-            <icon class="download-icon xz-icon"></icon>
             <span>Download</span>
           </a>
           <a href="https://bonuscloud.club/viewtopic.php?f=19&t=4217" target="_blank" class="download-tab second-tab">
-            <icon class="download-icon down-guide-icon small-icon"></icon>
             <span>Tutorial</span>
           </a>
         </section>
@@ -93,16 +87,14 @@
             <div>MD5: a4c5d5f3fb4933e4868e88762a9d913a</div>
           </div>
           <a href="http://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-nanoPiNeoPlus2-aarch64.tar.bz2" target="_blank" class="download-tab">
-            <icon class="download-icon xz-icon"></icon>
             <span>Download</span>
           </a>
           <a href="https://bonuscloud.club/viewtopic.php?f=19&t=4216" target="_blank" class="download-tab second-tab">
-            <icon class="download-icon down-guide-icon small-icon"></icon>
             <span>Tutorial</span>
           </a>
         </section>
         <!-- Merlin -->
-        <section class="download-node router-node">
+        <section class="download-node router-node last-node">
           <div class="section-wrap">
             <icon class="download-icon router-icon"></icon>
            <span class="section-title">Router Plugin For Merlin</span>
@@ -112,11 +104,9 @@
             <p class="version">ARM v7/ARM v8</p>
           </div>
           <a href="https://github.com/BonusCloud/BonusCloud-Node" target="_blank" class="download-tab">
-            <icon class="download-icon github-icon"></icon>
             <span>Github</span>
           </a>
           <a href="https://bonuscloud.club/viewtopic.php?f=15&t=2014" target="_blank" class="download-tab second-tab">
-            <icon class="download-icon down-guide-icon small-icon"></icon>
             <span>Tutorial</span>
           </a>
         </section>
@@ -149,8 +139,8 @@ export default {
 </script>
 
 <style lang="stylus">
-#app {
-  height: auto;
+.down-home.home {
+    height: auto!important;
 }
 .download-wrap
   padding: 100px 20px;
@@ -165,13 +155,12 @@ export default {
   padding: 20px;
   text-align left;
 .download-title
-  color: #0db4c5;
   text-align left;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   height: 25px;
   line-height: 25px;
-  border-bottom: 1px dashed #E3E3E3;
+  border-bottom: 1px solid #E3E3E3;
   padding: 30px;
   margin-bottom: 40px;
 .download-icon 
@@ -180,13 +169,8 @@ export default {
   width: 20px;
   height: 20px;
   margin-right: 10px;
-.small-icon
-  width: 15px;
-  height: 15px;
 .android-icon 
   background-image: url('../assets/download/android.png');
-// .google-icon 
-  // background-image: url('../assets/download/google.png');
 .router-icon
   background-image: url('../assets/download/router.png');
 .cpu-icon
@@ -218,18 +202,6 @@ export default {
   width: 15px;
   height: 15px;
   margin: 2.5px;
-.github-icon
-  background-image: url('../assets/download/github.png');
-  width: 14px;
-  height: 12px;
-  left: 18px;
-  position: absolute;
-  top: 12px;
-.down-guide-icon
-  background-image: url('../assets/guide.png');
-  left: 20px;
-  width: 10px;
-  height: 10px;
 .section-title 
   line-height: 20px;
   font-weight: bold;
@@ -248,12 +220,13 @@ export default {
   padding-bottom: 10px;
 .download-tab
   display: flex;
+  font-weight: bold;
   background-color: #0db4c5;
   width: 100px;
   padding: 10px;
   border-radius: 10px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   position: absolute;
   right: 30px;
   top: 30px;
@@ -273,6 +246,8 @@ export default {
   top: 80px;
 .router-node
   min-height: 100px;
+.last-node
+  border-bottom: 1px solid #e3e3e3;
 .more-wrap
   display: flex;
   margin: 30px;
