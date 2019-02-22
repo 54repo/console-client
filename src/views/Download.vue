@@ -65,7 +65,7 @@
             <div class="update-time">Update Time：2019-1-24</div>
             <div>MD5: 90268ee4780237e57a90b486ae21a446</div>
           </div>
-          <a href="http://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-raspberryPi-armv7l-20181210.img.xz" target="_blank" class="download-tab">
+          <a href="https://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-N1-emmc.img.xz" target="_blank" class="download-tab">
             <span>Download</span>
           </a>
           <a href="https://bonuscloud.club/viewtopic.php?f=19&t=4217" target="_blank" class="download-tab second-tab">
