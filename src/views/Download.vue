@@ -47,7 +47,7 @@
           <a href="http://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-raspberryPi-armv7l-20181210.img.xz" target="_blank" class="download-tab">
             <span>Download</span>
           </a>
-          <a href="https://bonuscloud.club/viewtopic.php?f=19&t=802" target="_blank" class="download-tab second-tab">
+          <a href="https://bonuscloud.club/viewtopic.php?f=19&t=4216" target="_blank" class="download-tab second-tab">
             <span>Tutorial</span>
           </a>
         </section>
@@ -119,7 +119,7 @@
           </div>
           <div class="right-content">
             <icon class="download-icon people-icon"></icon>
-            <a href="https://bonuscloud.club/index.php" target="_blank" class="go-tab">Go</a>
+            <a href="https://bonuscloud.club/index.php" target="_blank" class="go-tab">GO</a>
           </div>
         </div>
       </div>
@@ -240,6 +240,7 @@ export default {
   color: #fff;
   font-size: 12px;
   text-align: center;
+  font-weight: bold;
 .second-tab
   display: flex;
   right: 30px;
