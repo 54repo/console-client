@@ -67,8 +67,6 @@ html, body
   height: 100%
   font-family: 'Avenir', Arial, sans-serif, Helvetica, Tahoma, Arial, STXihei, '华文细黑', Heiti, '黑体', 'Microsoft YaHei', '微软雅黑', SimSun, '宋体', sans-serif;
   -webkit-font-smoothing: antialiased;
-#app
-  height: 100%
 *
   margin: 0
   padding: 0

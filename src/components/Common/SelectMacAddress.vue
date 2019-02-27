@@ -46,15 +46,6 @@ export default {
 }
 </script>
 
-<i18n>
-{
-  "zn": {
-  },
-  "en": {
-    
-  }
-}
-</i18n>
 
 
 
