@@ -66,9 +66,11 @@
             <el-table-column prop="" :label="$t('tx_bw')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.tx_bw">-</div>
-                <el-tag v-if="scope.row.tx_bw < 1 && scope.row.tx_bw > 0" type="danger">&lt; 1 M</el-tag>
-                <el-tag v-if="scope.row.tx_bw > 4" type="success">&gt; 4 M</el-tag>
-                <el-tag v-if="scope.row.tx_bw <= 4 && scope.row.tx_bw >= 1">1-4 M</el-tag>
+                <!-- 5、5-10、10-20、20 -->
+                <el-tag v-if="scope.row.tx_bw < 5 && scope.row.tx_bw > 0" type="danger">&lt; 5 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw > 20" type="success">&gt; 20 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw <= 10 && scope.row.tx_bw >= 5">5-10 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw <= 20 && scope.row.tx_bw >= 10">10-20 M</el-tag>
               </template>
             </el-table-column>
             <!-- 地区 -->
