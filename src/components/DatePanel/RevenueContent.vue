@@ -104,7 +104,7 @@ export default {
     totalNetRevenue: state => state.revenue.totalNetRevenue,
     totalOnlineRevenue: state => state.revenue.totalOnlineRevenue,
     totalRevenue: state => state.revenue.totalRevenue,
-    totalCalculate: state => state.revenue.totalRevenue
+    totalCalculate: state => state.revenue.totalCalculate
   }),
 
   methods: {
