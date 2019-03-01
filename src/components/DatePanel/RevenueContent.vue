@@ -86,7 +86,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">暂无</div>
+        <div class="revunue_value">{{(totalCalculate === '') ? '-' : totalCalculate}} BxC</div>
       </div>
     </div>
   </div>
@@ -103,7 +103,8 @@ export default {
     totalInvite: state => state.revenue.totalInvite,
     totalNetRevenue: state => state.revenue.totalNetRevenue,
     totalOnlineRevenue: state => state.revenue.totalOnlineRevenue,
-    totalRevenue: state => state.revenue.totalRevenue
+    totalRevenue: state => state.revenue.totalRevenue,
+    totalCalculate: state => state.revenue.totalRevenue
   }),
 
   methods: {
