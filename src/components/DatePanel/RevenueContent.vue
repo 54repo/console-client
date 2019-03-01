@@ -14,7 +14,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{(totalRevenue === '') ? '-' : totalRevenue}} BxC</div>
+        <div class="revunue_value">{{totalRevenue || 0}} BxC</div>
       </div>
       <div class="one_day_invite_revenue each_item_wrap">
         <div class="revenue_item">
@@ -28,7 +28,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{(balance === '') ? '-' : balance}} BxC</div>
+        <div class="revunue_value">{{balance  || 0}} BxC</div>
       </div>
       <div class="total_revenue each_item_wrap">
         <div class="revenue_item">
@@ -42,7 +42,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{(totalInvite === '') ? '-' : totalInvite}} BxC</div>
+        <div class="revunue_value">{{totalInvite || 0}} BxC</div>
       </div>
     </div>
     <div class="revenueWrap">
@@ -58,7 +58,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{(totalOnlineRevenue === '') ? '-' : totalOnlineRevenue}} BxC</div>
+        <div class="revunue_value">{{totalOnlineRevenue || 0}} BxC</div>
       </div>
       <div class="one_day_invite_revenue each_item_wrap">
         <div class="revenue_item">
@@ -72,7 +72,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{(totalNetRevenue === '') ? '-' : totalNetRevenue}} BxC</div>
+        <div class="revunue_value">{{totalNetRevenue || 0}} BxC</div>
       </div>
       <div class="total_revenue each_item_wrap">
         <div class="revenue_item">
@@ -86,7 +86,7 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{(totalCalculate === '') ? '-' : totalCalculate}} BxC</div>
+        <div class="revunue_value">{{totalCalculate || 0}} BxC</div>
       </div>
     </div>
   </div>
