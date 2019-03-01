@@ -5,19 +5,19 @@
     
     <div class="foot-link">
       <div class="foot-detail">
-        <a class="foot-detail-title" target="_blank" href="https://bonuscloud.io">BonusCloud</a>
-        <a class="foot-detail-link" target="_blank" href="https://bonuscloud.gitbook.io/help/bonuscloud-whitepaper-v-1.1-2018">{{ $t('Whitepaper') }}</a>
-        <a class="foot-detail-link"  target="_blank" href="https://bonuscloud.io/#highlight">{{ $t('Highlight') }}</a>
+        <a class="foot-detail-title">BonusCloud</a>
+        <a class="foot-detail-link" target="_blank" :href="Whitepaper_link">{{ $t('Whitepaper') }}</a>
+        <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#highlight">{{ $t('Highlight') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#advantage">{{ $t('Advantage') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#team">{{ $t('Member') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#agency">{{ $t('Partner') }}</a>
-        <a class="foot-detail-link" target="_blank" href="https://bonuscloud.gitbook.io/help/faq-chang-jian-wen-ti/faq-cn">{{ $t('Token') }}</a>
-        <a class="foot-detail-link" target="_blank" href="https://bonuscloud.gitbook.io/help/faq-chang-jian-wen-ti/faq-en">{{ $t('FAQ') }}</a>
+        <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#token">{{ $t('Token') }}</a>
+        <a class="foot-detail-link" target="_blank" :href="FAQ_link">{{ $t('FAQ') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#roadmap">{{ $t('Roadmap') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/protocol">{{ $t('Agreement') }}</a>
       </div>
       <div class="foot-detail">
-        <a class="foot-detail-title" target="_blank" :href="$t('Agreement_link')">Data Panel</a>
+        <a class="foot-detail-title">Data Panel</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/">{{ $t('Get_BCode') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/revenue">{{ $t('Revenue_Overview') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/netStatus">{{ $t('Network_Task') }}</a>
@@ -28,7 +28,6 @@
       <div class="foot-detail">
         <a class="foot-detail-title">My Hardware</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/withdrawal">{{ $t('Hardware_List') }}</a>
-
       </div>
       <div class="foot-detail">
         <a class="foot-detail-title">Resources And Help</a>
@@ -146,6 +145,7 @@
     "Agreement": "用户协议",
     "Whitepaper_link": "https://bonuscloud.gitbook.io/help/bonuscloud-bai-pi-shu-v1.0", 
     "FAQ_link": "https://bonuscloud.gitbook.io/help/faq-chang-jian-wen-ti/faq-cn",
+    "FAQ_link": "",
 
     "Get_BCode": "领取BCode",
     "Overview_link": "",
@@ -176,6 +176,8 @@
     "FAQ": "FAQ",
     "Roadmap": "Roadmap",
     "Agreement": "Agreement",
+    "Whitepaper_link": "https://bonuscloud.gitbook.io/help/bonuscloud-whitepaper-v-1.1-2018", 
+    "FAQ_link": "",
 
     "Get_BCode": "Get BCode",
     "BCode_link": "https://console.bonuscloud.io/",
