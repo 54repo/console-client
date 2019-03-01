@@ -14,7 +14,8 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{totalRevenue || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalRevenue !== ''">{{totalRevenue || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalRevenue === ''">- BxC</div>
       </div>
       <div class="one_day_invite_revenue each_item_wrap">
         <div class="revenue_item">
@@ -28,7 +29,8 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{balance  || 0}} BxC</div>
+        <div class="revunue_value" v-if="balance !== ''">{{ balance || 0}} BxC</div>
+        <div class="revunue_value" v-if="balance === ''">- BxC</div>
       </div>
       <div class="total_revenue each_item_wrap">
         <div class="revenue_item">
@@ -42,7 +44,8 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{totalInvite || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalInvite !== ''">{{totalInvite || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalInvite === ''">- BxC</div>
       </div>
     </div>
     <div class="revenueWrap">
@@ -58,7 +61,8 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{totalOnlineRevenue || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalOnlineRevenue !== ''">{{totalOnlineRevenue || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalOnlineRevenue === ''">- BxC</div>
       </div>
       <div class="one_day_invite_revenue each_item_wrap">
         <div class="revenue_item">
@@ -72,7 +76,8 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{totalNetRevenue || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalNetRevenue !== ''">{{totalNetRevenue || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalNetRevenue === ''">- BxC</div>
       </div>
       <div class="total_revenue each_item_wrap">
         <div class="revenue_item">
@@ -86,7 +91,8 @@
             </el-tooltip>
           </div>
         </div>
-        <div class="revunue_value">{{totalCalculate || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalCalculate !== ''">{{totalCalculate || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalCalculate === ''">- BxC</div>
       </div>
     </div>
   </div>
@@ -99,12 +105,12 @@ import { mapActions, mapState } from 'vuex'
 export default {
   name: "RevenueContent",
   computed: mapState({
-    balance: state => state.revenue.balance,
-    totalInvite: state => state.revenue.totalInvite,
-    totalNetRevenue: state => state.revenue.totalNetRevenue,
-    totalOnlineRevenue: state => state.revenue.totalOnlineRevenue,
-    totalRevenue: state => state.revenue.totalRevenue,
-    totalCalculate: state => state.revenue.totalCalculate
+    balance: state => state.revenue.balance || '',
+    totalInvite: state => state.revenue.totalInvite || '',
+    totalNetRevenue: state => state.revenue.totalNetRevenue || '',
+    totalOnlineRevenue: state => state.revenue.totalOnlineRevenue || '',
+    totalRevenue: state => state.revenue.totalRevenue || '',
+    totalCalculate: state => state.revenue.totalCalculate || ''
   }),
 
   methods: {
