@@ -128,5 +128,9 @@
   "cancel": "Cancele",
   "captcha": {
     "expired": "the CAPTCHA response expires , please re-verify"
+  },
+  "addNotes": {
+    "title": "Add device note",
+    "tipText": "Enter the name of the note you want to record for the device (change it only once in 7 days) :"
   }
 }

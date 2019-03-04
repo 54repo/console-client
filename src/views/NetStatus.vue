@@ -23,6 +23,7 @@
               <template slot-scope="scope">
                 <div v-if="scope.row.note">{{scope.row.note}}</div>
                 <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
+                <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
               </template>
             </el-table-column>
             <!-- IP -->
@@ -98,10 +99,6 @@
     "stableLow": "Low",
     "mac_address": "Search Mac Address",
     "addNote": "note",
-    "addNotes": {
-      "title": "Add device note",
-      "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
-    },
     "noteText": "note",
     "allSearch": "All"
   },
@@ -124,10 +121,6 @@
     "stableLow": "低",
     "mac_address": "Mac地址搜索",
     "addNote": "备注",
-    "addNotes": {
-      "title": "添加设备备注",
-      "tipText": "输入该设备记录的备注名（仅可修改一次）："
-    },
     "noteText": "备注",
     "allSearch": "全部"
   }

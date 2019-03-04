@@ -325,10 +325,6 @@ export default {
     "noteText": "备注",
     "search_mac_address": "搜索Mac地址",
     "addNote": "备注",
-    "addNotes": {
-      "title": "添加设备备注",
-      "tipText": "输入该设备记录的备注名（仅可修改一次）："
-    },
     "noteText": "备注",
     "allSearch": "全部"
   },
@@ -340,10 +336,6 @@ export default {
     "device_revenue": "device revenue",
     "search_mac_address": "Mac Address",
     "addNote": "note",
-    "addNotes": {
-      "title": "Add device note",
-      "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
-    },
     "noteText": "note",
     "allSearch": "All"
   }
