@@ -290,6 +290,9 @@ export default {
     // 添加备注
     addNote() {
       let that = this
+      if (!this.addNoteInput) {
+        return;
+      }
       this.addDeviceNotes({
         deviceId: this.addNoteId,
         note: this.addNoteInput
