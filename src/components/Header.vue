@@ -68,7 +68,8 @@ export default {
         || thisPath === '/inviteDetail' 
         || thisPath === '/netStatus'
         || thisPath === '/calcuteStatus'
-        || thisPath === '/netDetail';
+        || thisPath === '/netDetail'
+        || thisPath === '/calculateDetail';
     }
   }),
   methods: {

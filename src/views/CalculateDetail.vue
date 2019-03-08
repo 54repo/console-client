@@ -1,15 +1,16 @@
-/** 计算任务收益页 **/
+/** 收益页 **/
 <template>
   <div class="home">
     <Layout type="REVENUE" isRevenue="true" :pageTitle="$t('pageTitle')">
-      <BasiceLayout :title=" $t('pageTitle') " class="revenue-layout">
+      <BasiceLayout :title=" $t('basicTitle') " class="revenue-layout">
         <div class="revenue-detail-select">
+          <div class="detail-total-revenue">{{$t('tolal_revenue')}}: &nbsp; &nbsp; {{detailOnlineBxc}}</div>
           <span class="revenue-date-wrap">{{$t('revenueDate')}}:</span>
           <el-select v-model="selectDate" filterable @change="search">
             <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
-          <span class="search-text">{{$t('mac_address')}}</span>
+          <span class="search-text">{{$t('search_mac_address')}}</span>
           <el-select v-model="searchMacAddress" filterable placeholder="" @change="searchMac">
             <el-option v-for="item in allDevices" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
@@ -26,7 +27,6 @@
               <div v-if="!scope.row.note" :deviceId="scope.row.deviceId"
                 @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">
                 {{$t('addNote')}}</div>
-              <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
             </template>
           </el-table-column>
           <!-- 设备收益 -->
@@ -65,6 +65,7 @@
   import moment from "moment";
   import { mapActions, mapState } from "vuex";
   import { Message } from "element-ui";
+  const type = "calculate";
 
   export default {
     name: "home",
@@ -120,7 +121,7 @@
       this.queryDate = queryDate;
       let pageNum = this.pageNum;
 
-      this.getRevenueDetail({ queryDate, pageNum, type: "calcute" });
+      this.getRevenueDetail({ queryDate, pageNum, type });
     },
     methods: {
       ...mapActions(["getRevenueDetail", "addDeviceNotes"]),
@@ -128,7 +129,7 @@
       search(queryDate) {
         this.queryDate = queryDate;
         let pageNum = this.pageNum;
-        this.getRevenueDetail({ queryDate, pageNum, type: "calcute" });
+        this.getRevenueDetail({ queryDate, pageNum, type });
       },
       // mac搜索
       searchMac(deviceId) {
@@ -142,13 +143,13 @@
             mac_address,
             deviceId,
             queryDate: selectDate,
-            type: "calcute"
+            type
           });
         } else {
           this.getRevenueDetail({
             queryDate: this.selectDate,
             pageNum: this.pageNum,
-            type: "calcute"
+            type
           });
         }
       },
@@ -161,15 +162,13 @@
         this.pageNum = value;
         this.getRevenueDetail({
           queryDate,
-          pageNum: value
+          pageNum: value,
+          type
         });
       },
       // 添加备注
       addNote() {
         let that = this;
-        if (!this.addNoteInput) {
-         return;
-        }
         this.addDeviceNotes({
           deviceId: this.addNoteId,
           note: this.addNoteInput
@@ -182,6 +181,7 @@
             that.showAddnoteDialog = false;
             if (that.searchMacAddress === "all" || that.searchMacAddress === "") {
               this.getRevenueDetail({
+                type,
                 queryDate: that.selectDate,
                 pageNum: that.pageNum
               });
@@ -243,7 +243,8 @@
 <i18n>
   {
   "zn": {
-  "pageTitle": "详情",
+  "pageTitle": "计算任务",
+  "basicTitle": "收益详情",
   "revenueDate": "查询日期（UTC）",
   "revenueMac": "查询MAC地址",
   "mac_address": "设备",
@@ -251,19 +252,31 @@
   "noteText": "备注",
   "search_mac_address": "搜索Mac地址",
   "addNote": "备注",
+  "addNotes": {
+  "title": "添加设备备注",
+  "tipText": "输入该设备记录的备注名（仅可修改一次）："
+  },
   "noteText": "备注",
-  "allSearch": "全部"
+  "allSearch": "全部",
+  "tolal_revenue": "当日设备总收益"
   },
   "en": {
-  "pageTitle": "Details",
+  "pageTitle": "Computing Task",
+  "basicTitle": "Revenue Details",
+  "layoutTitle": "Device Revenue Detatils",
   "revenueDate": "Date（UTC）",
   "revenueMac": "Mac Address",
   "mac_address": "Mac Address",
   "device_revenue": "device revenue",
   "search_mac_address": "Mac Address",
   "addNote": "note",
+  "addNotes": {
+  "title": "Add device note",
+  "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
+  },
   "noteText": "note",
-  "allSearch": "All"
+  "allSearch": "All",
+  "tolal_revenue": "Total Revenue"
   }
   }
 </i18n>

@@ -116,6 +116,10 @@ export default {
     state.revenueDetail.deviceNumSize = deviceDetail.pageSize;
     state.revenueDetail.detailList = deviceDetail.detailList || 'NO_CONTENT';
     state.revenueDetail.allDevices = deviceDetail.allDevices;
+
+    state.revenueDetail.detailBxc = deviceDetail.totalBxc.bxc;
+    state.revenueDetail.detailTaskBxc = deviceDetail.totalBxc.task_bxc;
+    state.revenueDetail.detailOnlineBxc = deviceDetail.totalBxc.online_bxc;
     state.revenueDetail = Object.assign({}, state.revenueDetail);
   },
   //  用户邀请收益详情

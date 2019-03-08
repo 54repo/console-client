@@ -4,6 +4,7 @@
     <Layout type="REVENUE" isRevenue="true" :pageTitle="$t('pageTitle')">
       <BasiceLayout :title=" $t('layoutTitle') " class="revenue-layout">
         <div class="revenue-detail-select">
+          <div class="detail-total-revenue">{{$t('tolal_revenue')}}: &nbsp; &nbsp; {{detailTaskBxc}}</div>
           <span class="revenue-date-wrap">{{$t('revenueDate')}}:</span>
           <el-select v-model="selectDate" filterable @change="search">
             <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">
@@ -26,7 +27,6 @@
               <div v-if="!scope.row.note" :deviceId="scope.row.deviceId"
                 @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">
                 {{$t('addNote')}}</div>
-              <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
             </template>
           </el-table-column>
           <!-- 设备收益 -->
@@ -95,6 +95,7 @@
       deviceNumSize: state => state.revenueDetail.deviceNumSize,
       detailList: state => state.revenueDetail.detailList,
       allDevices: state => state.revenueDetail.allDevices,
+      detailTaskBxc: state => state.revenueDetail.detailTaskBxc,
       queryDate: () => {
         let queryDate = [];
         let endDay = moment()
@@ -169,9 +170,6 @@
       // 添加备注
       addNote() {
         let that = this;
-        if (!this.addNoteInput) {
-          return;
-        }
         this.addDeviceNotes({
           deviceId: this.addNoteId,
           note: this.addNoteInput
@@ -255,8 +253,13 @@
   "noteText": "备注",
   "search_mac_address": "搜索Mac地址",
   "addNote": "备注",
+  "addNotes": {
+  "title": "添加设备备注",
+  "tipText": "输入该设备记录的备注名（仅可修改一次）："
+  },
   "noteText": "备注",
-  "allSearch": "全部"
+  "allSearch": "全部",
+  "tolal_revenue": "当日网络总收益"
   },
   "en": {
   "pageTitle": "Network Task",
@@ -267,8 +270,13 @@
   "device_revenue": "device revenue",
   "search_mac_address": "Mac Address",
   "addNote": "note",
+  "addNotes": {
+  "title": "Add device note",
+  "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
+  },
   "noteText": "note",
-  "allSearch": "All"
+  "allSearch": "All",
+  "tolal_revenue": "Total Network Revenue:"
   }
   }
 </i18n>

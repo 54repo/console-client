@@ -51,7 +51,8 @@
               </div>
             </template>
             <el-menu-item-group :span="3" >
-              <el-menu-item index="1-1" route="/calcuteStatus" v-bind:class="{ isActive: (thisPath === '/calcuteStatus') }">{{ $t('local_home_layout.menu.task_status') }}</el-menu-item>
+              <el-menu-item index="3-1" route="/calcuteStatus" v-bind:class="{ isActive: (thisPath === '/calcuteStatus') }">{{ $t('local_home_layout.menu.task_status') }}</el-menu-item>
+              <el-menu-item index="3-2" route="/calculateDetail" v-bind:class="{ isActive: (thisPath === '/calculateDetail') }">{{ $t('local_home_layout.menu.calculate_detail') }}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>  
           <!-- <el-menu-item index="4" route="/calcuteDetail">
@@ -92,7 +93,7 @@
           <img v-if="thisPath === '/revenueDetail'" class="title-img" src="../../assets/menu/onlineBlack.png" />
           <img v-if="thisPath === '/inviteDetail'" class="title-img" src="../../assets/menu/inviteBlack.png" />
           <img v-if="thisPath === '/withdrawal'" class="title-img" src="../../assets/menu/withdrawalBlack.png" />
-          <img v-if="thisPath === '/calcuteStatus'" class="title-img" src="../../assets/menu/couputeBlack.png" />
+          <img v-if="thisPath === '/calcuteStatus' || thisPath === '/calculateDetail'" class="title-img" src="../../assets/menu/couputeBlack.png" />
           {{ pageTitle }}
         </div>
 				<slot></slot>
@@ -114,6 +115,7 @@
         "invite_detail": "Invitation Bonus Details",
         "network_task": "Network Task",
         "task_status":"Task Status",
+        "calculate_detail":"Revenue Details",
         "revenue_details": "Revenue Details",
         "computing_task": "Computing Task",
         "withdrawal": "Withdrawal",
@@ -133,6 +135,7 @@
         "invite_detail": "邀请奖励详情",
         "network_task": "网络任务",
         "task_status": "任务执行状态",
+        "calculate_detail":"计算收益详情",        
         "revenue_details": "收益详情",
         "computing_task": "计算任务",
         "withdrawal": "提现",
@@ -177,7 +180,8 @@ export default {
       } else if (thisPath === '/netStatus'
         || thisPath === '/netDetail') {
         return ["2"];
-      } else if (thisPath === '/calcuteStatus') {
+      } else if (thisPath === '/calcuteStatus' 
+        || thisPath === '/calculateDetail') {
         return ["3"];
       }
 
