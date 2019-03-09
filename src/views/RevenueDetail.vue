@@ -209,6 +209,8 @@
 </script>
 
 <style lang="stylus">
+  .detail-total-revenue
+    margin: 20px;
   .data-panel-wrap,
   .data-panel-layout,
   .home {
