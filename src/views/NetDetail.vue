@@ -4,7 +4,7 @@
     <Layout type="REVENUE" isRevenue="true" :pageTitle="$t('pageTitle')">
       <BasiceLayout :title=" $t('layoutTitle') " class="revenue-layout">
         <div class="revenue-detail-select">
-          <div v-if="tolal_revenue" class="detail-total-revenue">{{$t('tolal_revenue')}}: &nbsp; &nbsp; {{detailTaskBxc}}</div>
+          <div v-if="detailTaskBxc" class="detail-total-revenue">{{$t('tolal_revenue')}}: &nbsp; &nbsp; {{detailTaskBxc}}</div>
           <span class="revenue-date-wrap">{{$t('revenueDate')}}:</span>
           <el-select v-model="selectDate" filterable @change="search">
             <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">

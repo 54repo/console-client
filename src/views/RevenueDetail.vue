@@ -4,7 +4,7 @@
     <Layout type="REVENUE" isRevenue="true" :pageTitle="$t('pageTitle')">
       <BasiceLayout :title=" $t('layoutTitle') " class="revenue-layout">
         <div class="revenue-detail-select">
-          <div v-if="tolal_revenue" class="detail-total-revenue">{{$t('tolal_revenue')}}: &nbsp; &nbsp;  {{detailOnlineBxc}}</div>
+          <div v-if="detailOnlineBxc" class="detail-total-revenue">{{$t('total_revenue')}}: &nbsp; &nbsp;  {{detailOnlineBxc}}</div>
           <span class="revenue-date-wrap">{{$t('revenueDate')}}:</span>
           <el-select v-model="selectDate" filterable @change="search">
             <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">
@@ -256,7 +256,7 @@
   "addNote": "备注",
   "noteText": "备注",
   "allSearch": "全部",
-  "tolal_revenue": "当日设备总收益"
+  "total_revenue": "当日设备总收益"
   },
   "en": {
   "pageTitle": "Revenue Overview",
@@ -269,7 +269,7 @@
   "addNote": "note",
   "noteText": "note",
   "allSearch": "All",
-  "tolal_revenue": "Total Revenue"
+  "total_revenue": "Total Revenue"
   }
   }
 </i18n>
