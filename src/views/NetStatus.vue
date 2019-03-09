@@ -39,9 +39,10 @@
             <el-table-column prop="" :label="$t('needs')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.needs">-</div>
-                <el-tag v-if="scope.row.needs === '高'" type="success">{{$t('needsHigh')}}</el-tag>
-                <el-tag v-if="scope.row.needs === '中'" type="warning">{{$t('needsMiddle')}}</el-tag>
-                <el-tag v-if="scope.row.needs === '低'" type="danger">{{$t('needsLow')}}</el-tag>
+                <el-tag type="success">{{$t('needsHigh')}}</el-tag>
+                <!-- <el-tag v-if="scope.row.needs === '高'" type="success">{{$t('needsHigh')}}</el-tag> -->
+                <!-- <el-tag v-if="scope.row.needs === '中'" type="warning">{{$t('needsMiddle')}}</el-tag> -->
+                <!-- <el-tag v-if="scope.row.needs === '低'" type="danger">{{$t('needsLow')}}</el-tag> -->
               </template>
             </el-table-column>
             <!-- 网络质量 -->

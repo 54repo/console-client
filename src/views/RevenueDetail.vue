@@ -65,7 +65,7 @@
   import moment from "moment";
   import { mapActions, mapState } from "vuex";
   import { Message } from "element-ui";
-  const type = "all";
+  const type = "online";
 
   export default {
     name: "home",
