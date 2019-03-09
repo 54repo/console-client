@@ -27,6 +27,7 @@
               <div v-if="!scope.row.note" :deviceId="scope.row.deviceId"
                 @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">
                 {{$t('addNote')}}</div>
+              <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
             </template>
           </el-table-column>
           <!-- 设备收益 -->
@@ -253,10 +254,6 @@
   "noteText": "备注",
   "search_mac_address": "搜索Mac地址",
   "addNote": "备注",
-  "addNotes": {
-  "title": "添加设备备注",
-  "tipText": "输入该设备记录的备注名（仅可修改一次）："
-  },
   "noteText": "备注",
   "allSearch": "全部",
   "tolal_revenue": "当日设备总收益"
@@ -270,10 +267,6 @@
   "device_revenue": "device revenue",
   "search_mac_address": "Mac Address",
   "addNote": "note",
-  "addNotes": {
-  "title": "Add device note",
-  "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
-  },
   "noteText": "note",
   "allSearch": "All",
   "tolal_revenue": "Total Revenue"

@@ -135,7 +135,7 @@
         "invite_detail": "邀请奖励详情",
         "network_task": "网络任务",
         "task_status": "任务执行状态",
-        "calculate_detail":"计算收益详情",        
+        "calculate_detail":"收益详情",        
         "revenue_details": "收益详情",
         "computing_task": "计算任务",
         "withdrawal": "提现",
