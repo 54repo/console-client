@@ -104,7 +104,7 @@
 
         endDay -= 24 * 60 * 60 * 1000;
         let i = 0;
-        while (i < 7) {
+        while (i < 2) {
           i++;
           queryDate.push(moment(endDay).format("YYYY-MM-DD"));
           endDay -= 24 * 60 * 60 * 1000;
