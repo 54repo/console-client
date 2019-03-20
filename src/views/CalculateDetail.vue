@@ -30,6 +30,16 @@
               <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
             </template>
           </el-table-column>
+          <el-table-column prop="" :label="$t('contribution')" align='center'>
+            <template slot-scope="scope">
+              <div v-if="!scope.row.tx_bw">-</div>
+              <!-- 5、5-10、10-20、20 -->
+              <el-tag v-if="scope.row.tx_bw < 5 && scope.row.tx_bw > 0" type="danger">&lt; 5 M</el-tag>
+              <el-tag v-if="scope.row.tx_bw > 20" type="success">&gt; 20 M</el-tag>
+              <el-tag v-if="scope.row.tx_bw <= 10 && scope.row.tx_bw >= 5">5-10 M</el-tag>
+              <el-tag v-if="scope.row.tx_bw <= 20 && scope.row.tx_bw >= 10">10-20 M</el-tag>
+            </template>
+          </el-table-column>
           <!-- 设备收益 -->
           <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
         </el-table>
@@ -255,7 +265,8 @@
   "addNote": "备注",
   "noteText": "备注",
   "allSearch": "全部",
-  "tolal_revenue": "当日设备总收益"
+  "tolal_revenue": "当日设备总收益",
+  "contribution": "带宽贡献"
   },
   "en": {
   "pageTitle": "Computing Task",
@@ -269,7 +280,8 @@
   "addNote": "note",
   "noteText": "note",
   "allSearch": "All",
-  "tolal_revenue": "Total Revenue"
+  "tolal_revenue": "Total Revenue",
+  "contribution": "Bandwidth contribution"
   }
   }
 </i18n>
