@@ -41,9 +41,9 @@
             </template>
           </el-table-column>
           <!-- 设备存储 -->
-          <el-table-column prop="storage" align='center' :label="$t('storage')"></el-table-column>
+          <el-table-column prop="ext_storage_size" align='center' :label="$t('storage')"></el-table-column>
           <!-- 设备在线时常 -->
-          <el-table-column prop="ext_storage_size" align='center' :label="$t('storage_online')"></el-table-column>
+          <el-table-column prop="storage_time" align='center' :label="$t('storage_online')"></el-table-column>
           <!-- 设备收益 -->
           <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
         </el-table>
