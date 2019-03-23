@@ -30,7 +30,7 @@
               <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
             </template>
           </el-table-column>
-          <el-table-column prop="" :label="$t('contribution')" align='center'>
+          <el-table-column prop="" :label="$t('bandwidth')" align='center'>
             <template slot-scope="scope">
               <div v-if="!scope.row.tx_bw">-</div>
               <!-- 5、5-10、10-20、20 -->
@@ -40,6 +40,10 @@
               <el-tag v-if="scope.row.tx_bw <= 20 && scope.row.tx_bw >= 10">10-20 M</el-tag>
             </template>
           </el-table-column>
+          <!-- 设备存储 -->
+          <el-table-column prop="storage" align='center' :label="$t('storage')"></el-table-column>
+          <!-- 设备在线时常 -->
+          <el-table-column prop="ext_storage_size" align='center' :label="$t('storage_online')"></el-table-column>
           <!-- 设备收益 -->
           <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
         </el-table>
@@ -266,7 +270,9 @@
   "noteText": "备注",
   "allSearch": "全部",
   "tolal_revenue": "当日设备总收益",
-  "contribution": "带宽贡献"
+  "bandwidth": "带宽贡献",
+  "storage": "存储",
+  "storage_online": "存储在线时长"
   },
   "en": {
   "pageTitle": "Computing Task",
@@ -281,7 +287,9 @@
   "noteText": "note",
   "allSearch": "All",
   "tolal_revenue": "Total Revenue",
-  "contribution": "Bandwidth contribution"
+  "bandwidth": "Bandwidth",
+  "storage": "Storage",
+  "storage_online": "Storage Online"             
   }
   }
 </i18n>
