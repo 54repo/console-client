@@ -64,7 +64,6 @@ export default {
       return thisPath === '/' 
         || thisPath === '/revenue' 
         || thisPath === '/withdrawal' 
-        || thisPath === '/revenueDetail' 
         || thisPath === '/inviteDetail' 
         || thisPath === '/netStatus'
         || thisPath === '/calcuteStatus'

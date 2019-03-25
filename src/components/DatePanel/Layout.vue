@@ -58,12 +58,7 @@
           <!-- <el-menu-item index="4" route="/calcuteDetail">
             <img  class="menu-icon home-icon" src="../../assets/menu/computeTask.png">
             <span slot="title">{{ $t('local_home_layout.menu.computing_task') }}</span>
-          </el-menu-item> -->
-           <!-- 在线收益详情 -->
-          <el-menu-item index="4" route="/revenueDetail" v-bind:class="{ isActive: (thisPath === '/revenueDetail') }">
-            <img  class="menu-icon home-icon" src="../../assets/menu/online.png" >
-            <span slot="title">{{ $t('local_home_layout.menu.revenue_detail') }}</span>
-          </el-menu-item>     
+          </el-menu-item> -->  
           <!-- 邀请奖励详情 -->
           <el-menu-item index="5" route="/inviteDetail" v-bind:class="{ isActive: (thisPath === '/inviteDetail') }">
             <img  class="menu-icon home-icon" src="../../assets/menu/invite.png" >
@@ -90,7 +85,7 @@
           <img v-if="thisPath === '/'" class="title-img" src="../../assets/menu/homeIconBlack.png" />
           <img v-if="thisPath === '/revenue' || thisPath === '/devAllRevenue'" class="title-img" src="../../assets/menu/totalRevenueBlack.png" />
           <img v-if="thisPath === '/netStatus' || thisPath === '/netDetail'" class="title-img" src="../../assets/menu/networdBlack.png" />
-          <img v-if="thisPath === '/revenueDetail'" class="title-img" src="../../assets/menu/onlineBlack.png" />
+          <!-- <img v-if="thisPath === '/revenueDetail'" class="title-img" src="../../assets/menu/onlineBlack.png" /> -->
           <img v-if="thisPath === '/inviteDetail'" class="title-img" src="../../assets/menu/inviteBlack.png" />
           <img v-if="thisPath === '/withdrawal'" class="title-img" src="../../assets/menu/withdrawalBlack.png" />
           <img v-if="thisPath === '/calcuteStatus' || thisPath === '/calculateDetail'" class="title-img" src="../../assets/menu/couputeBlack.png" />

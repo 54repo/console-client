@@ -49,21 +49,6 @@
       </div>
     </div>
     <div class="revenueWrap">
-      <div class="one_day_revenue each_item_wrap">
-        <div class="revenue_item">
-          <img
-            class="revenue-icon home-icon"
-            src="../../assets/revenue/online_revunue.png"
-          >
-          <div class="revenue_title">{{ $t('revenue_4') }} 
-            <el-tooltip class="item" effect="dark" :content=" $t('online_tips')" placement="top">
-              <i class="revenue-icon el-icon-question"></i>
-            </el-tooltip>
-          </div>
-        </div>
-        <div class="revunue_value" v-if="totalOnlineRevenue !== ''">{{totalOnlineRevenue || 0}} BxC</div>
-        <div class="revunue_value" v-if="totalOnlineRevenue === ''">- BxC</div>
-      </div>
       <div class="one_day_invite_revenue each_item_wrap">
         <div class="revenue_item">
           <img
@@ -93,6 +78,21 @@
         </div>
         <div class="revunue_value" v-if="totalCalculate !== ''">{{totalCalculate || 0}} BxC</div>
         <div class="revunue_value" v-if="totalCalculate === ''">- BxC</div>
+      </div>
+      <div class="one_day_revenue each_item_wrap">
+        <!-- <div class="revenue_item"> -->
+          <!-- <img
+            class="revenue-icon home-icon"
+            src="../../assets/revenue/online_revunue.png"
+          >
+          <div class="revenue_title">{{ $t('revenue_4') }} 
+            <el-tooltip class="item" effect="dark" :content=" $t('online_tips')" placement="top">
+              <i class="revenue-icon el-icon-question"></i>
+            </el-tooltip>
+          </div>
+        </div>
+        <div class="revunue_value" v-if="totalOnlineRevenue !== ''">{{totalOnlineRevenue || 0}} BxC</div>
+        <div class="revunue_value" v-if="totalOnlineRevenue === ''">- BxC</div> -->
       </div>
     </div>
   </div>
