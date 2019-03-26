@@ -60,6 +60,20 @@
                 <el-tag v-if="scope.row.tx_bw <= 30 && scope.row.tx_bw >= 20">20-30 M</el-tag>
               </template>
             </el-table-column>
+            <!-- nat -->
+            <el-table-column prop="" :label="$t('nat')" align='center'>
+              <template slot-scope="scope">
+                <div v-if="!scope.row.nat">-</div>
+                <div v-if="scope.row.nat === 1">{{$t('nat_1')}}</div>
+                <div v-if="scope.row.nat === 2">{{$t('nat_2')}}</div>
+                <div v-if="scope.row.nat === 3">{{$t('nat_3')}}</div>
+                <div v-if="scope.row.nat === 4">{{$t('nat_4')}}</div>
+                <div v-if="scope.row.nat === 5">{{$t('nat_5')}}</div>
+                <div v-if="scope.row.nat === 6">{{$t('nat_6')}}</div>
+                <div v-if="scope.row.nat === 7">{{$t('nat_7')}}</div>
+                <div v-if="scope.row.nat === 8">{{$t('nat_8')}}</div>
+              </template>
+            </el-table-column>
             <!-- 需求度 -->
             <el-table-column prop="" :label="$t('needs')" align='center'>
               <template slot-scope="scope">
@@ -135,7 +149,8 @@
   "allSearch": "All",
   "scheduleFalse": "No",
   "scheduleSuccess": "Yes",
-  "schedule": "Scheduling Capability"
+  "schedule": "Scheduling Capability",
+  "nat": "NAT Type"
   },
   "zn": {
   "layoutTitile": "计算任务",
@@ -168,7 +183,8 @@
   "CPU": "CPU",
   "mem_size": "内存",
   "tx_bw": "上行带宽",
-  "storage_size": "硬盘"
+  "storage_size": "硬盘",
+  "nat": "NAT 类型"
   }
   }
 </i18n>

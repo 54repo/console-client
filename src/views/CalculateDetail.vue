@@ -43,8 +43,10 @@
           </el-table-column>
           <!-- 设备存储 -->
           <el-table-column prop="ext_storage_size" align='center' :label="$t('storage')"></el-table-column>
-          <!-- 设备在线时常 -->
+          <!-- 设备在线时长 -->
           <el-table-column prop="storage_time" align='center' :label="$t('storage_online')"></el-table-column>
+          <!-- nat 类型 -->
+          <el-table-column prop="nat" align='center' :label="$t('nat')"></el-table-column>
           <!-- 设备收益 -->
           <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
         </el-table>
@@ -273,7 +275,8 @@
   "tolal_revenue": "当日设备总收益",
   "bandwidth": "带宽贡献",
   "storage": "存储",
-  "storage_online": "存储在线时长"
+  "storage_online": "存储在线时长",
+  "nat": "NAT 类型"
   },
   "en": {
   "pageTitle": "Computing Task",
@@ -290,7 +293,8 @@
   "tolal_revenue": "Total Revenue",
   "bandwidth": "Bandwidth",
   "storage": "Storage",
-  "storage_online": "Storage Online"             
+  "storage_online": "Storage Online",
+  "nat": "NAT Type"
   }
   }
 </i18n>
