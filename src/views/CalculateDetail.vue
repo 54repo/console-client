@@ -45,8 +45,20 @@
           <el-table-column prop="ext_storage_size" align='center' :label="$t('storage')"></el-table-column>
           <!-- 设备在线时长 -->
           <el-table-column prop="storage_time" align='center' :label="$t('storage_online')"></el-table-column>
-          <!-- nat 类型 -->
-          <el-table-column prop="nat" align='center' :label="$t('nat')"></el-table-column>
+          <!-- nat -->
+          <el-table-column prop="" :label="$t('nat')" align='center'>
+            <template slot-scope="scope">
+              <div v-if="!scope.row.nat">-</div>
+              <div v-if="scope.row.nat === 1">{{$t('nat_1')}}</div>
+              <div v-if="scope.row.nat === 2">{{$t('nat_2')}}</div>
+              <div v-if="scope.row.nat === 3">{{$t('nat_3')}}</div>
+              <div v-if="scope.row.nat === 4">{{$t('nat_4')}}</div>
+              <div v-if="scope.row.nat === 5">{{$t('nat_5')}}</div>
+              <div v-if="scope.row.nat === 6">{{$t('nat_6')}}</div>
+              <div v-if="scope.row.nat === 7">{{$t('nat_7')}}</div>
+              <div v-if="scope.row.nat === 8">{{$t('nat_8')}}</div>
+            </template>
+          </el-table-column>
           <!-- 设备收益 -->
           <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
         </el-table>
