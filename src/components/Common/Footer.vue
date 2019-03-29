@@ -148,8 +148,8 @@
   margin: 0 4px;
 .foot-annouce-icon img
   display: inline-block;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   margin-right: 30px;
 </style>
 
