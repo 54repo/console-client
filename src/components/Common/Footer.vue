@@ -2,7 +2,7 @@
 
 <template>
   <div class="Footer">
-    
+    <div class="line"></div>
     <div class="foot-link">
       <div class="foot-detail">
         <a class="foot-detail-title">BonusCloud</a>
@@ -90,6 +90,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style  scopes lang="stylus">
+  .line
+    margin-top: 20px
+    border-bottom: 1px solid #979797;
+    opacity: 0.3;
+    width: 100%;
+    top: 62px;
   .Footer
     margin-top: 50px;
     padding: 10px;
@@ -107,8 +113,7 @@
   .foot-link
     // border-top: 1px solid #ddd;
     width: 80%;
-    margin: 100px auto;
-    // margin-left: 16.66667%;
+    margin: 40px auto 10px;
     display: flex;
     font-family: Arial, 'Helvetica Neue';
   .foot-detail

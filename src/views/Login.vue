@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header type='login-header' />
-    <AccountLayout>
+    <AccountLayout class="login-content">
       <!-- 登陆框 -->
       <div class="account-dialog">
         <div class="title">{{ $t('login.loginTitle') }}</div>
@@ -174,6 +174,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.login-content
+  height: 60vw;
 .captcha-wrap {
   transform: scale(0.96);
   -webkit-transform: scale(0.96);

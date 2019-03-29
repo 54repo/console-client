@@ -67,6 +67,7 @@ html, body
   height: 100%
   font-family: 'Avenir', Arial, sans-serif, Helvetica, Tahoma, Arial, STXihei, '华文细黑', Heiti, '黑体', 'Microsoft YaHei', '微软雅黑', SimSun, '宋体', sans-serif;
   -webkit-font-smoothing: antialiased;
+
 *
   margin: 0
   padding: 0
@@ -78,7 +79,6 @@ body
   -moz-osx-font-smoothing grayscale
   text-align center
   color #2c3e50
-  height: 100%;
 #nav
   padding 30px
   a
