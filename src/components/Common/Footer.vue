@@ -22,12 +22,11 @@
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/revenue">{{ $t('Revenue_Overview') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/netStatus">{{ $t('Network_Task') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/calcuteStatus">{{ $t('Computing_Task') }}</a>
-        <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/revenueDetail">{{ $t('Online_Revenue') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/withdrawal">{{ $t('Withdrawal') }}</a>
       </div>
       <div class="foot-detail">
         <a class="foot-detail-title">My Hardware</a>
-        <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/withdrawal">{{ $t('Hardware_List') }}</a>
+        <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/hardList">{{ $t('Hardware_List') }}</a>
       </div>
       <div class="foot-detail">
         <a class="foot-detail-title">Resources And Help</a>
@@ -45,11 +44,11 @@
         </a>
 
         <a class="foot-detail-title tech-community">Technology Community</a>
-        <a target="_blank" href="mailto:hi@bonuscloud.io" class="foot-detail-link footer-club community-content">
+        <a target="_blank" href="https://bonuscloud.club/" class="foot-detail-link footer-club community-content">
           <img src="../../assets/footer/club.png" />
           <span>BonusCloud Club</span>
         </a>
-        <a target="_blank" href="mailto:hi@bonuscloud.io" class="foot-detail-link community-content">
+        <a target="_blank" href="http://qm.qq.com/cgi-bin/qm/qr?k=OhcxFgudR67SwHzcPzT3IcqBclaA7XSl" class="foot-detail-link community-content">
           <img src="../../assets/footer/qq.png" />
           <span>740788277</span>
         </a>
@@ -133,7 +132,7 @@
   margin-left: 10px;
 .footer-detail-email img, .community-content img
   width: 16px;
-  height: 10px;
+  height: 16px;
   margin-right: 10px;
 .community-content
   display: flex;
@@ -175,7 +174,6 @@
     "Revenue_Overview": " 收益总览",
     "Network_Task": "网络任务",
     "Computing_Task": "计算任务",
-    "Online_Revenue": "在线收益",
     "Withdrawal": "提现",
     "Hardware_List": "硬件列表",
     "Guide": "新手指南",
@@ -205,7 +203,6 @@
     "Revenue_Overview": "Revenue Overview",
     "Network_Task": "Network Task",
     "Computing_Task": "Computing Task",
-    "Online_Revenue": "Online Revenue",
     "Withdrawal": "Withdrawal",
 
     "Hardware_List": "Hardware List",
