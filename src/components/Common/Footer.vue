@@ -140,16 +140,16 @@
 .tech-community
   margin-top: 50px;
 .footer-club img
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 .footer-tele 
   font-size: 14px;
 .footer-tele span 
   margin: 0 4px;
 .foot-annouce-icon img
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   margin-right: 30px;
 </style>
 
