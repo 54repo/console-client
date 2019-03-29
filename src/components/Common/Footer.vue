@@ -6,13 +6,13 @@
     <div class="foot-link">
       <div class="foot-detail">
         <a class="foot-detail-title">BonusCloud</a>
-        <a class="foot-detail-link" target="_blank" :href="Whitepaper_link">{{ $t('Whitepaper') }}</a>
+        <a class="foot-detail-link" target="_blank" :href="$t('Whitepaper_link')">{{ $t('Whitepaper') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#highlight">{{ $t('Highlight') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#advantage">{{ $t('Advantage') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#team">{{ $t('Member') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#agency">{{ $t('Partner') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#token">{{ $t('Token') }}</a>
-        <a class="foot-detail-link" target="_blank" :href="FAQ_link">{{ $t('FAQ') }}</a>
+        <a class="foot-detail-link" target="_blank" :href="$t('FAQ_link')">{{ $t('FAQ') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://bonuscloud.io/#roadmap">{{ $t('Roadmap') }}</a>
         <a class="foot-detail-link" target="_blank" href="https://console.bonuscloud.io/protocol">{{ $t('Agreement') }}</a>
       </div>
@@ -61,13 +61,27 @@
           <span> / </span>
           <a href="https://t.me/BonuscloudRu">RU</a>
         </div>
-
       </div>
-
     </div>
-
     <div class="user-protocol">
-      <router-link class="footer-agree-link" target="_blank" to="/protocol">BonusCloud User Agreement</router-link>
+      <div>
+        <a href="https://medium.com/@bonuscloud" class="foot-annouce-icon">
+          <img src="../../assets/footer/medium.png">
+        </a>
+        <a href="https://www.facebook.com/BonusCloud.io" class="foot-annouce-icon">
+          <img src="../../assets/footer/facebook.png">
+        </a>
+        <a href="https://twitter.com/bonus_cloud" class="foot-annouce-icon">
+          <img src="../../assets/footer/twitter.png">
+        </a>
+        <a href="https://www.youtube.com/channel/UCqVL-o6r_WFf3ZzavCZHWyg?view_as=subscriber" class="foot-annouce-icon">
+          <img src="../../assets/footer/youtube.png">
+        </a>
+        <a href="https://github.com/BonusCloud" class="foot-annouce-icon">
+          <img src="../../assets/footer/github.png">
+        </a>
+      </div>
+      <router-link class="footer-agree-link" target="_blank" to="/protocol">2018 BonusCloud Foundation © All rights reserved</router-link>
     </div>
     <!-- <div>2018 BonusCloud Foundation © All rights reserved</div> -->
   </div>
@@ -93,9 +107,10 @@
   .foot-link
     // border-top: 1px solid #ddd;
     width: 80%;
-    margin: 20px auto;
-    margin-left: 16.66667%;
+    margin: 100px auto;
+    // margin-left: 16.66667%;
     display: flex;
+    font-family: Arial, 'Helvetica Neue';
   .foot-detail
     width: 20%;
     text-align: left;
@@ -104,7 +119,7 @@
     display: block;
     margin: 10px 10px 20px;
     font-size: 16px;
-
+    color: #fff;
   .foot-detail-link
     font-size: 14px;
     display: block;
@@ -127,6 +142,11 @@
   font-size: 14px;
 .footer-tele span 
   margin: 0 4px;
+.foot-annouce-icon img
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 30px;
 </style>
 
 
@@ -145,8 +165,6 @@
     "Agreement": "用户协议",
     "Whitepaper_link": "https://bonuscloud.gitbook.io/help/bonuscloud-bai-pi-shu-v1.0", 
     "FAQ_link": "https://bonuscloud.gitbook.io/help/faq-chang-jian-wen-ti/faq-cn",
-    "FAQ_link": "",
-
     "Get_BCode": "领取BCode",
     "Overview_link": "",
     "Revenue_Overview": " 收益总览",
@@ -155,7 +173,6 @@
     "Online_Revenue": "在线收益",
     "Withdrawal": "提现",
     "Hardware_List": "硬件列表",
-
     "Guide": "新手指南",
     "Guide_link": "https://bonuscloud.club/viewtopic.php?f=15&t=12",
     "Resource": "资源导航",
@@ -177,8 +194,7 @@
     "Roadmap": "Roadmap",
     "Agreement": "Agreement",
     "Whitepaper_link": "https://bonuscloud.gitbook.io/help/bonuscloud-whitepaper-v-1.1-2018", 
-    "FAQ_link": "",
-
+    "FAQ_link": "https://bonuscloud.gitbook.io/help/faq-chang-jian-wen-ti/faq-en",
     "Get_BCode": "Get BCode",
     "BCode_link": "https://console.bonuscloud.io/",
     "Revenue_Overview": "Revenue Overview",
@@ -196,8 +212,6 @@
     "Tutorial": "Brush Tutorial",
     "Tutorial_link": "https://bonuscloud.club/viewforum.php?f=19",
     "Download": "Download"
- 
-
   }
 }
 </i18n>
