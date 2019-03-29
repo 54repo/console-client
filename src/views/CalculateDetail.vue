@@ -49,14 +49,16 @@
           <el-table-column prop="" :label="$t('nat')" align='center'>
             <template slot-scope="scope">
               <div v-if="!scope.row.nat">-</div>
-              <div v-if="scope.row.nat === 1">{{$t('nat_1')}}</div>
-              <div v-if="scope.row.nat === 2">{{$t('nat_2')}}</div>
-              <div v-if="scope.row.nat === 3">{{$t('nat_3')}}</div>
-              <div v-if="scope.row.nat === 4">{{$t('nat_4')}}</div>
-              <div v-if="scope.row.nat === 5">{{$t('nat_5')}}</div>
-              <div v-if="scope.row.nat === 6">{{$t('nat_6')}}</div>
-              <div v-if="scope.row.nat === 7">{{$t('nat_7')}}</div>
-              <div v-if="scope.row.nat === 8">{{$t('nat_8')}}</div>
+              <!-- 红色 -->
+              <el-tag  v-if="scope.row.nat === 1" type="danger">{{$t('nat_1')}}</el-tag>
+              <!-- 绿色 -->
+              <el-tag v-if="scope.row.nat === 2">{{$t('nat_2')}}</el-tag>
+              <el-tag v-if="scope.row.nat === 3">{{$t('nat_3')}}</el-tag>
+              <el-tag v-if="scope.row.nat === 5">{{$t('nat_5')}}</el-tag>
+              <el-tag v-if="scope.row.nat === 6">{{$t('nat_6')}}</el-tag>   
+              <!-- 黄色 -->
+              <el-tag v-if="scope.row.nat === 7" type="success">{{$t('nat_7')}}</el-tag>
+              <el-tag v-if="scope.row.nat === 4" type="success">{{$t('nat_4')}}</el-tag>
             </template>
           </el-table-column>
           <!-- 设备收益 -->

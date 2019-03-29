@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header type='login-header'/>
-    <AccountLayout>
+    <AccountLayout class="forget-content">
 			<!-- 登录框 -->
 			<div class="account-dialog">
 				<div class="title">{{$t('forgetPW.forgetTitle')}}</div>
@@ -217,6 +217,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.forget-content
+  height: 60vw;
 .account-dialog {
 	width: 52%;
 	max-width: 420px;
