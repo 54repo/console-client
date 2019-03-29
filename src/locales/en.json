@@ -128,5 +128,17 @@
   "cancel": "Cancele",
   "captcha": {
     "expired": "the CAPTCHA response expires , please re-verify"
-  }
+  },
+  "addNotes": {
+    "title": "Add device note",
+    "tipText": "Enter the name of the note you want to record for the device (change it only once in 7 days) :"
+  },
+  "nat_1": "Blocked",
+  "nat_2": "OpenInternet",
+  "nat_3": "FullCone",
+  "nat_4": "SymmetricUDPFirewall",
+  "nat_5": "RestricNAT",
+  "nat_6": "RestricPortNAT",
+  "nat_7": "SymmetricNAT",
+  "nat_8": "ChangedAddressError"
 }

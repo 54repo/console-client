@@ -49,7 +49,10 @@ export default new Vuex.Store({
       deviceLength: '',
       deviceNumSize: 1,
       revenueDetail: [],
-      allDevices: []
+      allDevices: [],
+      detailBxc: '-',
+      detailTaskBxc: '-',
+      detailOnlineBxc: '-'
     },
     inviteDetail: {
       detailList: [],

@@ -21,6 +21,7 @@
               <template slot-scope="scope">
                 <div v-if="scope.row.note">{{scope.row.note}}</div>
                 <div v-if="!scope.row.note" :deviceId="scope.row.deviceId" @click="showNotes(scope.row.id, scope.row.mac_address)" class="add-note-button button bonus-cursor">{{$t('addNote')}}</div>
+                <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
               </template>
             </el-table-column>
             <!-- 绑定时间 -->
@@ -66,9 +67,12 @@
             <el-table-column prop="" :label="$t('tx_bw')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.tx_bw">-</div>
-                <el-tag v-if="scope.row.tx_bw < 1 && scope.row.tx_bw > 0" type="danger">&lt; 1 M</el-tag>
-                <el-tag v-if="scope.row.tx_bw > 4" type="success">&gt; 4 M</el-tag>
-                <el-tag v-if="scope.row.tx_bw <= 4 && scope.row.tx_bw >= 1">1-4 M</el-tag>
+                <!-- 5、5-10、10-20、20 -->
+                <el-tag v-if="scope.row.tx_bw < 5 && scope.row.tx_bw > 0" type="danger">&lt; 5 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw > 30" type="success">&gt; 30 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw <= 10 && scope.row.tx_bw >= 5">5-10 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw <= 20 && scope.row.tx_bw >= 10">10-20 M</el-tag>
+                <el-tag v-if="scope.row.tx_bw <= 30 && scope.row.tx_bw >= 20">20-30 M</el-tag>
               </template>
             </el-table-column>
             <!-- 地区 -->
@@ -147,8 +151,7 @@
     "mem_size": "Memory",   
     "storage_size": "Storage",
     "info": "Version",
-    "tx_bw": "Upstream Bandwidth",
-    "needs": "Area Node Requirement",                                                                    
+    "tx_bw": "Upstream Bandwidth",                                                                   
 		"date": "The Binding Date(UTC)",
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
@@ -162,15 +165,8 @@
       "mailText": "Email Verfication Code",
       "imageVerify": "Image Verfication"
     },
-    "needsHigh": "High",
-    "needsMiddle": "Medium",
-    "needsLow": "Low",
     "mac_address": "Search Mac Address",
     "addNote": "Note",
-    "addNotes": {
-      "title": "Add device note",
-      "tipText": "Enter the name of the note you want to record for the device (change it only once) :"
-    },
     "noteText": "Note",
     "allSearch": "All"
   },
@@ -183,8 +179,7 @@
     "mem_size": "内存",  
     "info": "版本",  
     "tx_bw": "上行带宽",
-    "storage_size": "硬盘",   
-    "needs": "当前地区节点需求度",                                                                    
+    "storage_size": "硬盘",                                                                     
 		"date": "绑定时间(UTC)",
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
@@ -198,15 +193,8 @@
       "mailText": "邮箱验证码",
       "imageVerify": "图片验证"
     },
-    "needsHigh": "高",
-    "needsMiddle": "中",
-    "needsLow": "低" ,
     "mac_address": "Mac地址搜索",
     "addNote": "备注",
-    "addNotes": {
-      "title": "添加设备备注",
-      "tipText": "输入该设备记录的备注名（仅可修改一次）："
-    },
     "noteText": "备注",
     "allSearch": "全部"
   }
@@ -295,6 +283,9 @@ export default {
     // 添加备注
     addNote() {
       let that = this
+      if (!this.addNoteInput) {
+        return;
+      }
       this.addDeviceNotes({
         deviceId: this.addNoteId,
         note: this.addNoteInput

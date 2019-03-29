@@ -64,11 +64,11 @@ export default {
       return thisPath === '/' 
         || thisPath === '/revenue' 
         || thisPath === '/withdrawal' 
-        || thisPath === '/revenueDetail' 
         || thisPath === '/inviteDetail' 
         || thisPath === '/netStatus'
         || thisPath === '/calcuteStatus'
-        || thisPath === '/netDetail';
+        || thisPath === '/netDetail'
+        || thisPath === '/calculateDetail';
     }
   }),
   methods: {

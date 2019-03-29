@@ -62,8 +62,8 @@
             <p class="version">Lastest Version</p>
           </div>
           <div class=" detail-wrap">
-            <div class="update-time">Update Time：2019-1-24</div>
-            <div>MD5: 90268ee4780237e57a90b486ae21a446</div>
+            <div class="update-time">Update Time：2019-3-29</div>
+            <div>MD5: 9ffe264d6a314211f9c1af90e3de8a37</div>
           </div>
           <a href="https://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-N1-emmc.img.xz" target="_blank" class="download-tab">
             <span>Download</span>
