@@ -52,10 +52,10 @@
               <!-- 红色 -->
               <el-tag  v-if="scope.row.nat === 1" type="danger">{{$t('nat_1')}}</el-tag>
               <!-- 绿色 -->
-              <el-tag v-if="scope.row.nat === 2">{{$t('nat_2')}}</el-tag>
-              <el-tag v-if="scope.row.nat === 3">{{$t('nat_3')}}</el-tag>
-              <el-tag v-if="scope.row.nat === 5">{{$t('nat_5')}}</el-tag>
-              <el-tag v-if="scope.row.nat === 6">{{$t('nat_6')}}</el-tag>   
+              <el-tag type="success" v-if="scope.row.nat === 2">{{$t('nat_2')}}</el-tag>
+              <el-tag type="success" v-if="scope.row.nat === 3">{{$t('nat_3')}}</el-tag>
+              <el-tag type="success" v-if="scope.row.nat === 5">{{$t('nat_5')}}</el-tag>
+              <el-tag type="success" v-if="scope.row.nat === 6">{{$t('nat_6')}}</el-tag>   
               <!-- 黄色 -->
               <el-tag v-if="scope.row.nat === 7" type="warning">{{$t('nat_7')}}</el-tag>
               <el-tag v-if="scope.row.nat === 4" type="warning">{{$t('nat_4')}}</el-tag>
