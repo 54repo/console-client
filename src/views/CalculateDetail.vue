@@ -57,8 +57,8 @@
               <el-tag v-if="scope.row.nat === 5">{{$t('nat_5')}}</el-tag>
               <el-tag v-if="scope.row.nat === 6">{{$t('nat_6')}}</el-tag>   
               <!-- 黄色 -->
-              <el-tag v-if="scope.row.nat === 7" type="success">{{$t('nat_7')}}</el-tag>
-              <el-tag v-if="scope.row.nat === 4" type="success">{{$t('nat_4')}}</el-tag>
+              <el-tag v-if="scope.row.nat === 7" type="warning">{{$t('nat_7')}}</el-tag>
+              <el-tag v-if="scope.row.nat === 4" type="warning">{{$t('nat_4')}}</el-tag>
             </template>
           </el-table-column>
           <!-- 设备收益 -->
