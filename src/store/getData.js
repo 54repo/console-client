@@ -179,3 +179,9 @@ export const ajaxWithdrawalBalance = () => {
 export const ajaxWithdrawalList = (data) => {
   return fetch(baseUrl + '/api/withdrawal/getDetails/');
 };
+/**
+ * 查询设备监控信息
+ */
+export const ajaxDeviceWatchDetail = (data) => {
+  return fetch(baseUrl + '/api/device/ajaxDeviceWatchDetail/');
+};

@@ -85,6 +85,12 @@
                 <el-tag v-if="scope.row.status === 'offline'" type="danger">offline</el-tag>
               </template>
             </el-table-column>
+            <!-- 监测 -->
+            <el-table-column prop="" :label="$t('watch')" align='center'>
+              <template slot-scope="scope">
+                <img  class="watch-icon" @click="showWatchDetail(scope.row.id)"  src="../assets/hardList/watch.png" >
+              </template>
+            </el-table-column>
             <!-- 解绑 -->
             <el-table-column label="" align='center'>
               <template slot-scope="scope">
@@ -137,6 +143,21 @@
         <div class="sure-unbind button" type="primary" @click="addNote">{{ $t('confirm') }}</div>
       </span>
     </el-dialog>
+     <!-- 监控 -->
+    <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="480px" center>
+      <div class="watch-dialog-wrap">
+        <span class="key"></span>
+          <span class="search-text">{{$t('watchDetail.watchDate')}}:</span>
+          <el-select v-model="searchDate" filterable placeholder="" @change="search">
+            <el-option v-for="item in selectDate" :key="item" :label="item" :value="item">
+            </el-option>
+          </el-select>
+          <ve-line :data="chartData"></ve-line>
+      </div>
+      <!-- <span slot="footer" class="dialog-footer">
+        <div class="sure-unbind button" type="primary" @click="addNote">{{ $t('confirm') }}</div>
+      </span> -->
+    </el-dialog>
   </div>
 </template>
 
@@ -156,6 +177,7 @@
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
     "netStatus": "Status",
+    "watch": "Monitoring",
     "noHardwareTip": "No Device",
     "unbindButton": "Unbind",
     "dialog": {
@@ -168,7 +190,11 @@
     "mac_address": "Search Mac Address",
     "addNote": "Note",
     "noteText": "Note",
-    "allSearch": "All"
+    "allSearch": "All",
+    "watchDetail": {
+      "title": "Monitoring",
+      "watchDate": "Date"
+    }
   },
   "zn": {
 		"layoutTitile": "硬件列表",
@@ -184,6 +210,7 @@
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",
     "netStatus": "在线状态",
+    "watch": "监控",
     "noHardwareTip": "硬件列表为空",
     "unbindButton": "解绑",
     "dialog": {
@@ -196,7 +223,11 @@
     "mac_address": "Mac地址搜索",
     "addNote": "备注",
     "noteText": "备注",
-    "allSearch": "全部"
+    "allSearch": "全部",
+    "watchDetail": {
+      "title": "监控",
+      "watchDate": "日期"
+    }
   }
 }
 </i18n>
@@ -228,15 +259,34 @@ export default {
       unbindId: '', //解绑Id
       showUnbindDialog: false, // 绑定弹框展示
       showAddnoteDialog: false, //添加备注
+      showWatchDialog: false, //监控弹框
       addNoteInput: '',
       addNoteId: '', //添加备注Id
       addNoteAddress: '', //添加备注Id
+      watchId: "",
       inputEmailCode: '', //输入的邮件码
       // ticket: '', // 验证码ticket
       // csnonce: '', //整数
-      searchMacAddress: '',
       response: '',
       sitekey: SITEKEY['LOW'], //ga verify key
+      searchMacAddress: '',
+      searchDate: '',
+      selectDate: moment()
+        .utc()
+        .startOf("day")
+        .subtract(1, "days")
+        .format("YYYY-MM-DD"),
+      chartData: {
+          columns: ['日期', '访问用户', '下单用户', '下单率'],
+          rows: [
+            { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
+            { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
+            { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
+            { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
+            { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
+            { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
+          ]
+      },
     }
   },
   computed: mapState({
@@ -252,7 +302,8 @@ export default {
       'getHardList',
       'unbindHard',
       'getDeviceDetail',
-      'addDeviceNotes'
+      'addDeviceNotes',
+      'getDeviceWatchDetail'
     ]),
     onVerify: function(response) {
       console.log("Verify: " + response);
@@ -362,6 +413,22 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       this.getHardList({ pageNum: val })
+    },
+    // 显示观察
+    showWatchDetail(id) {
+      
+      this.showWatchDialog = true;
+      this.watchId = id;
+
+      this.getDeviceWatchDetail({ 
+        id,
+      }).then(res => {
+        if (res && res[id]) { 
+          
+          
+        }
+      });
+
     }
   },
   created() {
@@ -473,6 +540,11 @@ export default {
   -webkit-transform: scale(0.79);
   transform-origin: 0 0;
   -webkit-transform-origin: 0 0;
+}
+
+.watch-icon{
+  width: 20px;
+  height: 20px;
 }
 
 </style>
