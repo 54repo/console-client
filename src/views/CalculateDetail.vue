@@ -51,6 +51,7 @@
               <div v-if="!scope.row.nat">-</div>
               <!-- 红色 -->
               <el-tag  v-if="scope.row.nat === 1" type="danger">{{$t('nat_1')}}</el-tag>
+              <el-tag  v-if="scope.row.nat === 8" type="danger">{{$t('nat_8')}}</el-tag>
               <!-- 绿色 -->
               <el-tag type="success" v-if="scope.row.nat === 2">{{$t('nat_2')}}</el-tag>
               <el-tag type="success" v-if="scope.row.nat === 3">{{$t('nat_3')}}</el-tag>
