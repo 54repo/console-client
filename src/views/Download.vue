@@ -62,10 +62,10 @@
             <p class="version">Lastest Version</p>
           </div>
           <div class=" detail-wrap">
-            <div class="update-time">Update Time：2019-4-04</div>
-            <div>MD5: 86e326d53db9fd4c9a758e8ff4a9538d</div>
+            <div class="update-time">Update Time：2019-4-13</div>
+            <div>MD5: 6602b700cbd208b113f4880dd8cbbdcf</div>
           </div>
-          <a href="https://bonuscloud-imgs.oss.cn-north-1.jcloudcs.com/BonusCloud-LiteNode-N1-emmc.img.xz" target="_blank" class="download-tab">
+          <a href="https://bonuscloud-imgs.s3.cn-north-1.jdcloud-oss.com/BonusCloud-LiteNode-N1-emmc.img.xz" target="_blank" class="download-tab">
             <span>Download</span>
           </a>
           <a href="https://bonuscloud.club/viewtopic.php?f=19&t=4217" target="_blank" class="download-tab second-tab">
