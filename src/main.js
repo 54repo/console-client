@@ -17,7 +17,8 @@ import './plugins/element';
 import i18n from './i18n';
 import VueClipboard from 'vue-clipboard2';
 import VueCookie from 'vue-cookie';
-import VCharts from 'v-charts'
+import VeLine from 'v-charts/lib/line.common'
+import 'v-charts/lib/style.css'	
 
 // import ga from 'vue-ga'
 // import VueAnalytics from 'vue-analytics'
@@ -54,7 +55,7 @@ router.afterEach(function (to) {
 
 Vue.use(VueClipboard);
 Vue.use(VueCookie);
-Vue.use(VCharts)
+Vue.component(VeLine.name, VeLine)
 
 new Vue({
   router,
