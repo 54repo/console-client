@@ -30,6 +30,24 @@
               <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
             </template>
           </el-table-column>
+          <!-- 节点网络质量 -->
+          <el-table-column prop="" :label="$t('tx_bw')" align='center'>
+            <template slot-scope="scope">
+              <div v-if="!scope.row.tx_bw">-</div>
+              <!-- 5、5-10、10-20、20 -->
+              <el-tag v-if="scope.row.tx_bw < 5 && scope.row.tx_bw > 0" type="danger">&lt; 5 M</el-tag>
+              <el-tag v-if="scope.row.tx_bw > 30" type="success">&gt; 30 M</el-tag>
+              <el-tag v-if="scope.row.tx_bw <= 10 && scope.row.tx_bw >= 5">5-10 M</el-tag>
+              <el-tag v-if="scope.row.tx_bw <= 20 && scope.row.tx_bw >= 10">10-20 M</el-tag>
+              <el-tag v-if="scope.row.tx_bw <= 30 && scope.row.tx_bw >= 20">20-30 M</el-tag>
+            </template>
+          </el-table-column>
+          <!-- 监测 -->
+          <el-table-column prop="" :label="$t('watch')" align='center'>
+            <template slot-scope="scope">
+              <img class="watch-icon" @click="showWatchDetail(scope.row.id)" src="../assets/hardList/watch.png">
+            </template>
+          </el-table-column>
           <!-- 设备收益 -->
           <el-table-column prop="revenue" align='center' :label="$t('device_revenue')"></el-table-column>
         </el-table>
@@ -51,6 +69,23 @@
             <div class="sure-unbind button" @click="showAddnoteDialog = false">{{ $t('cancel') }}</div>
             <div class="sure-unbind button" type="primary" @click="addNote">{{ $t('confirm') }}</div>
           </span>
+        </el-dialog>
+        <!-- 监控 -->
+        <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="80%" center>
+          <div class="watch-dialog-wrap">
+            <span class="key"></span>
+            <div class="watch-select">
+              <span class="search-text">{{$t('watchDetail.watchDate')}}:</span>
+              <el-select v-model="searchWatchDate" filterable placeholder="" @change="showWatchDetail">
+                <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">
+                </el-option>
+              </el-select>
+            </div>
+            <ve-line class="watch-chart" :data="stableCharts"></ve-line>
+            <ve-histogram  class="watch-chart" :data="availabilityChart"></ve-histogram>
+            <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
+            <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
+          </div>
         </el-dialog>
       </BasiceLayout>
     </Layout>
@@ -81,7 +116,13 @@
         addNoteInput: "",
         addNoteAddress: "", //添加备注Id
         showAddnoteDialog: false,
-        searchMacAddress: ""
+        searchMacAddress: "",
+        showWatchDialog: false, //监控弹框
+        searchWatchDate: moment()
+          .utc()
+          .startOf("day")
+          .subtract(1, "days")
+          .format("YYYY-MM-DD")
       };
     },
     components: {
@@ -126,7 +167,7 @@
       this.getRevenueDetail({ queryDate, pageNum, type });
     },
     methods: {
-      ...mapActions(["getRevenueDetail", "addDeviceNotes"]),
+      ...mapActions(["getRevenueDetail", "addDeviceNotes", "getDeviceWatchDetail"]),
       // 日期搜索
       search(queryDate) {
         this.queryDate = queryDate;
@@ -203,6 +244,92 @@
         this.showAddnoteDialog = true;
         this.addNoteId = id;
         this.addNoteAddress = address;
+      },
+      // 显示监控
+      showWatchDetail(id) {
+        let that = this;
+        this.showWatchDialog = true;
+        this.watchId = id || this.watchId;
+        let queryDate = this.searchWatchDate;
+
+        let watchStable = this.$t("watchDetail.watchStable");
+        let watchAvaliable = this.$t("watchDetail.watchAvaliable");
+        let watchStorge = this.$t("watchDetail.watchStorge");
+        let watchBandwith = this.$t("watchDetail.watchBandwith");
+
+        let watchDate = this.$t("watchDetail.watchDate");
+
+        this.getDeviceWatchDetail({
+          id,
+          queryDate
+        }).then(res => {
+          if (res && res.length) {
+            // 此处为了中英文对照，所以动态处理
+            let stableCharts = {
+              columns: [],
+              rows: []
+            }, availabilityChart = {
+              columns: [],
+              rows: []
+            }, hardOnlineChart = {
+              columns: [],
+              rows: []
+            }, txBwCharts =  {
+              columns: [],
+              rows: []
+            };
+
+            let stableColumns = [], availabilityColumns = [], hardOnlineColumns = [], txBwColumns = [];
+            stableColumns.push(watchDate);
+            stableColumns.push(watchStable);
+            stableCharts.columns = stableColumns;
+
+            availabilityColumns.push(watchDate);
+            availabilityColumns.push(watchAvaliable);
+            availabilityChart.columns = availabilityColumns;
+
+            hardOnlineColumns.push(watchDate);
+            hardOnlineColumns.push(watchStorge);
+            hardOnlineChart.columns = hardOnlineColumns;
+           
+            txBwColumns.push(watchDate);
+            txBwColumns.push(watchBandwith);
+            txBwCharts.columns = txBwColumns;
+
+            res.map(item => {
+              let { time, stable, ext_storage_size, tx_bandwidth } = item;
+              let date_at = moment(time).format('YYYY-MM-DD hh:mm:ss');
+
+              let stableRows = [], availabilityRows = [], hardOnlineRows = [], txBwRows = [];
+              // 日期处理
+              stableRows[watchDate] = date_at, 
+                availabilityRows[watchDate] = date_at, 
+                hardOnlineRows[watchDate] = date_at, 
+                txBwRows[watchDate] = date_at;
+
+              stableRows[watchStable] = stable;
+              // availabilityRows[watchAvaliable] = (stable > 2500) ? 1 : -1;
+              availabilityRows[watchAvaliable] = (stable > 2500) ? 100 : 0;
+              hardOnlineRows[watchStorge] = ext_storage_size;
+              txBwRows[watchBandwith] = tx_bandwidth;
+
+              console.log('stableRows:', JSON.stringify(stableRows))
+              stableCharts.rows.push(stableRows);
+              availabilityChart.rows.push(availabilityRows);
+              hardOnlineChart.rows.push(hardOnlineRows);
+              txBwCharts.rows.push(txBwRows);
+            });
+
+            console.log('stableCharts', JSON.stringify(stableCharts));
+            that.stableCharts =  stableCharts;
+            // that.availabilityChart =  availabilityChart;
+            console.log('availabilityChart', availabilityChart);
+            that.availabilityChart =  availabilityChart;
+            that.hardOnlineChart =  hardOnlineChart;
+            that.txBwCharts =  txBwCharts;
+            that.showCharts = true;
+          }
+        });
       }
     }
   };
@@ -256,7 +383,8 @@
   "addNote": "备注",
   "noteText": "备注",
   "allSearch": "全部",
-  "tolal_revenue": "当日网络总收益"
+  "tolal_revenue": "当日网络总收益",
+  "tx_bw": "节点网络质量"
   },
   "en": {
   "pageTitle": "Network Task",
@@ -269,7 +397,8 @@
   "addNote": "note",
   "noteText": "note",
   "allSearch": "All",
-  "tolal_revenue": "Total Network Revenue:"
+  "tolal_revenue": "Total Network Revenue:",
+  "tx_bw": "Node Stability"
   }
   }
 </i18n>

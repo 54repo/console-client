@@ -45,7 +45,7 @@
                 <!-- <el-tag v-if="scope.row.needs === '低'" type="danger">{{$t('needsLow')}}</el-tag> -->
               </template>
             </el-table-column>
-            <!-- 网络质量 -->
+            <!-- 网络资源可用性 -->
             <el-table-column prop="" :label="$t('stable')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.stable">-</div>
@@ -86,7 +86,7 @@
 		"basicTitle": "Task Status",
     "macAddress": "MAC Address",
     "location": "Area",   
-    "stable": "Stability",   
+    "stable": "Network Resource Availability",   
     "needs": "Node Demand",                                                                    
 		"code": "Binding BonusCode",
 		"totalTime": "Total Online Time",
@@ -108,7 +108,7 @@
 		"basicTitle": "任务执行状态",
     "macAddress": "硬件MAC地址",
     "location": "所在地区", 
-    "stable": "节点网络质量",   
+    "stable": "网络资源可用性",   
     "needs": "当前地区节点需求度",                                                                    
 		"code": "已绑定激活码 ",
 		"totalTime": "累计在线时长",

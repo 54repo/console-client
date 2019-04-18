@@ -66,8 +66,7 @@
                 <div v-if="scope.row.info">{{scope.row.info}}</div>
               </template>
             </el-table-column>
-            <!-- 上行宽带 -->
-            <!-- <el-table-column prop="tx_bw" :label="$t('tx_bw')" align='center'></el-table-column> -->
+            <!-- 节点网络质量 -->
             <el-table-column prop="" :label="$t('tx_bw')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.tx_bw">-</div>
@@ -145,92 +144,84 @@
       </span>
     </el-dialog>
     <!-- 监控 -->
-    <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="480px" center>
+    <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="80%" center>
       <div class="watch-dialog-wrap">
         <span class="key"></span>
-        <span class="search-text">{{$t('watchDetail.watchDate')}}:</span>
-        <el-select v-model="searchDate" filterable placeholder="" @change="search">
-          <el-option v-for="item in selectDate" :key="item" :label="item" :value="item">
-          </el-option>
-        </el-select>
-        <ve-line  :data="stableCharts"></ve-line>
+        <div class="watch-select">
+          <span class="search-text">{{$t('watchDetail.watchDate')}}:</span>
+          <el-select v-model="searchWatchDate" filterable placeholder="" @change="showWatchDetail">
+            <el-option v-for="item in queryDate" :key="item" :label="item" :value="item">
+            </el-option>
+          </el-select>
+        </div>
+        <ve-line class="watch-chart" :data="stableCharts"></ve-line>
+        <ve-histogram  class="watch-chart" :data="availabilityChart"></ve-histogram>
+        <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
+        <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
       </div>
-      <!-- <span slot="footer" class="dialog-footer">
-        <div class="sure-unbind button" type="primary" @click="addNote">{{ $t('confirm') }}</div>
-      </span> -->
     </el-dialog>
   </div>
 </template>
 
 <i18n>
-  {
-  "en": {
-  "layoutTitile": "Hardware List",
-  "hardListLayoutTitile": "Hardware List",
-  "macAddress": "MAC Address",
-  "location": "Area",
-  "CPU": "CPU",
-  "mem_size": "Memory",
-  "storage_size": "Storage",
-  "info": "Version",
-  "tx_bw": "Upstream Bandwidth",
-  "date": "The Binding Date(UTC)",
-  "code": "Binding BonusCode",
-  "totalTime": "Total Online Time",
-  "netStatus": "Status",
-  "watch": "Monitoring",
-  "noHardwareTip": "No Device",
-  "unbindButton": "Unbind",
-  "dialog": {
-  "cancel": "Cancel",
-  "sure": "Sure",
-  "title": "Confirm Unbinding",
-  "mailText": "Email Verfication Code",
-  "imageVerify": "Image Verfication"
-  },
-  "mac_address": "Search Mac Address",
-  "addNote": "Note",
-  "noteText": "Note",
-  "allSearch": "All",
-  "watchDetail": {
-  "title": "Monitoring",
-  "watchDate": "Date"
-  }
+{
+    "en": {
+    "layoutTitile": "Hardware List",
+    "hardListLayoutTitile": "Hardware List",
+    "macAddress": "MAC Address",
+    "location": "Area",
+    "CPU": "CPU",
+    "mem_size": "Memory",
+    "storage_size": "Storage",
+    "info": "Version",
+    "tx_bw": "Node Stability",
+    "date": "The Binding Date(UTC)",
+    "code": "Binding BonusCode",
+    "totalTime": "Total Online Time",
+    "netStatus": "Status",
+    "noHardwareTip": "No Device",
+    "unbindButton": "Unbind",
+    "dialog": {
+      "cancel": "Cancel",
+      "sure": "Sure",
+      "title": "Confirm Unbinding",
+      "mailText": "Email Verfication Code",
+      "imageVerify": "Image Verfication"
+    },
+    "mac_address": "Search Mac Address",
+    "addNote": "Note",
+    "noteText": "Note",
+    "allSearch": "All"
   },
   "zn": {
-  "layoutTitile": "硬件列表",
-  "hardListLayoutTitile": "硬件列表",
-  "macAddress": "硬件MAC地址",
-  "location": "所在地区",
-  "CPU": "CPU",
-  "mem_size": "内存",
-  "info": "版本",
-  "tx_bw": "上行带宽",
-  "storage_size": "硬盘",
-  "date": "绑定时间(UTC)",
-  "code": "已绑定激活码 ",
-  "totalTime": "累计在线时长",
-  "netStatus": "在线状态",
-  "watch": "监控",
-  "noHardwareTip": "硬件列表为空",
-  "unbindButton": "解绑",
-  "dialog": {
-  "cancel": "取 消",
-  "sure": "确 定",
-  "title": "确认解绑",
-  "mailText": "邮箱验证码",
-  "imageVerify": "图片验证"
-  },
-  "mac_address": "Mac地址搜索",
-  "addNote": "备注",
-  "noteText": "备注",
-  "allSearch": "全部",
-  "watchDetail": {
-  "title": "监控",
-  "watchDate": "日期"
+    "layoutTitile": "硬件列表",
+    "hardListLayoutTitile": "硬件列表",
+    "macAddress": "硬件MAC地址",
+    "location": "所在地区",
+    "CPU": "CPU",
+    "mem_size": "内存",
+    "info": "版本",
+    "tx_bw": "节点网络质量",
+    "storage_size": "硬盘",
+    "date": "绑定时间(UTC)",
+    "code": "已绑定激活码 ",
+    "totalTime": "累计在线时长",
+    "netStatus": "在线状态",
+    "noHardwareTip": "硬件列表为空",
+    "unbindButton": "解绑",
+    "dialog": {
+      "cancel": "取 消",
+      "sure": "确 定",
+      "title": "确认解绑",
+      "mailText": "邮箱验证码",
+      "imageVerify": "图片验证"
+    },
+    "mac_address": "Mac地址搜索",
+    "addNote": "备注",
+    "noteText": "备注",
+    "allSearch": "全部"
   }
-  }
-  }
+}
 </i18n>
 
 
@@ -271,23 +262,16 @@
         response: '',
         sitekey: SITEKEY['LOW'], //ga verify key
         searchMacAddress: '',
-        searchDate: '',
-        selectDate: moment()
+        searchWatchDate: moment()
           .utc()
           .startOf("day")
           .subtract(1, "days")
           .format("YYYY-MM-DD"),
-        stableCharts: {
-          chartData: {
-            columns: ['日期', '网络质量'],
-            rows: [
-              { '日期': '2018-05-22', '网络质量': 32371 },
-              { '日期': '2018-05-23', '网络质量': 12328 },
-              { '日期': '2018-05-24', '网络质量': 92381 }
-            ]
-          },
-        },
-        showStable: false
+        stableCharts: {},
+        availabilityChart: {},
+        hardOnlineChart: {},
+        txBwCharts: {},
+        hardOnlineColumns: false
       }
     },
     computed: mapState({
@@ -296,7 +280,23 @@
       deviceSize: state => state.hardWare.deviceSize,
       currentPage: state => state.hardWare.currentPage,
       email: state => state.account.email,
-      allDevices: state => state.hardWare.allDevices
+      allDevices: state => state.hardWare.allDevices,
+      queryDate: () => {
+        let queryDate = [];
+        let endDay = moment()
+          .utc()
+          .startOf("day");
+
+        endDay -= 24 * 60 * 60 * 1000;
+        let i = 0;
+        while (i < 7) {
+          i++;
+          queryDate.push(moment(endDay).format("YYYY-MM-DD"));
+          endDay -= 24 * 60 * 60 * 1000;
+        }
+
+        return queryDate;
+      }
     }),
     methods: {
       ...mapActions([
@@ -382,7 +382,7 @@
             Message({
               type: 'success',
               message: res.message
-            })
+            });
             // window.location.reload()
           } else {
             Message({
@@ -419,57 +419,85 @@
       showWatchDetail(id) {
         let that = this;
         this.showWatchDialog = true;
-        this.watchId = id;
+        this.watchId = id || this.watchId;
+        let queryDate = this.searchWatchDate;
 
-       
+        let watchStable = this.$t("watchDetail.watchStable");
+        let watchAvaliable = this.$t("watchDetail.watchAvaliable");
+        let watchStorge = this.$t("watchDetail.watchStorge");
+        let watchBandwith = this.$t("watchDetail.watchBandwith");
+
+        let watchDate = this.$t("watchDetail.watchDate");
 
         this.getDeviceWatchDetail({
           id,
+          queryDate
         }).then(res => {
-          if (res && res[id]) {
+          if (res && res.length) {
+            // 此处为了中英文对照，所以动态处理
             let stableCharts = {
-              columns: ['Date', 'Stable'],
+              columns: [],
               rows: []
-            },
-              usabilityChart = [], hardOnlineChart = [], txBwCharts = [];
+            }, availabilityChart = {
+              columns: [],
+              rows: []
+            }, hardOnlineChart = {
+              columns: [],
+              rows: []
+            }, txBwCharts =  {
+              columns: [],
+              rows: []
+            };
 
-            res[id].map(item => {
-              let { date_at, stable, ext_storage_size, tx_bandwidth } = item;
+            let stableColumns = [], availabilityColumns = [], hardOnlineColumns = [], txBwColumns = [];
+            stableColumns.push(watchDate);
+            stableColumns.push(watchStable);
+            stableCharts.columns = stableColumns;
 
-              date_at = moment(date_at).format('YYYY-MM-DD');
+            availabilityColumns.push(watchDate);
+            availabilityColumns.push(watchAvaliable);
+            availabilityChart.columns = availabilityColumns;
 
+            hardOnlineColumns.push(watchDate);
+            hardOnlineColumns.push(watchStorge);
+            hardOnlineChart.columns = hardOnlineColumns;
+           
+            txBwColumns.push(watchDate);
+            txBwColumns.push(watchBandwith);
+            txBwCharts.columns = txBwColumns;
 
-              stableCharts.rows.push({
-                'Date': date_at,
-                "Stable": stable
-              });
+            res.map(item => {
+              let { time, stable, ext_storage_size, tx_bandwidth } = item;
+              let date_at = moment(time).format('YYYY-MM-DD hh:mm:ss');
 
-              // if (item.stable)
+              let stableRows = [], availabilityRows = [], hardOnlineRows = [], txBwRows = [];
+              // 日期处理
+              stableRows[watchDate] = date_at, 
+                availabilityRows[watchDate] = date_at, 
+                hardOnlineRows[watchDate] = date_at, 
+                txBwRows[watchDate] = date_at;
 
-              //  {
-              //     columns: ['日期', '访问用户', '下单用户', '下单率'],
-              //     rows: [
-              //       { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
-              //       { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
-              //       { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
-              //       { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
-              //       { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
-              //       { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
-              //     ]
-              // },
+              stableRows[watchStable] = stable;
+              // availabilityRows[watchAvaliable] = (stable > 2500) ? 1 : -1;
+              availabilityRows[watchAvaliable] = (stable > 2500) ? 100 : 0;
+              hardOnlineRows[watchStorge] = ext_storage_size;
+              txBwRows[watchBandwith] = tx_bandwidth;
 
+              console.log('stableRows:', JSON.stringify(stableRows))
+              stableCharts.rows.push(stableRows);
+              availabilityChart.rows.push(availabilityRows);
+              hardOnlineChart.rows.push(hardOnlineRows);
+              txBwCharts.rows.push(txBwRows);
             });
 
-            that.stableCharts =  {
-              columns: ['日期', '网络质量'],
-              rows: [
-                { '日期': '2018-05-22', '网络质量': 32371 },
-                { '日期': '2018-05-23', '网络质量': 12328 },
-                { '日期': '2018-05-24', '网络质量': 92381 }
-              ]
-            };
-            that.showStable = true;
-
+            console.log('stableCharts', JSON.stringify(stableCharts));
+            that.stableCharts =  stableCharts;
+            // that.availabilityChart =  availabilityChart;
+            console.log('availabilityChart', availabilityChart);
+            that.availabilityChart =  availabilityChart;
+            that.hardOnlineChart =  hardOnlineChart;
+            that.txBwCharts =  txBwCharts;
+            that.showCharts = true;
           }
         });
       }
@@ -600,6 +628,18 @@
   .watch-icon {
     width: 20px;
     height: 20px;
+  }
+
+  .watch-chart {
+    margin: 40px;
+  }
+
+  .watch-select{
+    margin: 30px auto;
+    display: -webkit-box;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
   }
 
 </style>
