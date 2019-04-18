@@ -297,12 +297,8 @@ export default {
   //  查询设备监控信息
   async getDeviceWatchDetail({ commit }, params) {
     const res = await ajaxDeviceWatchDetail(params);
-    // const res = {
-    //   data: {
-    //     "devs_info_log":
-    //       [{ "time": 1555507600000, "ext_storage_size": 2000381018112, "tx_bandwidth": 19241369, "schedule": true, "nat": 6, "health": 346, "stable": 1137 }, { "time": 1555407900000, "ext_storage_size": 2000381018112, "tx_bandwidth": 19241369, "schedule": true, "nat": 6, "health": 347, "stable": 1205 }]
-    //   }
-    // };
+    // const res = {"data":{"devs_info_log":[{"time":1555447200000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":159,"stable":282},{"time":1555447500000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":158,"stable":278},{"time":1555447800000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":158,"stable":274},{"time":1555448100000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":157,"stable":271},{"time":1555448400000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":157,"stable":267},{"time":1555448700000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":156,"stable":263},{"time":1555449000000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":156,"stable":260},{"time":1555449300000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":155,"stable":256},{"time":1555449600000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":155,"stable":253}]}};
     return res.data.devs_info_log || {};
   },
 };
+

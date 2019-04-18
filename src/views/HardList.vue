@@ -415,7 +415,7 @@
         this.currentPage = val
         this.getHardList({ pageNum: val })
       },
-      // 显示观察
+      // 显示监控
       showWatchDetail(id) {
         let that = this;
         this.showWatchDialog = true;
@@ -434,6 +434,9 @@
           queryDate
         }).then(res => {
           if (res && res.length) {
+
+            // res = 
+
             // 此处为了中英文对照，所以动态处理
             let stableCharts = {
               columns: [],
@@ -468,7 +471,7 @@
 
             res.map(item => {
               let { time, stable, ext_storage_size, tx_bandwidth } = item;
-              let date_at = moment(time).format('YYYY-MM-DD hh:mm:ss');
+              let date_at = moment(time).format('YYYY-MM-DD hh:mm:ss a');
 
               let stableRows = [], availabilityRows = [], hardOnlineRows = [], txBwRows = [];
               // 日期处理
