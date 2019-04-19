@@ -338,7 +338,7 @@
               stableRows[watchStable] = stable;
               availabilityRows[watchAvaliable] = (stable < 2500) ? 100 : 0;
               hardOnlineRows[watchStorge] = (Number(ext_storage_size) / 1024 / 1024 / 1024).toFixed(2);
-              txBwRows[watchBandwith] = tx_bandwidth;
+              txBwRows[watchBandwith] = (Number(tx_bandwidth) / 1024 / 1024).toFixed(2);
 
               stableCharts.rows.push(stableRows);
               availabilityChart.rows.push(availabilityRows);
