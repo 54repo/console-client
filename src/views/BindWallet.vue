@@ -8,8 +8,9 @@
             <div class="wallet-bind-title">{{$t('walletText')}}：</div>
             <div class="wallet-verify-wrap">
               <el-tag id="walletDetail">{{address}}</el-tag>
-              <el-tag v-if="eth_verify_status" class="verifyStatus" type="success">{{$t('verifySuccess')}}</el-tag>
-              <el-tag v-if="!eth_verify_status" class="verifyStatus" type="danger">{{$t('verifyError')}}</el-tag>
+              <!-- 认证状态 -->
+              <!-- <el-tag v-if="eth_verify_status" class="verifyStatus" type="success">{{$t('verifySuccess')}}</el-tag>
+              <el-tag v-if="!eth_verify_status" class="verifyStatus" type="danger">{{$t('verifyError')}}</el-tag> -->
               <!-- <el-tag v-if="eth_verify_status === ''" classs="verifyStatus" type="danger">-</el-tag> -->
             </div>
             <div class="unbind-wrap">
