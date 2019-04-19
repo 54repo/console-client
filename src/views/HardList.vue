@@ -145,7 +145,7 @@
     </el-dialog>
     <!-- 监控 -->
     <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="80%" center>
-      <div class="watch-dialog-wrap">
+      <div v-if="showCharts" class="watch-dialog-wrap">
         <span class="key"></span>
         <div class="watch-select">
           <span class="search-text">{{$t('watchDetail.watchDate')}}:</span>
@@ -155,12 +155,11 @@
           </el-select>
         </div>
         <ve-line class="watch-chart" :data="stableCharts"></ve-line>
-        <!-- <ve-histogram  class="watch-chart" :data="availabilityChart" :settings="chartSettings"></ve-histogram> -->
         <ve-line  class="watch-chart" :data="availabilityChart"></ve-line>
-        <!-- <ve-bar :data="availabilityChart"></ve-bar> -->
         <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
         <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
       </div>
+      <div v-if="!showCharts" class="no-watch-data">{{$t('watchDetail.noData')}}</div>
     </el-dialog>
   </div>
 </template>
@@ -277,7 +276,8 @@
         chartSettings: {
           metrics: ['日期'],
           dimension: ['网络资源可用性'] 
-        }
+        },
+        showCharts: false
       }
     },
     computed: mapState({
@@ -499,12 +499,13 @@
             });
 
             console.log('stableCharts', stableCharts);
+            that.showCharts = true;
             that.stableCharts =  stableCharts;
-
             that.availabilityChart =  availabilityChart;
             that.hardOnlineChart =  hardOnlineChart;
             that.txBwCharts =  txBwCharts;
-            that.showCharts = true;
+          } else {
+            that.showCharts = false;
           }
         });
       }
@@ -650,5 +651,6 @@
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
   }
-
+  .no-watch-data
+    text-align: center;
 </style>

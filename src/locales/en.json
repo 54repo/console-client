@@ -148,6 +148,7 @@
     "watchStable": "Node Stability",
     "watchAvaliable": "Network Resource Availability",
     "watchStorge": "Storage Online",
-    "watchBandwith": "Bandwidth"
+    "watchBandwith": "Bandwidth",
+    "noData": "No Data"
   }
 }

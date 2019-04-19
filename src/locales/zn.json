@@ -143,6 +143,7 @@
     "watchStable": "节点网络质量",
     "watchAvaliable": "网络资源可用性",
     "watchStorge": "硬盘在线情况",
-    "watchBandwith": "上行带宽"
+    "watchBandwith": "上行带宽",
+    "noData": "暂无数据"
   }
 }

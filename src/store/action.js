@@ -143,8 +143,8 @@ export default {
   },
   //  获取硬件列表
   async getHardList({ commit }, params) {
-    const res = await ajaxHardList(params);
-    // const res = { 'code': 200, 'ret': { 'allDevices': [{ 'label': '全部', 'value': 'all' }], 'list': [{ 'tx_bw': '68.25', 'id': '02868269-597b-4a40-aa3f-0850a695bf21', 'mac_address': 'fc:7c:02:4c:7a:52', 'bcode': '1120-65440283-6046-4a45-a36d-cccfdc33469b', 'bind_at': '2018-12-01 12:03:10', 'cpu_count': 4, 'mem_size': '1.80G', 'storage_size': '6.34G', 'schedule': true, 'info': 'v0.4.2', 'calNeeds': '高', 'nat': 6, 'ext_ip': '115.201.66.188', 'status': 'online', 'location': '浙江', 'needs': '低', 'stable': '高', 'note': '12', 'noteStatus': true },], 'deviceLength': 76, 'pageSize': 20, 'currentPage': '1' }, 'message': 'get device list successfully' };
+    // const res = await ajaxHardList(params);
+    const res = { 'code': 200, 'ret': { 'allDevices': [{ 'label': '全部', 'value': 'all' }], 'list': [{ 'tx_bw': '68.25', 'id': '02868269-597b-4a40-aa3f-0850a695bf21', 'mac_address': 'fc:7c:02:4c:7a:52', 'bcode': '1120-65440283-6046-4a45-a36d-cccfdc33469b', 'bind_at': '2018-12-01 12:03:10', 'cpu_count': 4, 'mem_size': '1.80G', 'storage_size': '6.34G', 'schedule': true, 'info': 'v0.4.2', 'calNeeds': '高', 'nat': 6, 'ext_ip': '115.201.66.188', 'status': 'online', 'location': '浙江', 'needs': '低', 'stable': '高', 'note': '12', 'noteStatus': true },], 'deviceLength': 76, 'pageSize': 20, 'currentPage': '1' }, 'message': 'get device list successfully' };
     try {
       if (res.ret.list && res.ret.list.length > 0) {
         commit(GET_HARDLIST, res.ret);
@@ -296,9 +296,10 @@ export default {
   },
   //  查询设备监控信息
   async getDeviceWatchDetail({ commit }, params) {
-    const res = await ajaxDeviceWatchDetail(params);
+    // const res = await ajaxDeviceWatchDetail(params);
     // const res = {"data":{"devs_info_log":[{"time":1555447200000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":159,"stable":282},{"time":1555447500000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":158,"stable":278},{"time":1555447800000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":158,"stable":274},{"time":1555448100000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":157,"stable":271},{"time":1555448400000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":157,"stable":267},{"time":1555448700000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":156,"stable":263},{"time":1555449000000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":156,"stable":260},{"time":1555449300000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":155,"stable":256},{"time":1555449600000,"ext_storage_size":125627793408,"tx_bandwidth":49146757,"schedule":true,"nat":6,"health":155,"stable":253}]}};
-    return res.data.devs_info_log || {};
+    const res = {"data":{"devs_info_log":[]}};
+    return res.data.devs_info_log || [];
   },
 };
 
