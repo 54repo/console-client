@@ -73,7 +73,7 @@
                 <!-- 5、5-10、10-20、20 -->
                 <el-tag v-if="scope.row.stableValue > 2500" type="danger">{{$t('low')}}</el-tag>
                 <el-tag v-if="scope.row.stableValue < 1000" type="success">{{$t('high')}}</el-tag>
-                <el-tag v-if="scope.row.stableValue <= 2500 && scope.row.stableValue >= 1000">{{$t('medium')}}</el-tag>
+                <el-tag v-if="scope.row.stableValue <= 2500 && scope.row.stableValue >= 1000" type="warning">{{$t('medium')}}</el-tag>
               </template>
             </el-table-column>
             <!-- 地区 -->
@@ -540,7 +540,7 @@
     color: #fff;
     text-align: center;
     line-height: 30px;
-    width: 90px;
+    min-width: 50px;
     height: 35px;
     max-width: 120px;
     display: inline-block;
