@@ -280,7 +280,7 @@
           metrics: ['日期'],
           dimension: ['网络资源可用性'] 
         },
-        showCharts: ''
+        showCharts: 'waiting'
       }
     },
     computed: mapState({

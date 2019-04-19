@@ -126,7 +126,7 @@
           .format("YYYY-MM-DD"),
         stableCharts: {},
         availabilityChart: {},
-        showCharts: ''
+        showCharts: 'waiting'
       };
     },
     components: {

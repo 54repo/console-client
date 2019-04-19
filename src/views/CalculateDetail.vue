@@ -144,7 +144,7 @@
         availabilityChart: {},
         hardOnlineChart: {},
         txBwCharts: {},
-        showCharts: ''
+        showCharts: 'waiting'
       };
     },
     components: {
