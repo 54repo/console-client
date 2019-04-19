@@ -91,7 +91,7 @@
         </el-dialog>
         <!-- 监控 -->
         <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="80%" center>
-          <div v-if="showCharts" class="watch-dialog-wrap">
+          <div class="watch-dialog-wrap">
             <span class="key"></span>
             <div class="watch-select">
               <span class="search-text">{{$t('watchDetail.watchDate')}}:</span>
@@ -100,11 +100,12 @@
                 </el-option>
               </el-select>
             </div>
-            <ve-line class="watch-chart" :data="stableCharts"></ve-line>
-            <!-- <ve-histogram  class="watch-chart" :data="availabilityChart"></ve-histogram> -->
-            <ve-line  class="watch-chart" :data="availabilityChart"></ve-line>
-            <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
-            <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
+            <div v-if="showCharts">
+              <ve-line class="watch-chart" :data="stableCharts"></ve-line>
+              <ve-line  class="watch-chart" :data="availabilityChart"></ve-line>
+              <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
+              <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
+            </div>
           </div>
           <div v-if="!showCharts" class="no-watch-data">{{$t('watchDetail.noData')}}</div>
         </el-dialog>
@@ -142,7 +143,8 @@
         stableCharts: {},
         availabilityChart: {},
         hardOnlineChart: {},
-        txBwCharts: {}
+        txBwCharts: {},
+        showCharts: ''
       };
     },
     components: {

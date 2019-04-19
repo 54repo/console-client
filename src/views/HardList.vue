@@ -145,7 +145,7 @@
     </el-dialog>
     <!-- 监控 -->
     <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="80%" center>
-      <div v-if="showCharts" class="watch-dialog-wrap">
+      <div class="watch-dialog-wrap">
         <span class="key"></span>
         <div class="watch-select">
           <span class="search-text">{{$t('watchDetail.watchDate')}}:</span>
@@ -154,10 +154,13 @@
             </el-option>
           </el-select>
         </div>
-        <ve-line class="watch-chart" :data="stableCharts"></ve-line>
-        <ve-line  class="watch-chart" :data="availabilityChart"></ve-line>
-        <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
-        <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
+        <div v-if="showCharts">
+          <ve-line class="watch-chart" :data="stableCharts"></ve-line>
+          <ve-line  class="watch-chart" :data="availabilityChart"></ve-line>
+          <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
+          <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
+        </div>
+      
       </div>
       <div v-if="!showCharts" class="no-watch-data">{{$t('watchDetail.noData')}}</div>
     </el-dialog>
@@ -277,7 +280,7 @@
           metrics: ['日期'],
           dimension: ['网络资源可用性'] 
         },
-        showCharts: false
+        showCharts: ''
       }
     },
     computed: mapState({
@@ -440,9 +443,6 @@
           queryDate
         }).then(res => {
           if (res && res.length) {
-
-            // res = 
-
             // 此处为了中英文对照，所以动态处理
             let stableCharts = {
               columns: [],
@@ -457,7 +457,6 @@
               columns: [],
               rows: []
             };
-
 
             let stableColumns = [], availabilityColumns = [], hardOnlineColumns = [], txBwColumns = [];
             stableColumns.push(watchDate);
