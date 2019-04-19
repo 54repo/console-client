@@ -478,7 +478,7 @@
 
             res.map(item => {
               let { time, stable, ext_storage_size, tx_bandwidth } = item;
-              let date_at = moment(time).format('YYYY-MM-DD hh:mm:ss a');
+              let date_at = moment(time).utc().format('YYYY-MM-DD hh:mm:ss a');
 
               let stableRows = [], availabilityRows = [], hardOnlineRows = [], txBwRows = [];
               // 日期处理
