@@ -160,7 +160,6 @@
           <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
           <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
         </div>
-      
       </div>
       <div v-if="!showCharts" class="no-watch-data">{{$t('watchDetail.noData')}}</div>
     </el-dialog>

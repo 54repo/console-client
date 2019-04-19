@@ -30,18 +30,6 @@
               <i v-if="scope.row.noteStatus" class="el-icon-edit"  @click="showNotes(scope.row.id, scope.row.mac_address)"></i>
             </template>
           </el-table-column>
-          <!-- 节点网络质量 -->
-          <el-table-column prop="" :label="$t('tx_bw')" align='center'>
-            <template slot-scope="scope">
-              <div v-if="!scope.row.tx_bw">-</div>
-              <!-- 5、5-10、10-20、20 -->
-              <el-tag v-if="scope.row.tx_bw < 5 && scope.row.tx_bw > 0" type="danger">&lt; 5 M</el-tag>
-              <el-tag v-if="scope.row.tx_bw > 30" type="success">&gt; 30 M</el-tag>
-              <el-tag v-if="scope.row.tx_bw <= 10 && scope.row.tx_bw >= 5">5-10 M</el-tag>
-              <el-tag v-if="scope.row.tx_bw <= 20 && scope.row.tx_bw >= 10">10-20 M</el-tag>
-              <el-tag v-if="scope.row.tx_bw <= 30 && scope.row.tx_bw >= 20">20-30 M</el-tag>
-            </template>
-          </el-table-column>
           <!-- 监测 -->
           <el-table-column prop="" :label="$t('watch')" align='center'>
             <template slot-scope="scope">
