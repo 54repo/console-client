@@ -143,8 +143,8 @@ export default {
   },
   //  获取硬件列表
   async getHardList({ commit }, params) {
-    // const res = await ajaxHardList(params);
-    const res = { 'code': 200, 'ret': { 'allDevices': [{ 'label': '全部', 'value': 'all' }], 'list': [{ 'tx_bw': '68.25', 'id': '02868269-597b-4a40-aa3f-0850a695bf21', 'mac_address': 'fc:7c:02:4c:7a:52', 'bcode': '1120-65440283-6046-4a45-a36d-cccfdc33469b', 'bind_at': '2018-12-01 12:03:10', 'cpu_count': 4, 'mem_size': '1.80G', 'storage_size': '6.34G', 'schedule': true, 'info': 'v0.4.2', 'calNeeds': '高', 'nat': 6, 'ext_ip': '115.201.66.188', 'status': 'online', 'location': '浙江', 'needs': '低', 'stable': '高', 'note': '12', 'noteStatus': true },], 'deviceLength': 76, 'pageSize': 20, 'currentPage': '1' }, 'message': 'get device list successfully' };
+    const res = await ajaxHardList(params);
+    // const res = { 'code': 200, 'ret': { 'allDevices': [{ 'label': '全部', 'value': 'all' }], 'list': [{ 'tx_bw': '68.25', 'id': '02868269-597b-4a40-aa3f-0850a695bf21', 'mac_address': 'fc:7c:02:4c:7a:52', 'bcode': '1120-65440283-6046-4a45-a36d-cccfdc33469b', 'bind_at': '2018-12-01 12:03:10', 'cpu_count': 4, 'mem_size': '1.80G', 'storage_size': '6.34G', 'schedule': true, 'info': 'v0.4.2', 'calNeeds': '高', 'nat': 6, 'ext_ip': '115.201.66.188', 'status': 'online', 'location': '浙江', 'needs': '低', 'stable': '高', 'note': '12', 'noteStatus': true },], 'deviceLength': 76, 'pageSize': 20, 'currentPage': '1' }, 'message': 'get device list successfully' };
     try {
       if (res.ret.list && res.ret.list.length > 0) {
         commit(GET_HARDLIST, res.ret);
