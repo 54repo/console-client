@@ -17,6 +17,10 @@ import './plugins/element';
 import i18n from './i18n';
 import VueClipboard from 'vue-clipboard2';
 import VueCookie from 'vue-cookie';
+import VeLine from 'v-charts/lib/line.common'
+import VeHistogram from 'v-charts/lib/histogram.common.js'
+import 'v-charts/lib/style.css'	
+
 // import ga from 'vue-ga'
 // import VueAnalytics from 'vue-analytics'
 // Vue.use(VueAnalytics, {
@@ -52,6 +56,8 @@ router.afterEach(function (to) {
 
 Vue.use(VueClipboard);
 Vue.use(VueCookie);
+Vue.component(VeLine.name, VeLine);
+Vue.component(VeHistogram.name, VeHistogram);
 
 new Vue({
   router,

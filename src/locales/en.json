@@ -140,5 +140,18 @@
   "nat_5": "RestricNAT",
   "nat_6": "RestricPortNAT",
   "nat_7": "SymmetricNAT",
-  "nat_8": "ChangedAddressError"
+  "nat_8": "ChangedAddressError",
+  "watch": "Monitoring",
+  "watchDetail": {
+    "title": "Monitoring",
+    "watchDate": "Date",
+    "watchStable": "Node Stability(Less than 2500 resources are available)",
+    "watchAvaliable": "Network Resource Availability(100 resources available)",
+    "watchStorge": "Storage Online（Unit：G）",
+    "watchBandwith": "Bandwidth（Unit：M）",
+    "noData": "No Data"
+  },
+  "high": "High",
+  "medium": "Medium",
+  "low": "Low"
 }

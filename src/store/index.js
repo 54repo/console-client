@@ -39,9 +39,9 @@ export default new Vuex.Store({
       // allRenvue: '', //用户总收益
 
       balance: 0,
-      totalInvite : 0, 
-      totalNetRevenue: 0, 
-      totalOnlineRevenue: 0, 
+      totalInvite: 0,
+      totalNetRevenue: 0,
+      totalOnlineRevenue: 0,
       totalRevenue: 0
     },
     revenueDetail: {
@@ -77,3 +77,4 @@ export default new Vuex.Store({
   mutations,
   actions,
 });
+

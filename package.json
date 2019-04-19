@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "echarts": "^4.2.1",
     "element-ui": "^2.4.5",
     "moment": "^2.22.2",
     "qs": "^6.5.2",
+    "v-charts": "^1.19.0",
     "vue": "^2.5.17",
     "vue-analytics": "^5.16.0",
     "vue-clipboard2": "^0.2.1",
