@@ -59,7 +59,7 @@
           </span>
         </el-dialog>
         <!-- 监控 -->
-        <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="80%" center>
+        <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="60%" center>
           <div class="watch-dialog-wrap">
             <span class="key"></span>
             <div class="watch-select">
@@ -282,7 +282,6 @@
 
               stableRows[watchStable] = stable;
               availabilityRows[watchAvaliable] = (stable < 2500) ? 100 : 0;
-
               stableCharts.rows.push(stableRows);
               availabilityChart.rows.push(availabilityRows);
             });

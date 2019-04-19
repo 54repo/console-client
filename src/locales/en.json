@@ -145,10 +145,13 @@
   "watchDetail": {
     "title": "Monitoring",
     "watchDate": "Date",
-    "watchStable": "Node Stability",
-    "watchAvaliable": "Network Resource Availability",
-    "watchStorge": "Storage Online",
-    "watchBandwith": "Bandwidth",
+    "watchStable": "Node Stability(Less than 2500 resources are available)",
+    "watchAvaliable": "Network Resource Availability(100 resources available)",
+    "watchStorge": "Storage Online（Unit：G）",
+    "watchBandwith": "Bandwidth（Unit：M）",
     "noData": "No Data"
-  }
+  },
+  "high": "High",
+  "medium": "Medium",
+  "low": "Low"
 }

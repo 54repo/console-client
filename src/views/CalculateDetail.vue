@@ -90,7 +90,7 @@
           </span>
         </el-dialog>
         <!-- 监控 -->
-        <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="80%" center>
+        <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="60%" center>
           <div class="watch-dialog-wrap">
             <span class="key"></span>
             <div class="watch-select">
@@ -336,7 +336,7 @@
 
               stableRows[watchStable] = stable;
               availabilityRows[watchAvaliable] = (stable < 2500) ? 100 : 0;
-              hardOnlineRows[watchStorge] = ext_storage_size;
+              hardOnlineRows[watchStorge] = (Number(ext_storage_size) / 1024 / 1024 / 1024).toFixed(2);
               txBwRows[watchBandwith] = tx_bandwidth;
 
               stableCharts.rows.push(stableRows);

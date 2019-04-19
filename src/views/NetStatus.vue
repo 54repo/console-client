@@ -48,10 +48,9 @@
             <!-- 网络资源可用性 -->
             <el-table-column prop="" :label="$t('stable')" align='center'>
               <template slot-scope="scope">
-                <div v-if="!scope.row.stable">-</div>
-                <el-tag v-if="scope.row.stable === '高'" type="success">{{$t('stableHigh')}}</el-tag>
-                <el-tag v-if="scope.row.stable === '中'" type="warning">{{$t('stableMiddle')}}</el-tag>
-                <el-tag v-if="scope.row.stable === '低'" type="danger">{{$t('stableLow')}}</el-tag>
+                <div v-if="!scope.row.stableValue">-</div>
+                <el-tag v-if="scope.row.stableValue < 2500" type="success">{{$t('stableUseful')}}</el-tag>
+                <el-tag v-if="scope.row.stableValue >= 2500" type="danger">{{$t('stableDisabled')}}</el-tag>
               </template>
             </el-table-column>
             <!-- <el-table-column prop="stable" :label="$t('stable')" align='center'></el-table-column> -->
@@ -95,9 +94,8 @@
     "needsHigh": "High",
     "needsMiddle": "Medium",
     "needsLow": "Low",
-    "stableHigh": "High",
-    "stableMiddle": "Medium",
-    "stableLow": "Low",
+    "stableUseful": "Usable",
+    "stableDisabled": "disabled",
     "mac_address": "Search Mac Address",
     "addNote": "note",
     "noteText": "note",
@@ -117,9 +115,8 @@
     "needsHigh": "高",
     "needsMiddle": "中",
     "needsLow": "低" ,
-    "stableHigh": "高",
-    "stableMiddle": "中",
-    "stableLow": "低",
+    "stableUseful": "可用",
+    "stableDisabled": "不可用",
     "mac_address": "Mac地址搜索",
     "addNote": "备注",
     "noteText": "备注",

@@ -67,15 +67,13 @@
               </template>
             </el-table-column>
             <!-- 节点网络质量 -->
-            <el-table-column prop="" :label="$t('tx_bw')" align='center'>
+            <el-table-column prop="" :label="$t('node_stability')" align='center'>
               <template slot-scope="scope">
-                <div v-if="!scope.row.tx_bw">-</div>
+                <div v-if="!scope.row.stableValue">-</div>
                 <!-- 5、5-10、10-20、20 -->
-                <el-tag v-if="scope.row.tx_bw < 5 && scope.row.tx_bw > 0" type="danger">&lt; 5 M</el-tag>
-                <el-tag v-if="scope.row.tx_bw > 30" type="success">&gt; 30 M</el-tag>
-                <el-tag v-if="scope.row.tx_bw <= 10 && scope.row.tx_bw >= 5">5-10 M</el-tag>
-                <el-tag v-if="scope.row.tx_bw <= 20 && scope.row.tx_bw >= 10">10-20 M</el-tag>
-                <el-tag v-if="scope.row.tx_bw <= 30 && scope.row.tx_bw >= 20">20-30 M</el-tag>
+                <el-tag v-if="scope.row.stableValue > 2500" type="danger">{{$t('low')}}</el-tag>
+                <el-tag v-if="scope.row.stableValue < 1000" type="success">{{$t('high')}}</el-tag>
+                <el-tag v-if="scope.row.stableValue <= 2500 && scope.row.stableValue >= 1000">{{$t('medium')}}</el-tag>
               </template>
             </el-table-column>
             <!-- 地区 -->
@@ -144,7 +142,7 @@
       </span>
     </el-dialog>
     <!-- 监控 -->
-    <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="80%" center>
+    <el-dialog :title="$t('watchDetail.title')" :visible.sync="showWatchDialog" width="60%" center>
       <div class="watch-dialog-wrap">
         <span class="key"></span>
         <div class="watch-select">
@@ -177,7 +175,7 @@
     "mem_size": "Memory",
     "storage_size": "Storage",
     "info": "Version",
-    "tx_bw": "Node Stability",
+    "node_stability": "Node Stability",
     "date": "The Binding Date(UTC)",
     "code": "Binding BonusCode",
     "totalTime": "Total Online Time",
@@ -204,7 +202,7 @@
     "CPU": "CPU",
     "mem_size": "内存",
     "info": "版本",
-    "tx_bw": "节点网络质量",
+    "node_stability": "节点网络质量",
     "storage_size": "硬盘",
     "date": "绑定时间(UTC)",
     "code": "已绑定激活码 ",
@@ -279,7 +277,11 @@
           metrics: ['日期'],
           dimension: ['网络资源可用性'] 
         },
-        showCharts: 'waiting'
+        showCharts: 'waiting',
+        // // 硬盘在线情况图表设置
+        // hardOnlineSettings: {
+        //   yAxisType: ['G'],
+        // }
       }
     },
     computed: mapState({
@@ -487,8 +489,8 @@
 
               stableRows[watchStable] = stable;
               availabilityRows[watchAvaliable] = (stable < 2500) ? 100 : 0;
-              hardOnlineRows[watchStorge] = ext_storage_size;
-              txBwRows[watchBandwith] = tx_bandwidth;
+              hardOnlineRows[watchStorge] = (Number(ext_storage_size) / 1024 / 1024 / 1024).toFixed(2);
+              txBwRows[watchBandwith] = (Number(tx_bandwidth) / 1024 / 1024).toFixed(2);
 
               stableCharts.rows.push(stableRows);
               availabilityChart.rows.push(availabilityRows);

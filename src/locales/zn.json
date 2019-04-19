@@ -140,10 +140,13 @@
   "watchDetail": {
     "title": "监控",
     "watchDate": "日期",
-    "watchStable": "节点网络质量",
-    "watchAvaliable": "网络资源可用性",
-    "watchStorge": "硬盘在线情况",
-    "watchBandwith": "上行带宽",
+    "watchStable": "节点网络质量（小于2500资源可用）",
+    "watchAvaliable": "网络资源可用性（100资源可用）",
+    "watchStorge": "硬盘在线情况（单位：G）",
+    "watchBandwith": "上行带宽（单位：M）",
     "noData": "暂无数据"
-  }
+  },
+  "high": "高",
+  "medium": "中",
+  "low": "低"
 }
