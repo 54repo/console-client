@@ -91,7 +91,7 @@
             <!-- 监测 -->
             <el-table-column prop="" :label="$t('watch')" align='center'>
               <template slot-scope="scope">
-                <img class="watch-icon" @click="showWatchDetail(scope.row.id)" src="../assets/hardList/watch.png">
+                <img class="watch-icon" @click="showWatchDetail('id', scope.row.id)" src="../assets/hardList/watch.png">
               </template>
             </el-table-column>
             <!-- 解绑 -->
@@ -425,10 +425,10 @@
         this.getHardList({ pageNum: val })
       },
       // 显示监控
-      showWatchDetail(id) {
+      showWatchDetail(type, id) {
         let that = this;
         this.showWatchDialog = true;
-        this.watchId = id || this.watchId;
+        this.watchId = (type === 'id' ) ? id : this.watchId;
         let queryDate = this.searchWatchDate;
 
         let watchStable = this.$t("watchDetail.watchStable");
@@ -439,7 +439,7 @@
         let watchDate = this.$t("watchDetail.watchDate");
 
         this.getDeviceWatchDetail({
-          id,
+          id: this.watchId,
           queryDate
         }).then(res => {
           if (res && res.length) {

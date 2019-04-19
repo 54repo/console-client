@@ -64,7 +64,7 @@
           <!-- 监测 -->
           <el-table-column prop="" :label="$t('watch')" align='center'>
             <template slot-scope="scope">
-              <img class="watch-icon" @click="showWatchDetail(scope.row.id)" src="../assets/hardList/watch.png">
+              <img class="watch-icon" @click="showWatchDetail('id', scope.row.id)" src="../assets/hardList/watch.png">
             </template>
           </el-table-column>
           <!-- 设备收益 -->
@@ -130,6 +130,11 @@
     data() {
       return {
         selectDate: moment()
+          .utc()
+          .startOf("day")
+          .subtract(1, "days")
+          .format("YYYY-MM-DD"),
+        searchWatchDate: moment()
           .utc()
           .startOf("day")
           .subtract(1, "days")
@@ -267,11 +272,12 @@
         this.addNoteAddress = address;
       },
       // 显示观察
-      showWatchDetail(id) {
+      showWatchDetail(type, id) {
         let that = this;
         this.showWatchDialog = true;
-        this.watchId = id || this.watchId;
         let queryDate = this.searchWatchDate;
+        this.watchId = (type === 'id' ) ? id : this.watchId;
+
 
         let watchStable = this.$t("watchDetail.watchStable");
         let watchAvaliable = this.$t("watchDetail.watchAvaliable");
@@ -281,7 +287,7 @@
         let watchDate = this.$t("watchDetail.watchDate");
 
         this.getDeviceWatchDetail({
-          id,
+          id: this.watchId,
           queryDate
         }).then(res => {
           if (res && res.length) {
