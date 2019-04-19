@@ -101,7 +101,8 @@
               </el-select>
             </div>
             <ve-line class="watch-chart" :data="stableCharts"></ve-line>
-            <ve-histogram  class="watch-chart" :data="availabilityChart"></ve-histogram>
+            <!-- <ve-histogram  class="watch-chart" :data="availabilityChart"></ve-histogram> -->
+            <ve-line  class="watch-chart" :data="availabilityChart"></ve-line>
             <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
             <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
           </div>
@@ -315,7 +316,7 @@
 
             res.map(item => {
               let { time, stable, ext_storage_size, tx_bandwidth } = item;
-              let date_at = moment(time).format('YYYY-MM-DD hh:mm:ss');
+              let date_at = moment(time).format('YYYY-MM-DD hh:mm:ss a');
 
               let stableRows = [], availabilityRows = [], hardOnlineRows = [], txBwRows = [];
               // 日期处理
@@ -325,7 +326,7 @@
                 txBwRows[watchDate] = date_at;
 
               stableRows[watchStable] = stable;
-              availabilityRows[watchAvaliable] = (stable > 2500) ? 100 : 0;
+              availabilityRows[watchAvaliable] = (stable < 2500) ? 100 : 0;
               hardOnlineRows[watchStorge] = ext_storage_size;
               txBwRows[watchBandwith] = tx_bandwidth;
 

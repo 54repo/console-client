@@ -155,7 +155,9 @@
           </el-select>
         </div>
         <ve-line class="watch-chart" :data="stableCharts"></ve-line>
-        <ve-histogram  class="watch-chart" :data="availabilityChart"></ve-histogram>
+        <!-- <ve-histogram  class="watch-chart" :data="availabilityChart" :settings="chartSettings"></ve-histogram> -->
+        <ve-line  class="watch-chart" :data="availabilityChart"></ve-line>
+        <!-- <ve-bar :data="availabilityChart"></ve-bar> -->
         <ve-line  class="watch-chart" :data="hardOnlineChart"></ve-line>
         <ve-line  class="watch-chart" :data="txBwCharts"></ve-line>
       </div>
@@ -271,7 +273,11 @@
         availabilityChart: {},
         hardOnlineChart: {},
         txBwCharts: {},
-        hardOnlineColumns: false
+        hardOnlineColumns: false,
+        chartSettings: {
+          metrics: ['日期'],
+          dimension: ['网络资源可用性'] 
+        }
       }
     },
     computed: mapState({
@@ -452,6 +458,7 @@
               rows: []
             };
 
+
             let stableColumns = [], availabilityColumns = [], hardOnlineColumns = [], txBwColumns = [];
             stableColumns.push(watchDate);
             stableColumns.push(watchStable);
@@ -476,27 +483,24 @@
               let stableRows = [], availabilityRows = [], hardOnlineRows = [], txBwRows = [];
               // 日期处理
               stableRows[watchDate] = date_at, 
-                availabilityRows[watchDate] = date_at, 
+                availabilityRows[watchDate] = date_at,
                 hardOnlineRows[watchDate] = date_at, 
                 txBwRows[watchDate] = date_at;
 
               stableRows[watchStable] = stable;
-              // availabilityRows[watchAvaliable] = (stable > 2500) ? 1 : -1;
-              availabilityRows[watchAvaliable] = (stable > 2500) ? 100 : 0;
+              availabilityRows[watchAvaliable] = (stable < 2500) ? 100 : 0;
               hardOnlineRows[watchStorge] = ext_storage_size;
               txBwRows[watchBandwith] = tx_bandwidth;
 
-              console.log('stableRows:', JSON.stringify(stableRows))
               stableCharts.rows.push(stableRows);
               availabilityChart.rows.push(availabilityRows);
               hardOnlineChart.rows.push(hardOnlineRows);
               txBwCharts.rows.push(txBwRows);
             });
 
-            console.log('stableCharts', JSON.stringify(stableCharts));
+            console.log('stableCharts', stableCharts);
             that.stableCharts =  stableCharts;
-            // that.availabilityChart =  availabilityChart;
-            console.log('availabilityChart', availabilityChart);
+
             that.availabilityChart =  availabilityChart;
             that.hardOnlineChart =  hardOnlineChart;
             that.txBwCharts =  txBwCharts;
@@ -631,6 +635,8 @@
   .watch-icon {
     width: 20px;
     height: 20px;
+    margin-top: 5px;
+    display: inline-block
   }
 
   .watch-chart {
