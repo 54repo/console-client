@@ -49,7 +49,7 @@
             <el-table-column prop="" :label="$t('stable')" align='center'>
               <template slot-scope="scope">
                 <div v-if="!scope.row.stableValue">-</div>
-                <el-tag v-if="scope.row.stableValue < 2500" type="success">{{$t('stableUseful')}}</el-tag>
+                <el-tag v-if="scope.row.stableValue < 2500 && scope.row.stableValue > 0" type="success">{{$t('stableUseful')}}</el-tag>
                 <el-tag v-if="scope.row.stableValue >= 2500" type="danger">{{$t('stableDisabled')}}</el-tag>
               </template>
             </el-table-column>
