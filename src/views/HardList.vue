@@ -488,7 +488,7 @@
                 txBwRows[watchDate] = date_at;
 
               stableRows[watchStable] = stable;
-              availabilityRows[watchAvaliable] = (stable < 2500) ? 100 : 0;
+              availabilityRows[watchAvaliable] = (stable < 2500 && stable > 0) ? 100 : 0;
               hardOnlineRows[watchStorge] = (Number(ext_storage_size) / 1024 / 1024 / 1024).toFixed(2);
               txBwRows[watchBandwith] = (Number(tx_bandwidth) / 1024 / 1024).toFixed(2);
 

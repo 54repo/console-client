@@ -281,7 +281,7 @@
                 availabilityRows[watchDate] = date_at;
 
               stableRows[watchStable] = stable;
-              availabilityRows[watchAvaliable] = (stable < 2500) ? 100 : 0;
+              availabilityRows[watchAvaliable] = (stable < 2500 && stable > 0) ? 100 : 0;
               stableCharts.rows.push(stableRows);
               availabilityChart.rows.push(availabilityRows);
             });
