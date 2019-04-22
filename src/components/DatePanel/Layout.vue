@@ -17,18 +17,18 @@
             <span slot="title">{{ $t('local_home_layout.menu.data_panel')}}</span>
           </el-menu-item>
           <!-- 收益总览 -->
-          <el-submenu index="1" route="/revenue" class="revenue-wrap">
+          <el-submenu index="1" class="revenue-wrap">
             <template slot="title">
               <div v-bind:class="{ revenuePad: true }">
                 <img class="menu-icon home-icon total-revenue-icon" src="../../assets/menu/totalRevenue.png" >
                 <span>{{ $t('local_home_layout.menu.all_revenue')}}</span>
               </div>
             </template>
-            <el-menu-item-group :span="3">
-              <el-menu-item route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.all_revenue') }}</el-menu-item>
-              <el-menu-item route="/devAllRevenue" v-bind:class="{ isActive: (thisPath === '/devAllRevenue') }">{{ $t('local_home_layout.menu.dev_all_revenue') }}</el-menu-item>
+            <el-menu-item-group :span="3" >
+              <el-menu-item index="1-1" route="/revenue" v-bind:class="{ isActive: (thisPath === '/revenue') }">{{ $t('local_home_layout.menu.all_revenue') }}</el-menu-item>
+              <el-menu-item index="1-2" route="/devAllRevenue"  v-bind:class="{ isActive: (thisPath === '/devAllRevenue') }">{{ $t('local_home_layout.menu.dev_all_revenue') }}</el-menu-item>
             </el-menu-item-group>
-          </el-submenu>
+          </el-submenu>  
           <!-- 网络任务 -->
           <el-submenu index="2" route="/revenue" class="revenue-wrap">
             <template slot="title">

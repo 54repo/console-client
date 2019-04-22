@@ -291,8 +291,7 @@ export default {
 }
 
 .get-rule {
-  font-size;
-  14px;
+  font-size: 14px;
   color: #909399;
   width: 80%;
   padding: 8px 16px;
