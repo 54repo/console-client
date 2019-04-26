@@ -49,6 +49,7 @@ import {
   GET_WALLET_STATUS,
   GET_MAINLAND_LIST,
   GET_NON_MAINLAND_LIST,
+  GET_CALCULATE_LIST,
   GET_WITHDRAWAL_LIST,
   GET_BALANCE,
   GET_WITHDRAWAL_STAUTS,
@@ -119,6 +120,15 @@ export default {
       }
     } catch (error) {
       commit(GET_NON_MAINLAND_LIST, NO_CONTENT);
+    }
+    try {
+      if (res.ret.calculate && res.ret.calculate.length) {
+        commit(GET_CALCULATE_LIST, res.ret.calculate);
+      } else {
+        commit(GET_CALCULATE_LIST, NO_CONTENT);
+      }
+    } catch (error) {
+      commit(GET_CALCULATE_LIST, NO_CONTENT);
     }
   },
   // 领取邀请码

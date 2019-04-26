@@ -74,6 +74,10 @@
         {
           "value": "non_mainland",
           "label": "非中国大陆"
+        },
+        {
+          "value": "calculate",
+          "label": "中国大陆-计算任务专用"
         }
       ],
       "limitVerify": "请完成校验"

@@ -77,6 +77,10 @@
         {
           "value": "non_mainland",
           "label": "Non-mainland China"
+        },
+        {
+          "value": "calculate",
+          "label": "Mainland China - Computing Task"
         }
       ],
       "limitVerify": "Please complete the verfication"

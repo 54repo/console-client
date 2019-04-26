@@ -11,6 +11,7 @@ import {
   INVITECODE_STATUS_CODE,
   GET_MAINLAND_LIST,
   GET_NON_MAINLAND_LIST,
+  GET_CALCULATE_LIST,
   GET_USER_INFO,
   GET_ALL_RENVUE,
   // GET_LASTDAY_INVITE,
@@ -68,14 +69,19 @@ export default {
     state.inviteCode.status = status;
     state.inviteCode = Object.assign({}, state.inviteCode);
   },
-  // 图片邀请码状态
+  // 大陆码
   [GET_MAINLAND_LIST](state, list) {
     state.inviteCode.mainland_list = list;
     state.inviteCode = Object.assign({}, state.inviteCode);
   },
-  // 图片邀请码状态
+  // 非大陆码
   [GET_NON_MAINLAND_LIST](state, list) {
     state.inviteCode.non_mainland_list = list;
+    state.inviteCode = Object.assign({}, state.inviteCode);
+  },
+  // 计算码
+  [GET_CALCULATE_LIST](state, list) {
+    state.inviteCode.calculate_list = list;
     state.inviteCode = Object.assign({}, state.inviteCode);
   },
   // 获取用户信息

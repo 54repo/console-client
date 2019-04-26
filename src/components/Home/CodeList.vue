@@ -16,6 +16,13 @@
         </el-table>
         <el-table v-if=" non_mainland_list === 'NO_CONTENT'" :empty-text="$t('noCodeTip')" height="490px" style="width: 100%"></el-table>
       </el-tab-pane>
+      <el-tab-pane :label="$t('HOME.BonusCode.regionOptions[2].label')" name="calculate">
+        <el-table v-if="calculate_list !== 'NO_CONTENT'" empty-text="Loading" :data="calculate_list || []" height="490px" style="width: 100%">
+          <el-table-column class="bcode-list" prop="bcode" :label="totalText">
+          </el-table-column>
+        </el-table>
+        <el-table v-if=" calculate_list === 'NO_CONTENT'" :empty-text="$t('noCodeTip')" height="490px" style="width: 100%"></el-table>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -32,7 +39,8 @@ export default {
   },
   props: {
     mainland_list: '',
-    non_mainland_list: ''
+    non_mainland_list: '',
+    calculate_list: ''
   }
 }
 </script>

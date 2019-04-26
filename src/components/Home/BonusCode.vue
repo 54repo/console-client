@@ -50,7 +50,7 @@
         </el-col>
         <!-- code列表 -->
         <el-col :span="12">
-          <CodeList :non_mainland_list="non_mainland_list" :mainland_list="mainland_list"></CodeList>
+          <CodeList :non_mainland_list="non_mainland_list" :mainland_list="mainland_list" :calculate_list="calculate_list"></CodeList>
         </el-col>
       </el-row>
     </BasiceLayout>
@@ -111,7 +111,8 @@ export default {
       return state.inviteCode.status
     },
     mainland_list: state => state.inviteCode.mainland_list,
-    non_mainland_list: state => state.inviteCode.non_mainland_list
+    non_mainland_list: state => state.inviteCode.non_mainland_list,
+    calculate_list: state => state.inviteCode.calculate_list,
   }),
   mounted() {
     this.countTime();
