@@ -89,6 +89,17 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style  scopes lang="stylus">
+.is-mobile {
+  .foot-link {
+    margin 0
+    width 100%
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .foot-detail {
+    width auto
+  }
+}
   .line
     margin-top: 20px
     border-bottom: 1px solid #979797;

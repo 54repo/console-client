@@ -20,6 +20,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.is-mobile {
+  .left-bg {
+    display none
+  }
+  .right-dialog {
+    width 100%
+  }
+}
 .account-layout
   height: 100%
   width: 100%

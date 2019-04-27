@@ -1,8 +1,8 @@
 <template>
 	<div class="BonusCode">
-		<BasiceLayout :title="$t( 'invite_title' )" class="bonus-code-layout"> 
+		<BasiceLayout :title="$t( 'invite_title' )" class="bonus-code-layout">
       <el-row>
-        <el-col :span="12">
+        <el-col class="invite-row" :span="12">
           <el-alert
             :closable="false"
             class="invite-alert"
@@ -10,15 +10,15 @@
             type="error"
             center>
           </el-alert>
-          <span class="invite-tips">{{ $t( 'inviteText' ) }}</span>  
+          <span class="invite-tips">{{ $t( 'inviteText' ) }}</span>
           <div class="invite-wrap">
             <div class="invite-url">{{recommendRefer}}</div>
             <div class="invite-copy bonus-cursor" @click="copy">{{ $t( 'cotyText' ) }}</div>
-          </div>    
+          </div>
         </el-col>
-        <el-col :span="12">
+        <el-col class="invite-row" :span="12">
           <div class="invite-count-wrap">
-            <span>{{ $t( 'inviteCountText' ) }}</span>  
+            <span>{{ $t( 'inviteCountText' ) }}</span>
             <div class="invite-count">{{count || 0}}</div>
           </div>
         </el-col>
@@ -85,7 +85,20 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style  scopes lang="stylus">
+<style  scoped lang="stylus">
+.is-mobile {
+  .invite-row {
+    width auto
+  }
+  .layout-title {
+    padding-left 15px
+    padding-right 15px
+  }
+  .layout-content {
+    margin-left 15px
+    margin-right 15px
+  }
+}
 .bonus-code-layout .invite-alert {
   margin-bottom: 40px;
 }

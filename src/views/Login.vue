@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header type='login-header' />
+    <Header type='login-header'/>
     <AccountLayout class="login-content">
       <!-- 登陆框 -->
       <div class="account-dialog">
@@ -50,16 +50,19 @@
         <div
           class="login bonus-cursor"
           v-on:click="startLogin"
-        >{{ $t('login.loginButton') }}</div>
+        >{{ $t('login.loginButton') }}
+        </div>
         <div class="login-sign-wrap">
           <div
             class="login-sign-up bonus-cursor"
             v-on:click="signUp"
-          >{{ $t('login.redirectSign') }}</div>
+          >{{ $t('login.redirectSign') }}
+          </div>
           <div
             class="login-forget bonus-cursor"
             v-on:click="forget"
-          >{{ $t('login.redirectForget') }}?</div>
+          >{{ $t('login.redirectForget') }}?
+          </div>
         </div>
       </div>
     </AccountLayout>
@@ -68,16 +71,16 @@
 
 <script>
 // @ is an alias to /src
-import Header from "@/components/Header.vue";
-import AccountLayout from "@/components/AccountLayout.vue";
-import BasicInput from "@/components/BasicInput.vue";
-import { mapState, mapActions, mapMutations } from "vuex";
-import { Message } from "element-ui";
-import VueRecaptcha from "vue-recaptcha";
+import Header from '@/components/Header.vue'
+import AccountLayout from '@/components/AccountLayout.vue'
+import BasicInput from '@/components/BasicInput.vue'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import { Message } from 'element-ui'
+import VueRecaptcha from 'vue-recaptcha'
 import { SITEKEY } from '../config/contant.js'
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     Header,
     AccountLayout,
@@ -85,16 +88,16 @@ export default {
     VueRecaptcha
   },
 
-  data() {
+  data () {
     return {
-      EmailErrorMsg: "",
-      passwordErrorMsg: "",
-      inputEmail: "",
-      inputPassword: "",
+      EmailErrorMsg: '',
+      passwordErrorMsg: '',
+      inputEmail: '',
+      inputPassword: '',
       sitekey: SITEKEY['LOW'], //ga verify key
-      response: "", //ga verify response
+      response: '', //ga verify response
       isLoginDisable: false //login可点击状态
-    };
+    }
   },
   computed: mapState({
     //  箭头函数可使代码更简练
@@ -102,80 +105,92 @@ export default {
     // isLoginDisable: state => state.account.isLoginDisable
   }),
   methods: {
-    onVerify: function(response) {
-      this.response = response;
+    onVerify: function (response) {
+      this.response = response
     },
-    onExpired: function() {
+    onExpired: function () {
       Message({
-        message: this.$t("captcha.expired"),
-        type: "error"
-      });
-      this.$refs.recaptcha.reset();
+        message: this.$t('captcha.expired'),
+        type: 'error'
+      })
+      this.$refs.recaptcha.reset()
     },
-    resetRecaptcha() {
-      this.$refs.recaptcha.reset();
+    resetRecaptcha () {
+      this.$refs.recaptcha.reset()
     },
-    ...mapActions(["login"]),
+    ...mapActions(['login']),
     // 登陆
-    startLogin() {
-      const { inputEmail, inputPassword, isLoginDisable, response } = this;
+    startLogin () {
+      const {inputEmail, inputPassword, isLoginDisable, response} = this
       if (isLoginDisable) {
-        return true;
+        return true
       }
       // 邮箱正则表达式-----后续建议提出来统一维护
-      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/;
+      const emailRule = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,6}){1,2})$/
       if (emailRule.test(inputEmail)) {
-        this.EmailErrorMsg = "";
+        this.EmailErrorMsg = ''
       } else {
-        this.EmailErrorMsg = "The email error";
-        return true;
+        this.EmailErrorMsg = 'The email error'
+        return true
       }
       // 密码校验
       if (inputPassword.length >= 6 && inputPassword.length < 30) {
-        this.passwordErrorMsg = "";
+        this.passwordErrorMsg = ''
       } else {
-        this.passwordErrorMsg = "The password is too small or too long";
-        return true;
+        this.passwordErrorMsg = 'The password is too small or too long'
+        return true
       }
 
-      this.isLoginDisable = true;
-      this.login({ email: inputEmail, password: inputPassword, response }).then(
+      this.isLoginDisable = true
+      this.login({email: inputEmail, password: inputPassword, response}).then(
         res => {
           if (res.code === 200) {
             Message({
-              message: this.$t("login.loginSuccessTip"),
-              type: "success"
-            });
+              message: this.$t('login.loginSuccessTip'),
+              type: 'success'
+            })
             setTimeout(() => {
-              this.$router.push({ name: "home" });
-            }, 2000);
+              this.$router.push({name: 'home'})
+            }, 2000)
           } else {
-            this.isLoginDisable = false;
+            this.isLoginDisable = false
             Message({
-              message: res.message || "login error",
-              type: "error"
-            });
+              message: res.message || 'login error',
+              type: 'error'
+            })
           }
         }
-      );
+      )
     },
     // 注册
-    signUp() {
-      this.$router.push({ name: "signUp" });
+    signUp () {
+      this.$router.push({name: 'signUp'})
     },
     // 忘记密码
-    forget() {
-      this.$router.push({ name: "forget" });
+    forget () {
+      this.$router.push({name: 'forget'})
     }
   }
-};
+}
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.is-mobile {
+  .account-dialog {
+    margin 0
+    width 100%
+    max-width 100%
+  }
+  .login-content {
+    height auto
+  }
+}
+
 .login-content
   height: 60vw;
+
 .captcha-wrap {
   transform: scale(0.96);
   -webkit-transform: scale(0.96);

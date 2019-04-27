@@ -171,7 +171,6 @@ export default new Router({
       },
       component: CalcuteStatus,
     },
-    
     // {
     //   path: '/about',
     //   name: 'about',

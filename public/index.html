@@ -1,34 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    </script>
-    <title>bonus_back_website</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but bonus_back_website doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
-  <script>
-      const url = 'https://www.recaptcha.net/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit';
-      function createJs(src) {
-        let script= document.createElement("script");
-          script.type = "text/javascript";
-          script.src= src;
-          document.body.appendChild(script);
-      }
-      let isEn = document.cookie.includes('BASIC_LANUAGE=en');
-      if (isEn) {
-        createJs(url + '&hl=en');
-      } else {
-        createJs(url + '&hl=zh-CN');
-      }
-      // '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
-    </script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>bonus_back_website</title>
+</head>
+<body>
+<noscript>
+  <strong>We're sorry but bonus_back_website doesn't work properly without JavaScript enabled. Please enable it to
+    continue.</strong>
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
+<script>
+var winWidth = 0
+var winHeight = 0
+var body = document.getElementsByTagName('body')[0]
+
+function findDimensions() {
+  // 获取窗口宽度
+  if (window.innerWidth) {
+    winWidth = window.innerWidth
+  } else if ((document.body) && (document.body.clientWidth)) {
+    winWidth = document.body.clientWidth
+  }
+  // 获取窗口高度
+  if (window.innerHeight) {
+    winHeight = window.innerHeight
+  } else if ((document.body) && (document.body.clientHeight)) {
+    winHeight = document.body.clientHeight
+  }
+  // 通过深入Document内部对body进行检测，获取窗口大小
+  if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+    winHeight = document.documentElement.clientHeight
+    winWidth = document.documentElement.clientWidth
+  }
+
+  if(winWidth < 789) {
+    body.classList.add('is-mobile')
+  } else {
+    body.classList.remove('is-mobile')
+  }
+  console.log(winWidth, body)
+}
+
+findDimensions()
+// 调用函数，获取数值
+window.onresize = findDimensions
+</script>
+<script>
+const url = 'https://www.recaptcha.net/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit'
+
+function createJs(src) {
+  let script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.src = src
+  document.body.appendChild(script)
+}
+
+let isEn = document.cookie.includes('BASIC_LANUAGE=en')
+if (isEn) {
+  createJs(url + '&hl=en')
+} else {
+  createJs(url + '&hl=zh-CN')
+}
+// '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+</script>
 </html>

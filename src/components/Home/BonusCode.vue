@@ -4,15 +4,17 @@
     <BasiceLayout title="BonusCode" class="bonus-code-layout">
       <el-row>
         <!-- 领码 -->
-        <el-col :span="12">
+        <el-col :span="12" class="bonusCode-first-row">
           <div class="grid-content bg-purple">
             <el-alert :closable="false" :title="$t('HOME.BonusCode.bonusTips')" type="error" center>
             </el-alert>
             <div class="active-wrap">
               <div>{{ $t('HOME.BonusCode.bonusGet') }}</div>
               <!-- 领码选择 -->
-              <el-select v-model="regionDefault" :placeholder="$t('HOME.BonusCode.regionHolder')" class="bonuscode-select-region" @change="getStatus">
-                <el-option default v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value">
+              <el-select v-model="regionDefault" :placeholder="$t('HOME.BonusCode.regionHolder')"
+                         class="bonuscode-select-region" @change="getStatus">
+                <el-option default v-for="item in regionOptions" :key="item.value" :label="item.label"
+                           :value="item.value">
                 </el-option>
               </el-select>
               <vue-recaptcha
@@ -22,10 +24,12 @@
                 @expired="onExpired"
                 data-size="normal"
                 :sitekey="sitekey"
-              >        
+              >
               </vue-recaptcha>
               <!-- 领码 -->
-              <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode" class="get-invite bonus-cursor">{{ $t('HOME.BonusCode.getText')}}</div>
+              <div v-bind:class="{ noActive: (!inviteStatus && !this.$route.query.debug) }" v-on:click="clickInviteCode"
+                   class="get-invite bonus-cursor">{{ $t('HOME.BonusCode.getText')}}
+              </div>
             </div>
             <div class="count-time">
               <span class="key">{{ $t('HOME.BonusCode.nextTimeText') }}</span>
@@ -45,11 +49,13 @@
             <div>{{ $t('HOME.BonusCode.ruleTip.rule4') }}</div>
             <div>{{ $t('HOME.BonusCode.ruleTip.rule5') }}</div>
             <div>{{ $t('HOME.BonusCode.ruleTip.rule6') }}</div>
-            <div class="tele">{{ $t('HOME.BonusCode.ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor" :href="$t('HOME.BonusCode.ruleTip.teleUrl')">{{ $t('HOME.BonusCode.ruleTip.teleButton') }}</a></div>
+            <div class="tele">{{ $t('HOME.BonusCode.ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor"
+                                                                         :href="$t('HOME.BonusCode.ruleTip.teleUrl')">{{
+              $t('HOME.BonusCode.ruleTip.teleButton') }}</a></div>
           </div>
         </el-col>
         <!-- code列表 -->
-        <el-col :span="12">
+        <el-col :span="12"  class="bonusCode-second-row">
           <CodeList :non_mainland_list="non_mainland_list" :mainland_list="mainland_list"></CodeList>
         </el-col>
       </el-row>
@@ -64,7 +70,7 @@ import CodeList from '@/components/Home/CodeList.vue'
 import { mapState, mapActions } from 'vuex'
 import { Message } from 'element-ui'
 import { LANG, SITEKEY } from '../../config/contant.js'
-import VueRecaptcha from "vue-recaptcha";
+import VueRecaptcha from 'vue-recaptcha'
 
 export default {
   name: 'BonusCode',
@@ -76,7 +82,7 @@ export default {
     CodeList,
     VueRecaptcha
   },
-  data() {
+  data () {
     return {
       timeMinutes: '', // 倒计时分钟数
       timeSeconds: '', // 倒计时秒数
@@ -85,19 +91,19 @@ export default {
       regionOptions: this.$t('HOME.BonusCode.regionOptions'),
       regionDefault: this.$t('HOME.BonusCode.regionOptions')[0].value,
       region: 'mainland',
-      response: "", //ga verify response
+      response: '', //ga verify response
       sitekey: SITEKEY['HIGH'], //ga verify key
     }
   },
 
   watch: {
-    timeMinutes: function(val) {
+    timeMinutes: function (val) {
       this.showA =
         this.timeMinutes.toString().length > 1
           ? this.timeMinutes
           : '0' + this.timeMinutes.toString()
     },
-    timeSeconds: function(val) {
+    timeSeconds: function (val) {
       this.showB =
         this.timeSeconds.toString().length > 1
           ? this.timeSeconds
@@ -106,16 +112,16 @@ export default {
   },
   computed: mapState({
     // 验证码地址
-    inviteStatus(state) {
+    inviteStatus (state) {
       // 10个激活码不可领取
       return state.inviteCode.status
     },
     mainland_list: state => state.inviteCode.mainland_list,
     non_mainland_list: state => state.inviteCode.non_mainland_list
   }),
-  mounted() {
-    this.countTime();
-    this.getAbleList();
+  mounted () {
+    this.countTime()
+    this.getAbleList()
   },
   methods: {
     ...mapActions([
@@ -125,26 +131,26 @@ export default {
       'sendEmailCode_v2',
       'getInviteCodeStatus'
     ]),
-    onVerify: function(response) {
-      this.response = response;
+    onVerify: function (response) {
+      this.response = response
     },
-    onExpired: function() {
+    onExpired: function () {
       Message({
-        message: this.$t("captcha.expired"),
-        type: "error"
-      });
-      this.$refs.recaptcha.reset();
+        message: this.$t('captcha.expired'),
+        type: 'error'
+      })
+      this.$refs.recaptcha.reset()
     },
-    resetRecaptcha() {
-      this.$refs.recaptcha.reset();
+    resetRecaptcha () {
+      this.$refs.recaptcha.reset()
     },
-    getStatus(region) {
+    getStatus (region) {
       this.region = region
       this.getInviteCodeStatus(region)
-      this.resetRecaptcha();
+      this.resetRecaptcha()
     },
     // 倒计时计算：按照当前时间计算该小时剩余分钟
-    countTime() {
+    countTime () {
       let EACH_HOUR_SECONDS = 60 * 60
       let thisTime = new Date()
       let minutes = thisTime.getUTCMinutes()
@@ -163,7 +169,7 @@ export default {
       }, 1000)
     },
     // 领取 邀请码
-    clickInviteCode() {
+    clickInviteCode () {
       if (this.inviteStatus || this.$route.query.debug) {
         // 校验验证码&&地区
         if (!this.response) {
@@ -197,7 +203,7 @@ export default {
   },
 
   // 加载验证码
-  created() {
+  created () {
     // 初始化大陆地区code
     this.getInviteCodeStatus('mainland')
     // this.getVerify({ action: 1, region: "mainland" })
@@ -206,7 +212,48 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style  lang="stylus">
+<style lang="stylus">
+.is-mobile {
+  .bonusCode-first-row {
+    width auto
+    max-width 100%
+    .active-wrap {
+      margin-left 0
+      .bonuscode-select-region {
+        margin-left 0
+      }
+      .captcha-wrap {
+        margin-left 0
+        margin-right 0
+        max-width 100%
+        overflow auto
+      }
+      .get-invite {
+        margin-left 0
+      }
+    }
+    .count-time {
+      margin-left 0
+    }
+    .minute, .second {
+      margin-left 0
+    }
+    .get-rule {
+      margin 0
+      width auto
+    }
+  }
+  .bonusCode-second-row {
+    width auto
+    .bonus-list {
+      margin-top 20px
+      margin-left 0
+      padding-left 0
+      border-left none
+    }
+  }
+}
+
 .captcha_wrap {
   width: 290px;
   height: 40px;

@@ -42,10 +42,22 @@ export default {
 </i18n>
 
 <style lang="stylus">
+.is-mobile {
+  .guide {
+    display none
+  }
+  .el-dialog--center {
+    width calc(100% - 20px)!important
+    margin 0 10px
+  }
+}
+html {
+  overflow-x hidden
+}
 .guid-link:hover
   color: #666
   font-size: 12px;
-.guid-link 
+.guid-link
   display: block;
   font-size: 14px;
   color: #fff;
@@ -93,7 +105,7 @@ a
 .bonus-cursor
   cursor: pointer;
 
-.input 
+.input
     width: 200px;
     -webkit-appearance: none;
     background-color: #fff;

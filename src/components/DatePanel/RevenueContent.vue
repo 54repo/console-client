@@ -8,7 +8,7 @@
             class="revenue-icon home-icon"
             src="../../assets/revenue/online_revunue.png"
           >
-          <div class="revenue_title">{{ $t('revenue_1') }}  
+          <div class="revenue_title">{{ $t('revenue_1') }}
             <el-tooltip class="item" effect="dark" :content=" $t('total_tips')" placement="top">
               <i class="revenue-icon el-icon-question"></i>
             </el-tooltip>
@@ -23,7 +23,7 @@
             class="revenue-icon home-icon"
             src="../../assets/revenue/online_invite.png"
           >
-          <div class="revenue_title">{{ $t('revenue_2') }} 
+          <div class="revenue_title">{{ $t('revenue_2') }}
             <el-tooltip class="item" effect="dark" :content=" $t('balance_tips')" placement="top">
               <i class="revenue-icon el-icon-question"></i>
             </el-tooltip>
@@ -38,7 +38,7 @@
             class="revenue-icon home-icon"
             src="../../assets/revenue/person_total_revenue.png"
           >
-          <div class="revenue_title">{{ $t('revenue_3')}} 
+          <div class="revenue_title">{{ $t('revenue_3')}}
             <el-tooltip class="item" effect="dark" :content=" $t('invite_tips')" placement="top">
               <i class="revenue-icon el-icon-question"></i>
             </el-tooltip>
@@ -55,7 +55,7 @@
             class="revenue-icon home-icon"
             src="../../assets/revenue/online_invite.png"
           >
-          <div class="revenue_title">{{ $t('revenue_5') }} 
+          <div class="revenue_title">{{ $t('revenue_5') }}
             <el-tooltip class="item" effect="dark" :content=" $t('network_tips')" placement="top">
               <i class="revenue-icon el-icon-question"></i>
             </el-tooltip>
@@ -70,7 +70,7 @@
             class="revenue-icon home-icon"
             src="../../assets/revenue/person_total_revenue.png"
           >
-          <div class="revenue_title">{{ $t('revenue_6')}} 
+          <div class="revenue_title">{{ $t('revenue_6')}}
             <el-tooltip class="item" effect="dark" :content=" $t('calculate_tops')" placement="top">
               <i class="revenue-icon el-icon-question"></i>
             </el-tooltip>
@@ -85,7 +85,7 @@
             class="revenue-icon home-icon"
             src="../../assets/revenue/online_revunue.png"
           >
-          <div class="revenue_title">{{ $t('revenue_4') }} 
+          <div class="revenue_title">{{ $t('revenue_4') }}
             <el-tooltip class="item" effect="dark" :content=" $t('online_tips')" placement="top">
               <i class="revenue-icon el-icon-question"></i>
             </el-tooltip>
@@ -124,6 +124,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
+.is-mobile {
+  .revenueWrap {
+    display flex
+    flex-wrap wrap
+    justify-content flex-start
+    >div{
+      min-width 100px
+      max-width 33%
+    }
+  }
+}
 .revenueWrap {
   display: flex;
   justify-content: space-between;
