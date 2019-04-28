@@ -156,39 +156,39 @@
     "nat": "NAT Type"
   },
   "zn": {
-  "layoutTitile": "计算任务",
-  "basicTitle": "任务执行状态",
-  "macAddress": "硬件MAC地址",
-  "location": "所在地区",
-  "stable": "节点网络质量",
-  "needs": "当前地区节点需求度",
-  "code": "已绑定激活码 ",
-  "totalTime": "累计在线时长",
-  "netStatus": "在线状态",
-  "noHardwareTip": "硬件列表为空",
-  "needsHigh": "高",
-  "needsMiddle": "中",
-  "needsLow": "低" ,
-  "stableHigh": "高",
-  "stableMiddle": "中",
-  "stableLow": "低",
-  "mac_address": "Mac地址搜索",
-  "addNote": "备注",
-  "addNotes": {
-  "title": "添加设备备注",
-  "tipText": "输入该设备记录的备注名（仅可修改一次）："
-  },
-  "noteText": "备注",
-  "allSearch": "全部",
-  "scheduleSuccess": "是",
-  "scheduleFalse": "否",
-  "schedule": "是否可被调度",
-  "CPU": "CPU",
-  "mem_size": "内存",
-  "tx_bw": "上行带宽",
-  "storage_size": "硬盘",
-  "nat": "NAT 类型"
-  }
+    "layoutTitile": "计算任务",
+    "basicTitle": "任务执行状态",
+    "macAddress": "硬件MAC地址",
+    "location": "所在地区",
+    "stable": "节点网络质量",
+    "needs": "当前地区节点需求度",
+    "code": "已绑定激活码 ",
+    "totalTime": "累计在线时长",
+    "netStatus": "在线状态",
+    "noHardwareTip": "硬件列表为空",
+    "needsHigh": "高",
+    "needsMiddle": "中",
+    "needsLow": "低" ,
+    "stableHigh": "高",
+    "stableMiddle": "中",
+    "stableLow": "低",
+    "mac_address": "Mac地址搜索",
+    "addNote": "备注",
+    "addNotes": {
+      "title": "添加设备备注",
+      "tipText": "输入该设备记录的备注名"
+      },
+    "noteText": "备注",
+    "allSearch": "全部",
+    "scheduleSuccess": "是",
+    "scheduleFalse": "否",
+    "schedule": "是否可被调度",
+    "CPU": "CPU",
+    "mem_size": "内存",
+    "tx_bw": "上行带宽",
+    "storage_size": "硬盘",
+    "nat": "NAT 类型"
+    }
   }
 </i18n>
 

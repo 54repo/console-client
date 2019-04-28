@@ -45,6 +45,7 @@
             <div>{{ $t('HOME.BonusCode.ruleTip.rule4') }}</div>
             <div>{{ $t('HOME.BonusCode.ruleTip.rule5') }}</div>
             <div>{{ $t('HOME.BonusCode.ruleTip.rule6') }}</div>
+            <div>{{ $t('HOME.BonusCode.ruleTip.rule7') }}</div>
             <div class="tele">{{ $t('HOME.BonusCode.ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor" :href="$t('HOME.BonusCode.ruleTip.teleUrl')">{{ $t('HOME.BonusCode.ruleTip.teleButton') }}</a></div>
           </div>
         </el-col>
