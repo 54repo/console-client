@@ -25,6 +25,7 @@ export default new Vuex.Store({
       codeList: '', //邀请list
       mainland_list: '', //邀请list
       non_mainland_list: '', //邀请list
+      calculate_list: '', //计算list
     },
     hardWare: {
       hardLength: '',

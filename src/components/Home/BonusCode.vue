@@ -49,14 +49,13 @@
             <div>{{ $t('HOME.BonusCode.ruleTip.rule4') }}</div>
             <div>{{ $t('HOME.BonusCode.ruleTip.rule5') }}</div>
             <div>{{ $t('HOME.BonusCode.ruleTip.rule6') }}</div>
-            <div class="tele">{{ $t('HOME.BonusCode.ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor"
-                                                                         :href="$t('HOME.BonusCode.ruleTip.teleUrl')">{{
-              $t('HOME.BonusCode.ruleTip.teleButton') }}</a></div>
+            <div>{{ $t('HOME.BonusCode.ruleTip.rule7') }}</div>
+            <div class="tele">{{ $t('HOME.BonusCode.ruleTip.tele') }} <a target="_blank" class="join-tele bonus-cursor" :href="$t('HOME.BonusCode.ruleTip.teleUrl')">{{ $t('HOME.BonusCode.ruleTip.teleButton') }}</a></div>
           </div>
         </el-col>
         <!-- code列表 -->
-        <el-col :span="12"  class="bonusCode-second-row">
-          <CodeList :non_mainland_list="non_mainland_list" :mainland_list="mainland_list"></CodeList>
+        <el-col :span="12">
+          <CodeList :non_mainland_list="non_mainland_list" :mainland_list="mainland_list" :calculate_list="calculate_list"></CodeList>
         </el-col>
       </el-row>
     </BasiceLayout>
@@ -117,7 +116,8 @@ export default {
       return state.inviteCode.status
     },
     mainland_list: state => state.inviteCode.mainland_list,
-    non_mainland_list: state => state.inviteCode.non_mainland_list
+    non_mainland_list: state => state.inviteCode.non_mainland_list,
+    calculate_list: state => state.inviteCode.calculate_list,
   }),
   mounted () {
     this.countTime()
